@@ -10,7 +10,7 @@ find_package(catkin
 ###################################
 
 catkin_package(
-  INCLUDE_DIRS upstream_src/
+  INCLUDE_DIRS upstream_src
   LIBRARIES asebacompiler asebacommon
   CATKIN_DEPENDS dashel_ros
 )
@@ -20,7 +20,8 @@ catkin_package(
 ###########
 
 include_directories(
-  upstream_src/
+  upstream_src/common
+  upstream_src/compiler
   ${catkin_INCLUDE_DIRS}
 )
 

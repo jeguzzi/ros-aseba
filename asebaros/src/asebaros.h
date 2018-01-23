@@ -4,10 +4,9 @@
 #include <dashel/dashel.h>
 #include <boost/thread.hpp>
 #include <boost/thread/mutex.hpp>
-
-#include <aseba/common/msg/msg.h>
-#include <aseba/common/msg/NodesManager.h>
-#include <aseba/compiler/compiler.h>
+#include <common/msg/msg.h>
+#include <common/msg/NodesManager.h>
+#include <compiler/compiler.h>
 
 #include "ros/ros.h"
 #include "std_msgs/String.h"
