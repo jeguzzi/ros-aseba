@@ -5,12 +5,13 @@ from math import cos, log, sin
 import roslib
 import rospy
 import std_srvs.srv
+
 from asebaros_msgs.msg import AsebaEvent
 from asebaros_msgs.srv import GetNodeList, LoadScripts
 from geometry_msgs.msg import Quaternion, Twist
 from nav_msgs.msg import Odometry
 from sensor_msgs.msg import Imu, Joy, LaserScan, Range, Temperature
-from std_msgs.msg import Bool, ColorRGBA, Empty, Float32, Int8, Int16
+from std_msgs.msg import Bool, ColorRGBA, Empty, Float32, Int16, Int8
 from tf.broadcaster import TransformBroadcaster
 from thymio_msgs.msg import Led, LedGesture, Sound, SystemSound
 
