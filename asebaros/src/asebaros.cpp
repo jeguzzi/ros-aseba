@@ -10,6 +10,7 @@
 
 #include <libxml/parser.h>
 #include <libxml/tree.h>
+#include <transport/dashel_plugins/dashel-plugins.h>
 
 using namespace asebaros_msgs;
 using namespace std;
@@ -130,7 +131,7 @@ void AsebaDashelHub::incomingData(Stream *stream)
 	catch (DashelException e)
 	{
 		// if this stream has a problem, ignore it for now, and let Hub call connectionClosed later.
-		ROS_ERROR("error while writing message");
+		ROS_ERROR("error while writing message %s \n", e.what());
 	}
 
 	// send message to Dashel peers
@@ -642,7 +643,7 @@ void AsebaROS::knownEventReceived(const uint16_t id, const AsebaEventConstPtr& e
 void AsebaROS::sendMessage(const Message& message)
 {
   // not sure if use true or false (to lock or not to lock)
-  hub.sendMessage(&message, true);
+  hub.sendMessage(&message, false);
 }
 
 AsebaROS::AsebaROS(unsigned port, bool forward):
@@ -652,6 +653,7 @@ AsebaROS::AsebaROS(unsigned port, bool forward):
 	hub(this, port, forward) // hub for dashel
 {
 	// does not need locking, called by main
+//  ros::Duration(5).sleep();
 
 	// script
 	s.push_back(n.advertiseService("load_script", &AsebaROS::loadScript, this));
@@ -677,11 +679,17 @@ AsebaROS::~AsebaROS()
 	xmlCleanupParser();
 }
 
+void AsebaROS::pingCallback (const ros::TimerEvent&)
+{
+  pingNetwork();
+}
+
 void AsebaROS::run()
 {
 	// does not need locking, called by main
 	hub.startThread();
-	ros::spin();
+  ros::Timer timer = n.createTimer(ros::Duration(1), &AsebaROS::pingCallback, this);
+  ros::spin();
 	//cerr << "ros returned" << endl;
 	hub.stopThread();
 }
@@ -762,7 +770,7 @@ int main(int argc, char *argv[])
 		}
 		argCounter++;
 	}
-
+  initPlugins();
 	AsebaROS asebaROS(port, forward);
 
 	try

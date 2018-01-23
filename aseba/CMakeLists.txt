@@ -11,7 +11,7 @@ find_package(catkin
 
 catkin_package(
   INCLUDE_DIRS upstream_src
-  LIBRARIES asebacompiler asebacommon
+  LIBRARIES asebacompiler asebacommon asebadashelplugins
   CATKIN_DEPENDS dashel_ros
 )
 

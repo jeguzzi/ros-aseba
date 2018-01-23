@@ -137,6 +137,7 @@ public:
 	AsebaROS(unsigned port, bool forward);
 	~AsebaROS();
 
+  void pingCallback(const ros::TimerEvent &e);
 	void run();
 
 	void processAsebaMessage(Aseba::Message *message);

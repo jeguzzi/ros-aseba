@@ -47,7 +47,7 @@ find_package(LibXml2 REQUIRED)
 ###################################
 
 catkin_package(
-  CATKIN_DEPENDS std_msgs roscpp aseba asebaros_msgs
+  CATKIN_DEPENDS std_msgs roscpp aseba asebaros_msgs dashel_ros
   DEPENDS Boost LibXml2
 )
 
@@ -62,7 +62,11 @@ include_directories(
 )
 
 add_executable(asebaros src/asebaros.cpp)
-target_link_libraries(asebaros ${catkin_LIBRARIES} ${LIBXML2_LIBRARIES} ${Boost_LIBRARIES})
+target_link_libraries(
+  asebaros
+  ${catkin_LIBRARIES}
+  ${LIBXML2_LIBRARIES}
+  ${Boost_LIBRARIES})
 
 #############
 ## Install ##

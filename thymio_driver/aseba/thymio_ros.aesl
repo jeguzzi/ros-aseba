@@ -1,7 +1,6 @@
 <!DOCTYPE aesl-source>
 <network>
 
-
 <!--list of global events-->
 <event size="0" name="shutdown"/>
 <event size="2" name="set_speed"/>
@@ -32,13 +31,9 @@
 <event size="1" name="play_system_sound"/>
 <event size="2" name="play_sound"/>
 
-
 <!--list of constants-->
-
-
 <!--show keywords state-->
 <!--><keywords flag="true"/><-->
-
 
 <!--node thymio-II-->
 <node nodeId="1" name="thymio-II">#gestures
@@ -122,7 +117,7 @@ emit ground_ambient prox.ground.ambiant
 
 onevent acc
 emit accelerometer acc
- 
+
 onevent tap
 emit tap
 
@@ -177,7 +172,7 @@ elseif id==2 then
 call leds.buttons(event.args[1], event.args[2], event.args[3], event.args[4])
 elseif id==3 then
 call leds.prox.v( event.args[1], event.args[2])
-elseif id==4 then 
+elseif id==4 then
 call leds.temperature(event.args[1],event.args[2])
 elseif id==5 then
 call leds.sound(event.args[1])
@@ -265,7 +260,7 @@ if gesture==0 then
 	callsub reset_leds
 	return
 else
-	
+
 	callsub reset_leds
 	leds=event.args[1]
 	wave=event.args[2]
@@ -283,7 +278,7 @@ else
 	for i in 0:7 do
 		mask[i]=event.args[i+6]
 	end
-	
+
 	timer.period[0]=20
 end
 

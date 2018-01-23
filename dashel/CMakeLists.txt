@@ -17,7 +17,7 @@ catkin_package(
 ###########
 
 include_directories(
-  upstream_src/${PROJECT_NAME}/
+  upstream_src/dashel/
   ${catkin_INCLUDE_DIRS}
 )
 
