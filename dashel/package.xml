@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>dashel</name>
+  <name>dashel_ros</name>
   <version>0.1.0</version>
   <description>
     Fetches dashel through git submodule and makes it available to ROS

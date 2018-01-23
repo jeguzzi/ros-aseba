@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(dashel)
+project(dashel_ros)
 
 find_package(catkin REQUIRED COMPONENTS)
 
@@ -38,4 +38,3 @@ add_subdirectory(upstream_src)
 install(DIRECTORY upstream_src/${PROJECT_NAME}/
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
   FILES_MATCHING PATTERN "*.h")
-

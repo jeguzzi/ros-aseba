@@ -1,6 +1,6 @@
 #include "asebaros.h"
 
-#include <compiler/compiler.h>
+
 
 #include <ros/console.h>
 
@@ -56,19 +56,19 @@ AsebaDashelHub::AsebaDashelHub(AsebaROS* asebaROS, unsigned port, bool forward):
 	Dashel::Hub::connect(oss.str());
 }
 
-static wstring asebaMsgToString(Message *message)
+static wstring asebaMsgToString(const Message *message)
 {
 	wostringstream oss;
 	message->dump(oss);
 	return oss.str();
 }
 
-void AsebaDashelHub::sendMessage(Message *message, bool doLock, Stream* sourceStream)
+void AsebaDashelHub::sendMessage(const Message *message, bool doLock, Stream* sourceStream)
 {
 	// dump if requested
 	// TODO: put a request for unicode version of ROS debug
 	ROS_DEBUG_STREAM("sending aseba message: " << narrow(asebaMsgToString(message)));
-	
+
 	// Might be called from the ROS thread, not the Hub thread, need to lock
 	if (doLock)
 		lock();
@@ -77,10 +77,10 @@ void AsebaDashelHub::sendMessage(Message *message, bool doLock, Stream* sourceSt
 	for (StreamsSet::iterator it = dataStreams.begin(); it != dataStreams.end();++it)
 	{
 		Stream* destStream(*it);
-		
+
 		if ((forward) && (destStream == sourceStream))
 			continue;
-		
+
 		try
 		{
 			message->serialize(destStream);
@@ -106,7 +106,7 @@ void AsebaDashelHub::operator()()
 
 void AsebaDashelHub::startThread()
 {
-	thread = new boost::thread(ref(*this));
+	thread = new boost::thread(boost::ref(*this));
 }
 
 void AsebaDashelHub::stopThread()
@@ -118,7 +118,7 @@ void AsebaDashelHub::stopThread()
 }
 
 // the following method run in the blocking reception thread
-	
+
 void AsebaDashelHub::incomingData(Stream *stream)
 {
 	// receive message
@@ -132,13 +132,13 @@ void AsebaDashelHub::incomingData(Stream *stream)
 		// if this stream has a problem, ignore it for now, and let Hub call connectionClosed later.
 		ROS_ERROR("error while writing message");
 	}
-	
+
 	// send message to Dashel peers
 	sendMessage(message, false, stream);
-	
+
 	// process message for ROS peers, the receiver will delete it
 	asebaROS->processAsebaMessage(message);
-	
+
 	// free the message
 	delete message;
 }
@@ -146,7 +146,7 @@ void AsebaDashelHub::incomingData(Stream *stream)
 void AsebaDashelHub::connectionCreated(Stream *stream)
 {
 	ROS_INFO_STREAM("Incoming connection from " << stream->getTargetName());
-	
+
 	if (dataStreams.size() == 1)
 	{
 		// Note: on some robot such as the marXbot, because of hardware
@@ -171,7 +171,7 @@ void AsebaDashelHub::connectionClosed(Stream* stream, bool abnormal)
 bool AsebaROS::loadScript(LoadScripts::Request& req, LoadScripts::Response& res)
 {
 	// locking: in this method, we lock access to the object's members
-	
+
 	// open document
 	const string& fileName(req.fileName);
 	xmlDoc *doc = xmlReadFile(fileName.c_str(), NULL, 0);
@@ -181,7 +181,7 @@ bool AsebaROS::loadScript(LoadScripts::Request& req, LoadScripts::Response& res)
 		return false;
 	}
     xmlNode *domRoot = xmlDocGetRootElement(doc);
-	
+
 	// clear existing data
 	mutex.lock();
 	commonDefinitions.events.clear();
@@ -190,7 +190,7 @@ bool AsebaROS::loadScript(LoadScripts::Request& req, LoadScripts::Response& res)
 	pubs.clear();
 	subs.clear();
 	mutex.unlock();
-	
+
 	// load new data
 	int noNodeCount = 0;
 	bool wasError = false;
@@ -225,7 +225,7 @@ bool AsebaROS::loadScript(LoadScripts::Request& req, LoadScripts::Response& res)
 							preferedId = unsigned(atoi((char*)storedId));
 						mutex.lock();
 						bool ok;
-						unsigned nodeId(DescriptionsManager::getNodeId(widen(_name), preferedId, &ok));
+						unsigned nodeId(NodesManager::getNodeId(widen(_name), preferedId, &ok));
 						mutex.unlock();
 						if (ok)
 						{
@@ -235,22 +235,22 @@ bool AsebaROS::loadScript(LoadScripts::Request& req, LoadScripts::Response& res)
 							Error error;
 							BytecodeVector bytecode;
 							unsigned allocatedVariablesCount;
-							
+
 							Compiler compiler;
 							compiler.setTargetDescription(getDescription(nodeId));
 							compiler.setCommonDefinitions(&commonDefinitions);
 							bool result = compiler.compile(is, bytecode, allocatedVariablesCount, error);
 							mutex.unlock();
-							
+
 							if (result)
 							{
-								typedef std::vector<Message*> MessageVector;
+								typedef std::vector<unique_ptr<Message>> MessageVector;
 								MessageVector messages;
-								sendBytecode(messages, nodeId, std::vector<uint16>(bytecode.begin(), bytecode.end()));
+								sendBytecode(messages, nodeId, std::vector<uint16_t>(bytecode.begin(), bytecode.end()));
 								for (MessageVector::const_iterator it = messages.begin(); it != messages.end(); ++it)
 								{
-									hub.sendMessage(*it, true);
-									delete *it;
+									hub.sendMessage((*it).get(), true);
+									//delete *it;
 								}
 								Run msg(nodeId);
 								hub.sendMessage(&msg, true);
@@ -267,7 +267,7 @@ bool AsebaROS::loadScript(LoadScripts::Request& req, LoadScripts::Response& res)
 						}
 						else
 							noNodeCount++;
-						
+
 						// free attribute and content
 						xmlFree(text);
 					}
@@ -280,7 +280,7 @@ bool AsebaROS::loadScript(LoadScripts::Request& req, LoadScripts::Response& res)
 				xmlChar *name = xmlGetProp(domNode, BAD_CAST("name"));
 				if (!name)
 					ROS_WARN("missing \"name\" attribute in \"event\" entry");
-				xmlChar *size = xmlGetProp(domNode, BAD_CAST("size")); 
+				xmlChar *size = xmlGetProp(domNode, BAD_CAST("size"));
 				if (!size)
 					ROS_WARN("missing \"size\" attribute in \"event\" entry");
 				// add event
@@ -311,7 +311,7 @@ bool AsebaROS::loadScript(LoadScripts::Request& req, LoadScripts::Response& res)
 				xmlChar *name = xmlGetProp(domNode, BAD_CAST("name"));
 				if (!name)
 					ROS_WARN("missing \"name\" attribute in \"constant\" entry");
-				xmlChar *value = xmlGetProp(domNode, BAD_CAST("value")); 
+				xmlChar *value = xmlGetProp(domNode, BAD_CAST("value"));
 				if (!value)
 					ROS_WARN("missing \"value\" attribute in \"constant\" entry");
 				// add constant if attributes are valid
@@ -333,7 +333,7 @@ bool AsebaROS::loadScript(LoadScripts::Request& req, LoadScripts::Response& res)
 
 	// release memory
 	xmlFreeDoc(doc);
-	
+
 	// check if there was an error
 	if (wasError)
 	{
@@ -344,13 +344,13 @@ bool AsebaROS::loadScript(LoadScripts::Request& req, LoadScripts::Response& res)
 		userDefinedVariablesMap.clear();
 		mutex.unlock();
 	}
-	
+
 	// check if there was some matching problem
 	if (noNodeCount)
 	{
 		ROS_WARN_STREAM(noNodeCount << " scripts have no corresponding nodes in the current network and have not been loaded.");
 	}
-	
+
 	// recreate publishers and subscribers
 	mutex.lock();
 	typedef EventsDescriptionsVector::const_iterator EventsDescriptionsConstIt;
@@ -361,14 +361,14 @@ bool AsebaROS::loadScript(LoadScripts::Request& req, LoadScripts::Response& res)
 		subs.push_back(n.subscribe<AsebaEvent>(narrow(L"events/"+name), 100, bind(&AsebaROS::knownEventReceived, this, i, _1)));
 	}
 	mutex.unlock();
-	
+
 	return true;
 }
 
 bool AsebaROS::getNodeList(GetNodeList::Request& req, GetNodeList::Response& res)
 {
 	lock_guard<boost::mutex> lock(mutex);
-	
+
 	transform(nodesNames.begin(), nodesNames.end(), back_inserter(res.nodeList), bind(&NodesNamesMap::value_type::first,_1));
 	return true;
 }
@@ -376,7 +376,7 @@ bool AsebaROS::getNodeList(GetNodeList::Request& req, GetNodeList::Response& res
 bool AsebaROS::getNodeId(GetNodeId::Request& req, GetNodeId::Response& res)
 {
 	lock_guard<boost::mutex> lock(mutex);
-	
+
 	NodesNamesMap::const_iterator nodeIt(nodesNames.find(req.nodeName));
 	if (nodeIt != nodesNames.end())
 	{
@@ -393,9 +393,9 @@ bool AsebaROS::getNodeId(GetNodeId::Request& req, GetNodeId::Response& res)
 bool AsebaROS::getNodeName(GetNodeName::Request& req, GetNodeName::Response& res)
 {
 	lock_guard<boost::mutex> lock(mutex);
-	
-	NodesDescriptionsMap::const_iterator nodeIt(nodesDescriptions.find(req.nodeId));
-	if (nodeIt != nodesDescriptions.end())
+
+	NodesMap::const_iterator nodeIt(nodes.find(req.nodeId));
+	if (nodeIt != nodes.end())
 	{
 		res.nodeName = narrow(nodeIt->second.name);
 		return true;
@@ -420,7 +420,7 @@ struct ExtractNameDesc
 bool AsebaROS::getVariableList(GetVariableList::Request& req, GetVariableList::Response& res)
 {
 	lock_guard<boost::mutex> lock(mutex);
-	
+
 	NodesNamesMap::const_iterator nodeIt(nodesNames.find(req.nodeName));
 	if (nodeIt != nodesNames.end())
 	{
@@ -428,7 +428,7 @@ bool AsebaROS::getVariableList(GetVariableList::Request& req, GetVariableList::R
 		const UserDefinedVariablesMap::const_iterator userVarMapIt(userDefinedVariablesMap.find(req.nodeName));
 		if (userVarMapIt != userDefinedVariablesMap.end())
 		{
-			// yes, us it 
+			// yes, us it
 			const VariablesMap& variablesMap(userVarMapIt->second);
 			transform(variablesMap.begin(), variablesMap.end(),
 					  back_inserter(res.variableList), ExtractNameVar());
@@ -437,8 +437,8 @@ bool AsebaROS::getVariableList(GetVariableList::Request& req, GetVariableList::R
 		{
 			// no, then only show node-defined variables
 			const unsigned nodeId(nodeIt->second);
-			const NodesDescriptionsMap::const_iterator descIt(nodesDescriptions.find(nodeId));
-			const NodeDescription& description(descIt->second);
+			const NodesMap::const_iterator descIt(nodes.find(nodeId));
+			const Node& description(descIt->second);
 			transform(description.namedVariables.begin(), description.namedVariables.end(),
 					  back_inserter(res.variableList), ExtractNameDesc());
 		}
@@ -457,14 +457,14 @@ bool AsebaROS::setVariable(SetVariable::Request& req, SetVariable::Response& res
 {
 	// lock the access to the member methods
 	unsigned nodeId, pos;
-	
+
 	mutex.lock();
 	bool exists = getNodePosFromNames(req.nodeName, req.variableName, nodeId, pos);
 	mutex.unlock();
-	
+
 	if (!exists)
 		return false;
-	
+
 	SetVariables msg(nodeId, pos, req.data);
 	hub.sendMessage(&msg, true);
 	return true;
@@ -473,10 +473,10 @@ bool AsebaROS::setVariable(SetVariable::Request& req, SetVariable::Response& res
 bool AsebaROS::getVariable(GetVariable::Request& req, GetVariable::Response& res)
 {
 	unsigned nodeId, pos;
-	
+
 	// lock the access to the member methods, wait will unlock the underlying mutex
 	unique_lock<boost::mutex> lock(mutex);
-	
+
 	// get information about variable
 	bool exists = getNodePosFromNames(req.nodeName, req.variableName, nodeId, pos);
 	if (!exists)
@@ -485,18 +485,18 @@ bool AsebaROS::getVariable(GetVariable::Request& req, GetVariable::Response& res
 	unsigned length = getVariableSize(nodeId, widen(req.variableName), &ok);
 	if (!ok)
 		return false;
-	
+
 	// create query
 	const GetVariableQueryKey key(nodeId, pos);
 	GetVariableQueryValue query;
 	getVariableQueries[key] = &query;
 	lock.unlock();
-	
+
 	// send message, outside lock to avoid deadlocks
 	GetVariables msg(nodeId, pos, length);
 	hub.sendMessage(&msg, true);
 	system_time const timeout(get_system_time()+posix_time::milliseconds(100));
-	
+
 	// wait 100 ms, considering the possibility of spurious wakes
 	bool result;
 	lock.lock();
@@ -506,7 +506,7 @@ bool AsebaROS::getVariable(GetVariable::Request& req, GetVariable::Response& res
 		if (!result)
 			break;
 	}
-	
+
 	// remove key and return answer
 	getVariableQueries.erase(key);
 	if (result)
@@ -549,7 +549,7 @@ bool AsebaROS::getEventName(GetEventName::Request& req, GetEventName::Response& 
 bool AsebaROS::getNodePosFromNames(const string& nodeName, const string& variableName, unsigned& nodeId, unsigned& pos) const
 {
 	// does not need locking, called by other member function already within the lock
-	
+
 	// make sure the node exists
 	NodesNamesMap::const_iterator nodeIt(nodesNames.find(nodeName));
 	if (nodeIt == nodesNames.end())
@@ -559,7 +559,7 @@ bool AsebaROS::getNodePosFromNames(const string& nodeName, const string& variabl
 	}
 	nodeId = nodeIt->second;
 	pos = unsigned(-1);
-	
+
 	// check whether variable is user-defined
 	const UserDefinedVariablesMap::const_iterator userVarMapIt(userDefinedVariablesMap.find(nodeName));
 	if (userVarMapIt != userDefinedVariablesMap.end())
@@ -571,7 +571,7 @@ bool AsebaROS::getNodePosFromNames(const string& nodeName, const string& variabl
 			pos = userVarIt->second.first;
 		}
 	}
-	
+
 	// if variable is not user-defined, check whether it is provided by this node
 	if (pos == unsigned(-1))
 	{
@@ -593,7 +593,7 @@ void AsebaROS::sendEventOnROS(const UserMessage* asebaMessage)
 		(asebaMessage->type < commonDefinitions.events.size()))
 	{
 		// known, send on a named channel
-		shared_ptr<AsebaEvent> event(new AsebaEvent);
+		boost::shared_ptr<AsebaEvent> event(new AsebaEvent);
 		event->stamp = ros::Time::now();
 		event->source = asebaMessage->source;
 		event->data = asebaMessage->data;
@@ -602,7 +602,7 @@ void AsebaROS::sendEventOnROS(const UserMessage* asebaMessage)
 	else
 	{
 		// unknown, send on the anonymous channel
-		shared_ptr<AsebaAnonymousEvent> event(new AsebaAnonymousEvent);
+		boost::shared_ptr<AsebaAnonymousEvent> event(new AsebaAnonymousEvent);
 		event->stamp = ros::Time::now();
 		event->source = asebaMessage->source;
 		event->type = asebaMessage->type;
@@ -614,7 +614,7 @@ void AsebaROS::sendEventOnROS(const UserMessage* asebaMessage)
 void AsebaROS::nodeDescriptionReceived(unsigned nodeId)
 {
 	// does not need locking, called by parent object
-	nodesNames[narrow(nodesDescriptions.at(nodeId).name)] = nodeId;
+	nodesNames[narrow(nodes.at(nodeId).name)] = nodeId;
 }
 
 void AsebaROS::eventReceived(const AsebaAnonymousEventConstPtr& event)
@@ -628,7 +628,7 @@ void AsebaROS::eventReceived(const AsebaAnonymousEventConstPtr& event)
 	}
 }
 
-void AsebaROS::knownEventReceived(const uint16 id, const AsebaEventConstPtr& event)
+void AsebaROS::knownEventReceived(const uint16_t id, const AsebaEventConstPtr& event)
 {
 	// does not need locking, does not touch object's members
 	if (event->source == 0)
@@ -639,27 +639,33 @@ void AsebaROS::knownEventReceived(const uint16 id, const AsebaEventConstPtr& eve
 	}
 }
 
+void AsebaROS::sendMessage(const Message& message)
+{
+  // not sure if use true or false (to lock or not to lock)
+  hub.sendMessage(&message, true);
+}
+
 AsebaROS::AsebaROS(unsigned port, bool forward):
 	n("aseba"),
 	anonPub(n.advertise<AsebaAnonymousEvent>("anonymous_events", 100)),
 	anonSub(n.subscribe("anonymous_events", 100, &AsebaROS::eventReceived, this)),
-	hub(this, port, forward) // hub for dashel 
+	hub(this, port, forward) // hub for dashel
 {
 	// does not need locking, called by main
-	
+
 	// script
 	s.push_back(n.advertiseService("load_script", &AsebaROS::loadScript, this));
-	
+
 	// nodes
 	s.push_back(n.advertiseService("get_node_list", &AsebaROS::getNodeList, this));
 	s.push_back(n.advertiseService("get_node_id", &AsebaROS::getNodeId, this));
 	s.push_back(n.advertiseService("get_node_name", &AsebaROS::getNodeName, this));
-	
+
 	// variables
 	s.push_back(n.advertiseService("get_variable_list", &AsebaROS::getVariableList, this));
 	s.push_back(n.advertiseService("set_variable", &AsebaROS::setVariable, this));
 	s.push_back(n.advertiseService("get_variable", &AsebaROS::getVariable, this));
-	
+
 	// events
 	s.push_back(n.advertiseService("get_event_id", &AsebaROS::getEventId, this));
 	s.push_back(n.advertiseService("get_event_name", &AsebaROS::getEventName, this));
@@ -684,15 +690,15 @@ void AsebaROS::processAsebaMessage(Message *message)
 {
 	// needs locking, called by Dashel hub
 	lock_guard<boost::mutex> lock(mutex);
-	
+
 	// scan this message for nodes descriptions
-	DescriptionsManager::processMessage(message);
-	
+	NodesManager::processMessage(message);
+
 	// if user message, send to D-Bus as well
 	UserMessage *userMessage = dynamic_cast<UserMessage *>(message);
 	if (userMessage)
 		sendEventOnROS(userMessage);
-	
+
 	// if variables, check for pending answers
 	Variables *variables = dynamic_cast<Variables *>(message);
 	if (variables)
@@ -725,17 +731,17 @@ void dumpHelp(std::ostream &stream, const char *programName)
 int main(int argc, char *argv[])
 {
 	ros::init(argc, argv, "aseba");
-	
+
 	unsigned port = ASEBA_DEFAULT_PORT;
 	bool forward = true;
 	std::vector<std::string> additionalTargets;
-	
+
 	int argCounter = 1;
-	
+
 	while (argCounter < argc)
 	{
 		const char *arg = argv[argCounter];
-		
+
 		if ((strcmp(arg, "-l") == 0) || (strcmp(arg, "--loop") == 0))
 		{
 			forward = false;
@@ -756,9 +762,9 @@ int main(int argc, char *argv[])
 		}
 		argCounter++;
 	}
-	
+
 	AsebaROS asebaROS(port, forward);
-	
+
 	try
 	{
 		for (size_t i = 0; i < additionalTargets.size(); i++)
@@ -768,11 +774,8 @@ int main(int argc, char *argv[])
 	{
 		std::cerr << e.what() << std::endl;
 	}
-	
+
 	asebaROS.run();
 
 	return 0;
 }
-
-
-

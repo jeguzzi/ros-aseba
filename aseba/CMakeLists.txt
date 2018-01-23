@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(aseba)
 
 find_package(catkin
-	REQUIRED COMPONENTS dashel
+	REQUIRED COMPONENTS dashel_ros
 )
 
 ###################################
@@ -12,7 +12,7 @@ find_package(catkin
 catkin_package(
   INCLUDE_DIRS upstream_src/
   LIBRARIES asebacompiler asebacommon
-  CATKIN_DEPENDS dashel
+  CATKIN_DEPENDS dashel_ros
 )
 
 ###########

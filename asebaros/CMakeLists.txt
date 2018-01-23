@@ -1,11 +1,21 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(asebaros)
 
+if (CMAKE_VERSION VERSION_LESS "3.1")
+  if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++14")
+  endif ()
+else ()
+  set (CMAKE_CXX_STANDARD 14)
+endif ()
+
+
 find_package(catkin REQUIRED COMPONENTS
 	std_msgs
 	roscpp
 	aseba
 	asebaros_msgs
+  dashel_ros
 )
 
 ## System dependencies are found with CMake's conventions
