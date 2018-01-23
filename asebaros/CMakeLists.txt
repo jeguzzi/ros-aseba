@@ -6,7 +6,6 @@ find_package(catkin REQUIRED COMPONENTS
 	roscpp
 	aseba
 	asebaros_msgs
-	message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -38,7 +37,7 @@ find_package(LibXml2 REQUIRED)
 ###################################
 
 catkin_package(
-  CATKIN_DEPENDS std_msgs roscpp aseba asebaros_msgs message_runtime
+  CATKIN_DEPENDS std_msgs roscpp aseba asebaros_msgs
   DEPENDS Boost LibXml2
 )
 
