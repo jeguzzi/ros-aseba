@@ -1,18 +1,18 @@
 #!/usr/bin/env python
-# kate: replace-tabs off; tab-width 4; indent-width 4; indent-mode normal
 
-import rospy
+from math import cos, log, sin
+
 import roslib
+import rospy
 import std_srvs.srv
 from asebaros_msgs.msg import AsebaEvent
-from asebaros_msgs.srv import LoadScripts, GetNodeList
+from asebaros_msgs.srv import GetNodeList, LoadScripts
 from geometry_msgs.msg import Quaternion, Twist
-from sensor_msgs.msg import Joy, Range, LaserScan, Imu, Temperature
-from std_msgs.msg import Bool, Float32, Empty, Int8, Int16, ColorRGBA
 from nav_msgs.msg import Odometry
+from sensor_msgs.msg import Imu, Joy, LaserScan, Range, Temperature
+from std_msgs.msg import Bool, ColorRGBA, Empty, Float32, Int8, Int16
 from tf.broadcaster import TransformBroadcaster
 from thymio_msgs.msg import Led, LedGesture, Sound, SystemSound
-from math import sin, cos, log
 
 BASE_WIDTH = 95     # millimeters
 MAX_SPEED = 500     # units
@@ -255,7 +255,6 @@ class ThymioDriver():
 
     def on_led_off(self, msg):
         for i in LED_NUMBER.keys():
-            print 'off ', i
             self.aseba_led_publisher.publish(
                 AsebaEvent(rospy.get_rostime(), 0, [i] + 8 * [0]))
             # sleep to avoid that aseba or ros do not process all messages.
@@ -410,8 +409,10 @@ class ThymioDriver():
             self.odom.twist.twist.angular.z = dth / dt
 
         # publish odometry
-        self.odom_broadcaster.sendTransform((self.x, self.y, 0), (
-            quaternion.x, quaternion.y, quaternion.z, quaternion.w), self.then, "base_link", "odom")
+        self.odom_broadcaster.sendTransform(
+            (self.x, self.y, 0),
+            (quaternion.x, quaternion.y, quaternion.z, quaternion.w),
+            self.then, "base_link", "odom")
         self.odom_pub.publish(self.odom)
 
     # ======== processing events received from the robot  ========
