@@ -158,13 +158,27 @@ void AsebaDashelHub::connectionCreated(Stream *stream)
 	}
 }
 
+// void AsebaDashelHub::connectionClosed(Stream* stream, bool abnormal)
+// {
+// 	if (abnormal)
+// 		ROS_INFO_STREAM("Abnormal connection closed to " << stream->getTargetName() << " : " << stream->getFailReason());
+// 	else
+// 		ROS_INFO_STREAM("Normal connection closed to " << stream->getTargetName());
+// }
+
 void AsebaDashelHub::connectionClosed(Stream* stream, bool abnormal)
 {
 	if (abnormal)
-		ROS_INFO_STREAM("Abnormal connection closed to " << stream->getTargetName() << " : " << stream->getFailReason());
+	{
+		ROS_WARN_STREAM("Abnormal connection closed to " << stream->getTargetName() << " : " << stream->getFailReason());
+		asebaROS->unconnect();
+	}
 	else
+	{
 		ROS_INFO_STREAM("Normal connection closed to " << stream->getTargetName());
+	}
 }
+
 
 
 // AsebaROS
@@ -671,6 +685,9 @@ AsebaROS::AsebaROS(unsigned port, bool forward):
 	// events
 	s.push_back(n.advertiseService("get_event_id", &AsebaROS::getEventId, this));
 	s.push_back(n.advertiseService("get_event_name", &AsebaROS::getEventName, this));
+
+  shutdown_on_unconnect=n.param<bool>("shutdown_on_unconnect", false);
+
 }
 
 AsebaROS::~AsebaROS()
@@ -722,6 +739,21 @@ void AsebaROS::processAsebaMessage(Message *message)
 			ROS_WARN_STREAM("received Variables from node " << variables->source << ", pos " << variables->start << ", but no corresponding query was found");
 	}
 }
+
+void AsebaROS::unconnect()
+{
+	if (shutdown_on_unconnect)
+	{
+		ROS_INFO("Will shutdown the node.");
+		ros::shutdown();
+	}
+	else
+	{
+		ROS_INFO("Will ignore losing connection.");
+	}
+}
+
+
 
 //! Show usage
 void dumpHelp(std::ostream &stream, const char *programName)

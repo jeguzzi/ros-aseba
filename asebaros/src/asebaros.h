@@ -109,6 +109,8 @@ protected:
 	UserDefinedVariablesMap userDefinedVariablesMap; //!< the name of the user-defined variables
 	GetVariableQueryMap getVariableQueries; //!< all get variable queries
 
+	bool shutdown_on_unconnect;
+
 protected:
 	bool loadScript(LoadScripts::Request& req, LoadScripts::Response& res);
 
@@ -141,6 +143,8 @@ public:
 	void run();
 
 	void processAsebaMessage(Aseba::Message *message);
+
+	void unconnect();
 
 	void connectTarget(const std::string& target) { hub.connect(target); }
 };

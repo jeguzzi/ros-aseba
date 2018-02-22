@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-  <node pkg="asebaros" type="asebaros" name="asebaros" output="screen" args="ser:device=/dev/ttyACM0"/>
+  <param name="aseba/shutdown_on_unconnect" value="true"/>
+  <node pkg="asebaros" type="asebaros" name="asebaros" output="screen" args="ser:device=/dev/ttyACM0" required="True"/>
   <node name="thymio" pkg="thymio_driver" type="thymio_driver_node.py" output="screen" />
 </launch>
