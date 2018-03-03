@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package>
+  <name>thymio_description</name>
+  <version>0.1.0</version>
+  <description>
+    Urdf model for Thymio II robot
+  </description>
+
+  <maintainer email="stephane@magnenat.net">Stéphane Magnenat</maintainer>
+  <license>BSD</license>
+  <!-- <url type="website">http://ros.org/wiki/thymio_navigation_driver</url> -->
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>urdf</build_depend>
+  <run_depend>urdf</run_depend>
+  <run_depend>gazebo_ros</run_depend>
+
+
+  <export>
+    <gazebo_ros gazebo_model_path="${prefix}/.." />
+  </export>
+
+
+
+
+</package>
