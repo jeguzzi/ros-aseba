@@ -804,18 +804,26 @@ int main(int argc, char *argv[])
 	}
   initPlugins();
 	AsebaROS asebaROS(port, forward);
-
+	bool connected=false;
 	try
 	{
 		for (size_t i = 0; i < additionalTargets.size(); i++)
+		{
 			asebaROS.connectTarget(additionalTargets[i]);
+			connected=true;
+		}
 	}
 	catch(Dashel::DashelException e)
 	{
 		std::cerr << e.what() << std::endl;
 	}
-
-	asebaROS.run();
+	if(connected)
+	{
+		asebaROS.run();
+	}
+	else{
+		ROS_ERROR("Could not connect to any target.");
+	}
 
 	return 0;
 }
