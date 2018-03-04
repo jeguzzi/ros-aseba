@@ -805,25 +805,23 @@ int main(int argc, char *argv[])
   initPlugins();
 	AsebaROS asebaROS(port, forward);
 	bool connected=false;
-	try
+	while(ros::ok())
 	{
-		for (size_t i = 0; i < additionalTargets.size(); i++)
+		try
 		{
-			asebaROS.connectTarget(additionalTargets[i]);
-			connected=true;
+			for (size_t i = 0; i < additionalTargets.size(); i++)
+			{
+				asebaROS.connectTarget(additionalTargets[i]);
+				break;
+			}
 		}
+		catch(Dashel::DashelException e)
+		{
+			std::cerr << e.what() << std::endl;
+		}
+		ROS_WARN("Could not connect to any target. Sleep for 1 second and then retry");
+		ros::Duration(1).sleep();
 	}
-	catch(Dashel::DashelException e)
-	{
-		std::cerr << e.what() << std::endl;
-	}
-	if(connected)
-	{
-		asebaROS.run();
-	}
-	else{
-		ROS_ERROR("Could not connect to any target.");
-	}
-
+	asebaROS.run();
 	return 0;
 }
