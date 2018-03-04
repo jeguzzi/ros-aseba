@@ -1,6 +1,11 @@
 <?xml version="1.0"?>
 <launch>
+
+  <arg name="device"/>
+
   <param name="aseba/shutdown_on_unconnect" value="true"/>
-  <node pkg="asebaros" type="asebaros" name="asebaros" output="screen" args="ser:device=/dev/ttyACM0" required="True"/>
-  <node name="thymio" pkg="thymio_driver" type="thymio_driver_node.py" output="screen" />
+  <node pkg="asebaros" type="asebaros" name="asebaros" args="$(arg device)" output="screen" required="True"/>
+  <node name="thymio" pkg="thymio_driver" type="thymio_driver_node.py" output="screen" >
+    <param name="script" value="$(find thymio_driver)/aseba/thymio_ros.aesl"/>
+  </node>
 </launch>

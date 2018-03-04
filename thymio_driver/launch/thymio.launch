@@ -1,9 +1,12 @@
 <?xml version="1.0"?>
 <launch>
-  <param name="robot_description" command="$(find xacro)/xacro.py '$(find thymio_driver)/models/thymio.urdf.xacro'" />
+  <arg name="name" default="$(optenv hostname)"/>
+  <arg name="device" default="ser:device=/dev/ttyACM0"/>
 
-    <!-->Thymio has no published joints (the wheels position are not published)<-->
-  <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub" />
-  <include file="$(find thymio_driver)/launch/base.launch" />		   
+  <include file="$(find thymio_driver)/launch/base.launch" ns="$(eval arg('name') or '/')">
+    <arg name="device" value="$(arg device)"/>
+  </include>
+  <include file="$(find thymio_description)/launch/model.launch">
+    <arg name="name" value="$(arg name)"/>
+  </include>
 </launch>
-
