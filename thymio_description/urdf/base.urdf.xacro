@@ -13,9 +13,9 @@
   <xacro:property name="wheel_radius" value="0.022"/>
   <xacro:property name="wheel_torque" value="0.005"/>
   <!-- Body mass is 80% of total mass -->
-  <xacro:property name="body_mass" value="${mass * 0.80}"/>
+  <xacro:property name="body_mass" value="0.2"/>
   <!-- Each wheel is 10% of total mass -->
-  <xacro:property name="wheel_mass" value="${mass * 0.10}"/>
+  <xacro:property name="wheel_mass" value="0.024"/>
 
   <!-- <xacro:property name="base_radius" value="0.105"/>
   <xacro:property name="base_height" value="0.045"/> -->
@@ -23,9 +23,9 @@
   <xacro:macro name="thymio">
     <link name="base_link">
       <inertial>
-        <origin xyz="0.025 0 0.009"/>
+        <origin xyz="0.0243 0 0.0315"/>
         <mass value="${body_mass}"/>
-        <inertia ixx="${0.0012141 * body_mass}" ixy="0" ixz="0" iyy="${0.0011771 * body_mass}" iyz="0" izz="${0.00205365 * body_mass}"/>
+        <inertia ixx="${0.002199 * body_mass}" ixy="0" ixz="-0.000760" iyy="${0.002639 * body_mass}" iyz="0" izz="${0.002526 * body_mass}"/>
       </inertial>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -66,6 +66,13 @@
     <xacro:proximity_sensor group="proximity" name="rear_right" xyz="-0.03 -0.0305 0.035" rpy="0 0 3.14159"/>
     <xacro:proximity_sensor group="ground" name="left" xyz="0.07157 0.01155 0.0009" rpy="0 1.5708 0.24311"/>
     <xacro:proximity_sensor group="ground" name="right" xyz="0.07157 -0.01155 0.0009" rpy="0 1.5708 -0.24311"/>
+
+    <link name="laser_link"/>
+    <joint name="base_laser_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="laser_link"/>
+      <origin xyz="0 0 0.035"/>
+    </joint>
 
     <xacro:imu/>
 

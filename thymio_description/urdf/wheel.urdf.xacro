@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#xacro">
 
-  <xacro:macro name="wheel" params="name position mass:=0.02 mu:=100 radius:=0.022 width=0.015">
+  <xacro:macro name="wheel" params="name position mass:=0.024 mu:=100 radius:=0.022 width=0.015 max_speed=7.757">
 
     <link name="${name}_wheel_link">
       <inertial>
@@ -28,6 +28,7 @@
       <child link="${name}_wheel_link"/>
       <axis xyz="0 1 0"/>
       <origin xyz="0 ${position} ${radius}"/>
+      <limit velocity="${max_speed}" effort="0"/>
     </joint>
 
     <gazebo reference="${name}_wheel_link">
