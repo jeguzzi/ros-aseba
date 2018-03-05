@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  
+
   <name>thymio_description</name>
   <version>0.1.0</version>
   <description>
@@ -14,8 +14,13 @@
   <build_depend>urdf</build_depend>
   <run_depend>urdf</run_depend>
 
-  <export>
+  <!-- To automatically export GAZEBO_MODEL_PATH -->
+
+  <!-- <export>
     <gazebo_ros gazebo_model_path="${prefix}/.."/>
-  </export>
+  </export> -->
+
+  <!-- !!!!!! Only works if -->
+  <!-- <run_depend>gazebo_ros</run_depend> -->
 
 </package>

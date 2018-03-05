@@ -17,15 +17,14 @@
   <!-- Each wheel is 10% of total mass -->
   <xacro:property name="wheel_mass" value="0.024"/>
 
-  <!-- <xacro:property name="base_radius" value="0.105"/>
-  <xacro:property name="base_height" value="0.045"/> -->
+  <!-- <xacro:property name="base_radius" value="0.105"/> <xacro:property name="base_height" value="0.045"/> -->
 
   <xacro:macro name="thymio">
     <link name="base_link">
       <inertial>
         <origin xyz="0.0243 0 0.0315"/>
         <mass value="${body_mass}"/>
-        <inertia ixx="${0.002199 * body_mass}" ixy="0" ixz="-0.000760" iyy="${0.002639 * body_mass}" iyz="0" izz="${0.002526 * body_mass}"/>
+        <inertia ixx="${0.002199 * body_mass}" ixy="0" ixz="${-0.000760 * body_mass}" iyy="${0.002639 * body_mass}" iyz="0" izz="${0.002526 * body_mass}"/>
       </inertial>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -42,17 +41,16 @@
       <visual>
         <origin xyz="0.0 0 0.0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://thymio_description/meshes/base_essential_3.dae"/>
+          <mesh filename="package://thymio_description/meshes/base_simple.dae"/>
         </geometry>
       </visual>
     </link>
 
     <gazebo reference="base_link">
-      <selfCollide>true</selfCollide>
-      <mu1>0.0</mu1>
-      <mu2>0.0</mu2>5
+      <selfCollide>false</selfCollide>
+      <mu1>0.1</mu1>
+      <mu2>0.1</mu2>
     </gazebo>
-
 
     <xacro:wheel name="left" position="${wheel_axis * 0.5}" radius="${wheel_radius}" mass="${wheel_mass}" mu="$(arg left_wheel_mu)"/>
     <xacro:wheel name="right" position="${-wheel_axis * 0.5}" radius="${wheel_radius}" mass="${wheel_mass}" mu="$(arg right_wheel_mu)"/>
@@ -64,8 +62,8 @@
     <xacro:proximity_sensor group="proximity" name="right" xyz="0.063 -0.0493 0.035" rpy="0 0 -0.66323"/>
     <xacro:proximity_sensor group="proximity" name="rear_left" xyz="-0.03 0.0305 0.035" rpy="0 0 3.14159"/>
     <xacro:proximity_sensor group="proximity" name="rear_right" xyz="-0.03 -0.0305 0.035" rpy="0 0 3.14159"/>
-    <xacro:proximity_sensor group="ground" name="left" xyz="0.07157 0.01155 0.0009" rpy="0 1.5708 0.24311"/>
-    <xacro:proximity_sensor group="ground" name="right" xyz="0.07157 -0.01155 0.0009" rpy="0 1.5708 -0.24311"/>
+    <xacro:proximity_sensor group="ground" range_max="0.03" name="left" xyz="0.07157 0.01155 0.0009" rpy="0 1.5708 0.24311"/>
+    <xacro:proximity_sensor group="ground" range_max="0.03" name="right" xyz="0.07157 -0.01155 0.0009" rpy="0 1.5708 -0.24311"/>
 
     <link name="laser_link"/>
     <joint name="base_laser_joint" type="fixed">
@@ -76,8 +74,7 @@
 
     <xacro:imu/>
 
-<!-- see https://github.com/ros-simulation/gazebo_ros_pkgs/blob/kinetic-devel/gazebo_plugins/src/gazebo_ros_diff_drive.cpp -->
-
+    <!-- see https://github.com/ros-simulation/gazebo_ros_pkgs/blob/kinetic-devel/gazebo_plugins/src/gazebo_ros_diff_drive.cpp -->
 
     <gazebo>
       <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
@@ -89,8 +86,8 @@
 
         <alwaysOn>true</alwaysOn>
         <updateRate>100</updateRate>
-        <leftJoint>right_wheel_joint</leftJoint>
-        <rightJoint>left_wheel_joint</rightJoint>
+        <leftJoint>left_wheel_joint</leftJoint>
+        <rightJoint>right_wheel_joint</rightJoint>
         <wheelSeparation>${wheel_axis}</wheelSeparation>
         <wheelDiameter>${2 * wheel_radius}</wheelDiameter>
         <wheelTorque>${wheel_torque}</wheelTorque>
@@ -107,16 +104,7 @@
       </plugin>
     </gazebo>
 
-
-    <!-- <gazebo>
-  <plugin name="ground_truth" filename="libgazebo_ros_p3d.so">
-    <frameName>world</frameName>
-    <bodyName>base_link</bodyName>
-    <topicName>ground_truth</topicName>
-    <updateRate>30.0</updateRate>
-  </plugin>
-  </gazebo> -->
-
+    <!-- <gazebo> <plugin name="ground_truth" filename="libgazebo_ros_p3d.so"> <frameName>world</frameName> <bodyName>base_link</bodyName> <topicName>ground_truth</topicName> <updateRate>30.0</updateRate> </plugin> </gazebo> -->
 
   </xacro:macro>
 </robot>
