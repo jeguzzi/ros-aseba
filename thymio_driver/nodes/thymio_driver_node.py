@@ -18,8 +18,10 @@ from thymio_msgs.msg import Led, LedGesture, Sound, SystemSound
 
 BASE_WIDTH = 95.0     # millimeters
 MAX_SPEED = 500.0     # units
-SPEED_COEF = 2.93   # 1mm/sec corresponds to X units of real thymio speed
+SPEED_COEF = 2.93     # 1mm/sec corresponds to X units of real thymio speed
 WHEEL_RADIUS = 22.0   # millimeters
+GROUND_RANGE = 30     # millimeters
+
 
 BUTTONS = ['backward', 'forward', 'center', 'right', 'left']
 PROXIMITY_NAMES = ['left', 'center_left', 'center',
@@ -137,11 +139,13 @@ class ThymioDriver(object):
                 header=rospy.Header(
                     frame_id=self.frame_name('ground_{name}_link'.format(name=name))),
                 radiation_type=Range.INFRARED, field_of_view=proximity_field_of_view,
-                min_range=0.008, max_range=0.008)
+                min_range=(GROUND_RANGE / 1000.0), max_range=(GROUND_RANGE / 1000.0))
         } for name in GROUND_NAMES]
 
+        ground_threshold = rospy.get_param('~ground/threshold', 200)
+
         rospy.Subscriber('aseba/events/ground', AsebaEvent, self.on_aseba_ground_event)
-        rospy.set_param("~ground_threshold", 200)
+        rospy.set_param("~ground_threshold", ground_threshold)
 
         self.imu = Imu(header=rospy.Header(frame_id=self.robot_frame))
         # no orientation or angular velocity information
