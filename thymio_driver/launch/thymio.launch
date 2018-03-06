@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="name" default="$(optenv hostname)"/>
+  <arg name="name" default="$(optenv HOSTNAME)"/>
   <arg name="device" default="ser:device=/dev/ttyACM0"/>
 
   <include file="$(find thymio_driver)/launch/base.launch" ns="$(eval arg('name') or '/')">
