@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="left_wheel_mu" default="100.0"/>
+  <arg name="right_wheel_mu" default="100.0"/>
+  <arg name="mass" default="0.200"/>
+  <arg name="name" default=""/>
+  <arg name="tf_name" value="$(eval arg('name') + '/' if arg('name') else '')"/>
+
+  <group ns="$(eval arg('name') or '/')">
+    <param name="tf_prefix" value="$(arg name)"/>
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(find thymio_description)/urdf/thymio.urdf.xacro
+      left_wheel_mu:=$(arg left_wheel_mu) right_wheel_mu:=$(arg right_wheel_mu) mass:=$(arg mass) name:=$(arg tf_name)"/>
+
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub"/>
+  </group>
+</launch>
