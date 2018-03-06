@@ -7,15 +7,12 @@
 
   <xacro:arg name="left_wheel_mu" default="100.0"/>
   <xacro:arg name="right_wheel_mu" default="100.0"/>
-  <xacro:arg name="mass" default="0.200"/>
-  <xacro:property name="mass" value="$(arg mass)"/>
   <xacro:property name="wheel_axis" value="0.095"/>
   <xacro:property name="wheel_radius" value="0.022"/>
   <xacro:property name="wheel_torque" value="0.005"/>
-  <!-- Body mass is 80% of total mass -->
   <xacro:property name="body_mass" value="0.2"/>
-  <!-- Each wheel is 10% of total mass -->
   <xacro:property name="wheel_mass" value="0.024"/>
+  <xacro:arg name="name" default=""/>
 
   <!-- <xacro:property name="base_radius" value="0.105"/> <xacro:property name="base_height" value="0.045"/> -->
 
@@ -72,7 +69,7 @@
       <origin xyz="0 0 0.035"/>
     </joint>
 
-    <xacro:imu/>
+    <xacro:imu ns="$(arg name)"/>
 
     <!-- see https://github.com/ros-simulation/gazebo_ros_pkgs/blob/kinetic-devel/gazebo_plugins/src/gazebo_ros_diff_drive.cpp -->
 

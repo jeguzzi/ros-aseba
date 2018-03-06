@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#xacro">
 
-  <xacro:macro name="imu">
+  <xacro:macro name="imu" params="ns">
 
     <gazebo reference="base_link">
       <gravity>true</gravity>
@@ -17,7 +17,7 @@
           <gaussianNoise>0.2646</gaussianNoise>
           <xyzOffset>0 0 0</xyzOffset>
           <rpyOffset>0 0 0</rpyOffset>
-          <frameName>base_link</frameName>
+          <frameName>${ns}base_link</frameName>
         </plugin>
         <pose>0 0 0 0 0 0</pose>
       </sensor>
