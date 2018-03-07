@@ -20,7 +20,8 @@ BASE_WIDTH = 95.0     # millimeters
 MAX_SPEED = 500.0     # units
 SPEED_COEF = 2.93     # 1mm/sec corresponds to X units of real thymio speed
 WHEEL_RADIUS = 22.0   # millimeters
-GROUND_RANGE = 30     # millimeters
+GROUND_MIN_RANGE = 9     # millimeters
+GROUND_MAX_RANGE = 30     # millimeters
 
 
 BUTTONS = ['backward', 'forward', 'center', 'right', 'left']
@@ -139,7 +140,7 @@ class ThymioDriver(object):
                 header=rospy.Header(
                     frame_id=self.frame_name('ground_{name}_link'.format(name=name))),
                 radiation_type=Range.INFRARED, field_of_view=proximity_field_of_view,
-                min_range=(GROUND_RANGE / 1000.0), max_range=(GROUND_RANGE / 1000.0))
+                min_range=(GROUND_MIN_RANGE / 1000.0), max_range=(GROUND__MAX_RANGE / 1000.0))
         } for name in GROUND_NAMES]
 
         ground_threshold = rospy.get_param('~ground/threshold', 200)
