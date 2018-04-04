@@ -97,7 +97,7 @@ class ThymioDriver(object):
 
         rospy.loginfo("Load aseba script %s", script_path)
 
-        #load_script(script_path)
+        load_script(script_path)
 
 
 
