@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="name" default="$(optenv HOSTNAME)"/>
+  <arg name="motor_speeds" default="[20,40,60,80,100,120,140,160,200,250,300,350,400,450]"/>
+  <arg name="gap" default="100"/>
+  <arg name="motors" default="[right,left]"/>
+  <arg name="number_of_samples" default="1"/>
+  <node ns="$(eval arg('name') or '/')" name="calibrate" pkg="thymio_driver" type="calibrate_motors.py" output="screen" >
+    <rosparam param="motor_speeds" subst_value="True">$(arg motor_speeds)</rosparam>
+    <rosparam param="motors" subst_value="True">$(arg motors)</rosparam>
+    <param name="gap" value="$(arg gap)"/>
+    <param name="number_of_samples" value="$(arg number_of_samples)"/>
+  </node>
+</launch>

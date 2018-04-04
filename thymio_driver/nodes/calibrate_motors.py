@@ -1,16 +1,16 @@
 #!/usr/bin/env python
 
-import math
-import os
 import csv
-import numpy as np
-import rospkg
+import os
 from datetime import datetime as dt
 
+import numpy as np
+
+import rospkg
 import rospy
+import yaml
 from asebaros_msgs.msg import AsebaEvent
 from scipy.optimize import curve_fit
-import yaml
 
 AXIS = 0.0915
 
@@ -21,9 +21,9 @@ UNKNOWN = None
 # DONE:
 # 1) save sampls to file
 # 2) save calibration to file
-# TODO:
 # 3) load calibration in driver
-# 4) calibrate the distance too! (ev.)
+# TODO:
+# 4) (ev.) calibrate the distance too
 # 5) print a T (and adapt instructions)
 
 
