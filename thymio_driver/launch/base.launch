@@ -3,7 +3,7 @@
 
   <arg name="device"/>
   <arg name="motor_speed_deadband" default="10"/>
-  <arg name="axis_length" default="0.0915"/>
+  <arg name="axis_length" default="0.0935"/>
 
   <param name="aseba/shutdown_on_unconnect" value="true"/>
   <node pkg="asebaros" type="asebaros" name="asebaros" args="$(arg device)" output="screen" required="True"/>

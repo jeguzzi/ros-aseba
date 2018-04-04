@@ -12,7 +12,6 @@ import yaml
 from asebaros_msgs.msg import AsebaEvent
 from scipy.optimize import curve_fit
 
-AXIS = 0.0915
 
 IN = 0
 OFF = 1
@@ -54,7 +53,8 @@ DEFAULT_MOTOR_SPEEDS = [20, 40, 60, 80, 100, 120, 140, 160, 200, 250, 300, 350, 
 class Calibration(object):
 
     def __init__(self, target_number_of_samples=1, motor='right', angle=(2 * np.pi),
-                 sample_folder=None, motor_speeds=DEFAULT_MOTOR_SPEEDS, gap=100):
+                 sample_folder=None, motor_speeds=DEFAULT_MOTOR_SPEEDS, gap=100,
+                 axis_length=0.0935):
         self.line = Line()
         self.pick = None
         self.motor_speed = None
@@ -65,6 +65,7 @@ class Calibration(object):
         self.motor_speeds = motor_speeds
         self.sample_folder = sample_folder
         self.gap = gap
+        self.axis_length = axis_length
         self.pub = rospy.Publisher('aseba/events/set_speed', AsebaEvent, queue_size=1)
         self.sub = rospy.Subscriber('aseba/events/ground', AsebaEvent, self.update_state,
                                     queue_size=1)
@@ -124,7 +125,7 @@ class Calibration(object):
             os.symlink(path, t_path)
 
     def speed(self, period):
-        return self.angle / period * AXIS
+        return self.angle / period * self.axis_length
 
     def add_pick(self, pick):
         if self.pick is not None:
@@ -160,13 +161,15 @@ def main():
     rospy.init_node("calibrate")
     folder = rospkg.RosPack().get_path('thymio_driver')
     gap = rospy.get_param('~gap', 100)
+    axis_length = rospy.get_param('~axis_length', 0.0935)
     number_of_samples = rospy.get_param('~number_of_samples', 1)
     motor_speeds = rospy.get_param('~motor_speeds', DEFAULT_MOTOR_SPEEDS)
     sample_folder = os.path.join(folder, 'calibration', dt.now().isoformat())
     os.makedirs(sample_folder)
     for motor in rospy.get_param('~motors', ['right', 'left']):
         cal = Calibration(target_number_of_samples=number_of_samples, motor=motor,
-                          sample_folder=sample_folder, gap=gap, motor_speeds=motor_speeds)
+                          sample_folder=sample_folder, gap=gap, motor_speeds=motor_speeds,
+                          axis_length=axis_length)
         cal.run()
     rospy.loginfo("Motor calibration was successful")
 
