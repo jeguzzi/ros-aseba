@@ -10,6 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
 	nav_msgs
 	tf
 	thymio_msgs
+	dynamic_reconfigure
 )
 
 ## Generate messages in the 'msg' folder
@@ -21,6 +22,10 @@ find_package(catkin REQUIRED COMPONENTS
 #generate_messages(
 #  DEPENDENCIES
 #)
+
+generate_dynamic_reconfigure_options(
+  cfg/Thymio.cfg
+)
 
 ###################################
 ## catkin specific configuration ##

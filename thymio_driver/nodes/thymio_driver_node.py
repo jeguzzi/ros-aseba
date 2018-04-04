@@ -1,25 +1,26 @@
 #!/usr/bin/env python
 
 import os
-from math import cos, log, sin
+from math import copysign, cos, log, sin, sqrt
 
 import roslib
 import rospy
 import std_srvs.srv
 from asebaros_msgs.msg import AsebaEvent
 from asebaros_msgs.srv import GetNodeList, LoadScripts
+from dynamic_reconfigure.server import Server
 from geometry_msgs.msg import Quaternion, Twist
 from nav_msgs.msg import Odometry
 from sensor_msgs.msg import Imu, JointState, Joy, LaserScan, Range, Temperature
 from std_msgs.msg import Bool, ColorRGBA, Empty, Float32, Int8, Int16
 from tf.broadcaster import TransformBroadcaster
+from thymio_driver.cfg import ThymioConfig
 from thymio_msgs.msg import Led, LedGesture, Sound, SystemSound
 
-
-BASE_WIDTH = 95.0     # millimeters
+BASE_WIDTH = 91.5     # millimeters
 MAX_SPEED = 500.0     # units
 SPEED_COEF = 2.93     # 1mm/sec corresponds to X units of real thymio speed
-WHEEL_RADIUS = 22.0   # millimeters
+WHEEL_RADIUS = 0.022   # meters
 GROUND_MIN_RANGE = 9     # millimeters
 GROUND_MAX_RANGE = 30     # millimeters
 
@@ -33,12 +34,44 @@ LED_NUMBER = {Led.CIRCLE: 8, Led.PROXIMITY: 8, Led.GROUND: 2,
               Led.REMOTE: 1, Led.BUTTONS: 4, Led.TEMPERATURE: 2, Led.MICROPHONE: 1}
 
 
+def sign(x):
+    return copysign(1, x)
+
+
+def motor_speed_conversion(q0=(0.001 / SPEED_COEF), q1=0):
+    def f(x):
+        return q0 * x + q1 * x * abs(x)
+    if q1 == 0:
+        def inv_f(x):
+            return x / q0
+    else:
+        def inv_f(x):
+            return 0.5 * sign(x) * (- q0 + sqrt(q0 ** 2 + 4 * q1 * abs(x))) / q1
+    return f, inv_f
+
+
 class ThymioDriver(object):
 
     def frame_name(self, name):
         if self.tf_prefix:
             return '{self.tf_prefix}/{name}'.format(**locals())
         return name
+
+    def change_config(self, config, level):
+        # self.diff_factor = config.diff_factor
+        # self.ticks2mm = config.ticks2mm
+        self.motor_speed_deadband = config.motor_speed_deadband
+        return config
+
+    @property
+    def motor_speed_deadband(self):
+        return self._motor_speed_deadband
+
+    @motor_speed_deadband.setter
+    def motor_speed_deadband(self, value):
+        self._motor_speed_deadband = value
+        self.speed_cov = 0.5 * (value * 1000 / SPEED_COEF) ** 2
+        self.ang_speed_cov = self.speed_cov / (self.axis ** 2)
 
     def __init__(self):
         rospy.init_node('thymio')
@@ -64,7 +97,9 @@ class ThymioDriver(object):
 
         rospy.loginfo("Load aseba script %s", script_path)
 
-        load_script(script_path)
+        #load_script(script_path)
+
+
 
         # initialize parameters
 
@@ -88,7 +123,25 @@ class ThymioDriver(object):
         self.left_wheel_angle = 0
         self.right_wheel_angle = 0
 
-        self.ticks2mm = rospy.get_param('~ticks2mm', 1.0 / SPEED_COEF)
+        self.axis = rospy.get_param('~axis_length', BASE_WIDTH / 1000.0)
+        self.motor_speed_deadband = rospy.get_param('~motor_speed_deadband', 10)
+        # self.ticks2mm = rospy.get_param('~ticks2mm', 1.0 / SPEED_COEF)
+        # self.diff_factor = rospy.get_param('~diff_factor', 1.0)
+
+        def_cal = [0.001 / SPEED_COEF, 0]
+
+        left_wheel_calibration = rospy.get_param('~left_wheel_calibration/q', def_cal)
+
+        self.left_wheel_speed, self.left_wheel_motor_speed = motor_speed_conversion(
+            *left_wheel_calibration)
+        rospy.loginfo('Init left wheel with calibration %s', left_wheel_calibration)
+
+        right_wheel_calibration = rospy.get_param('~right_wheel_calibration/q', def_cal)
+        self.right_wheel_speed, self.right_wheel_motor_speed = motor_speed_conversion(
+            *right_wheel_calibration)
+
+        rospy.loginfo('Init right wheel with calibration %s', right_wheel_calibration)
+
         left_wheel_joint = rospy.get_param('~left_wheel_joint', 'left_wheel_joint')
         right_wheel_joint = rospy.get_param('~right_wheel_joint', 'right_wheel_joint')
 
@@ -140,7 +193,7 @@ class ThymioDriver(object):
                 header=rospy.Header(
                     frame_id=self.frame_name('ground_{name}_link'.format(name=name))),
                 radiation_type=Range.INFRARED, field_of_view=proximity_field_of_view,
-                min_range=(GROUND_MIN_RANGE / 1000.0), max_range=(GROUND__MAX_RANGE / 1000.0))
+                min_range=(GROUND_MIN_RANGE / 1000.0), max_range=(GROUND_MAX_RANGE / 1000.0))
         } for name in GROUND_NAMES]
 
         ground_threshold = rospy.get_param('~ground/threshold', 200)
@@ -223,6 +276,7 @@ class ThymioDriver(object):
 
         rospy.on_shutdown(self.shutdown)
 
+        Server(ThymioConfig, self.change_config)
         # tell ros that we are ready
         rospy.Service('thymio_is_ready', std_srvs.srv.Empty, self.ready)
 
@@ -416,8 +470,16 @@ class ThymioDriver(object):
         dt = (now - self.then).to_sec()
         self.then = now
 
-        vl = data.data[0] * self.ticks2mm
-        vr = data.data[1] * self.ticks2mm
+        m_l, m_r = data.data
+        if abs(m_l) < self.motor_speed_deadband:
+            m_l = 0
+        if abs(m_r) < self.motor_speed_deadband:
+            m_r = 0
+        # vl = m_l * self.ticks2mm * self.diff_factor
+        # vr = m_r * self.ticks2mm * (2 - self.diff_factor)
+
+        vl = self.left_wheel_speed(m_l)
+        vr = self.right_wheel_speed(m_r)
 
         # wheel joint states
         left_wheel_angular_speed = vl / WHEEL_RADIUS
@@ -431,12 +493,12 @@ class ThymioDriver(object):
         self.wheel_state_msg.velocity = [left_wheel_angular_speed, right_wheel_angular_speed]
         self.wheel_state_pub.publish(self.wheel_state_msg)
 
-        dsl = vl * dt  # left wheel delta in mm
-        dsr = vr * dt  # right wheel delta in mm
+        dsl = vl * dt  # left wheel delta in m
+        dsr = vr * dt  # right wheel delta in m
 
         # robot traveled distance in meters
-        ds = ((dsl + dsr) / 2.0) / 1000.0
-        dth = (dsr - dsl) / BASE_WIDTH  # turn angle
+        ds = ((dsl + dsr) / 2.0)
+        dth = (dsr - dsl) / self.axis  # turn angle
 
         self.x += ds * cos(self.th + dth / 2.0)
         self.y += ds * sin(self.th + dth / 2.0)
@@ -453,10 +515,13 @@ class ThymioDriver(object):
         self.odom_msg.pose.pose.position.y = self.y
         self.odom_msg.pose.pose.position.z = 0
         self.odom_msg.pose.pose.orientation = quaternion
+        self.odom_msg.pose.covariance[0] = -1
 
         if(dt > 0):
             self.odom_msg.twist.twist.linear.x = ds / dt
             self.odom_msg.twist.twist.angular.z = dth / dt
+            self.odom_msg.twist.covariance[0] = self.speed_cov
+            self.odom_msg.twist.covariance[-1] = self.ang_speed_cov
 
         # publish odometry
         self.odom_broadcaster.sendTransform(
@@ -465,18 +530,21 @@ class ThymioDriver(object):
             self.then, self.robot_frame, self.odom_frame)
         self.odom_pub.publish(self.odom_msg)
 
-    # ======== processing events received from the robot  ========
+    def set_linear_angular_speed(self, speed, ang_speed):
+        left_wheel_speed = speed - ang_speed * 0.5 * self.axis
+        right_wheel_speed = speed + ang_speed * 0.5 * self.axis
+
+        left_motor_speed = round(self.left_wheel_motor_speed(left_wheel_speed))
+        right_motor_speed = round(self.right_wheel_motor_speed(right_wheel_speed))
+        max_motor_speed = max(abs(left_motor_speed), abs(right_motor_speed))
+        if max_motor_speed > MAX_SPEED:
+            return self.set_linear_angular_speed(speed * MAX_SPEED / max_motor_speed,
+                                                 ang_speed * MAX_SPEED / max_motor_speed)
+
+        self.set_speed([left_motor_speed, right_motor_speed])
+
     def on_cmd_vel(self, data):
-        x = data.linear.x * 1000.0  # from meters to millimeters
-        x = x / self.ticks2mm  # to thymio units
-        th = data.angular.z * (BASE_WIDTH / 2)  # in mm
-        th = th / self.ticks2mm  # in thymio units
-        k = max(abs(x - th), abs(x + th))
-        # sending commands higher than max speed will fail
-        if k > MAX_SPEED:
-            x = x * MAX_SPEED / k
-            th = th * MAX_SPEED / k
-        self.set_speed([int(x - th), int(x + th)])
+        self.set_linear_angular_speed(data.linear.x, data.angular.z)
 
 
 if __name__ == '__main__':
