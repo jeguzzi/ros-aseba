@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="gui" value="false"/>
+    <arg name="headless" value="true"/>
+    <arg name="paused" value="false"/>
+    <arg name="world_name" value="$(find thymio_description)/launch/world.sdf"/>
+  </include>
+  <include file="$(find thymio_description)/launch/model.launch">
+    <arg name="name" value="thymio10"/>
+  </include>
+  <include file="$(find thymio_description)/launch/model.launch">
+    <arg name="name" value="thymio20"/>
+  </include>
+</launch>

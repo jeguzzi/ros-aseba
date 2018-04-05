@@ -1,0 +1,20 @@
+<sdf version="1.4">
+  <world name="default">
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <include>
+      <uri>model://thymio_description</uri>
+      <name>thymioYYY</name>
+      <pose>1 2 0 0 0 1.7</pose>
+    </include>
+    <include>
+      <uri>model://thymio_description</uri>
+      <name>thymioXXX</name>
+      <pose>0 0 0 0 0 0</pose>
+    </include>
+  </world>
+</sdf>

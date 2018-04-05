@@ -1,16 +1,8 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(thymio_driver)
+project(thymio_description)
 
 find_package(catkin REQUIRED COMPONENTS
-	rospy
-	asebaros_msgs
-	std_msgs
-	geometry_msgs
-	sensor_msgs
-	nav_msgs
-	message_generation
-	tf
-	thymio_msgs
+	urdf
 )
 
 ## Generate messages in the 'msg' folder
@@ -28,7 +20,7 @@ find_package(catkin REQUIRED COMPONENTS
 ###################################
 
 catkin_package(
-  CATKIN_DEPENDS rospy asebaros_msgs std_msgs geometry_msgs tf sensor_msgs nav_msgs message_runtime thymio_msgs
+  CATKIN_DEPENDS urdf
 )
 
 ###########

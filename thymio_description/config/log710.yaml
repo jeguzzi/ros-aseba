@@ -1,0 +1,20 @@
+# Logitech F710 wireless controller
+# Deadman (enable) button: Right Trigger
+# D<>X button (located on the back panel) must be set to D
+teleop:
+  piloting:
+    type: topic
+    message_type: "geometry_msgs/Twist"
+    topic_name: cmd_vel
+    deadman_buttons: []
+    axis_mappings:
+      -
+        axis: 3  # Right thumb stick (up/down)
+        target: linear.x
+        scale: 1.0
+        offset: 0.0
+      -
+        axis: 0  # Left thumb stick (left/right)
+        target: angular.z
+        scale: 1.0
+        offset: 0.0

@@ -33,6 +33,8 @@ qtcreator-*
 /planning/docs
 /planning/src
 
+thymio_driver/calibration/*
+
 *~
 
 # Emacs

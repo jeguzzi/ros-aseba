@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#xacro">
+
+  <xacro:macro name="proximity_sensor" params="group name xyz rpy update_rate:=10 range_min:=0.00 range_max:=0.12 resolution:=0.005 fov:=0.3">
+    <link name="${group}_${name}_link"/>
+    <joint name="${group}_${name}_joint" type="fixed">
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+      <parent link="base_link"/>
+      <child link="${group}_${name}_link"/>
+    </joint>
+    <gazebo reference="${group}_${name}_link">
+      <sensor name="${group}_${name}_sensor" type="ray">
+        <visualize>true</visualize>
+        <update_rate>${update_rate}</update_rate>
+        <always_on>true</always_on>
+        <ray>
+          <range>
+            <min>${range_min}</min>
+            <max>${range_max}</max>
+            <resolution>${resolution}</resolution>
+          </range>
+        </ray>
+        <plugin name="${group}_${name}_controller" filename="libgazebo_ros_range.so">
+          <alwaysOn>true</alwaysOn>
+          <updateRate>0</updateRate>
+          <frameName>${group}_${name}_link</frameName>
+          <topicName>${group}/${name}</topicName>
+          <radiation>infrared</radiation>
+          <fov>${fov}</fov>
+          <gaussianNoise>${resolution / 2}</gaussianNoise>
+        </plugin>
+      </sensor>
+      <material>Gazebo/DarkGrey</material>
+    </gazebo>
+  </xacro:macro>
+
+</robot>
