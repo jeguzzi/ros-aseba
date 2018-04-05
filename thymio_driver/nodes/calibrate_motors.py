@@ -8,10 +8,10 @@ import numpy as np
 
 import rospkg
 import rospy
+import std_msgs.msg
 import yaml
 from asebaros_msgs.msg import AsebaEvent
 from scipy.optimize import curve_fit
-
 
 IN = 0
 OFF = 1
@@ -72,9 +72,11 @@ class Calibration(object):
 
     def run(self):
         standing_wheel = 'right' if self.motor == 'left' else 'left'
-        rospy.loginfo('Place the robot with the %s wheel at the center of the T',
+        rospy.loginfo('Place the robot with the %s wheel at the center of the T '
+                      'and Press the central button when the robot is ready',
                       standing_wheel)
-        raw_input('Press a button when the robot is ready ')
+        rospy.wait_for_message('buttons/center', std_msgs.msg.Bool)
+        rospy.sleep(3)
         msg = rospy.wait_for_message('aseba/events/ground', AsebaEvent)
         self.ths = [d - self.gap for d in msg.data]
         # count(3)
