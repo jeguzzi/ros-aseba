@@ -1,6 +1,0 @@
-The launch file aseba_slam_nav_viewer.launch starts a complete SLAM and
-navigation system for a Thymio with an Hokuyo mounted on its top.
-
-For this launch file to work, you must first connect the Hokuyo and then
-the Thymio, so that the Hokuyo gets /dev/ttyACM0 as device and the
-Thymio /dev/ttyACM1.

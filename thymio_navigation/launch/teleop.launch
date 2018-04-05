@@ -1,5 +1,0 @@
-<launch>
-  <node name="thymio" pkg="thymio_navigation_driver" type="thymio_navigation_driver.py" output="screen" />
-  <node name="joy" pkg="joy" type="joy_node" output="screen" />
-  <node name="joy_to_twist" pkg="thymio_navigation_driver" type="joy_to_twist.py" output="screen" />
-</launch>
