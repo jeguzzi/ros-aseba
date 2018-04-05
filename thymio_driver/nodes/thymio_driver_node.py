@@ -70,7 +70,7 @@ class ThymioDriver(object):
     @motor_speed_deadband.setter
     def motor_speed_deadband(self, value):
         self._motor_speed_deadband = value
-        self.speed_cov = 0.5 * (value * 1000 / SPEED_COEF) ** 2
+        self.speed_cov = 0.5 * (value / 1000 / SPEED_COEF) ** 2
         self.ang_speed_cov = self.speed_cov / (self.axis ** 2)
 
     def __init__(self):
