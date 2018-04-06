@@ -12,6 +12,7 @@ import std_msgs.msg
 import yaml
 from asebaros_msgs.msg import AsebaEvent
 from scipy.optimize import curve_fit
+from thymio_msgs.msg import SystemSound
 
 IN = 0
 OFF = 1
@@ -66,15 +67,20 @@ class Calibration(object):
         self.sample_folder = sample_folder
         self.gap = gap
         self.axis_length = axis_length
+        self.sound_pub = rospy.Publisher('sound/play/system', SystemSound, queue_size=1)
         self.pub = rospy.Publisher('aseba/events/set_speed', AsebaEvent, queue_size=1)
         self.sub = rospy.Subscriber('aseba/events/ground', AsebaEvent, self.update_state,
                                     queue_size=1)
+
+    def ping(self, sound=SystemSound.target_ok):
+        self.sound_pub.publish(SystemSound(sound=sound))
 
     def run(self):
         standing_wheel = 'right' if self.motor == 'left' else 'left'
         rospy.loginfo('Place the robot with the %s wheel at the center of the T '
                       'and Press the central button when the robot is ready',
                       standing_wheel)
+        self.ping()
         rospy.wait_for_message('buttons/center', std_msgs.msg.Bool)
         rospy.sleep(3)
         msg = rospy.wait_for_message('aseba/events/ground', AsebaEvent)
