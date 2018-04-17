@@ -52,13 +52,13 @@
     <xacro:wheel name="left" position="${wheel_axis * 0.5}" radius="${wheel_radius}" mass="${wheel_mass}" mu="$(arg left_wheel_mu)"/>
     <xacro:wheel name="right" position="${-wheel_axis * 0.5}" radius="${wheel_radius}" mass="${wheel_mass}" mu="$(arg right_wheel_mu)"/>
 
-    <xacro:proximity_sensor group="proximity" range_max="${arg proximity_max_range}" resolutio="${arg proximity_resolution}" name="center" xyz="0.08 0 0.035" rpy="0 0 0"/>
-    <xacro:proximity_sensor group="proximity" range_max="${arg proximity_max_range}" resolutio="${arg proximity_resolution}" name="center_left" xyz="0.0756 0.0261 0.035" rpy="0 0 0.33161"/>
-    <xacro:proximity_sensor group="proximity" range_max="${arg proximity_max_range}" resolutio="${arg proximity_resolution}" name="center_right" xyz="0.0756 -0.0261 0.035" rpy="0 0 -0.33161"/>
-    <xacro:proximity_sensor group="proximity" range_max="${arg proximity_max_range}" resolutio="${arg proximity_resolution}" name="left" xyz="0.063 0.0493 0.035" rpy="0 0 0.66323"/>
-    <xacro:proximity_sensor group="proximity" range_max="${arg proximity_max_range}" resolutio="${arg proximity_resolution}" name="right" xyz="0.063 -0.0493 0.035" rpy="0 0 -0.66323"/>
-    <xacro:proximity_sensor group="proximity" range_max="${arg proximity_max_range}" resolutio="${arg proximity_resolution}" name="rear_left" xyz="-0.03 0.0305 0.035" rpy="0 0 3.14159"/>
-    <xacro:proximity_sensor group="proximity" range_max="${arg proximity_max_range}" resolutio="${arg proximity_resolution}" name="rear_right" xyz="-0.03 -0.0305 0.035" rpy="0 0 3.14159"/>
+    <xacro:proximity_sensor group="proximity" range_max="$(arg proximity_max_range)" resolution="$(arg proximity_resolution)" name="center" xyz="0.08 0 0.035" rpy="0 0 0"/>
+    <xacro:proximity_sensor group="proximity" range_max="$(arg proximity_max_range)" resolution="$(arg proximity_resolution)" name="center_left" xyz="0.0756 0.0261 0.035" rpy="0 0 0.33161"/>
+    <xacro:proximity_sensor group="proximity" range_max="$(arg proximity_max_range)" resolution="$(arg proximity_resolution)" name="center_right" xyz="0.0756 -0.0261 0.035" rpy="0 0 -0.33161"/>
+    <xacro:proximity_sensor group="proximity" range_max="$(arg proximity_max_range)" resolution="$(arg proximity_resolution)" name="left" xyz="0.063 0.0493 0.035" rpy="0 0 0.66323"/>
+    <xacro:proximity_sensor group="proximity" range_max="$(arg proximity_max_range)" resolution="$(arg proximity_resolution)" name="right" xyz="0.063 -0.0493 0.035" rpy="0 0 -0.66323"/>
+    <xacro:proximity_sensor group="proximity" range_max="$(arg proximity_max_range)" resolution="$(arg proximity_resolution)" name="rear_left" xyz="-0.03 0.0305 0.035" rpy="0 0 3.14159"/>
+    <xacro:proximity_sensor group="proximity" range_max="$(arg proximity_max_range)" resolution="$(arg proximity_resolution)" name="rear_right" xyz="-0.03 -0.0305 0.035" rpy="0 0 3.14159"/>
     <xacro:proximity_sensor group="ground" range_max="0.03" name="left" xyz="0.07157 0.01155 0.0009" rpy="0 1.5708 0.24311"/>
     <xacro:proximity_sensor group="ground" range_max="0.03" name="right" xyz="0.07157 -0.01155 0.0009" rpy="0 1.5708 -0.24311"/>
 
