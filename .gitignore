@@ -40,6 +40,8 @@ thymio_driver/calibration/*
 # Emacs
 .#*
 
+*.skp
+*.old*
 
 # Catkin custom files
 CATKIN_IGNORE
