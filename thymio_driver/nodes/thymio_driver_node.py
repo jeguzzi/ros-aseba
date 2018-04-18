@@ -99,8 +99,6 @@ class ThymioDriver(object):
 
         load_script(script_path)
 
-
-
         # initialize parameters
 
         self.tf_prefix = rospy.get_param('tf_prefix', '')
@@ -112,6 +110,11 @@ class ThymioDriver(object):
         self.y = 0
         self.th = 0
         self.then = rospy.Time.now()
+        odom_rate = rospy.get_param('~odom_max_rate', -1)
+        if odom_rate == 0:
+            self.odom_min_period = -1
+        else:
+            self.odom_min_period = 1.0 / odom_rate
         self.odom_msg = Odometry(header=rospy.Header(frame_id=self.odom_frame),
                                  child_frame_id=self.robot_frame)
 
@@ -468,6 +471,10 @@ class ThymioDriver(object):
     def on_aseba_odometry_event(self, data):
         now = data.stamp
         dt = (now - self.then).to_sec()
+
+        if self.odom_min_period > dt:
+            return
+
         self.then = now
 
         m_l, m_r = data.data

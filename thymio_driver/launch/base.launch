@@ -5,6 +5,7 @@
   <arg name="motor_speed_deadband" default="10"/>
   <arg name="axis_length" default="0.0935"/>
   <arg name="calibrated" default="false"/>
+  <arg name="odom_max_rate" default="-1"/>
 
   <param name="aseba/shutdown_on_unconnect" value="true"/>
   <node pkg="asebaros" type="asebaros" name="asebaros" args="$(arg device)" output="screen" required="True"/>
@@ -12,6 +13,7 @@
     <param name="script" value="$(find thymio_driver)/aseba/thymio_ros.aesl"/>
     <param name="motor_speed_deadband" value="$(arg motor_speed_deadband)"/>
     <param name="axis_length" value="$(arg axis_length)"/>
+    <param name="odom_max_rate" value="$(arg odom_max_rate)"/>
     <rosparam if="$(arg calibrated)" command="load" ns="left_wheel_calibration" file="$(find thymio_driver)/calibration/left.yaml"/>
     <rosparam if="$(arg calibrated)" command="load" ns="right_wheel_calibration" file="$(find thymio_driver)/calibration/right.yaml"/>
   </node>
