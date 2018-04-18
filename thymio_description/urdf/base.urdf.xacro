@@ -9,7 +9,7 @@
   <xacro:arg name="right_wheel_mu" default="100.0"/>
   <xacro:property name="wheel_axis" value="0.0935"/>
   <xacro:property name="wheel_radius" value="0.022"/>
-  <xacro:property name="wheel_torque" value="50"/>
+  <xacro:property name="wheel_torque" value="0.1"/>
   <xacro:property name="body_mass" value="0.2"/>
   <xacro:property name="wheel_mass" value="0.024"/>
   <xacro:arg name="proximity_max_range" default="0.12"/>
