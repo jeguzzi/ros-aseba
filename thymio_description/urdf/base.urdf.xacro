@@ -10,9 +10,9 @@
   <xacro:property name="wheel_axis" value="0.0935"/>
   <xacro:property name="wheel_radius" value="0.022"/>
   <xacro:property name="wheel_torque" value="0.1"/>
-  <xacro:property name="wheel_kp" value="10000"/>
+  <xacro:arg name="wheel_kp" value="10000"/>
   <xacro:property name="body_mass" value="0.2"/>
-  <xacro:property name="body_kp" value="17500"/>
+  <xacro:arg name="body_kp" value="17500"/>
   <xacro:property name="wheel_mass" value="0.024"/>
   <xacro:arg name="proximity_max_range" default="0.12"/>
   <xacro:arg name="proximity_resolution" default="0.005"/>
@@ -58,8 +58,8 @@
       <kd>1</kd>
     </gazebo>
 
-    <xacro:wheel name="left" position="${wheel_axis * 0.5}" radius="${wheel_radius}" mass="${wheel_mass}" mu="$(arg left_wheel_mu)"/>
-    <xacro:wheel name="right" position="${-wheel_axis * 0.5}" radius="${wheel_radius}" mass="${wheel_mass}" mu="$(arg right_wheel_mu)"/>
+    <xacro:wheel name="left" position="${wheel_axis * 0.5}" radius="${wheel_radius}" mass="${wheel_mass}" mu="$(arg left_wheel_mu)" kp="$(arg wheel_kp)"/>
+    <xacro:wheel name="right" position="${-wheel_axis * 0.5}" radius="${wheel_radius}" mass="${wheel_mass}" mu="$(arg right_wheel_mu)" kp="$(arg wheel_kp)"/>
 
     <xacro:proximity_sensor group="proximity" range_max="$(arg proximity_max_range)" resolution="$(arg proximity_resolution)" fov="$(arg proximity_fov)" name="center" xyz="0.08 0 0.035" rpy="0 0 0"/>
     <xacro:proximity_sensor group="proximity" range_max="$(arg proximity_max_range)" resolution="$(arg proximity_resolution)" fov="$(arg proximity_fov)" name="center_left" xyz="0.0756 0.0261 0.035" rpy="0 0 0.33161"/>
