@@ -10,9 +10,9 @@
   <xacro:property name="wheel_axis" value="0.0935"/>
   <xacro:property name="wheel_radius" value="0.022"/>
   <xacro:property name="wheel_torque" value="0.1"/>
-  <xacro:arg name="wheel_kp" value="10000"/>
+  <xacro:arg name="wheel_kp" default="10000"/>
   <xacro:property name="body_mass" value="0.2"/>
-  <xacro:arg name="body_kp" value="17500"/>
+  <xacro:arg name="body_kp" default="17500"/>
   <xacro:property name="wheel_mass" value="0.024"/>
   <xacro:arg name="proximity_max_range" default="0.12"/>
   <xacro:arg name="proximity_resolution" default="0.005"/>
