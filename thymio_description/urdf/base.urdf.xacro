@@ -5,12 +5,14 @@
   <xacro:include filename="$(find thymio_description)/urdf/proximity_sensor.urdf.xacro"/>
   <xacro:include filename="$(find thymio_description)/urdf/imu.urdf.xacro"/>
 
-  <xacro:arg name="left_wheel_mu" default="100.0"/>
-  <xacro:arg name="right_wheel_mu" default="100.0"/>
+  <xacro:arg name="left_wheel_mu" default="1.0"/>
+  <xacro:arg name="right_wheel_mu" default="1.0"/>
   <xacro:property name="wheel_axis" value="0.0935"/>
   <xacro:property name="wheel_radius" value="0.022"/>
   <xacro:property name="wheel_torque" value="0.1"/>
+  <xacro:property name="wheel_kp" value="10000"/>
   <xacro:property name="body_mass" value="0.2"/>
+  <xacro:property name="body_kp" value="17500"/>
   <xacro:property name="wheel_mass" value="0.024"/>
   <xacro:arg name="proximity_max_range" default="0.12"/>
   <xacro:arg name="proximity_resolution" default="0.005"/>
@@ -24,7 +26,7 @@
   <xacro:macro name="thymio">
     <link name="base_link">
       <inertial>
-        <origin xyz="0.0243 0 0.0315"/>
+        <origin xyz="0.0243 0 0.0205"/>
         <mass value="${body_mass}"/>
         <inertia ixx="${0.002199 * body_mass}" ixy="0" ixz="${-0.000760 * body_mass}" iyy="${0.002639 * body_mass}" iyz="0" izz="${0.002526 * body_mass}"/>
       </inertial>
@@ -52,6 +54,8 @@
       <selfCollide>false</selfCollide>
       <mu1>0.1</mu1>
       <mu2>0.1</mu2>
+      <kp>$(arg body_kp)</kp>
+      <kd>1</kd>
     </gazebo>
 
     <xacro:wheel name="left" position="${wheel_axis * 0.5}" radius="${wheel_radius}" mass="${wheel_mass}" mu="$(arg left_wheel_mu)"/>
