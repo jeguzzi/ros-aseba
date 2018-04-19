@@ -8,6 +8,7 @@
   <xacro:arg name="left_wheel_mu" default="1.0"/>
   <xacro:arg name="right_wheel_mu" default="1.0"/>
   <xacro:property name="wheel_axis" value="0.0935"/>
+  <xacro:arg name="wheel_width" default="0.00015"/>
   <xacro:property name="wheel_radius" value="0.022"/>
   <xacro:property name="wheel_torque" value="0.1"/>
   <xacro:arg name="wheel_kp" default="10000"/>
@@ -58,10 +59,10 @@
       <kd>1</kd>
     </gazebo>
 
-    <xacro:wheel name="left" position="${wheel_axis * 0.5}" radius="${wheel_radius}" mass="${wheel_mass}" mu="$(arg left_wheel_mu)" kp="$(arg wheel_kp)"/>
-    <xacro:wheel name="right" position="${-wheel_axis * 0.5}" radius="${wheel_radius}" mass="${wheel_mass}" mu="$(arg right_wheel_mu)" kp="$(arg wheel_kp)"/>
+    <xacro:wheel name="left" position="${wheel_axis * 0.5}" radius="${wheel_radius}" mass="${wheel_mass}" mu="$(arg left_wheel_mu)" kp="$(arg wheel_kp)" width="$(arg wheel_width)"/>
+    <xacro:wheel name="right" position="${-wheel_axis * 0.5}" radius="${wheel_radius}" mass="${wheel_mass}" mu="$(arg right_wheel_mu)" kp="$(arg wheel_kp)" width="$(arg wheel_width)"/>
 
-    <xacro:proximity_sensor group="proximity" range_max="$(arg proximity_max_range)" resolution="$(arg proximity_resolution)" fov="$(arg proximity_fov)" name="center" xyz="0.08 0 0.035" rpy="0 0 0"/>
+  <xacro:proximity_sensor group="proximity" range_max="$(arg proximity_max_range)" resolution="$(arg proximity_resolution)" fov="$(arg proximity_fov)" name="center" xyz="0.08 0 0.035" rpy="0 0 0"/>
     <xacro:proximity_sensor group="proximity" range_max="$(arg proximity_max_range)" resolution="$(arg proximity_resolution)" fov="$(arg proximity_fov)" name="center_left" xyz="0.0756 0.0261 0.035" rpy="0 0 0.33161"/>
     <xacro:proximity_sensor group="proximity" range_max="$(arg proximity_max_range)" resolution="$(arg proximity_resolution)" fov="$(arg proximity_fov)" name="center_right" xyz="0.0756 -0.0261 0.035" rpy="0 0 -0.33161"/>
     <xacro:proximity_sensor group="proximity" range_max="$(arg proximity_max_range)" resolution="$(arg proximity_resolution)" fov="$(arg proximity_fov)" name="left" xyz="0.063 0.0493 0.035" rpy="0 0 0.66323"/>
@@ -91,7 +92,7 @@
         <updateRate>$(arg odom_max_rate)</updateRate>
         <leftJoint>left_wheel_joint</leftJoint>
         <rightJoint>right_wheel_joint</rightJoint>
-        <wheelSeparation>${wheel_axis}</wheelSeparation>
+        <wheelSeparation>${wheel_axis + wheel_width}</wheelSeparation>
         <wheelDiameter>${2 * wheel_radius}</wheelDiameter>
         <wheelTorque>${wheel_torque}</wheelTorque>
         <wheelAcceleration>0</wheelAcceleration>
