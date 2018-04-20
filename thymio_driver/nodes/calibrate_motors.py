@@ -78,7 +78,7 @@ class Calibration(object):
     def run(self):
         standing_wheel = 'right' if self.motor == 'left' else 'left'
         rospy.loginfo('Place the robot with the %s wheel at the center of the T '
-                      'and Press the central button when the robot is ready',
+                      'and press the central button when the robot is ready',
                       standing_wheel)
         self.ping()
         rospy.wait_for_message('buttons/center', std_msgs.msg.Bool)
@@ -119,7 +119,8 @@ class Calibration(object):
                 writer.writerows(self._samples)
 
     def save_calibration(self, result, kind='quadratic'):
-        path = os.path.join(self.sample_folder, '{}.yaml'.format(self.motor))
+        # path = os.path.join(self.sample_folder, '{}.yaml'.format(self.motor))
+        path = os.path.join(os.path.basename(self.sample_folder), '{}.yaml'.format(self.motor))
         t_path = os.path.join(self.sample_folder, '..', '{}.yaml'.format(self.motor))
         with open(path, 'w') as f:
             cal = {'kind': kind, 'q': result}
