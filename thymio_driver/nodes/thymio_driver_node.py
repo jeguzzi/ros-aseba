@@ -505,7 +505,7 @@ class ThymioDriver(object):
         self.th += dth
 
         # We publish odometry, tf, and wheel joint state only at a maximal rate:
-        if self.odom_min_period > (now - self.odom_msg.stamp.header).to_sec():
+        if self.odom_min_period > (now - self.odom_msg.header.stamp).to_sec():
             return
 
         self.wheel_state_msg.header.stamp = rospy.Time.now()
