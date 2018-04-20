@@ -119,18 +119,18 @@ class Calibration(object):
                 writer.writerows(self._samples)
 
     def save_calibration(self, result, kind='quadratic'):
-        # path = os.path.join(self.sample_folder, '{}.yaml'.format(self.motor))
-        path = os.path.join(os.path.basename(self.sample_folder), '{}.yaml'.format(self.motor))
+        path = os.path.join(self.sample_folder, '{}.yaml'.format(self.motor))
+        l_path = os.path.join(os.path.basename(self.sample_folder), '{}.yaml'.format(self.motor))
         t_path = os.path.join(self.sample_folder, '..', '{}.yaml'.format(self.motor))
         with open(path, 'w') as f:
             cal = {'kind': kind, 'q': result}
             yaml.dump(cal, f)
         rospy.loginfo('Create symlink %s -> %s', t_path, path)
         try:
-            os.symlink(path, t_path)
+            os.symlink(l_path, t_path)
         except OSError:
             os.remove(t_path)
-            os.symlink(path, t_path)
+            os.symlink(l_path, t_path)
 
     def speed(self, period):
         return self.angle / period * self.axis_length
