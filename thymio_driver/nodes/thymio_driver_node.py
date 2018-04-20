@@ -70,8 +70,8 @@ class ThymioDriver(object):
     @motor_speed_deadband.setter
     def motor_speed_deadband(self, value):
         self._motor_speed_deadband = value
-        self.speed_cov = 0.5 * (value / 1000 / SPEED_COEF) ** 2
-        self.ang_speed_cov = self.speed_cov / (self.axis ** 2)
+        self.odom_msg.twist.covariance[0] = speed_cov = 0.5 * (value / 1000 / SPEED_COEF) ** 2
+        self.odom_msg.twist.covariance[-1] = speed_cov / (self.axis ** 2)
 
     def __init__(self):
         rospy.init_node('thymio')
@@ -117,6 +117,10 @@ class ThymioDriver(object):
             self.odom_min_period = 1.0 / odom_rate
         self.odom_msg = Odometry(header=rospy.Header(frame_id=self.odom_frame),
                                  child_frame_id=self.robot_frame)
+
+        self.odom_msg.pose.pose.position.z = 0
+        self.odom_msg.pose.covariance[0] = -1
+        self.odom_msg.header.stamp = rospy.Time.now()
 
         # subscribe to topics
 
@@ -471,10 +475,6 @@ class ThymioDriver(object):
     def on_aseba_odometry_event(self, data):
         now = data.stamp
         dt = (now - self.then).to_sec()
-
-        if self.odom_min_period > dt:
-            return
-
         self.then = now
 
         m_l, m_r = data.data
@@ -482,8 +482,6 @@ class ThymioDriver(object):
             m_l = 0
         if abs(m_r) < self.motor_speed_deadband:
             m_r = 0
-        # vl = m_l * self.ticks2mm * self.diff_factor
-        # vr = m_r * self.ticks2mm * (2 - self.diff_factor)
 
         vl = self.left_wheel_speed(m_l)
         vr = self.right_wheel_speed(m_r)
@@ -494,11 +492,6 @@ class ThymioDriver(object):
 
         self.left_wheel_angle += dt * left_wheel_angular_speed
         self.right_wheel_angle += dt * right_wheel_angular_speed
-
-        self.wheel_state_msg.header.stamp = rospy.Time.now()
-        self.wheel_state_msg.position = [self.left_wheel_angle, self.right_wheel_angle]
-        self.wheel_state_msg.velocity = [left_wheel_angular_speed, right_wheel_angular_speed]
-        self.wheel_state_pub.publish(self.wheel_state_msg)
 
         dsl = vl * dt  # left wheel delta in m
         dsr = vr * dt  # right wheel delta in m
@@ -511,6 +504,15 @@ class ThymioDriver(object):
         self.y += ds * sin(self.th + dth / 2.0)
         self.th += dth
 
+        # We publish odometry, tf, and wheel joint state only at a maximal rate:
+        if self.odom_min_period > (now - self.odom_msg.stamp.header).to_sec():
+            return
+
+        self.wheel_state_msg.header.stamp = rospy.Time.now()
+        self.wheel_state_msg.position = [self.left_wheel_angle, self.right_wheel_angle]
+        self.wheel_state_msg.velocity = [left_wheel_angular_speed, right_wheel_angular_speed]
+        self.wheel_state_pub.publish(self.wheel_state_msg)
+
         # prepare tf from base_link to odom
         quaternion = Quaternion()
         quaternion.z = sin(self.th / 2.0)
@@ -520,15 +522,11 @@ class ThymioDriver(object):
         self.odom_msg.header.stamp = rospy.Time.now()  # OR TO TAKE ONE FROM THE EVENT?
         self.odom_msg.pose.pose.position.x = self.x
         self.odom_msg.pose.pose.position.y = self.y
-        self.odom_msg.pose.pose.position.z = 0
         self.odom_msg.pose.pose.orientation = quaternion
-        self.odom_msg.pose.covariance[0] = -1
 
         if(dt > 0):
             self.odom_msg.twist.twist.linear.x = ds / dt
             self.odom_msg.twist.twist.angular.z = dth / dt
-            self.odom_msg.twist.covariance[0] = self.speed_cov
-            self.odom_msg.twist.covariance[-1] = self.ang_speed_cov
 
         # publish odometry
         self.odom_broadcaster.sendTransform(
