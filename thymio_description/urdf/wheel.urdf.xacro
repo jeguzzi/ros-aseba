@@ -18,7 +18,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="${pi/2 if name == 'left' else -pi/2} 0 0"/>
         <geometry>
-          <mesh filename="package://thymio_description/meshes/wheel_inches.dae"/>
+          <mesh filename="package://thymio_description/meshes/wheel.dae"/>
         </geometry>
       </visual>
     </link>
