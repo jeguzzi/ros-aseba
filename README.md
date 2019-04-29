@@ -13,7 +13,7 @@ Clone the repository in your catkin [tools] workspace:
 
 ```bash
 cd <YOUR_CATKIN_WS>/src
-git --recursive -b multi  clone git://github.com/jeguzzi/ros-aseba.git
+git clone --recursive -b multi  git://github.com/jeguzzi/ros-aseba.git
 catkin config --blacklist thymio_navigation ethzasl_aseba
 ```
 
