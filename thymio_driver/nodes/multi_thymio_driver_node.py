@@ -146,7 +146,6 @@ class ThymioDriver(object):
         else:
             self.odom_broadcaster = None
 
-
         rospy.Subscriber(_aseba('odometry'), AsebaEvent, self.on_aseba_odometry_event)
         rospy.Subscriber(_ros('cmd_vel'), Twist, self.on_cmd_vel)
 
@@ -551,6 +550,10 @@ class ThymioDriver(object):
     def on_cmd_vel(self, data):
         self.set_linear_angular_speed(data.linear.x, data.angular.z)
 
+    def __delete__(self):
+        # TODO: remove all ros subscribers, publishers, and services
+        pass
+
 
 class ThymioManager:
 
@@ -579,8 +582,8 @@ class ThymioManager:
 
         rospy.Timer(rospy.Duration(1), self.update_aseba_network)
 
+        self.model_pc = {}
         rospy.spin()
-
 
     def update_aseba_network(self, evt):
         nodes = self.get_aseba_nodes().nodeList
@@ -592,7 +595,11 @@ class ThymioManager:
         for node in nodes:
             if 'thymio-II' in node.name and node.id not in self.thymios:
                 rospy.loginfo('Connected Thymio with ID %d', node.id)
-                self.load_script_to_target(node.id)
+                try:
+                    self.load_script_to_target(node.id)
+                except rospy.ServiceException:
+                    rospy.logwarn("Cound not load aseba script %s to %d", self.script_path, node.id)
+                    continue
                 rospy.loginfo("Loaded aseba script %s to %d", self.script_path, node.id)
                 name = rospy.get_param('aseba/names/%d' % node.id, 'id_%s' % node.id)
                 rospy.loginfo("Create driver for Thymio %s at index %d", name, node.id)
@@ -603,8 +610,17 @@ class ThymioManager:
                 # print(p)
                 # launch = roslaunch.parent.ROSLaunchParent(self.uuid, p)
                 # launch.start()
-                subprocess.Popen(['roslaunch', 'thymio_description', 'model.launch',
-                                  'name:=%s' % name])
+                self.model_pc[node.id] = subprocess.Popen(
+                    ['roslaunch', 'thymio_description', 'model.launch',
+                     'name:=%s' % name])
+
+        indices = [node.id for node in nodes]
+        for i, _ in list(self.thymios.items()):
+            if i not in indices:
+                rospy.loginfo("Delete Thymio %d", node.id)
+                del self.thymios[node.id]
+                if i in self.model_pc:
+                    self.model_pc[i].kill()
 
 
 if __name__ == '__main__':

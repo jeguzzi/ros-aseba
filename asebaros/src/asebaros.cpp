@@ -185,7 +185,7 @@ std::vector<unsigned> AsebaROS::getNodeIds(const std::wstring& name)
   std::vector<unsigned> nodeIds;
   for (const auto & node : nodes)
   {
-    if (node.second.name == name)
+    if (node.second.name == name and !ignore(node.first))
     {
       nodeIds.push_back(node.first);
     }
@@ -214,10 +214,18 @@ bool AsebaROS::loadScriptToTarget(LoadScriptToTarget::Request& req, LoadScriptTo
 
   unsigned nodeId = req.nodeId;
 
+  if (ignore(nodeId)) return false;
+
   if ( std::find(nodesWithCurrentScript.begin(), nodesWithCurrentScript.end(),
      nodeId) != nodesWithCurrentScript.end()) {
     ROS_WARN_STREAM("Node " << nodeId <<" is already running the current script");
     return true;
+  }
+
+  if (!nodes[nodeId].isComplete())
+  {
+    ROS_WARN_STREAM("Node " << nodeId <<" is not complete");
+    return false;
   }
 
   nodesWithCurrentScript.push_back(nodeId);
@@ -307,7 +315,7 @@ bool AsebaROS::loadScript(LoadScripts::Request& req, LoadScripts::Response& res)
             bool result = compiler.compile(is, bytecode, allocatedVariablesCount, error);
             userDefinedVariablesMap[_name] = *compiler.getVariablesMap();
             mutex.unlock();
-            printf("result %s\n", result?"true":"false");
+            // printf("result %s\n", result?"true":"false");
             if(!result)
             {
               ROS_ERROR_STREAM("compilation of " << fileName << ", node " << _name << " failed: " << narrow(error.toWString()));
@@ -316,7 +324,7 @@ bool AsebaROS::loadScript(LoadScripts::Request& req, LoadScripts::Response& res)
             //unsigned nodeId(NodesManager::getNodeId(widen(), preferedId, &ok));
             for (const auto & nodeId : nodeIds)
             {
-              printf("Load to Name %s, id %d\n", _name.data(), nodeId);
+              ROS_INFO_STREAM("Loading script to node with id "  << nodeId << " -- " << _name.data());
               nodesWithCurrentScript.push_back(nodeId);
               typedef std::vector<unique_ptr<Message>> MessageVector;
               MessageVector messages;
@@ -425,7 +433,10 @@ bool AsebaROS::loadScript(LoadScripts::Request& req, LoadScripts::Response& res)
   }
 
   for (const auto nodeId : nodeIds)
-    createSubscribersForTarget(nodeId);
+  {
+    if (!ignore(nodeId)) createSubscribersForTarget(nodeId);
+  }
+
 
   mutex.unlock();
   return true;
@@ -463,12 +474,21 @@ bool AsebaROS::getNodeList(GetNodeList::Request& req, GetNodeList::Response& res
 {
   lock_guard<boost::mutex> lock(mutex);
 
-  transform(nodes.begin(), nodes.end(), back_inserter(res.nodeList), [](pair<unsigned, Node> p) -> AsebaNode {
-    AsebaNode node;
-    node.id = p.first;
-    node.name = narrow(p.second.name);
-    return node;
-  });
+  for (const auto &node : nodes) {
+    if ( !ignore(node.first) && node.second.isComplete() ) {
+      AsebaNode e;
+      e.id = node.first;
+      e.name = narrow(node.second.name);
+      res.nodeList.push_back(e);
+    }
+  }
+
+  // transform(nodes.begin(), nodes.end(), back_inserter(res.nodeList), [](pair<unsigned, Node> p) -> AsebaNode {
+  //   AsebaNode node;
+  //   node.id = p.first;
+  //   node.name = narrow(p.second.name);
+  //   return node;
+  // });
 
   // transform(nodesNames.begin(), nodesNames.end(), back_inserter(res.nodeList), bind(&NodesNamesMap::value_type::first,_1));
   return true;
@@ -697,13 +717,26 @@ bool AsebaROS::getNodePosFromNames(const string& nodeName, const string& variabl
   return true;
 }
 
+// TODO: make it robust. Do not use the same variable for ignore and names.
+
+bool AsebaROS::ignore(unsigned id)
+{
+  return names[id] == "-";
+}
+
 std::string AsebaROS::nameForId(unsigned id) {
-  if ( names.count(id) != 0 ) {
+  if ( names[id] != "" ) {
+      // ROS_WARN_STREAM("name already recorded " << names[id]);
       return names[id];
   }
   std::string param = "names/" + std::to_string(id);
-  std::cout << "Look for param " << param << std::endl;
-  names[id] = n.param<std::string>(param, "id_" + std::to_string(id));
+  // ROS_INFO_STREAM("Look for param " << param);
+  std::string value = n.param<std::string>(param, n.param<std::string>("names/ANY", "+"));
+  if (value == "+") {
+    names[id] = "id_" + std::to_string(id);
+  } else {
+    names[id] = value;
+  }
   return names[id];
 }
 
@@ -729,6 +762,9 @@ ros::Publisher AsebaROS::pubFor(const UserMessage* asebaMessage)
 
 void AsebaROS::sendEventOnROS(const UserMessage* asebaMessage)
 {
+
+  if (ignore(asebaMessage->source)) return;
+
   // does not need locking, called by other member function already within lock
   if ((pubs.size() == commonDefinitions.events.size()) && // if different, we are currently loading a new script, publish on anonymous channel
     (asebaMessage->type < commonDefinitions.events.size()))
@@ -756,7 +792,8 @@ void AsebaROS::sendEventOnROS(const UserMessage* asebaMessage)
 void AsebaROS::nodeDescriptionReceived(unsigned nodeId)
 {
   // does not need locking, called by parent object
-  std::cout << "Node " << nodeId << " with name " << narrow(nodes.at(nodeId).name) << std::endl;
+  ROS_INFO_STREAM("Received description from node " << nodeId
+                  << " with type " << narrow(nodes.at(nodeId).name));
 }
 
 // void nodeConnectedSignal(unsigned nodeId)
@@ -764,9 +801,9 @@ void AsebaROS::nodeDescriptionReceived(unsigned nodeId)
 //
 // }
 
-void AsebaROS::nodeDisconnectedSignal(unsigned nodeId)
+void AsebaROS::nodeDisconnected(unsigned nodeId)
 {
-  std::cout << "Node " << nodeId <<  "has been disconnected" << std::endl;
+  ROS_WARN_STREAM("Node " << nodeId << " has been disconnected");
 }
 
 void AsebaROS::eventReceived(const AsebaAnonymousEventConstPtr& event)
@@ -827,7 +864,6 @@ AsebaROS::AsebaROS(unsigned port, bool forward):
   s.push_back(n.advertiseService("get_event_id", &AsebaROS::getEventId, this));
   s.push_back(n.advertiseService("get_event_name", &AsebaROS::getEventName, this));
 
-
   shutdown_on_unconnect=n.param<bool>("shutdown_on_unconnect", false);
 
 }
@@ -845,10 +881,13 @@ void AsebaROS::pingCallback (const ros::TimerEvent&)
 
 void AsebaROS::stopAllNodes() {
   for (const auto & node : nodes) {
-    Stop msg(node.first);
-    ROS_WARN_STREAM("Stop " << node.first);
-    hub.sendMessage(&msg, true);
-    ros::Duration(1).sleep();
+
+    if (ignore(node.first)) continue;
+
+    // Stop msg(node.first);
+    // ROS_WARN_STREAM("Stop " << node.first);
+    // hub.sendMessage(&msg, true);
+    // ros::Duration(1).sleep();
     Reset msg_r(node.first);
     ROS_WARN_STREAM("Reset " << node.first);
     hub.sendMessage(&msg_r, true);
@@ -908,7 +947,23 @@ void AsebaROS::unconnect()
   }
 }
 
+void AsebaROS::update_diagnostics(diagnostic_updater::DiagnosticStatusWrapper &stat)
+{
+  stat.summary(diagnostic_msgs::DiagnosticStatus::OK, "");
+  for (const auto &node : nodes)
+  {
+    std::ostringstream oss;
+    oss << "ignored: " << (ignore(node.first) ? "true" : "false")
+        << "\ttype: " << narrow(node.second.name)
+        << "\tname: " << nameForId(node.first)
+        << "\tconnected: " << (node.second.connected ? "true" : "false")
+        << "\tcomplete: " << (node.second.isComplete() ? "true" : "false");
 
+    std::ostringstream tss;
+    tss << "Node " << node.first;
+    stat.add(tss.str(), oss.str());
+  }
+}
 
 //! Show usage
 void dumpHelp(std::ostream &stream, const char *programName)
@@ -926,6 +981,8 @@ void dumpHelp(std::ostream &stream, const char *programName)
 int main(int argc, char *argv[])
 {
   ros::init(argc, argv, "aseba");
+  diagnostic_updater::Updater updater;
+  updater.setHardwareID("aseba-ros");
 
   unsigned port = ASEBA_DEFAULT_PORT;
   bool forward = true;
@@ -959,6 +1016,18 @@ int main(int argc, char *argv[])
   }
   initPlugins();
   AsebaROS asebaROS(port, forward);
+
+
+  updater.add("Aseba Network", &asebaROS, &AsebaROS::update_diagnostics);
+
+  ros::NodeHandle n;
+
+  ros::Timer timer = n.createTimer(ros::Duration(1), [&updater](const ros::TimerEvent&) {
+    updater.update();
+  });
+
+  ROS_INFO("Created timer");
+
   bool connected=false;
 
   while(ros::ok() && !connected)

@@ -27,7 +27,8 @@
 
 #include <vector>
 
-
+#include <diagnostic_updater/diagnostic_updater.h>
+#include <diagnostic_updater/publisher.h>
 
 
 class AsebaROS;
@@ -142,7 +143,7 @@ protected:
 	// callbacks
   virtual void sendMessage(const Aseba::Message& message);
 	void nodeDescriptionReceived(unsigned nodeId);
-	void nodeDisconnectedSignal(unsigned nodeId);
+	void nodeDisconnected(unsigned nodeId);
 	void eventReceived(const AsebaAnonymousEventConstPtr& event);
 	void knownEventReceived(const uint16_t id, const uint16_t nodeId, const AsebaEventConstPtr& event);
 
@@ -158,6 +159,9 @@ protected:
 	void updateContantsFromROS();
 
 	std::map<unsigned, std::string> names;
+	bool ignore(unsigned int);
+
+
 
 
 public:
@@ -171,6 +175,8 @@ public:
 
 	void unconnect();
 	void stopAllNodes();
+
+void update_diagnostics(diagnostic_updater::DiagnosticStatusWrapper &stat);
 
 	void connectTarget(const std::string& target) { hub.connect(target); }
 };
