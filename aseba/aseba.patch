@@ -1,0 +1,43 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d1d42729..ae974b7a 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -19,7 +19,7 @@ include(CMakeModules/cpp_features.cmake)
+ include(CMakeModules/workarounds.cmake)
+ include(CMakeModules/aseba_conf.cmake)
+ include(CMakeModules/dashel.cmake)
+-include(CMakeModules/enki.cmake)
++#include(CMakeModules/enki.cmake)
+ include(CMakeModules/deployqt.cmake)
+ include(CMakeModules/codesign.cmake)
+ 
+@@ -94,10 +94,3 @@ SET(CPACK_PACKAGE_VERSION_MAJOR "${ASEBA_VERSION_MAJOR}")
+ SET(CPACK_PACKAGE_VERSION_MINOR "${ASEBA_VERSION_MINOR}")
+ SET(CPACK_PACKAGE_VERSION_PATCH "${ASEBA_VERSION_PATCH}")
+ include(CPack)
+-
+-
+-
+-
+-
+-
+-
+diff --git a/aseba/CMakeLists.txt b/aseba/CMakeLists.txt
+index a7f03886..28a5981c 100644
+--- a/aseba/CMakeLists.txt
++++ b/aseba/CMakeLists.txt
+@@ -3,10 +3,10 @@ add_subdirectory(common)
+ add_subdirectory(transport)
+ 
+ # Target and client specific libraries
+-add_subdirectory(vm)
++#add_subdirectory(vm)
+ add_subdirectory(compiler)
+ 
+ # User programs
+-add_subdirectory(clients)
+-add_subdirectory(switches)
+-add_subdirectory(targets)
++#add_subdirectory(clients)
++#add_subdirectory(switches)
++#add_subdirectory(targets)

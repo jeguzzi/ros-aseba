@@ -7,7 +7,7 @@ import roslib
 import rospy
 import std_srvs.srv
 from asebaros_msgs.msg import AsebaEvent
-from asebaros_msgs.srv import GetNodeList, LoadScripts
+from asebaros_msgs.srv import GetNodeList, LoadScripts, LoadScriptToTarget
 from dynamic_reconfigure.server import Server
 from geometry_msgs.msg import Quaternion, Twist
 from nav_msgs.msg import Odometry
@@ -16,6 +16,9 @@ from std_msgs.msg import Bool, ColorRGBA, Empty, Float32, Int8, Int16
 from tf.broadcaster import TransformBroadcaster
 from thymio_driver.cfg import ThymioConfig
 from thymio_msgs.msg import Led, LedGesture, Sound, SystemSound
+import roslaunch
+import subprocess
+
 
 BASE_WIDTH = 91.5     # millimeters
 MAX_SPEED = 500.0     # units
@@ -57,11 +60,11 @@ class ThymioDriver(object):
             return '{self.tf_prefix}/{name}'.format(**locals())
         return name
 
-    def change_config(self, config, level):
-        # self.diff_factor = config.diff_factor
-        # self.ticks2mm = config.ticks2mm
-        self.motor_speed_deadband = config.motor_speed_deadband
-        return config
+    # def change_config(self, config, level):
+    #     # self.diff_factor = config.diff_factor
+    #     # self.ticks2mm = config.ticks2mm
+    #     self.motor_speed_deadband = config.motor_speed_deadband
+    #     return config
 
     @property
     def motor_speed_deadband(self):
@@ -73,39 +76,17 @@ class ThymioDriver(object):
         self.odom_msg.twist.covariance[0] = speed_cov = 0.5 * (value / 1000 / SPEED_COEF) ** 2
         self.odom_msg.twist.covariance[-1] = speed_cov / (self.axis ** 2)
 
-    def __init__(self):
-        rospy.init_node('thymio')
-
-        # load script on the Thymio
-
-        rospy.wait_for_service('aseba/get_node_list')
-        get_aseba_nodes = rospy.ServiceProxy(
-            'aseba/get_node_list', GetNodeList)
-
-        connected = False
-        while not connected:
-            nodes = get_aseba_nodes().nodeList
-            for node in nodes:
-                if 'thymio-II' in node.name:
-                    connected = True
-                    break
-            rospy.loginfo('Waiting for thymio node ...')
-            rospy.sleep(1)
-
-        rospy.wait_for_service('aseba/load_script')
-        load_script = rospy.ServiceProxy('aseba/load_script', LoadScripts)
-        default_script_path = os.path.join(
-            roslib.packages.get_pkg_dir('thymio_driver'), 'aseba/thymio_ros.aesl')
-
-        script_path = rospy.get_param('~script', default_script_path)
-
-        rospy.loginfo("Load aseba script %s", script_path)
-
-        load_script(script_path)
-
+    def __init__(self, node_name):
         # initialize parameters
+        # node_name = "thymio%d" % id
+        # ns = '/%s' % name
+        def _aseba(topic):
+            return 'aseba/{name}/events/{topic}'.format(name=node_name, topic=topic)
 
-        self.tf_prefix = rospy.get_param('tf_prefix', '')
+        def _ros(topic):
+            return '{name}/{topic}'.format(name=node_name, topic=topic)
+
+        self.tf_prefix = node_name
 
         self.odom_frame = self.frame_name(rospy.get_param('~odom_frame', 'odom'))
         self.robot_frame = self.frame_name(rospy.get_param('~robot_frame', 'base_link'))
@@ -128,8 +109,7 @@ class ThymioDriver(object):
 
         # subscribe to topics
 
-        self.aseba_pub = rospy.Publisher(
-            'aseba/events/set_speed', AsebaEvent, queue_size=1)
+        self.aseba_pub = rospy.Publisher(_aseba('set_speed'), AsebaEvent, queue_size=1)
 
         self.left_wheel_angle = 0
         self.right_wheel_angle = 0
@@ -159,27 +139,31 @@ class ThymioDriver(object):
         self.wheel_state_msg = JointState()
         self.wheel_state_msg.name = [left_wheel_joint, right_wheel_joint]
 
-        self.wheel_state_pub = rospy.Publisher('joint_states', JointState, queue_size=1)
-        self.odom_pub = rospy.Publisher('odom', Odometry, queue_size=1)
-        self.odom_broadcaster = TransformBroadcaster()
+        self.wheel_state_pub = rospy.Publisher(_ros('joint_states'), JointState, queue_size=1)
+        self.odom_pub = rospy.Publisher(_ros('odom'), Odometry, queue_size=1)
+        if rospy.get_param('~broadcast_odom_tf', True):
+            self.odom_broadcaster = TransformBroadcaster()
+        else:
+            self.odom_broadcaster = None
 
-        rospy.Subscriber('aseba/events/odometry', AsebaEvent, self.on_aseba_odometry_event)
-        rospy.Subscriber("cmd_vel", Twist, self.on_cmd_vel)
+
+        rospy.Subscriber(_aseba('odometry'), AsebaEvent, self.on_aseba_odometry_event)
+        rospy.Subscriber(_ros('cmd_vel'), Twist, self.on_cmd_vel)
 
         self.buttons = Joy()
-        self.buttons_pub = rospy.Publisher('buttons', Joy, queue_size=1)
-        rospy.Subscriber("aseba/events/buttons", AsebaEvent, self.on_aseba_buttons_event)
+        self.buttons_pub = rospy.Publisher(_ros('buttons'), Joy, queue_size=1)
+        rospy.Subscriber(_aseba("buttons"), AsebaEvent, self.on_aseba_buttons_event)
 
         for button in BUTTONS:
-            rospy.Subscriber('aseba/events/button_' + button,
-                             AsebaEvent, self.on_aseba_button_event(button))
+            rospy.Subscriber(_aseba('button_%s' % button),
+                             AsebaEvent, self.on_aseba_button_event(_ros('buttons/%s' % button)))
 
         proximity_range_min = rospy.get_param('~proximity/range_min', 0.0215)
         proximity_range_max = rospy.get_param('~proximity/range_min', 0.14)
         proximity_field_of_view = rospy.get_param('~proximity/field_of_view', 0.3)
 
         self.proximity_sensors = [{
-            'publisher': rospy.Publisher('proximity/' + name, Range, queue_size=1),
+            'publisher': rospy.Publisher(_ros('proximity/%s' % name), Range, queue_size=1),
             'msg': Range(
                 header=rospy.Header(
                     frame_id=self.frame_name('proximity_{name}_link'.format(name=name))),
@@ -190,16 +174,16 @@ class ThymioDriver(object):
             for name in PROXIMITY_NAMES]
 
         self.proximityToLaserPublisher = rospy.Publisher(
-            'proximity/laser', LaserScan, queue_size=1)
+            _ros('proximity/laser'), LaserScan, queue_size=1)
         self.proximityToLaser = LaserScan(
             header=rospy.Header(frame_id=self.frame_name('laser_link')),
             angle_min=-0.64, angle_max=0.64, angle_increment=0.32,
             time_increment=0, scan_time=0, range_min=proximity_range_min + 0.08,
             range_max=proximity_range_max + 0.08)
-        rospy.Subscriber('aseba/events/proximity', AsebaEvent, self.on_aseba_proximity_event)
+        rospy.Subscriber(_aseba('proximity'), AsebaEvent, self.on_aseba_proximity_event)
 
         self.ground_sensors = [{
-            'publisher': rospy.Publisher('ground/' + name, Range, queue_size=1),
+            'publisher': rospy.Publisher(_ros('ground/%s' % name), Range, queue_size=1),
             'msg': Range(
                 header=rospy.Header(
                     frame_id=self.frame_name('ground_{name}_link'.format(name=name))),
@@ -209,7 +193,7 @@ class ThymioDriver(object):
 
         ground_threshold = rospy.get_param('~ground/threshold', 200)
 
-        rospy.Subscriber('aseba/events/ground', AsebaEvent, self.on_aseba_ground_event)
+        rospy.Subscriber(_aseba('ground'), AsebaEvent, self.on_aseba_ground_event)
         rospy.set_param("~ground_threshold", ground_threshold)
 
         self.imu = Imu(header=rospy.Header(frame_id=self.robot_frame))
@@ -221,75 +205,87 @@ class ThymioDriver(object):
         self.imu.linear_acceleration_covariance[4] = 0.07
         self.imu.linear_acceleration_covariance[8] = 0.07
 
-        self.imu_publisher = rospy.Publisher('imu', Imu, queue_size=1)
-        rospy.Subscriber('aseba/events/accelerometer',
-                         AsebaEvent, self.on_aseba_accelerometer_event)
+        self.imu_publisher = rospy.Publisher(_ros('imu'), Imu, queue_size=1)
+        rospy.Subscriber(_aseba('accelerometer'), AsebaEvent, self.on_aseba_accelerometer_event)
 
-        self.tap_publisher = rospy.Publisher('tap', Empty, queue_size=1)
-        rospy.Subscriber('aseba/events/tap', AsebaEvent, self.on_aseba_tap_event)
+        self.tap_publisher = rospy.Publisher(_ros('tap'), Empty, queue_size=1)
+        rospy.Subscriber(_aseba('tap'), AsebaEvent, self.on_aseba_tap_event)
 
         self.temperature = Temperature(
             header=rospy.Header(frame_id=self.robot_frame))
         self.temperature.variance = 0.01
-        self.temperature_publisher = rospy.Publisher('temperature', Temperature, queue_size=1)
-        rospy.Subscriber('aseba/events/temperature', AsebaEvent, self.on_aseba_temperature_event)
+        self.temperature_publisher = rospy.Publisher(
+            _ros('temperature'), Temperature, queue_size=1)
+        rospy.Subscriber(_aseba('temperature'), AsebaEvent, self.on_aseba_temperature_event)
 
-        self.sound_publisher = rospy.Publisher('sound', Float32, queue_size=1)
+        self.sound_publisher = rospy.Publisher(_ros('sound'), Float32, queue_size=1)
         self.sound_threshold_publisher = rospy.Publisher(
-            'aseba/events/set_sound_threshold', AsebaEvent, queue_size=1)
-        rospy.Subscriber('aseba/events/sound', AsebaEvent, self.on_aseba_sound_event)
-        rospy.Subscriber('sound_threshold', Float32, self.on_sound_threshold)
+            _aseba('set_sound_threshold'), AsebaEvent, queue_size=1)
+        rospy.Subscriber(_aseba('sound'), AsebaEvent, self.on_aseba_sound_event)
+        rospy.Subscriber(_ros('sound_threshold'), Float32, self.on_sound_threshold)
 
-        self.remote_publisher = rospy.Publisher('remote', Int8, queue_size=1)
-        rospy.Subscriber('aseba/events/remote', AsebaEvent, self.on_aseba_remote_event)
+        self.remote_publisher = rospy.Publisher(_ros('remote'), Int8, queue_size=1)
+        rospy.Subscriber(_aseba('remote'), AsebaEvent, self.on_aseba_remote_event)
 
-        rospy.Subscriber('comm/transmit', Int16, self.on_sound_threshold)
-        self.comm_publisher = rospy.Publisher('comm/receive', Int16, queue_size=1)
-        self.aseba_set_comm_publisher = rospy.Publisher(
-            'aseba/events/set_comm', AsebaEvent, queue_size=1)
-        rospy.Subscriber('aseba/events/comm', AsebaEvent, self.on_aseba_comm_event)
+        self.comm_rx_publisher = rospy.Publisher(_ros('comm/rx'), Int16, queue_size=1)
+        self.aseba_enable_comm_publisher = rospy.Publisher(
+            _aseba('enable_comm'), AsebaEvent, queue_size=1)
+        self.aseba_set_comm_tx_payload_publisher = rospy.Publisher(
+            _aseba('set_comm_payload'), AsebaEvent, queue_size=1)
+        rospy.Subscriber(_ros('comm/tx'), Int16, self.on_comm_tx_payload)
+        rospy.Subscriber(_ros('comm/enable'), Bool, self.on_comm_enable)
+        rospy.Subscriber(_aseba('comm'), AsebaEvent, self.on_aseba_comm_rx_event)
 
         # actuators
 
         for name in BODY_LEDS:
-            rospy.Subscriber('led/body/' + name, ColorRGBA, self.on_body_led(name))
+            rospy.Subscriber(_ros('led/body/%s' % name), ColorRGBA,
+                             self.on_body_led(_aseba('set_led_%s' % name)))
 
-        rospy.Subscriber('led', Led, self.on_led)
-        self.aseba_led_publisher = rospy.Publisher(
-            'aseba/events/set_led', AsebaEvent, queue_size=6)
+        rospy.Subscriber(_ros('led'), Led, self.on_led)
+        self.aseba_led_publisher = rospy.Publisher(_aseba('set_led'), AsebaEvent, queue_size=6)
 
-        rospy.Subscriber('led/off', Empty, self.on_led_off)
+        rospy.Subscriber(_ros('led/off'), Empty, self.on_led_off)
 
-        rospy.Subscriber('led/gesture', LedGesture, self.on_led_gesture)
+        rospy.Subscriber(_ros('led/gesture'), LedGesture, self.on_led_gesture)
         self.aseba_led_gesture_publisher = rospy.Publisher(
-            'aseba/events/set_led_gesture', AsebaEvent, queue_size=6)
-        rospy.Subscriber('led/gesture/circle', Float32, self.on_led_gesture_circle)
-        rospy.Subscriber('led/gesture/off', Empty, self.on_led_gesture_off)
-        rospy.Subscriber('led/gesture/blink', Float32, self.on_led_gesture_blink)
-        rospy.Subscriber('led/gesture/kit', Float32, self.on_led_gesture_kit)
-        rospy.Subscriber('led/gesture/alive', Empty, self.on_led_gesture_alive)
+            _aseba('set_led_gesture'), AsebaEvent, queue_size=6)
+        rospy.Subscriber(_ros('led/gesture/circle'), Float32, self.on_led_gesture_circle)
+        rospy.Subscriber(_ros('led/gesture/off'), Empty, self.on_led_gesture_off)
+        rospy.Subscriber(_ros('led/gesture/blink'), Float32, self.on_led_gesture_blink)
+        rospy.Subscriber(_ros('led/gesture/kit'), Float32, self.on_led_gesture_kit)
+        rospy.Subscriber(_ros('led/gesture/alive'), Empty, self.on_led_gesture_alive)
 
-        rospy.Subscriber('sound/play', Sound, self.on_sound_play)
+        rospy.Subscriber(_ros('sound/play'), Sound, self.on_sound_play)
         self.aseba_led_gesture_publisher = rospy.Publisher(
-            'aseba/events/set_led_gesture', AsebaEvent, queue_size=6)
-        rospy.Subscriber('sound/play/system', SystemSound, self.on_system_sound_play)
+            _aseba('set_led_gesture'), AsebaEvent, queue_size=6)
+        rospy.Subscriber(_ros('sound/play/system'), SystemSound, self.on_system_sound_play)
         self.aseba_play_sound_publisher = rospy.Publisher(
-            'aseba/events/play_sound', AsebaEvent, queue_size=1)
+            _aseba('play_sound'), AsebaEvent, queue_size=1)
         self.aseba_play_system_sound_publisher = rospy.Publisher(
-            'aseba/events/play_system_sound', AsebaEvent, queue_size=1)
+            _aseba('play_system_sound'), AsebaEvent, queue_size=1)
 
-        rospy.Subscriber('alarm', Bool, self.on_alarm)
+        rospy.Subscriber(_ros('alarm'), Bool, self.on_alarm)
         self.alarm_timer = None
 
-        rospy.Subscriber('shutdown', Empty, self.on_shutdown_msg)
+        rospy.Subscriber(_ros('shutdown'), Empty, self.on_shutdown_msg)
         self.aseba_shutdown_publisher = rospy.Publisher(
-            'aseba/events/shutdown', AsebaEvent, queue_size=1)
+            _aseba('shutdown'), AsebaEvent, queue_size=1)
 
         rospy.on_shutdown(self.shutdown)
 
-        Server(ThymioConfig, self.change_config)
+        # Server(ThymioConfig, self.change_config)
         # tell ros that we are ready
-        rospy.Service('thymio_is_ready', std_srvs.srv.Empty, self.ready)
+        rospy.Service(_ros('thymio_is_ready'), std_srvs.srv.Empty, self.ready)
+
+
+    def on_comm_enable(self, msg):
+        msg = AsebaEvent(rospy.get_rostime(), 0, [msg.data])
+        self.aseba_enable_comm_publisher.publish(msg)
+
+    def on_comm_tx_payload(self, msg):
+        msg = AsebaEvent(rospy.get_rostime(), 0, [msg.data])
+        self.aseba_set_comm_tx_payload_publisher.publish(msg)
 
     def on_shutdown_msg(self, msg):
         self.aseba_shutdown_publisher.publish(
@@ -369,9 +365,8 @@ class ThymioDriver(object):
             self.aseba_led_publisher.publish(
                 AsebaEvent(rospy.get_rostime(), 0, data))
 
-    def on_body_led(self, name):
-        publisher = rospy.Publisher(
-            'aseba/events/set_led_' + name, AsebaEvent, queue_size=1)
+    def on_body_led(self, topic):
+        publisher = rospy.Publisher(topic, AsebaEvent, queue_size=1)
 
         def callback(msg):
             r = int(msg.r * 32)
@@ -381,8 +376,8 @@ class ThymioDriver(object):
             publisher.publish(aseba_msg)
         return callback
 
-    def on_aseba_comm_event(self, msg):
-        self.comm_publisher.publish(Int16(msg.data[0]))
+    def on_aseba_comm_rx_event(self, msg):
+        self.comm_rx_publisher.publish(Int16(msg.data[0]))
 
     def on_aseba_remote_event(self, msg):
         self.remote_publisher.publish(Int8(msg.data[1]))
@@ -454,8 +449,8 @@ class ThymioDriver(object):
             self.proximityToLaser.intensities.append(raw)
         self.proximityToLaserPublisher.publish(self.proximityToLaser)
 
-    def on_aseba_button_event(self, button):
-        publisher = rospy.Publisher('buttons/' + button, Bool, queue_size=1)
+    def on_aseba_button_event(self, topic):
+        publisher = rospy.Publisher(topic, Bool, queue_size=1)
 
         def callback(msg):
             bool_msg = Bool(msg.data[0])
@@ -533,10 +528,11 @@ class ThymioDriver(object):
             self.odom_msg.twist.twist.angular.z = dth / dt
 
         # publish odometry
-        self.odom_broadcaster.sendTransform(
-            (self.x, self.y, 0),
-            (quaternion.x, quaternion.y, quaternion.z, quaternion.w),
-            self.then, self.robot_frame, self.odom_frame)
+        if self.odom_broadcaster:
+            self.odom_broadcaster.sendTransform(
+                (self.x, self.y, 0),
+                (quaternion.x, quaternion.y, quaternion.z, quaternion.w),
+                self.then, self.robot_frame, self.odom_frame)
         self.odom_pub.publish(self.odom_msg)
 
     def set_linear_angular_speed(self, speed, ang_speed):
@@ -556,6 +552,60 @@ class ThymioDriver(object):
         self.set_linear_angular_speed(data.linear.x, data.angular.z)
 
 
+class ThymioManager:
+
+    def __init__(self):
+        rospy.init_node('thymio_manager')
+        rospy.wait_for_service('aseba/get_node_list')
+        self.get_aseba_nodes = rospy.ServiceProxy('aseba/get_node_list', GetNodeList)
+        rospy.wait_for_service('aseba/load_script')
+        self.load_script = rospy.ServiceProxy('aseba/load_script', LoadScripts)
+        self.load_script_to_target = rospy.ServiceProxy(
+            'aseba/load_script_to_target', LoadScriptToTarget)
+
+        default_script_path = os.path.join(roslib.packages.get_pkg_dir('thymio_driver'),
+                                           'aseba/multi_thymio_ros.aesl')
+        self.script_path = rospy.get_param('~script', default_script_path)
+
+        rospy.sleep(5)
+
+        rospy.loginfo("waiting")
+
+        self.thymios = {}
+        self.loaded_script = False
+
+        self.uuid = roslaunch.rlutil.get_or_generate_uuid(None, False)
+        roslaunch.configure_logging(self.uuid)
+
+        rospy.Timer(rospy.Duration(1), self.update_aseba_network)
+
+        rospy.spin()
+
+
+    def update_aseba_network(self, evt):
+        nodes = self.get_aseba_nodes().nodeList
+
+        if nodes and not self.loaded_script:
+            rospy.loginfo("Load aseba script %s", self.script_path)
+            self.load_script(self.script_path)
+            self.loaded_script = True
+        for node in nodes:
+            if 'thymio-II' in node.name and node.id not in self.thymios:
+                rospy.loginfo('Connected Thymio with ID %d', node.id)
+                self.load_script_to_target(node.id)
+                rospy.loginfo("Loaded aseba script %s to %d", self.script_path, node.id)
+                name = rospy.get_param('aseba/names/%d' % node.id, 'id_%s' % node.id)
+                rospy.loginfo("Create driver for Thymio %s at index %d", name, node.id)
+                self.thymios[node.id] = ThymioDriver(node_name=name)
+                # roslaunch_file = roslaunch.rlutil.resolve_launch_arguments(
+                #     ['thymio_description', 'model.launch'])
+                # p = (roslaunch_file, ['name:=thymio%d' % node.id])
+                # print(p)
+                # launch = roslaunch.parent.ROSLaunchParent(self.uuid, p)
+                # launch.start()
+                subprocess.Popen(['roslaunch', 'thymio_description', 'model.launch',
+                                  'name:=%s' % name])
+
+
 if __name__ == '__main__':
-    ThymioDriver()
-    rospy.spin()
+    ThymioManager()

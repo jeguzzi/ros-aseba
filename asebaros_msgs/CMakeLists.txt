@@ -16,6 +16,7 @@ add_message_files(
   FILES
   AsebaEvent.msg
   AsebaAnonymousEvent.msg
+	AsebaNode.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -29,6 +30,7 @@ add_service_files(
   GetVariableList.srv
   GetVariable.srv
   LoadScripts.srv
+	LoadScriptToTarget.srv
   SetVariable.srv
 )
 

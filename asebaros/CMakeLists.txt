@@ -57,6 +57,7 @@ catkin_package(
 
 include_directories(
   ${catkin_INCLUDE_DIRS}
+  ../aseba/upstream_src/aseba
   ${LIBXML2_INCLUDE_DIR}
   ${Boost_INCLUDE_DIRS}
 )

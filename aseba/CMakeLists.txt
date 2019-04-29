@@ -20,8 +20,7 @@ catkin_package(
 ###########
 
 include_directories(
-  upstream_src/common
-  upstream_src/compiler
+  upstream_src/aseba
   ${catkin_INCLUDE_DIRS}
 )
 

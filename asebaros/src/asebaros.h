@@ -4,7 +4,7 @@
 #include <dashel/dashel.h>
 #include <boost/thread.hpp>
 #include <boost/thread/mutex.hpp>
-#include <common/msg/msg.h>
+#include "common/msg/msg.h"
 #include <common/msg/NodesManager.h>
 #include <compiler/compiler.h>
 
@@ -12,6 +12,7 @@
 #include "std_msgs/String.h"
 
 #include <asebaros_msgs/LoadScripts.h>
+#include <asebaros_msgs/LoadScriptToTarget.h>
 #include <asebaros_msgs/GetNodeList.h>
 #include <asebaros_msgs/GetNodeId.h>
 #include <asebaros_msgs/GetNodeName.h>
@@ -25,6 +26,8 @@
 #include <asebaros_msgs/AsebaAnonymousEvent.h>
 
 #include <vector>
+
+
 
 
 class AsebaROS;
@@ -66,14 +69,18 @@ protected:
 using namespace asebaros_msgs;
 
 typedef std::vector<ros::ServiceServer> ServiceServers;
-typedef std::vector<ros::Publisher> Publishers;
-typedef std::vector<ros::Subscriber> Subscribers;
+// typedef std::vector<ros::Publisher> Publishers;
+typedef std::vector<std::map<unsigned,ros::Publisher>> Publishers;
+typedef std::vector<std::map<unsigned,ros::Subscriber>> Subscribers;
+//typedef std::vector<ros::Subscriber> Subscribers;
+
 
 class AsebaROS: public Aseba::NodesManager
 {
 protected:
 	typedef std::map<std::string, unsigned> NodesNamesMap;
 	typedef std::map<std::string, Aseba::VariablesMap> UserDefinedVariablesMap;
+  Aseba::BytecodeVector bytecode;
 	class GetVariableQueryKey
 	{
 	public:
@@ -111,8 +118,11 @@ protected:
 
 	bool shutdown_on_unconnect;
 
+	bool fanout;
+
 protected:
 	bool loadScript(LoadScripts::Request& req, LoadScripts::Response& res);
+	bool loadScriptToTarget(LoadScriptToTarget::Request& req, LoadScriptToTarget::Response& res);
 
 	bool getNodeList(GetNodeList::Request& req, GetNodeList::Response& res);
 	bool getNodeId(GetNodeId::Request& req, GetNodeId::Response& res);
@@ -132,8 +142,23 @@ protected:
 	// callbacks
   virtual void sendMessage(const Aseba::Message& message);
 	void nodeDescriptionReceived(unsigned nodeId);
+	void nodeDisconnectedSignal(unsigned nodeId);
 	void eventReceived(const AsebaAnonymousEventConstPtr& event);
-	void knownEventReceived(const uint16_t id, const AsebaEventConstPtr& event);
+	void knownEventReceived(const uint16_t id, const uint16_t nodeId, const AsebaEventConstPtr& event);
+
+	//get all targets not jus the first
+	std::vector<unsigned> getNodeIds(const std::wstring& name);
+
+	std::vector<unsigned> nodesWithCurrentScript;
+
+	std::string nameForId(unsigned id);
+  ros::Publisher pubFor(const Aseba::UserMessage* asebaMessage);
+
+	void createSubscribersForTarget(unsigned nodeId);
+	void updateContantsFromROS();
+
+	std::map<unsigned, std::string> names;
+
 
 public:
 	AsebaROS(unsigned port, bool forward);
@@ -145,6 +170,7 @@ public:
 	void processAsebaMessage(Aseba::Message *message);
 
 	void unconnect();
+	void stopAllNodes();
 
 	void connectTarget(const std::string& target) { hub.connect(target); }
 };

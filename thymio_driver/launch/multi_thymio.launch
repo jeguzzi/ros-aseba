@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="device" default="ser:device=/dev/ttyACM0"/>
+  <arg name="motor_speed_deadband" default="10"/>
+  <arg name="axis_length" default="0.0935"/>
+  <arg name="odom_max_rate" default="-1"/>
+  <arg name="broadcast_odom_tf" default="true"/>
+
+  <param name="aseba/shutdown_on_unconnect" value="true"/>
+  <rosparam param="aseba/constants">
+    EMIT_GROUND_RAW: 0
+    EMIT_BUTTONS: 0
+    EMIT_ACC: 0
+    EMIT_MOTOR: 1
+    MOTOR_PERIOD: 10
+    ENABLE_PROX_COMM: 1
+  </rosparam>
+
+  <rosparam param="aseba/names">
+    "3": thymio1
+    "21181": thymio2
+    "61374": thymio3
+  </rosparam>
+
+  <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="w1" args="0 -0.5 0 0 0 0 world thymio61374/odom" output="screen"/> -->
+  <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="w2" args="0 0.5 0 0 0 0 world thymio21181/odom" output="screen"/> -->
+
+  <node pkg="asebaros" type="asebaros" name="asebaros" args="$(arg device)" output="screen" required="True"/>
+  <node name="thymio" pkg="thymio_driver" type="multi_thymio_driver_node.py" output="screen" >
+    <param name="script" value="$(find thymio_driver)/aseba/multi_thymio_ros.aesl"/>
+    <param name="axis_length" value="$(arg axis_length)"/>
+    <param name="odom_max_rate" value="$(arg odom_max_rate)"/>
+    <param name="broadcast_odom_tf" value="$(arg broadcast_odom_tf)"/>
+  </node>
+</launch>
