@@ -20,7 +20,7 @@ catkin config --blacklist thymio_navigation ethzasl_aseba
 Apply a patch to only build the necessary components of Aseba:
 
 ```
-cd <YOUR_CATKIN_WS>/src/ros-aseba/aseba/upstream
+cd <YOUR_CATKIN_WS>/src/ros-aseba/aseba/upstream_src
 git apply ../aseba.patch
 ```
 
