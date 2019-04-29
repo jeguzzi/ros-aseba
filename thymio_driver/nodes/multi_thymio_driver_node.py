@@ -125,13 +125,13 @@ class ThymioDriver(object):
 
         self.left_wheel_speed, self.left_wheel_motor_speed = motor_speed_conversion(
             *left_wheel_calibration)
-        rospy.loginfo('Init left wheel with calibration %s', left_wheel_calibration)
+        # rospy.loginfo('Init left wheel with calibration %s', left_wheel_calibration)
 
         right_wheel_calibration = rospy.get_param('~right_wheel_calibration/q', def_cal)
         self.right_wheel_speed, self.right_wheel_motor_speed = motor_speed_conversion(
             *right_wheel_calibration)
 
-        rospy.loginfo('Init right wheel with calibration %s', right_wheel_calibration)
+        # rospy.loginfo('Init right wheel with calibration %s', right_wheel_calibration)
 
         left_wheel_joint = rospy.get_param('~left_wheel_joint', 'left_wheel_joint')
         right_wheel_joint = rospy.get_param('~right_wheel_joint', 'right_wheel_joint')
@@ -615,10 +615,11 @@ class ThymioManager:
                      'name:=%s' % name])
 
         indices = [node.id for node in nodes]
+        print(indices)
         for i, _ in list(self.thymios.items()):
             if i not in indices:
-                rospy.loginfo("Delete Thymio %d", node.id)
-                del self.thymios[node.id]
+                rospy.loginfo("Delete Thymio %d", i)
+                del self.thymios[i]
                 if i in self.model_pc:
                     self.model_pc[i].kill()
 

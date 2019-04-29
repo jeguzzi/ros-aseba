@@ -18,9 +18,9 @@
   </rosparam>
 
   <rosparam param="aseba/names">
-    "3": "-"
-    "21181": "-"
-    "ANY": '-'
+    "3": thymio1
+    "21181": thymio2
+    "ANY": "-"
   </rosparam>
 
   <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="w1" args="0 -0.5 0 0 0 0 world thymio61374/odom" output="screen"/> -->

@@ -475,7 +475,7 @@ bool AsebaROS::getNodeList(GetNodeList::Request& req, GetNodeList::Response& res
   lock_guard<boost::mutex> lock(mutex);
 
   for (const auto &node : nodes) {
-    if ( !ignore(node.first) && node.second.isComplete() ) {
+    if ( !ignore(node.first) && node.second.isComplete() && node.second.connected ) {
       AsebaNode e;
       e.id = node.first;
       e.name = narrow(node.second.name);
