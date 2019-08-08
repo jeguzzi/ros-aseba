@@ -15,7 +15,7 @@ from sensor_msgs.msg import Imu, JointState, Joy, LaserScan, Range, Temperature
 from std_msgs.msg import Bool, ColorRGBA, Empty, Float32, Int8, Int16
 from tf.broadcaster import TransformBroadcaster
 from thymio_driver.cfg import ThymioConfig
-from thymio_msgs.msg import Led, LedGesture, Sound, SystemSound
+from thymio_msgs.msg import Led, LedGesture, Sound, SystemSound, Comm
 
 BASE_WIDTH = 91.5     # millimeters
 MAX_SPEED = 500.0     # units
@@ -382,7 +382,12 @@ class ThymioDriver(object):
         return callback
 
     def on_aseba_comm_event(self, msg):
-        self.comm_publisher.publish(Int16(msg.data[0]))
+        # msg = Int16(msg.data[0])
+        rmsg = Comm()
+        rmsg.value = msg.data[0]
+        rmsg.payloads = msg.data[1:8]
+        rmsg.intensities = msg.data[8:]
+        self.comm_publisher.publish(rmsg)
 
     def on_aseba_remote_event(self, msg):
         self.remote_publisher.publish(Int8(msg.data[1]))

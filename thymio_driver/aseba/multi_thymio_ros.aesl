@@ -22,7 +22,7 @@
 <event size="1" name="sound"/>
 <event size="1" name="set_sound_threshold"/>
 <event size="2" name="remote"/>
-<event size="1" name="comm"/>
+<event size="15" name="comm"/>
 <event size="2" name="set_comm_payload"/>
 <event size="2" name="enable_comm"/>
 <event size="3" name="set_led_top"/>
@@ -41,8 +41,9 @@
 <constant value="0" name="EMIT_GROUND_RAW"/>
 <constant value="0" name="EMIT_BUTTONS"/>
 <constant value="1" name="EMIT_ACC"/>
+<constant value="0" name="EMIT_PROXIMITY"/>
 <constant value="1" name="EMIT_MOTOR"/>
-<constant value="0" name="ENABLE_PROX_COMM"/>
+<constant value="1" name="ENABLE_PROX_COMM"/>
 
 
 <!--show keywords state-->
@@ -50,7 +51,7 @@
 
 
 <!--node thymio-II-->
-<node nodeId="21181" name="thymio-II">var t=0
+<node nodeId="3345" name="thymio-II">var t=0
 var a=0
 var b[16]
 var angle[16]
@@ -89,6 +90,8 @@ var acc_z_queue[ACC_PERIOD]
 var motor_counter = 0
 var speed_left_queue[MOTOR_PERIOD]
 var speed_right_queue[MOTOR_PERIOD]
+
+var comm[15]
 
 mic.threshold=20
 
@@ -162,6 +165,9 @@ emit button_right button.right
 #PROXIMITY
 
 onevent prox
+if EMIT_PROXIMITY == 0 then
+    return
+end
 emit proximity prox.horizontal
 emit ground prox.ground.delta
 if EMIT_GROUND_RAW == 1 then
@@ -172,7 +178,7 @@ end
 # IMU
 
 onevent acc
-if EMIT_ACC &lt; 0 then
+if EMIT_ACC == 0 then
     return
 end
 acc_x_queue[acc_counter] = acc[0]
@@ -222,7 +228,12 @@ end
 call prox.comm.enable(event.args[1])
 
 onevent prox.comm
-emit comm prox.comm.rx
+comm[0] = prox.comm.rx
+comm[1:7] = prox.comm.rx._payloads
+call math.fill(prox.comm.rx._payloads, 0)
+comm[8:14] = prox.comm.rx._intensities
+call math.fill(prox.comm.rx._intensities, 0)
+emit comm comm
 
 
 onevent play_system_sound
@@ -376,6 +387,7 @@ end
 
 #onevent shutdown
 #call _poweroff()</node>
+
 
 
 </network>

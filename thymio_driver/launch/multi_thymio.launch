@@ -13,13 +13,15 @@
     EMIT_BUTTONS: 0
     EMIT_ACC: 0
     EMIT_MOTOR: 1
+    EMIT_PROXIMITY: 1
     MOTOR_PERIOD: 10
     ENABLE_PROX_COMM: 1
   </rosparam>
 
   <rosparam param="aseba/names">
-    "3": thymio1
-    "21181": thymio2
+    "3345": thymio1
+    "14460": thymio2
+    "11595": thymio3
     "ANY": "-"
   </rosparam>
 
