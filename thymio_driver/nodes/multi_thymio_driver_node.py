@@ -15,7 +15,7 @@ from sensor_msgs.msg import Imu, JointState, Joy, LaserScan, Range, Temperature
 from std_msgs.msg import Bool, ColorRGBA, Empty, Float32, Int8, Int16
 from tf.broadcaster import TransformBroadcaster
 from thymio_driver.cfg import ThymioConfig
-from thymio_msgs.msg import Led, LedGesture, Sound, SystemSound
+from thymio_msgs.msg import Led, LedGesture, Sound, SystemSound, Comm
 import roslaunch
 import subprocess
 
@@ -226,7 +226,7 @@ class ThymioDriver(object):
         self.remote_publisher = rospy.Publisher(_ros('remote'), Int8, queue_size=1)
         rospy.Subscriber(_aseba('remote'), AsebaEvent, self.on_aseba_remote_event)
 
-        self.comm_rx_publisher = rospy.Publisher(_ros('comm/rx'), Int16, queue_size=1)
+        self.comm_rx_publisher = rospy.Publisher(_ros('comm/rx'), Comm, queue_size=1)
         self.aseba_enable_comm_publisher = rospy.Publisher(
             _aseba('enable_comm'), AsebaEvent, queue_size=1)
         self.aseba_set_comm_tx_payload_publisher = rospy.Publisher(
@@ -375,8 +375,16 @@ class ThymioDriver(object):
             publisher.publish(aseba_msg)
         return callback
 
+    # def on_aseba_comm_rx_event(self, msg):
+    #     self.comm_rx_publisher.publish(Int16(msg.data[0]))
+
     def on_aseba_comm_rx_event(self, msg):
-        self.comm_rx_publisher.publish(Int16(msg.data[0]))
+        # msg = Int16(msg.data[0])
+        rmsg = Comm()
+        rmsg.value = msg.data[0]
+        rmsg.payloads = msg.data[1:8]
+        rmsg.intensities = msg.data[8:]
+        self.comm_rx_publisher.publish(rmsg)
 
     def on_aseba_remote_event(self, msg):
         self.remote_publisher.publish(Int8(msg.data[1]))
@@ -615,7 +623,7 @@ class ThymioManager:
                      'name:=%s' % name])
 
         indices = [node.id for node in nodes]
-        print(indices)
+        # print(indices)
         for i, _ in list(self.thymios.items()):
             if i not in indices:
                 rospy.loginfo("Delete Thymio %d", i)
