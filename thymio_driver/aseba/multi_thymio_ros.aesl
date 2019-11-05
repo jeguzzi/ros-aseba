@@ -20,18 +20,18 @@
 <event size="0" name="tap"/>
 <event size="1" name="temperature"/>
 <event size="1" name="sound"/>
-<event size="1" name="set_sound_threshold"/>
+<event size="2" name="set_sound_threshold"/>
 <event size="2" name="remote"/>
 <event size="15" name="comm"/>
 <event size="2" name="set_comm_payload"/>
 <event size="2" name="enable_comm"/>
-<event size="3" name="set_led_top"/>
-<event size="3" name="set_led_bottom_right"/>
-<event size="3" name="set_led_bottom_left"/>
-<event size="9" name="set_led"/>
-<event size="14" name="set_led_gesture"/>
-<event size="1" name="play_system_sound"/>
-<event size="2" name="play_sound"/>
+<event size="4" name="set_led_top"/>
+<event size="4" name="set_led_bottom_right"/>
+<event size="4" name="set_led_bottom_left"/>
+<event size="10" name="set_led"/>
+<event size="15" name="set_led_gesture"/>
+<event size="2" name="play_system_sound"/>
+<event size="3" name="play_sound"/>
 
 
 <!--list of constants-->
@@ -51,7 +51,7 @@
 
 
 <!--node thymio-II-->
-<node nodeId="3345" name="thymio-II">var t=0
+<node nodeId="61374" name="thymio-II">var t=0
 var a=0
 var b[16]
 var angle[16]
@@ -92,6 +92,7 @@ var speed_left_queue[MOTOR_PERIOD]
 var speed_right_queue[MOTOR_PERIOD]
 
 var comm[15]
+var me[9]
 
 mic.threshold=20
 
@@ -269,21 +270,24 @@ end
 call leds.bottom.left(event.args[1],event.args[2],event.args[3])
 
 onevent set_led
-id=event.args[0]
+if event.args[0] != _id then
+ return
+end
+id=event.args[1]
 if id==0 then
-call leds.circle(event.args[1], event.args[2], event.args[3], event.args[4], event.args[5], event.args[6], event.args[7],event.args[8])
+call leds.circle(event.args[2], event.args[3], event.args[4], event.args[5], event.args[6], event.args[7], event.args[8], event.args[9])
 elseif id==1 then
-call leds.prox.h(event.args[1], event.args[2], event.args[3], event.args[4], event.args[5], event.args[6], event.args[7],event.args[7])
+call leds.prox.h(event.args[2], event.args[3], event.args[4], event.args[5], event.args[6], event.args[7], event.args[8], event.args[9])
 elseif id==2 then
-call leds.buttons(event.args[1], event.args[2], event.args[3], event.args[4])
+call leds.buttons(event.args[2], event.args[3], event.args[4], event.args[5])
 elseif id==3 then
-call leds.prox.v( event.args[1], event.args[2])
+call leds.prox.v(event.args[2], event.args[4])
 elseif id==4 then
-call leds.temperature(event.args[1],event.args[2])
+call leds.temperature(event.args[2], event.args[3])
 elseif id==5 then
-call leds.sound(event.args[1])
+call leds.sound(event.args[2])
 elseif id==6 then
-call leds.rc(event.args[1])
+call leds.rc(event.args[2])
 end
 
 
@@ -387,7 +391,6 @@ end
 
 #onevent shutdown
 #call _poweroff()</node>
-
 
 
 </network>
