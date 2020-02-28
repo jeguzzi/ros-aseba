@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+
+
+  <arg name="name" default=""/>
+  <arg name="pose" default="-x 0 -y 0 -z 0"/>
+  <include file="$(find thymio_description)/launch/model.launch">
+    <arg name="name" value="$(arg name)"/>
+  </include>
+
+  <!-- See https://github.com/ros-simulation/gazebo_ros_pkgs/blob/kinetic-devel/gazebo_ros/scripts/spawn_model -->
+
+  <node ns="$(eval arg('name') or '/')" name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
+   args="-package_to_model true -param robot_description -urdf -model $(arg name) $(arg pose)"/>
+
+</launch>

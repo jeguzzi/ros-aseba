@@ -1,0 +1,396 @@
+<!DOCTYPE aesl-source>
+<network>
+
+
+<!--list of global events-->
+<event size="0" name="shutdown"/>
+<event size="2" name="set_speed"/>
+<event size="2" name="odometry"/>
+<event size="5" name="buttons"/>
+<event size="1" name="button_backward"/>
+<event size="1" name="button_left"/>
+<event size="1" name="button_center"/>
+<event size="1" name="button_forward"/>
+<event size="1" name="button_right"/>
+<event size="7" name="proximity"/>
+<event size="2" name="ground_ambient"/>
+<event size="2" name="ground_reflected"/>
+<event size="2" name="ground"/>
+<event size="3" name="accelerometer"/>
+<event size="0" name="tap"/>
+<event size="1" name="temperature"/>
+<event size="1" name="sound"/>
+<event size="2" name="set_sound_threshold"/>
+<event size="2" name="remote"/>
+<event size="15" name="comm"/>
+<event size="2" name="set_comm_payload"/>
+<event size="2" name="enable_comm"/>
+<event size="4" name="set_led_top"/>
+<event size="4" name="set_led_bottom_right"/>
+<event size="4" name="set_led_bottom_left"/>
+<event size="10" name="set_led"/>
+<event size="15" name="set_led_gesture"/>
+<event size="2" name="play_system_sound"/>
+<event size="3" name="play_sound"/>
+
+
+<!--list of constants-->
+<constant value="2" name="ACC_PERIOD"/>
+<constant value="10" name="MOTOR_PERIOD"/>
+<constant value="5" name="BUTTONS_PERIOD"/>
+<constant value="0" name="EMIT_GROUND_RAW"/>
+<constant value="0" name="EMIT_BUTTONS"/>
+<constant value="1" name="EMIT_ACC"/>
+<constant value="0" name="EMIT_PROXIMITY"/>
+<constant value="1" name="EMIT_MOTOR"/>
+<constant value="1" name="ENABLE_PROX_COMM"/>
+
+
+<!--show keywords state-->
+<keywords flag="true"/>
+
+
+<!--node thymio-II-->
+<node nodeId="61374" name="thymio-II">var t=0
+var a=0
+var b[16]
+var angle[16]
+var led[16]
+var l[16]
+var p[16]
+var m[16]
+var n[16]
+var i
+var mask[16]=[1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0]
+
+var gesture
+var wave=0
+var leds=-1
+var mirror=0
+var period=1000 #ms
+var length=8
+
+var temp[2]
+var _t[2]
+var buttons[5]
+var id
+
+var buttons_counter = 0
+var button_backward_queue[BUTTONS_PERIOD]
+var button_left_queue[BUTTONS_PERIOD]
+var button_center_queue[BUTTONS_PERIOD]
+var button_forward_queue[BUTTONS_PERIOD]
+var button_right_queue[BUTTONS_PERIOD]
+
+var acc_counter = 0
+var acc_x_queue[ACC_PERIOD]
+var acc_y_queue[ACC_PERIOD]
+var acc_z_queue[ACC_PERIOD]
+
+var motor_counter = 0
+var speed_left_queue[MOTOR_PERIOD]
+var speed_right_queue[MOTOR_PERIOD]
+
+var comm[15]
+var me[9]
+
+mic.threshold=20
+
+call prox.comm.enable(ENABLE_PROX_COMM)
+
+call math.fill(m,-32768)
+call math.fill(n,32)
+for i in 0:15 do
+    p[i]=i
+end
+
+
+onevent set_speed
+if event.args[0] != _id then
+ return
+end
+motor.left.target = event.args[1]
+motor.right.target = event.args[2]
+
+onevent motor
+if EMIT_MOTOR == 0 then
+  return
+end
+speed_left_queue[motor_counter] = motor.left.speed
+speed_right_queue[motor_counter] = motor.right.speed
+motor_counter++
+if motor_counter == MOTOR_PERIOD then
+  call math.stat(speed_left_queue, _t[0], _t[1] , temp[0])
+  call math.stat(speed_right_queue, _t[0], _t[1], temp[1])
+  motor_counter = 0
+  emit odometry temp
+end
+
+#BUTTONS
+
+onevent buttons
+if EMIT_BUTTONS == 0 then
+    return
+end
+button_backward_queue[buttons_counter] = button.backward
+button_left_queue[buttons_counter] = button.left
+button_center_queue[buttons_counter] = button.center
+button_forward_queue[buttons_counter] = button.forward
+button_right_queue[buttons_counter] = button.right
+buttons_counter++
+if buttons_counter == BUTTONS_PERIOD then
+  call math.stat(button_backward_queue, temp[0], buttons[0], temp[1])
+  call math.stat(button_left_queue, temp[0], buttons[1], temp[1])
+  call math.stat(button_center_queue, temp[0], buttons[2], temp[1])
+  call math.stat(button_forward_queue, temp[0], buttons[3], temp[1])
+  call math.stat(button_right_queue, temp[0], buttons[4], temp[1])
+  buttons_counter = 0
+  emit buttons buttons
+end
+
+onevent button.backward
+emit button_backward button.backward
+
+onevent button.left
+emit button_left button.left
+
+onevent button.center
+emit button_center button.center
+
+onevent button.forward
+emit button_forward button.forward
+
+onevent button.right
+emit button_right button.right
+
+#PROXIMITY
+
+onevent prox
+if EMIT_PROXIMITY == 0 then
+    return
+end
+emit proximity prox.horizontal
+emit ground prox.ground.delta
+if EMIT_GROUND_RAW == 1 then
+  emit ground_reflected prox.ground.reflected
+  emit ground_ambient prox.ground.ambiant
+end
+
+# IMU
+
+onevent acc
+if EMIT_ACC == 0 then
+    return
+end
+acc_x_queue[acc_counter] = acc[0]
+acc_y_queue[acc_counter] = acc[1]
+acc_z_queue[acc_counter] = acc[2]
+acc_counter++
+if acc_counter == ACC_PERIOD then
+  call math.stat(acc_x_queue, temp[0], temp[1], acc[0])
+  call math.stat(acc_y_queue, temp[0], temp[1], acc[1])
+  call math.stat(acc_z_queue, temp[0], temp[1], acc[2])
+  acc_counter = 0
+  emit accelerometer acc
+end
+
+onevent tap
+emit tap
+
+onevent temperature
+emit temperature temperature
+
+onevent mic
+emit sound mic.intensity
+
+onevent set_sound_threshold
+if event.args[0] != _id then
+ return
+end
+mic.threshold=event.args[1]
+
+onevent rc5
+temp[0]=rc5.address
+temp[1]=rc5.command
+emit remote temp
+
+
+onevent set_comm_payload
+if event.args[0] != _id then
+ return
+end
+prox.comm.tx=event.args[1]
+
+
+onevent enable_comm
+if event.args[0] != _id then
+ return
+end
+call prox.comm.enable(event.args[1])
+
+onevent prox.comm
+comm[0] = prox.comm.rx
+comm[1:7] = prox.comm.rx._payloads
+call math.fill(prox.comm.rx._payloads, 0)
+comm[8:14] = prox.comm.rx._intensities
+call math.fill(prox.comm.rx._intensities, 0)
+emit comm comm
+
+
+onevent play_system_sound
+if event.args[0] != _id then
+ return
+end
+call sound.system(event.args[1])
+
+onevent play_sound
+if event.args[0] != _id then
+ return
+end
+call sound.freq(event.args[1],event.args[2])
+
+
+
+onevent set_led_top
+if event.args[0] != _id then
+ return
+end
+call leds.top(event.args[1],event.args[2],event.args[3])
+
+onevent set_led_bottom_right
+if event.args[0] != _id then
+ return
+end
+call leds.bottom.right(event.args[1],event.args[2],event.args[3])
+
+onevent set_led_bottom_left
+if event.args[0] != _id then
+ return
+end
+call leds.bottom.left(event.args[1],event.args[2],event.args[3])
+
+onevent set_led
+if event.args[0] != _id then
+ return
+end
+id=event.args[1]
+if id==0 then
+call leds.circle(event.args[2], event.args[3], event.args[4], event.args[5], event.args[6], event.args[7], event.args[8], event.args[9])
+elseif id==1 then
+call leds.prox.h(event.args[2], event.args[3], event.args[4], event.args[5], event.args[6], event.args[7], event.args[8], event.args[9])
+elseif id==2 then
+call leds.buttons(event.args[2], event.args[3], event.args[4], event.args[5])
+elseif id==3 then
+call leds.prox.v(event.args[2], event.args[4])
+elseif id==4 then
+call leds.temperature(event.args[2], event.args[3])
+elseif id==5 then
+call leds.sound(event.args[2])
+elseif id==6 then
+call leds.rc(event.args[2])
+end
+
+
+#gestures
+
+
+sub update_phase
+t=t+timer.period[0]
+call math.muldiv(a,t,-32768,period)
+#a=abs(a)
+call math.addscalar(angle,b,a)
+
+
+sub rect_wave
+for i in 0:7 do
+    if 2*angle[i]&lt;0 then
+        led[i]=0
+    elseif 2*angle[i]&lt;16384 then
+        led[i]=3
+    else
+        led[i]=32
+    end
+end
+
+sub harmonic_wave
+call math.cos(led,angle)
+call math.muldiv(led,led,led,m)
+call math.muldiv(led,led,led,m)
+call math.muldiv(led,led,n,m)
+#led=led+1
+
+sub mirror
+for i in 0:8 do
+    if i&lt;mirror then
+        led[i]=(led[i]+led[mirror-i])/2
+    end
+end
+
+sub mask
+call math.mul(led,led,mask)
+
+sub setleds
+if leds==0 then
+call leds.circle(led[0],led[1],led[2],led[3],led[4],led[5],led[6],led[7])
+elseif leds==1 then
+call leds.prox.h(led[0],led[1],led[2],led[3],led[4],led[5],led[6],led[7])
+elseif leds==2 then
+call leds.buttons(led[0],led[1],led[2],led[3])
+end
+
+sub reset_leds
+call math.fill(led,0)
+callsub setleds
+
+
+onevent timer0
+callsub update_phase
+if wave==0 then
+    callsub rect_wave
+elseif  wave==1 then
+    callsub harmonic_wave
+end
+if  mirror>0 then
+    callsub mirror
+end
+callsub mask
+callsub setleds
+
+
+onevent set_led_gesture
+if event.args[0] != _id then
+ return
+end
+gesture=event.args[1]
+if gesture==0 then
+    timer.period[0]=0
+    callsub reset_leds
+    return
+else
+
+    callsub reset_leds
+    leds=event.args[2]
+    wave=event.args[3]
+    period=event.args[4]
+    if abs(period)&lt;20 then
+        call math.max(period,abs(period),20)
+    end
+    length=event.args[5]
+    call math.max(length,length,1)
+    call math.fill(l,length)
+    call math.muldiv(b,p,m,l)
+    mirror=event.args[6]
+    call math.max(mirror,mirror,0)
+    call math.min(mirror,mirror,15)
+    for i in 0:7 do
+        mask[i]=event.args[i+7]
+    end
+
+    timer.period[0]=20
+end
+
+#onevent shutdown
+#call _poweroff()</node>
+
+
+</network>

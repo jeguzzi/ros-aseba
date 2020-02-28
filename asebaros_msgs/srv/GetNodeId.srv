@@ -1,0 +1,3 @@
+string node_name
+---
+uint16 node_id
