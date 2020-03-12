@@ -1,2 +1,0 @@
-builtin_interfaces/Duration duration
-float32 frequency

@@ -65,6 +65,12 @@ target_link_libraries(asebaros dashel asebacommon asebacompiler asebadashelplugi
 
 target_compile_options(asebaros PRIVATE -Wno-literal-suffix)
 
+add_executable(multi_asebaros src/multi_asebaros.cpp)
+ament_target_dependencies(multi_asebaros rclcpp std_msgs asebaros_msgs)
+target_link_libraries(multi_asebaros dashel asebacommon asebacompiler asebadashelplugins ${LIBXML2_LIBRARIES})
+
+target_compile_options(multi_asebaros PRIVATE -Wno-literal-suffix)
+
 target_include_directories(asebaros
   PUBLIC
     ${LIBXML2_INCLUDE_DIR}
@@ -73,9 +79,22 @@ target_include_directories(asebaros
     $<BUILD_INTERFACE:${ASEBA_DIR}/aseba>
     $<INSTALL_INTERFACE:include>)
 
-    install(TARGETS
-      asebaros
-      DESTINATION lib/${PROJECT_NAME}
-    )
+target_include_directories(multi_asebaros
+  PUBLIC
+    ${LIBXML2_INCLUDE_DIR}
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${DASHEL_DIR}>
+    $<BUILD_INTERFACE:${ASEBA_DIR}/aseba>
+    $<INSTALL_INTERFACE:include>)
+
+install(TARGETS
+  asebaros
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(TARGETS
+  multi_asebaros
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 ament_package()

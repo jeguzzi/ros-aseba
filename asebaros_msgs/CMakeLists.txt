@@ -17,6 +17,9 @@ find_package(builtin_interfaces REQUIRED)
 set(msg_files
   "msg/AsebaEvent.msg"
 	"msg/AsebaAnonymousEvent.msg"
+  "msg/AsebaConstant.msg"
+  "msg/AsebaNode.msg"
+  "msg/AsebaNodeList.msg"
 )
 
 set(srv_files
