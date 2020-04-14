@@ -20,7 +20,7 @@
 #include "asebaros_msgs/msg/aseba_node.hpp"
 #include "asebaros_msgs/srv/load_scripts.hpp"
 #include "asebaros_msgs/srv/get_node_list.hpp"
-#include "asebaros_msgs/srv/get_node_id.hpp"
+#include "asebaros_msgs/srv/get_node_ids.hpp"
 #include "asebaros_msgs/srv/get_node_name.hpp"
 #include "asebaros_msgs/srv/get_variable_list.hpp"
 #include "asebaros_msgs/srv/set_variable.hpp"
@@ -30,7 +30,7 @@
 
 using asebaros_msgs::srv::LoadScripts;
 using asebaros_msgs::srv::GetNodeList;
-using asebaros_msgs::srv::GetNodeId;
+using asebaros_msgs::srv::GetNodeIds;
 using asebaros_msgs::srv::GetNodeName;
 using asebaros_msgs::srv::GetVariableList;
 using asebaros_msgs::srv::SetVariable;
@@ -139,10 +139,10 @@ class AsebaROS: public Aseba::NodesManager, public rclcpp::Node {
   const std::shared_ptr<GetNodeList::Request> req,
   const std::shared_ptr<GetNodeList::Response> res);
 
-  void getNodeId(
+  void getNodeIds(
   const std::shared_ptr<rmw_request_id_t> request_header,
-  const std::shared_ptr<GetNodeId::Request> req,
-  const std::shared_ptr<GetNodeId::Response> res);
+  const std::shared_ptr<GetNodeIds::Request> req,
+  const std::shared_ptr<GetNodeIds::Response> res);
 
   void getNodeName(
   const std::shared_ptr<rmw_request_id_t> request_header,
@@ -175,8 +175,8 @@ class AsebaROS: public Aseba::NodesManager, public rclcpp::Node {
   const std::shared_ptr<GetEventName::Response> res);
 
   // utility
-  void getNodePosFromNames(const std::string& nodeName, const std::string& variableName,
-    unsigned* nodeId, unsigned* pos) const;
+  bool getNodePosFromNames(const std::string& nodeName, const std::string& variableName,
+  unsigned* nodeId, unsigned* pos) const;
   void sendEventOnROS(const Aseba::UserMessage* asebaMessage);
 
   // callbacks
@@ -187,27 +187,29 @@ class AsebaROS: public Aseba::NodesManager, public rclcpp::Node {
 
   // void knownEventReceived(const AsebaEvent::SharedPtr event);
 
-  std::map<unsigned, std::string> names;
-
-  bool ignore(unsigned int);
   void create_subscribers(unsigned nodeId);
   void updateConstantsFromROS();
 
-  std::vector<unsigned> getNodeIds(const std::wstring& name);
-  std::string nameForId(unsigned id);
+  std::vector<unsigned> get_node_ids(const std::wstring& name);
   std::shared_ptr<rclcpp::Publisher<AsebaEvent>> pubFor(const Aseba::UserMessage* asebaMessage);
   void loadScriptToTarget(unsigned nodeId);
   void compile_script();
   void read_script_header();
   void load(Aseba::BytecodeVector&, unsigned int);
   void load_script_to(unsigned int);
-  void load_script_to_all();
+  void load_script_to(std::vector<uint16_t>);
   void publish_nodes();
   std::map <std::string, Aseba::BytecodeVector> bytecode;
   std::string node_name(unsigned int);
   std::string script_path;
-  std::vector<uint16_t> running_nodes;
+  std::set<uint16_t> running_nodes;
   std::shared_ptr<rclcpp::Publisher<AsebaNodeList>> nodes_pub;
+
+  std::map<unsigned, std::string> namespaces;
+  std::string topic(unsigned id, const std::string & name);
+  std::string namespace_for_node(unsigned id, std::string kind = std::string(""));
+  bool ignore_node(unsigned int);
+  bool manage_single_node;
 
  public:
   AsebaROS(unsigned port, bool forward, rclcpp::NodeOptions);

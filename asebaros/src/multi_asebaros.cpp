@@ -121,7 +121,7 @@ void AsebaDashelHub::incomingData(Dashel::Stream *stream) {
 }
 
 void AsebaDashelHub::connectionCreated(Dashel::Stream *stream) {
-  RCLCPP_WARN(asebaROS->get_logger(), "Incoming connection from %s",
+  RCLCPP_INFO(asebaROS->get_logger(), "Incoming connection from %s",
     stream->getTargetName().c_str());
   if (dataStreams.size() == 1) {
     // Note: on some robot such as the marXbot, because of hardware
@@ -138,7 +138,7 @@ void AsebaDashelHub::connectionClosed(Dashel::Stream* stream, bool abnormal) {
       stream->getTargetName().c_str(), stream->getFailReason().c_str());
     asebaROS->unconnect();
   } else {
-    RCLCPP_WARN(asebaROS->get_logger(), "Normal connection closed to %s",
+    RCLCPP_INFO(asebaROS->get_logger(), "Normal connection closed to %s",
       stream->getTargetName().c_str());
   }
 }
@@ -147,7 +147,7 @@ void AsebaDashelHub::connectionClosed(Dashel::Stream* stream, bool abnormal) {
 
 void AsebaROS::load(Aseba::BytecodeVector &bytecode, unsigned int node_id)
 {
-  RCLCPP_WARN(get_logger(), "Loading script to node with id %d (%d bytes)", node_id, bytecode.end()- bytecode.begin());
+  RCLCPP_INFO(get_logger(), "Loading script to node with id %d (%d bytes)", node_id, bytecode.end()- bytecode.begin());
   MessageVector messages;
   auto bytes = std::vector<uint16_t>(bytecode.begin(), bytecode.end());
 
@@ -158,7 +158,7 @@ void AsebaROS::load(Aseba::BytecodeVector &bytecode, unsigned int node_id)
   Aseba::Run msg(node_id);
   hub.sendMessage(&msg, false);
   create_subscribers(node_id);
-  running_nodes.push_back(node_id);
+  running_nodes.insert(node_id);
   publish_nodes();
 }
 
@@ -170,7 +170,7 @@ void AsebaROS::publish_nodes()
     AsebaNode node_msg;
     node_msg.id = node_id;
     // TODO: should save this
-    node_msg.name_space = nameForId(node_id);
+    node_msg.name_space = namespace_for_node(node_id);
     node_msg.name = node_name(node_id);
     msg.nodes.push_back(node_msg);
   }
@@ -179,31 +179,34 @@ void AsebaROS::publish_nodes()
 
 void AsebaROS::load_script_to(unsigned int node_id)
 {
-  if(ignore(node_id))
+  if(ignore_node(node_id))
   {
-    RCLCPP_WARN(get_logger(), "Will not load script to node %d (to be ignored)");
+    RCLCPP_WARN(get_logger(), "Will not load script to node %d to be ignored", node_id);
     return;
   }
   // RCLCPP_WARN(get_logger(), "Get name");
   std::string name = node_name(node_id);
   // RCLCPP_WARN(get_logger(), "Got name %s", name.c_str());
-  RCLCPP_WARN(get_logger(), "Will load script to node with id %d and name %s", node_id, name.c_str());
+  RCLCPP_INFO(get_logger(), "Will try to load a script to node with name %s and id %d", name.c_str(), node_id);
   if(!bytecode.count(name))
   {
-    RCLCPP_WARN(get_logger(), "No script available for node with id %d and name %d", node_id, name.c_str());
+    RCLCPP_WARN(get_logger(), "No script available for name %s", name.c_str());
     return;
   }
   load(bytecode[name], node_id);
 }
 
-void AsebaROS::load_script_to_all()
+void AsebaROS::load_script_to(std::vector<uint16_t> node_ids)
 {
+  std::set<uint16_t> node_ids_set(node_ids.begin(), node_ids.end());
   for (auto const& pair : bytecode)
   {
     std::string name = pair.first;
-    for (const auto & node_id : getNodeIds(widen(name)))
+    RCLCPP_WARN(get_logger(), "Will load compiled script to nodes with name %s", name.c_str());
+    for (const auto & node_id : get_node_ids(widen(name)))
     {
-      if(ignore(node_id)) continue;
+      if(ignore_node(node_id)) continue;
+      if(node_ids_set.size() && !node_ids_set.count(node_id)) continue;
       load(bytecode[name], node_id);
     }
   }
@@ -211,13 +214,13 @@ void AsebaROS::load_script_to_all()
 
 void AsebaROS::read_script_header()
 {
-
-  RCLCPP_WARN(get_logger(), "Reading script %s", script_path.c_str());
-
+  if(script_path.empty()) return;
+  RCLCPP_INFO(get_logger(), "Will read script headers in %s", script_path.c_str());
   xmlDoc *doc = xmlReadFile(script_path.c_str(), NULL, 0);
   if (!doc) {
     RCLCPP_ERROR(get_logger(), "Cannot read XML from file %s", script_path.c_str());
-    throw std::invalid_argument("Cannot read XML from file");
+    return;
+    // throw std::invalid_argument("Cannot read XML from file");
   }
 
   xmlNode *domRoot = xmlDocGetRootElement(doc);
@@ -277,13 +280,19 @@ void AsebaROS::read_script_header()
             {
               constant_value = param.as_int();
             }
+            else{
+              set_parameter(rclcpp::Parameter("script.constants." + constant_name, constant_value));
+            }
             std::lock_guard<std::mutex> lock(mutex);
             commonDefinitions.constants.push_back(Aseba::NamedValue(widen((const char *)name), constant_value));
           }
           // free attributes
           if (name) xmlFree(name);
           if (value) xmlFree(value);
-        } else if (!xmlStrEqual(domNode->name, BAD_CAST("node"))) {
+        } else if (xmlStrEqual(domNode->name, BAD_CAST("keywords"))) {
+          continue;
+        }
+          else if (!xmlStrEqual(domNode->name, BAD_CAST("node"))) {
           RCLCPP_WARN(get_logger(), "Unknown XML node seen in .aesl file: %s", domNode->name);
         }
       }
@@ -297,26 +306,18 @@ void AsebaROS::read_script_header()
     }
     mutex.unlock();
   }
-  // for (auto &ev : commonDefinitions.constants)
-  // {
-  //   RCLCPP_WARN(get_logger(), "Constant %s with value %d", narrow(ev.name).c_str(), ev.value);
-  // }
-  // for (auto &ev : commonDefinitions.events)
-  // {
-  //   RCLCPP_WARN(get_logger(), "Event %s", narrow(ev.name).c_str());
-  // }
-
-  RCLCPP_WARN(get_logger(), "Read script");
 
 }
 
 void AsebaROS::compile_script()
 {
-  RCLCPP_WARN(get_logger(), "Will compile script");
+  if(script_path.empty()) return;
+  RCLCPP_INFO(get_logger(), "Will compile script in file %s", script_path.c_str());
   xmlDoc *doc = xmlReadFile(script_path.c_str(), NULL, 0);
   if (!doc) {
     RCLCPP_ERROR(get_logger(), "Cannot read XML from file %s", script_path.c_str());
-    throw std::invalid_argument("Cannot read XML from file");
+    return;
+    // throw std::invalid_argument("Cannot read XML from file");
   }
 
   xmlNode *domRoot = xmlDocGetRootElement(doc);
@@ -340,7 +341,7 @@ void AsebaROS::compile_script()
               xmlFree(name);
               continue;
             }
-            std::vector<unsigned> nodeIds = getNodeIds(widen(_name));
+            std::vector<unsigned> nodeIds = get_node_ids(widen(_name));
             if(nodeIds.empty())
             {
               xmlFree(name);
@@ -369,7 +370,8 @@ void AsebaROS::compile_script()
                 continue;
               }
               bytecode[_name] = _bytecode;
-              RCLCPP_WARN(get_logger(), "Compiled script for id %d", _bytecode.end() - _bytecode.begin());
+              RCLCPP_INFO(get_logger(), "Compiled script for nodes with name %s to %d bytes",
+                          _name.data(), _bytecode.end() - _bytecode.begin());
 
               mutex.lock();
               userDefinedVariablesMap[_name] = *compiler.getVariablesMap();
@@ -393,9 +395,13 @@ void AsebaROS::loadScript(
   const std::shared_ptr<LoadScripts::Request> req,
   const std::shared_ptr<LoadScripts::Response> res)
 {
+  for (auto &constant : req->constants) {
+    set_parameter(rclcpp::Parameter("script.constants." + constant.name, constant.value));
+  }
   script_path = req->file_name;
   read_script_header();
-  load_script_to_all();
+  compile_script();
+  load_script_to(req->node_ids);
 }
 
 void AsebaROS::getNodeList(
@@ -403,35 +409,27 @@ void AsebaROS::getNodeList(
   const std::shared_ptr<GetNodeList::Request> req,
   const std::shared_ptr<GetNodeList::Response> res) {
     std::lock_guard<std::mutex> lock(mutex);
-    transform(nodesNames.begin(), nodesNames.end(), back_inserter(res->node_list),
-      bind(&NodesNamesMap::value_type::first, _1));
+    // transform(nodesNames.begin(), nodesNames.end(), back_inserter(res->node_list),
+    //   bind(&NodesNamesMap::value_type::first, _1));
+    for (const auto & node : nodes)
+    {
+      if(!req->ignored && ignore_node(node.first))
+        continue;
+      AsebaNode node_msg;
+      node_msg.id = node.first;
+      node_msg.name_space = namespace_for_node(node.first);
+      node_msg.name = narrow(node.second.name);
+      res->nodes.push_back(node_msg);
+    }
 }
 
-void AsebaROS::getNodeId(
+void AsebaROS::getNodeIds(
   const std::shared_ptr<rmw_request_id_t> request_header,
-  const std::shared_ptr<GetNodeId::Request> req,
-  const std::shared_ptr<GetNodeId::Response> res) {
+  const std::shared_ptr<GetNodeIds::Request> req,
+  const std::shared_ptr<GetNodeIds::Response> res) {
   std::lock_guard<std::mutex> lock(mutex);
-  NodesNamesMap::const_iterator nodeIt(nodesNames.find(req->node_name));
-  if (nodeIt != nodesNames.end()) {
-    res->node_id = nodeIt->second;
-  } else {
-    RCLCPP_ERROR(get_logger(), "node %s does not exists", req->node_name.c_str());
-    throw std::invalid_argument("Node does not exists");
-  }
-}
-
-std::string AsebaROS::node_name(unsigned int node_id)
-{
-  // HACK:
-  // TODO: Understand and check all locks. Which are called from ROS ...
-  // With the lock below, it blocks the second update
-  // std::lock_guard<std::mutex> lock(mutex);
-  auto node_it(nodes.find(node_id));
-  if (node_it != nodes.end()) {
-    return narrow(node_it->second.name);
-  }
-  return "";
+  std::vector<unsigned> ids = get_node_ids(widen(req->node_name));
+  std::copy(ids.begin(), ids.end(), back_inserter(res->node_ids));
 }
 
 void AsebaROS::getNodeName(
@@ -443,7 +441,8 @@ void AsebaROS::getNodeName(
     res->node_name = name;
   } else {
     RCLCPP_ERROR(get_logger(), "node %d does not exists", req->node_id);
-    throw std::invalid_argument("Node does not exists");
+    return;
+    // throw std::invalid_argument("Node does not exists");
   }
 }
 
@@ -483,7 +482,8 @@ void AsebaROS::getVariableList(
     }
   } else {
     RCLCPP_ERROR(get_logger(), "node %s does not exists", req->node_name.c_str());
-    throw std::invalid_argument("Node does not exists");
+    return;
+    // throw std::invalid_argument("Node does not exists");
   }
 }
 
@@ -494,10 +494,13 @@ void AsebaROS::setVariable(
   // lock the access to the member methods
   unsigned nodeId, pos;
   mutex.lock();
-  getNodePosFromNames(req->node_name, req->variable_name, &nodeId, &pos);
+  bool success = getNodePosFromNames(req->node_name, req->variable_name, &nodeId, &pos);
   mutex.unlock();
-  Aseba::SetVariables msg(nodeId, pos, req->data);
-  hub.sendMessage(&msg, true);
+  if(success)
+  {
+    Aseba::SetVariables msg(nodeId, pos, req->data);
+    hub.sendMessage(&msg, true);
+  }
 }
 
 void AsebaROS::getVariable(
@@ -508,10 +511,11 @@ void AsebaROS::getVariable(
   // lock the access to the member methods, wait will unlock the underlying mutex
   std::unique_lock<std::mutex> lock(mutex);
   // get information about variable
-  getNodePosFromNames(req->node_name, req->variable_name, &nodeId, &pos);
-  bool ok;
+  bool ok = getNodePosFromNames(req->node_name, req->variable_name, &nodeId, &pos);
+  if(!ok) return;
   unsigned length = getVariableSize(nodeId, widen(req->variable_name), &ok);
-  if (!ok) throw std::invalid_argument("Cannot read variable size");
+  if (!ok) return;
+    // throw std::invalid_argument("Cannot read variable size");
 
   // create query
   const GetVariableQueryKey key(nodeId, pos);
@@ -539,7 +543,8 @@ void AsebaROS::getVariable(
     RCLCPP_ERROR(get_logger(),
       "read of node %s, variable %s did not return a valid answer within 100ms",
       req->node_name.c_str(), req->variable_name.c_str());
-    throw std::invalid_argument("Timeout");
+    return;
+    // throw std::invalid_argument("Timeout");
   }
 }
 
@@ -553,7 +558,7 @@ void AsebaROS::getEventId(
   if (commonDefinitions.events.contains(widen(req->name), &id)) {
     res->id = id;
   }
-  throw std::invalid_argument("Event unknown");
+  // throw std::invalid_argument("Event unknown");
 }
 
 void AsebaROS::getEventName(
@@ -565,10 +570,10 @@ void AsebaROS::getEventName(
   if (req->id < commonDefinitions.events.size()) {
     res->name = narrow(commonDefinitions.events[req->id].name);
   }
-  throw std::invalid_argument("Event unknown");
+  // throw std::invalid_argument("Event unknown");
 }
 
-void AsebaROS::getNodePosFromNames(const std::string& nodeName, const std::string& variableName,
+bool AsebaROS::getNodePosFromNames(const std::string& nodeName, const std::string& variableName,
   unsigned* nodeId, unsigned* pos) const {
   // does not need locking, called by other member function already within the lock
 
@@ -576,7 +581,8 @@ void AsebaROS::getNodePosFromNames(const std::string& nodeName, const std::strin
   NodesNamesMap::const_iterator nodeIt(nodesNames.find(nodeName));
   if (nodeIt == nodesNames.end()) {
     RCLCPP_ERROR(get_logger(), "node %s does not exists", nodeName.c_str());
-    throw std::invalid_argument("Node does not exists");
+    // throw std::invalid_argument("Node does not exists");
+    return false;
   }
   *nodeId = nodeIt->second;
   *pos = unsigned(-1);
@@ -598,15 +604,17 @@ void AsebaROS::getNodePosFromNames(const std::string& nodeName, const std::strin
     if (!ok) {
       RCLCPP_ERROR(get_logger(), "variable %s does not exists in node %s",
         variableName.c_str(), nodeName.c_str());
-      throw std::invalid_argument("Varible does not exists");
+      return false;
+      // throw std::invalid_argument("Varible does not exists");
     }
   }
+  return true;
 }
 
 void AsebaROS::sendEventOnROS(const Aseba::UserMessage* asebaMessage) {
   // does not need locking, called by other member function already within lock
   // if different, we are currently loading a new script, publish on anonymous channel
-  if (ignore(asebaMessage->source)) return;
+  if (ignore_node(asebaMessage->source)) return;
   if ((pubs.size() == commonDefinitions.events.size()) &&
       (asebaMessage->type < commonDefinitions.events.size())) {
     // known, send on a named channel
@@ -631,13 +639,15 @@ void AsebaROS::sendEventOnROS(const Aseba::UserMessage* asebaMessage) {
 
 void AsebaROS::nodeDescriptionReceived(unsigned nodeId) {
   // does not need locking, called by parent object
-  RCLCPP_WARN(get_logger(), "Received description of node %d (%d)", nodeId, nodes[nodeId].isComplete());
   std::string name = narrow(nodes.at(nodeId).name);
+  RCLCPP_INFO(get_logger(), "Received %s description of a node with name %s and id %d",
+              (nodes[nodeId].isComplete() ? "complete" : "uncomplete"), name.data(), nodeId);
   nodesNames[name] = nodeId;
   rclcpp::sleep_for(std::chrono::seconds(1));
-  if(!bytecode.count(name)) compile_script();
-  else RCLCPP_WARN(get_logger(), "Script already compiled for name %s", name.c_str());
-  RCLCPP_WARN(get_logger(), "Will try to load script");
+  if(!bytecode.count(name))
+    compile_script();
+  else
+    RCLCPP_INFO(get_logger(), "Script already compiled for name %s", name.c_str());
   //CHANGED: Let us load a script if available!
   load_script_to(nodeId);
 }
@@ -656,7 +666,8 @@ void AsebaROS::knownEventReceived(const uint16_t id, const uint16_t nodeId, cons
     RCLCPP_DEBUG(get_logger(), "known event %d received from ROS for node %d", id, nodeId);
     // forward only messages with source 0, which means, originating from this computer
     Aseba::VariablesDataVector data = event->data;
-    data.insert(data.begin(), nodeId);
+    if(!manage_single_node)
+      data.insert(data.begin(), nodeId);
     Aseba::UserMessage userMessage(id, data);
     hub.sendMessage(&userMessage, true);
   }
@@ -669,42 +680,46 @@ void AsebaROS::sendMessage(const Aseba::Message& message) {
 
 AsebaROS::AsebaROS(unsigned port, bool forward, rclcpp::NodeOptions node_options):
   hub(this, port, forward),
-  rclcpp::Node("asebaros", "aseba", node_options)
+  rclcpp::Node("asebaros", "", node_options)
    {  // hub for dashel
 
-  RCLCPP_WARN(get_logger(), "AsebaROS %d", mutex.try_lock());
-  mutex.unlock();
+  rclcpp::Parameter single_node_param("single", false);
+  get_parameter("single", single_node_param);
+  manage_single_node = single_node_param.as_bool();
+
+  if(manage_single_node)
+    RCLCPP_INFO(get_logger(), "Will manage only the first valid connected node");
 
   // does not need locking, called by main
   //  ros::Duration(5).sleep();
   // n = rclcpp::Node("asebaros", "asebaros");
-  anonPub = create_publisher<AsebaAnonymousEvent>("anonymous_events", 100);
+  anonPub = create_publisher<AsebaAnonymousEvent>("aseba/anonymous_events", 100);
   auto cb = std::bind(&AsebaROS::eventReceived, this, _1);
-  anonSub = create_subscription<AsebaAnonymousEvent>("anonymous_events", 100, cb);
+  anonSub = create_subscription<AsebaAnonymousEvent>("aseba/anonymous_events", 100, cb);
 
-  nodes_pub = create_publisher<AsebaNodeList>("nodes", rclcpp::QoS(1).transient_local());
+  nodes_pub = create_publisher<AsebaNodeList>("aseba/nodes", rclcpp::QoS(1).transient_local());
 
   // script
-  s.push_back(create_service<LoadScripts>("load_script",
+  s.push_back(create_service<LoadScripts>("aseba/load_script",
     std::bind(&AsebaROS::loadScript, this, _1, _2, _3)));
   // nodes
-  s.push_back(create_service<GetNodeList>("get_node_list",
+  s.push_back(create_service<GetNodeList>("aseba/get_node_list",
     std::bind(&AsebaROS::getNodeList, this, _1, _2, _3)));
-  s.push_back(create_service<GetNodeId>("get_node_id",
-    std::bind(&AsebaROS::getNodeId, this, _1, _2, _3)));
-  s.push_back(create_service<GetNodeName>("get_node_name",
+  s.push_back(create_service<GetNodeIds>("aseba/get_node_ids",
+    std::bind(&AsebaROS::getNodeIds, this, _1, _2, _3)));
+  s.push_back(create_service<GetNodeName>("aseba/get_node_name",
     std::bind(&AsebaROS::getNodeName, this, _1, _2, _3)));
   // variables
-  s.push_back(create_service<GetVariableList>("get_variable_list",
+  s.push_back(create_service<GetVariableList>("aseba/get_variable_list",
     std::bind(&AsebaROS::getVariableList, this, _1, _2, _3)));
-  s.push_back(create_service<SetVariable>("set_variable",
+  s.push_back(create_service<SetVariable>("aseba/set_variable",
     std::bind(&AsebaROS::setVariable, this, _1, _2, _3)));
-  s.push_back(create_service<GetVariable>("get_variable",
+  s.push_back(create_service<GetVariable>("aseba/get_variable",
     std::bind(&AsebaROS::getVariable, this, _1, _2, _3)));
   // events
-  s.push_back(create_service<GetEventId>("get_event_id",
+  s.push_back(create_service<GetEventId>("aseba/get_event_id",
     std::bind(&AsebaROS::getEventId, this, _1, _2, _3)));
-  s.push_back(create_service<GetEventName>("get_event_name",
+  s.push_back(create_service<GetEventName>("aseba/get_event_name",
     std::bind(&AsebaROS::getEventName, this, _1, _2, _3)));
   rclcpp::Parameter shutdown_on_unconnect_param;
   if (get_parameter("shutdown_on_unconnect", shutdown_on_unconnect_param))
@@ -718,15 +733,13 @@ AsebaROS::AsebaROS(unsigned port, bool forward, rclcpp::NodeOptions node_options
   if (get_parameter("script.path", file_path_param))
   {
     script_path = file_path_param.as_string();
-    RCLCPP_WARN(get_logger(), "Initializing with script %s", script_path.c_str());
+    RCLCPP_INFO(get_logger(), "Initializing with script %s", script_path.c_str());
     read_script_header();
   }
   else{
-    RCLCPP_WARN(get_logger(), "Initializing without script");
+    RCLCPP_INFO(get_logger(), "Initializing without script");
   }
 
-  RCLCPP_WARN(get_logger(), "AsebaROS F %d", mutex.try_lock());
-  mutex.unlock();
 }
 
 AsebaROS::~AsebaROS() {
@@ -734,16 +747,6 @@ AsebaROS::~AsebaROS() {
   xmlCleanupParser();
 }
 
-// void AsebaROS::run() {
-//   // does not need locking, called by main
-//   // hub.startThread();
-//   rclcpp::TimerBase::SharedPtr timer = create_wall_timer(1s,
-//       std::bind(&AsebaROS::pingNetwork, this));
-//   rclcpp::spin(std::shared_ptr<AsebaROS>(this));
-//   // ros::spin();
-//   // cerr << "ros returned" << endl;
-//   // hub.stopThread();
-// }
 
 void AsebaROS::run() {
   hub.startThread();
@@ -782,36 +785,30 @@ void AsebaROS::processAsebaMessage(Aseba::Message *message) {
 
 void AsebaROS::unconnect() {
   if (shutdown_on_unconnect) {
-  RCLCPP_WARN(get_logger(), "Will shutdown the node.");
+  RCLCPP_INFO(get_logger(), "Will shutdown the node.");
   rclcpp::shutdown();
   } else {
-  RCLCPP_WARN(get_logger(), "Will ignore losing connection.");
+  RCLCPP_INFO(get_logger(), "Will ignore losing connection.");
   }
-}
-
-bool AsebaROS::ignore(unsigned id)
-{
-  return names[id] == "-";
 }
 
 void AsebaROS::stopAllNodes() {
   for (const auto & node : nodes) {
-
-    if (ignore(node.first)) continue;
+    if (ignore_node(node.first)) continue;
     Aseba::Reset msg_r(node.first);
-    RCLCPP_WARN(get_logger(), "Reset %d", node.first);
+    RCLCPP_INFO(get_logger(), "Reset node with id %d", node.first);
     hub.sendMessage(&msg_r, true);
     rclcpp::sleep_for(std::chrono::seconds(1));
   }
 }
 
-std::vector<unsigned> AsebaROS::getNodeIds(const std::wstring& name)
+std::vector<unsigned> AsebaROS::get_node_ids(const std::wstring& name)
 {
   // search for all nodes with a given name
   std::vector<unsigned> nodeIds;
   for (const auto & node : nodes)
   {
-    if (node.second.name == name and !ignore(node.first))
+    if (node.second.name == name and !ignore_node(node.first))
     {
       nodeIds.push_back(node.first);
     }
@@ -819,36 +816,67 @@ std::vector<unsigned> AsebaROS::getNodeIds(const std::wstring& name)
   return nodeIds;
 }
 
-std::string AsebaROS::nameForId(unsigned id) {
-  if ( names[id] != "" ) {
-      // ROS_WARN_STREAM("name already recorded " << names[id]);
-      return names[id];
-  }
+// use "-" to ignore a node
 
-  rclcpp::Parameter param;
-  std::string param_name = "nodes." + std::to_string(id);
-  std::string value = "+";
+#define IGNORE "-"
 
-  std::string prefix = "id_";
-  rclcpp::Parameter prefix_param;
-  if(get_parameter("nodes.prefix", prefix_param))
+bool AsebaROS::ignore_node(unsigned id)
+{
+  if(manage_single_node && running_nodes.size() && running_nodes.count(id) == 0)
+    return true;
+  return namespace_for_node(id) == IGNORE;
+}
+
+std::string AsebaROS::namespace_for_node(unsigned id, std::string name)
+{
+  if(namespaces.count(id) == 0)
   {
-    prefix = prefix_param.as_string();
+    if(name.empty())
+      name = node_name(id);
+    std::string ns;
+    rclcpp::Parameter param;
+    rclcpp::Parameter accept;
+    if(get_parameter("nodes." + name + "." + std::to_string(id), param))
+      ns = param.as_string();
+    else if(get_parameter("nodes." + name + ".accept_all", accept) && !accept.as_bool())
+    {
+      ns = IGNORE;
+    }
+    else if(get_parameter("nodes." + name + ".prefix", param))
+    {
+      ns = param.as_string() + std::to_string(id);
+    }
+    else if (name != "*")
+      ns = namespace_for_node(id, "*");
+    else
+      ns = "node" + std::to_string(id);
+    if(manage_single_node && ns != "-")
+      ns = "";
+    namespaces[id] = ns;
+    RCLCPP_INFO(get_logger(), "Namespace for node with name %s and id %d is %s", name.data(), id, ns.data());
   }
-  if (get_parameter(param_name, param))
-  {
-    value = param.as_string();
+  return namespaces[id];
+}
+
+std::string AsebaROS::topic(unsigned node_id, const std::string &topic_name)
+{
+  std::string tn = "aseba/" + topic_name;
+  if(manage_single_node)
+    return tn;
+  return namespace_for_node(node_id) + "/" + tn;
+}
+
+std::string AsebaROS::node_name(unsigned int id)
+{
+  // HACK:
+  // TODO: Understand and check all locks. Which are called from ROS ...
+  // With the lock below, it blocks the second update
+  // std::lock_guard<std::mutex> lock(mutex);
+  auto node_it(nodes.find(id));
+  if (node_it != nodes.end()) {
+    return narrow(node_it->second.name);
   }
-  else if (get_parameter("nodes.ANY", param))
-  {
-    value = param.as_string();
-  }
-  if (value == "+") {
-    names[id] = prefix + std::to_string(id);
-  } else {
-    names[id] = value;
-  }
-  return names[id];
+  return "";
 }
 
 std::shared_ptr<rclcpp::Publisher<AsebaEvent>> AsebaROS::pubFor(const Aseba::UserMessage* asebaMessage)
@@ -858,7 +886,7 @@ std::shared_ptr<rclcpp::Publisher<AsebaEvent>> AsebaROS::pubFor(const Aseba::Use
   if(pubs[type].count(source) == 0)
   {
     const std::wstring& name(commonDefinitions.events[type].name);
-    pubs[type][source] = create_publisher<AsebaEvent>(nameForId(source) + "/events/" + narrow(name), 100);
+    pubs[type][source] = create_publisher<AsebaEvent>(topic(source, narrow(name)), 100);
   }
   return pubs[type][source];
 }
@@ -869,24 +897,12 @@ std::shared_ptr<rclcpp::Publisher<AsebaEvent>> AsebaROS::pubFor(const Aseba::Use
 void AsebaROS::create_subscribers(unsigned node_id) {
   for (size_t i = 0; i < commonDefinitions.events.size(); ++i) {
     const std::wstring& name(commonDefinitions.events[i].name);
-    std::string topic = nameForId(node_id) + "/events/" + narrow(name);
-    subs[i][node_id] = create_subscription<AsebaEvent>(topic, 100,
+    subs[i][node_id] = create_subscription<AsebaEvent>(topic(node_id, narrow(name)), 100,
         [this, i, node_id](AsebaEvent::SharedPtr event) {
           knownEventReceived(i, node_id, event);
         });
   }
 }
-
-// void AsebaROS::loadScriptToTarget(unsigned nodeId) {
-//   MessageVector messages;
-//   sendBytecode(messages, nodeId, std::vector<uint16_t>(bytecode.begin(), bytecode.end()));
-//   for (MessageVector::const_iterator it = messages.begin(); it != messages.end(); ++it) {
-//     hub.sendMessage((*it).get(), true);
-//   }
-//   Aseba::Run msg(nodeId);
-//   hub.sendMessage(&msg, true);
-//   createSubscribersForTarget(nodeId);
-// }
 
 //! Show usage
 void dumpHelp(std::ostream &stream, std::string programName) {
@@ -933,11 +949,11 @@ int main(int argc, char *argv[]) {
   auto asebaROS = std::make_shared<AsebaROS>(port, forward, node_options);
   bool connected = false;
 
-  RCLCPP_WARN(asebaROS->get_logger(), "Wait for connections");
+  RCLCPP_INFO(asebaROS->get_logger(), "Waiting for connections");
 
   while (rclcpp::ok() && !connected) {
     for (auto &target : additionalTargets) {
-      RCLCPP_WARN(asebaROS->get_logger(), "Connecting to %s", target.c_str());
+      RCLCPP_INFO(asebaROS->get_logger(), "Connecting to %s", target.c_str());
       try {
         asebaROS->connectTarget(target);
         connected = true;
@@ -960,7 +976,7 @@ int main(int argc, char *argv[]) {
 
   asebaROS->stopAllNodes();
 
-  RCLCPP_WARN(asebaROS->get_logger(), "Will shutdown node");
+  RCLCPP_INFO(asebaROS->get_logger(), "Will shutdown node");
   rclcpp::shutdown();
   return 0;
 }

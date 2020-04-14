@@ -1,0 +1,25 @@
+<launch>
+
+  <let name="device" value="tcp:host=localhost;port=33333"/>
+  <let name="port" value="44444"/>
+
+  <node pkg="asebaros" exec="asebaros" args="$(var device) -p $(var port) --ros-args --log-level info" output="screen" required="true">
+    <param name="nodes">
+      <param name="thymio-II">
+        <param name="prefix" value="thymio_"/>
+      </param>
+      <param name="e-puck0">
+        <param name="prefix" value="epuck_"/>
+      </param>
+      <param name="*">
+        <param name="prefix" value="node_"/>
+      </param>
+    </param>
+    <param name="script">
+      <param name="path" value="$(find-pkg-share asebaros)/launch/example.aesl"/>
+      <param name="constants">
+        <param name="CONSTANT_A" value="2"/>
+      </param>
+    </param>
+  </node>
+</launch>

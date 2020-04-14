@@ -25,7 +25,7 @@ set(msg_files
 set(srv_files
   "srv/GetEventId.srv"
 	"srv/GetEventName.srv"
-	"srv/GetNodeId.srv"
+	"srv/GetNodeIds.srv"
 	"srv/GetNodeList.srv"
 	"srv/GetNodeName.srv"
 	"srv/GetVariableList.srv"
