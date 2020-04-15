@@ -436,6 +436,7 @@ void AsebaROS::getNodeName(
   const std::shared_ptr<rmw_request_id_t> request_header,
   const std::shared_ptr<GetNodeName::Request> req,
   const std::shared_ptr<GetNodeName::Response> res) {
+  std::lock_guard<std::mutex> lock(mutex);
   std::string name = node_name(req->node_id);
   if (name != "") {
     res->node_name = name;
@@ -833,6 +834,8 @@ std::string AsebaROS::namespace_for_node(unsigned id, std::string name)
   {
     if(name.empty())
       name = node_name(id);
+    if(name.empty())
+      return "";
     std::string ns;
     rclcpp::Parameter param;
     rclcpp::Parameter accept;
