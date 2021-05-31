@@ -8,8 +8,10 @@
     <arg name="name" value="$(arg name)"/>
   </include>
 
+  <arg name="model" value="$(eval arg('name') or 'thymio')"/>
+
   <!-- See https://github.com/ros-simulation/gazebo_ros_pkgs/blob/kinetic-devel/gazebo_ros/scripts/spawn_model -->
 
-  <node ns="$(eval arg('name') or '/')" name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-package_to_model true -param robot_description -urdf -model $(arg name) $(arg pose)"/>
+  <node ns="$(eval arg('name') or '/')" name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-package_to_model -param robot_description -urdf -model $(arg model) $(arg pose)"/>
 
 </launch>

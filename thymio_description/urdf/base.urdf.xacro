@@ -26,7 +26,8 @@
   <xacro:arg name="odom_max_rate" default="20.0"/>
 
   <xacro:macro name="thymio">
-    <link name="base_link">
+
+    <link name="body_link">
       <inertial>
         <origin xyz="0.0243 0 0.0205"/>
         <mass value="${body_mass}"/>
@@ -52,6 +53,15 @@
       </visual>
     </link>
 
+    <link name="base_link">
+    </link>
+
+    <joint name="body_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="body_link"/>
+      <origin xyz="0 0 0"/>
+    </joint>
+
     <gazebo reference="base_link">
       <selfCollide>false</selfCollide>
       <mu1>0.1</mu1>
@@ -63,7 +73,7 @@
     <xacro:wheel name="left" position="${wheel_axis * 0.5}" radius="${wheel_radius}" mass="${wheel_mass}" mu="$(arg left_wheel_mu)" kp="$(arg wheel_kp)" width="$(arg wheel_width)"/>
     <xacro:wheel name="right" position="${-wheel_axis * 0.5}" radius="${wheel_radius}" mass="${wheel_mass}" mu="$(arg right_wheel_mu)" kp="$(arg wheel_kp)" width="$(arg wheel_width)"/>
 
-  <xacro:proximity_sensor group="proximity" range_max="$(arg proximity_max_range)" resolution="$(arg proximity_resolution)" fov="$(arg proximity_fov)" name="center" xyz="0.08 0 0.035" rpy="0 0 0"/>
+    <xacro:proximity_sensor group="proximity" range_max="$(arg proximity_max_range)" resolution="$(arg proximity_resolution)" fov="$(arg proximity_fov)" name="center" xyz="0.08 0 0.035" rpy="0 0 0"/>
     <xacro:proximity_sensor group="proximity" range_max="$(arg proximity_max_range)" resolution="$(arg proximity_resolution)" fov="$(arg proximity_fov)" name="center_left" xyz="0.0756 0.0261 0.035" rpy="0 0 0.33161"/>
     <xacro:proximity_sensor group="proximity" range_max="$(arg proximity_max_range)" resolution="$(arg proximity_resolution)" fov="$(arg proximity_fov)" name="center_right" xyz="0.0756 -0.0261 0.035" rpy="0 0 -0.33161"/>
     <xacro:proximity_sensor group="proximity" range_max="$(arg proximity_max_range)" resolution="$(arg proximity_resolution)" fov="$(arg proximity_fov)" name="left" xyz="0.063 0.0493 0.035" rpy="0 0 0.66323"/>
@@ -90,6 +100,7 @@
         <rosDebugLevel>Info</rosDebugLevel>
         <odometrySource>encoder</odometrySource>
         <alwaysOn>true</alwaysOn>
+        <publishOdomTF>false</publishOdomTF>
         <updateRate>$(arg odom_max_rate)</updateRate>
         <leftJoint>left_wheel_joint</leftJoint>
         <rightJoint>right_wheel_joint</rightJoint>

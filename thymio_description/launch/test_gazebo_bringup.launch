@@ -7,7 +7,9 @@
     <arg name="gui" value="false"/>
     <!-- <arg name="headless" value="true"/> -->
     <arg name="paused" value="false"/>
-    <arg name="world_name" value="worlds/empty_world"/>
+    <arg name="debug" value="false"/>
+    <arg name="verbose" value="true"/>
+    <arg name="world_name" value="worlds/empty.world"/>
   </include>
 
   <include file="$(find thymio_description)/launch/gazebo_bringup.launch">
