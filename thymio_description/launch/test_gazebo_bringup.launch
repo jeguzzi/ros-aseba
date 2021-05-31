@@ -15,6 +15,7 @@
   <include file="$(find thymio_description)/launch/gazebo_bringup.launch">
     <arg name="name" value="thymio10"/>
     <arg name="pose" value="-x 0 -y 0 -z 0"/>
+    <arg name="publish_gt_odom" value="true"/>
   </include>
 
   <include file="$(find thymio_description)/launch/joy_teleop.launch">

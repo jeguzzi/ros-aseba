@@ -4,8 +4,10 @@
 
   <arg name="name" default=""/>
   <arg name="pose" default="-x 0 -y 0 -z 0"/>
+  <arg name="publish_gt_odom" default="false"/>
   <include file="$(find thymio_description)/launch/model.launch">
     <arg name="name" value="$(arg name)"/>
+    <arg name="publish_gt_odom" value="$(arg publish_gt_odom)"/>
   </include>
 
   <arg name="model" value="$(eval arg('name') or 'thymio')"/>

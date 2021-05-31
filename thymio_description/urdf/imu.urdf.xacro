@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#xacro">
 
-  <xacro:macro name="imu" params="ns">
+  <xacro:macro name="imu" params="tf_prefix:=''">
 
-    <gazebo reference="base_link">
+    <gazebo reference="${tf_prefix}base_link">
       <gravity>true</gravity>
       <sensor name="imu_sensor" type="imu">
         <always_on>true</always_on>
@@ -12,12 +12,12 @@
         <topic>__default_topic__</topic>
         <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
           <topicName>imu</topicName>
-          <bodyName>base_link</bodyName>
+          <bodyName>${tf_prefix}base_link</bodyName>
           <updateRateHZ>16</updateRateHZ>
           <gaussianNoise>0.2646</gaussianNoise>
           <xyzOffset>0 0 0</xyzOffset>
           <rpyOffset>0 0 0</rpyOffset>
-          <frameName>${ns}base_link</frameName>
+          <frameName>${tf_prefix}base_link</frameName>
         </plugin>
         <pose>0 0 0 0 0 0</pose>
       </sensor>
