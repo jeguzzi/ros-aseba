@@ -1,9 +1,14 @@
 #ifndef __ASEBA_ROS_H
 #define __ASEBA_ROS_H
 
+#include <memory>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
+
 #include <dashel/dashel.h>
-#include <boost/thread.hpp>
-#include <boost/thread/mutex.hpp>
+//#include <boost/thread.hpp>
+//#include <boost/thread/mutex.hpp>
 #include "common/msg/msg.h"
 #include <common/msg/NodesManager.h>
 #include <compiler/compiler.h>
@@ -36,7 +41,7 @@ class AsebaROS;
 class AsebaDashelHub: public Dashel::Hub
 {
 private:
-	boost::thread* thread; //! thread for the hub
+	std::unique_ptr<std::thread> thread; //! thread for the hub
 	AsebaROS* asebaROS; //!< pointer to aseba ROS
 	bool forward; //!< should we only forward messages instead of transmit them back to the sender
 
@@ -97,7 +102,7 @@ protected:
 	{
 		typedef std::vector<int16_t> DataVector;
 		DataVector data;
-		boost::condition_variable cond;
+		std::condition_variable cond;
 	};
 	typedef std::map<GetVariableQueryKey, GetVariableQueryValue*> GetVariableQueryMap;
 
@@ -110,7 +115,7 @@ protected:
 	Subscribers subs; //!< subscribers for known events
 
 	AsebaDashelHub hub; //!< hub is the network interface for dashel peers
-	boost::mutex mutex; //!< mutex for protecting accesses from hub
+	std::mutex mutex; //!< mutex for protecting accesses from hub
 
 	Aseba::CommonDefinitions commonDefinitions; //!< description of aseba constants and events
 	NodesNamesMap nodesNames; //!< the name of all nodes

@@ -107,15 +107,15 @@ void AsebaDashelHub::operator()()
 
 void AsebaDashelHub::startThread()
 {
-  thread = new boost::thread(boost::ref(*this));
+  thread = std::make_unique<std::thread>(std::ref(*this));
 }
 
 void AsebaDashelHub::stopThread()
 {
   Hub::stop();
   thread->join();
-  delete thread;
-  thread = 0;
+  //delete thread;
+  thread = nullptr;
 }
 
 // the following method run in the blocking reception thread
@@ -365,7 +365,7 @@ bool AsebaROS::loadScript(LoadScripts::Request& req, LoadScripts::Response& res)
           }
           else
           {
-            lock_guard<boost::mutex> lock(mutex);
+            std::lock_guard<std::mutex> lock(mutex);
             commonDefinitions.events.push_back(NamedValue(widen((const char *)name), eventSize));
           }
         }
@@ -387,7 +387,7 @@ bool AsebaROS::loadScript(LoadScripts::Request& req, LoadScripts::Response& res)
         // add constant if attributes are valid
         if (name && value)
         {
-          lock_guard<boost::mutex> lock(mutex);
+          std::lock_guard<std::mutex> lock(mutex);
           commonDefinitions.constants.push_back(NamedValue(widen((const char *)name), atoi((const char *)value)));
         }
         // free attributes
@@ -472,7 +472,7 @@ void AsebaROS::updateContantsFromROS() {
 
 bool AsebaROS::getNodeList(GetNodeList::Request& req, GetNodeList::Response& res)
 {
-  lock_guard<boost::mutex> lock(mutex);
+  std::lock_guard<std::mutex> lock(mutex);
 
   for (const auto &node : nodes) {
     if ( !ignore(node.first) && node.second.isComplete() && node.second.connected ) {
@@ -496,7 +496,7 @@ bool AsebaROS::getNodeList(GetNodeList::Request& req, GetNodeList::Response& res
 
 bool AsebaROS::getNodeId(GetNodeId::Request& req, GetNodeId::Response& res)
 {
-  lock_guard<boost::mutex> lock(mutex);
+  std::lock_guard<std::mutex> lock(mutex);
   for (const auto & id : getNodeIds(widen(req.nodeName)))
   {
     res.nodeId.push_back(id);
@@ -523,7 +523,7 @@ bool AsebaROS::getNodeId(GetNodeId::Request& req, GetNodeId::Response& res)
 
 bool AsebaROS::getNodeName(GetNodeName::Request& req, GetNodeName::Response& res)
 {
-  lock_guard<boost::mutex> lock(mutex);
+  std::lock_guard<std::mutex> lock(mutex);
 
   NodesMap::const_iterator nodeIt(nodes.find(req.nodeId));
   if (nodeIt != nodes.end())
@@ -550,7 +550,7 @@ struct ExtractNameDesc
 
 bool AsebaROS::getVariableList(GetVariableList::Request& req, GetVariableList::Response& res)
 {
-  lock_guard<boost::mutex> lock(mutex);
+  std::lock_guard<std::mutex> lock(mutex);
 
   NodesNamesMap::const_iterator nodeIt(nodesNames.find(req.nodeName));
   if (nodeIt != nodesNames.end())
@@ -606,7 +606,7 @@ bool AsebaROS::getVariable(GetVariable::Request& req, GetVariable::Response& res
   unsigned nodeId, pos;
 
   // lock the access to the member methods, wait will unlock the underlying mutex
-  unique_lock<boost::mutex> lock(mutex);
+  std::unique_lock<std::mutex> lock(mutex);
 
   // get information about variable
   bool exists = getNodePosFromNames(req.nodeName, req.variableName, nodeId, pos);
@@ -631,11 +631,8 @@ bool AsebaROS::getVariable(GetVariable::Request& req, GetVariable::Response& res
   // wait 100 ms, considering the possibility of spurious wakes
   bool result;
   lock.lock();
-  while (query.data.empty())
-  {
-    result = query.cond.timed_wait(lock, timeout);
-    if (!result)
-      break;
+  while (query.data.empty()) {
+    if (query.cond.wait_for(lock, 100ms) == std::cv_status::timeout) break;
   }
 
   // remove key and return answer
@@ -655,7 +652,7 @@ bool AsebaROS::getVariable(GetVariable::Request& req, GetVariable::Response& res
 bool AsebaROS::getEventId(GetEventId::Request& req, GetEventId::Response& res)
 {
   // needs locking, called by ROS's service thread
-  lock_guard<boost::mutex> lock(mutex);
+  std::lock_guard<std::mutex> lock(mutex);
   size_t id;
   if (commonDefinitions.events.contains(widen(req.name), &id))
   {
@@ -668,7 +665,7 @@ bool AsebaROS::getEventId(GetEventId::Request& req, GetEventId::Response& res)
 bool AsebaROS::getEventName(GetEventName::Request& req, GetEventName::Response& res)
 {
   // needs locking, called by ROS's service thread
-  lock_guard<boost::mutex> lock(mutex);
+  std::lock_guard<std::mutex> lock(mutex);
   if (req.id < commonDefinitions.events.size())
   {
     res.name = narrow(commonDefinitions.events[req.id].name);
@@ -908,7 +905,7 @@ void AsebaROS::run()
 void AsebaROS::processAsebaMessage(Message *message)
 {
   // needs locking, called by Dashel hub
-  lock_guard<boost::mutex> lock(mutex);
+  std::lock_guard<std::mutex> lock(mutex);
 
   // scan this message for nodes descriptions
   NodesManager::processMessage(message);

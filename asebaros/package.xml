@@ -15,16 +15,16 @@
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>std_msgs</build_depend>
   <build_depend>roscpp</build_depend>
-  <build_depend>aseba</build_depend>
-  <build_depend>dashel_ros</build_depend>
+  <!-- <build_depend>aseba</build_depend> -->
+  <!-- <build_depend>dashel_ros</build_depend> -->
   <build_depend>boost</build_depend>
   <build_depend>libxml2</build_depend>
   <build_depend>asebaros_msgs</build_depend>
 
   <run_depend>std_msgs</run_depend>
   <run_depend>roscpp</run_depend>
-  <run_depend>aseba</run_depend>
-  <run_depend>dashel_ros</run_depend>
+  <!-- <run_depend>aseba</run_depend>
+  <run_depend>dashel_ros</run_depend> -->
   <run_depend>boost</run_depend>
   <run_depend>libxml2</run_depend>
   <run_depend>asebaros_msgs</run_depend>
