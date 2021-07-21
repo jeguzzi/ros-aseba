@@ -133,8 +133,8 @@ class ThymioDriver(object):
 
         # rospy.loginfo('Init right wheel with calibration %s', right_wheel_calibration)
 
-        left_wheel_joint = rospy.get_param('~left_wheel_joint', 'left_wheel_joint')
-        right_wheel_joint = rospy.get_param('~right_wheel_joint', 'right_wheel_joint')
+        left_wheel_joint = self.frame_name(rospy.get_param('~left_wheel_joint', 'left_wheel_joint'))
+        right_wheel_joint = self.frame_name(rospy.get_param('~right_wheel_joint', 'right_wheel_joint'))
 
         self.wheel_state_msg = JointState()
         self.wheel_state_msg.name = [left_wheel_joint, right_wheel_joint]
@@ -447,7 +447,7 @@ class ThymioDriver(object):
         self.proximityToLaser.ranges = []
         self.proximityToLaser.intensities = []
         self.proximityToLaser.header.stamp = rospy.Time.now()
-        for dist, raw in zip(values, data)[4::-1]:
+        for dist, raw in list(zip(values, data))[4::-1]:
             if dist > 0.14:
                 dist = 0.14
             if dist < 0.0215:
