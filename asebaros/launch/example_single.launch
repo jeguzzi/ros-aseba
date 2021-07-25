@@ -5,7 +5,7 @@
 
   <push-ros-namespace namespace="thymio"/>
 
-  <node pkg="asebaros" exec="asebaros" args="$(var device) -p $(var port) --ros-args --log-level info" output="screen" required="true">
+  <node pkg="asebaros" exec="asebaros" args="$(var device) -p $(var port) --ros-args --log-level info" output="screen">
     <param name="single" value="true"/>
     <param name="nodes">
       <param name="e-puck0">

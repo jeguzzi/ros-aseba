@@ -1,9 +1,9 @@
 <launch>
 
-  <let name="device" value="tcp:host=localhost;port=33333"/>
+  <arg name="device" default="tcp:host=localhost;port=33330"/>
   <let name="port" value="44444"/>
 
-  <node pkg="asebaros" exec="asebaros" args="$(var device) -p $(var port) --ros-args --log-level info" output="screen" required="true">
+  <node pkg="asebaros" exec="asebaros" args="$(var device) -p $(var port) --ros-args --log-level info" output="screen">
     <param name="nodes">
       <param name="thymio-II">
         <param name="prefix" value="thymio_"/>
