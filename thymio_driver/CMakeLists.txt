@@ -43,3 +43,14 @@ catkin_package(
 #############
 ## Install ##
 #############
+
+catkin_install_python(PROGRAMS nodes/thymio_driver_node.py nodes/multi_thymio_driver_node.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+
+install(DIRECTORY launch/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
+)
+
+install(DIRECTORY aseba/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
+)

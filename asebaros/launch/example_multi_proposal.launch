@@ -1,0 +1,25 @@
+<launch>
+
+  <arg name="device" value="tcp:host=localhost;port=33333"/>
+  <arg name="port" value="44444"/>
+
+  <node pkg="asebaros" exec="asebaros" args="$(var device) -p $(var port) --ros-args --log-level info" output="screen" required="true">
+    <rosparam param="nodes">
+      thymio:
+        name: thymio-II
+        prefix: thymio_
+        id_variable: _id
+      epuck:
+        name: e-puck0
+        prefix: epuck_
+        id_variable: id
+      *:
+        prefix: node_
+    </param>
+    <rosparam param="script">
+      path: $(find asebaros)/launch/example.aesl
+      constants:
+        CONSTANT_A: 2
+    </rosparam>
+  </node>
+</launch>

@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 2.8.3)
 project(asebaros_msgs)
 
 find_package(catkin REQUIRED COMPONENTS
-	std_msgs
 	message_generation
 )
 
@@ -14,9 +13,11 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate messages in the 'msg' folder
 add_message_files(
   FILES
+	AsebaAnonymousEvent.msg
+	AsebaConstant.msg
   AsebaEvent.msg
-  AsebaAnonymousEvent.msg
 	AsebaNode.msg
+	AsebaNodeList.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -24,20 +25,18 @@ add_service_files(
   FILES
   GetEventId.srv
   GetEventName.srv
-  GetNodeId.srv
+  GetNodeIds.srv
   GetNodeList.srv
   GetNodeName.srv
+	GetVariable.srv
   GetVariableList.srv
-  GetVariable.srv
   LoadScripts.srv
-	LoadScriptToTarget.srv
   SetVariable.srv
 )
 
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
   DEPENDENCIES
-  std_msgs
 )
 
 ###################################
@@ -45,7 +44,7 @@ generate_messages(
 ###################################
 
 catkin_package(
-  CATKIN_DEPENDS std_msgs  message_runtime
+  CATKIN_DEPENDS message_runtime
 )
 
 ###########

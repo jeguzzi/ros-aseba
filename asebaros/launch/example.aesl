@@ -1,0 +1,34 @@
+<!DOCTYPE aesl-source>
+<network>
+
+
+<!--list of global events-->
+<event size="0" name="event_a"/>
+<event size="1" name="event_b"/>
+
+
+<!--list of constants-->
+<constant value="0" name="CONSTANT_A"/>
+<constant value="1" name="CONSTANT_B"/>
+
+
+<!--show keywords state-->
+<keywords flag="true"/>
+
+
+<!--node thymio-II-->
+<node nodeId="1" name="thymio-II">
+var variable_a = CONSTANT_A
+var variable_b[2] = [1, 2]
+call leds.buttons(32, 32, 32, 32)
+emit event_a
+emit event_b variable_a
+</node>
+
+<node nodeId="2" name="e-puck0">
+var variable_a = CONSTANT_B
+leds[1] = 1
+emit event_b variable_a
+</node>
+
+</network>

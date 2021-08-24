@@ -1,2 +1,3 @@
+bool ignored
 ---
-AsebaNode[] nodeList
+asebaros_msgs/AsebaNode[] nodes

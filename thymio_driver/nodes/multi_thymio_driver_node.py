@@ -272,8 +272,8 @@ class ThymioDriver(object):
             _aseba('shutdown'), AsebaEvent, queue_size=1)
 
         rospy.on_shutdown(self.shutdown)
-
-        # Server(ThymioConfig, self.change_config)
+        # TODO(Jerome): I can have multiple servers, just pass namespace=...
+        # Server(ThymioConfig, self.change_config, namespace=...)
         # tell ros that we are ready
         rospy.Service(_ros('thymio_is_ready'), std_srvs.srv.Empty, self.ready)
 

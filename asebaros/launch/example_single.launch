@@ -1,0 +1,21 @@
+<launch>
+
+  <arg name="device" default="tcp:host=localhost;port=33333"/>
+  <arg name="port" default="44444"/>
+
+  <node name="asebaros" pkg="asebaros" type="asebaros" args="$(arg device) -p $(arg port)" output="screen">
+    <param name="single" value="true"/>
+    <rosparam param="nodes">
+      <!-- dashes are not valid in ROS1 names -->
+      e_puck0:
+        accept_all: false
+      thymio_II:
+        prefix: thymio_
+    </rosparam>
+    <rosparam param="script" subst_value="true">
+      path: $(find asebaros)/launch/example.aesl
+      constants:
+        CONSTANT_A: 2
+    </rosparam>
+  </node>
+</launch>
