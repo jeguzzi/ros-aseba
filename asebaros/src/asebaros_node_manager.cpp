@@ -18,7 +18,7 @@ std::string AsebaROS::variable_id_for_node(const std::string &type,
 
 bool AsebaROS::should_ignore_node(const std::string &type, unsigned id) {
   if (maximal_number_of_nodes > 0 &&
-      maximal_number_of_nodes <= asebaros_nodes.size() &&
+      maximal_number_of_nodes <= (int) asebaros_nodes.size() &&
       asebaros_nodes.count(id) == 0)
     return true;
   return !nodes_configs.accept.get_config(type, id);
@@ -124,14 +124,10 @@ std::vector<int16_t> AsebaROS::query_variable(unsigned nodeId, unsigned pos,
   getVariableQueries[key] = &query;
   lock.unlock();
 
-  // send message, outside lock to avoid deadlocks
-  // TODO(Jerome): in lock no?
   Aseba::GetVariables msg(nodeId, pos, length);
   hub.sendMessage(&msg, true);
 
-  // system_time const timeout(get_system_time()+posix_time::milliseconds(100));
   // wait 100 ms, considering the possibility of spurious wakes
-  // TODO(Jerome): review
   lock.lock();
   bool result = query.cond.wait_for(lock, 100ms) == std::cv_status::no_timeout;
   // remove key and return answer
@@ -145,7 +141,6 @@ std::vector<int16_t> AsebaROS::query_variable(unsigned nodeId, unsigned pos,
 // ------------- NodeManager / Dashel
 
 void AsebaROS::sendMessage(const Aseba::Message &message) {
-  // TODO(Jerome): not sure if use true or false (to lock or not to lock)
   hub.sendMessage(&message, false);
 }
 
@@ -211,8 +206,6 @@ void AsebaROS::nodeDescriptionReceived(unsigned nodeId) {
     std::string variable = variable_id_for_node(name);
     if (!variable.empty()) {
       // This compensate partial remapping of asebaswitch
-      // TODO(Jerome): check safety for real thymios/epucks,
-      // i..e that the change is not permanent
       node->set_variable(variable, nodeId, false);
     }
   }
@@ -374,11 +367,16 @@ bool AsebaROS::load_script(LoadScriptRequestPtr req, LoadScriptResponsePtr res) 
 
 bool AsebaROS::get_node_list(GetNodeListRequestPtr req, GetNodeListResponsePtr res) {
   std::lock_guard<std::mutex> lock(mutex);
-  // TODO(Jerome): ignored nodes
   for (const auto &it : asebaros_nodes) {
-    // if (!req->ignored && ignore_node(node.first))
-    //   continue;
     res->nodes.push_back(it.second->to_msg());
+  }
+  for (const auto &it : nodes) {
+    if (asebaros_nodes.count(it.first) == 0) {
+      NodeMsg msg;
+      msg.id = it.first;
+      msg.ignored = true;
+      res->nodes.push_back(msg);
+    }
   }
   return true;
 }
