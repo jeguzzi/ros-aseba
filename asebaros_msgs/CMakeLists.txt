@@ -14,23 +14,25 @@ find_package(rosidl_default_generators REQUIRED)
 find_package(builtin_interfaces REQUIRED)
 
 set(msg_files
-  "msg/AsebaEvent.msg"
-	"msg/AsebaAnonymousEvent.msg"
-  "msg/AsebaConstant.msg"
-  "msg/AsebaNode.msg"
-  "msg/AsebaNodeList.msg"
+  "msg/Event.msg"
+	"msg/AnonymousEvent.msg"
+  "msg/Constant.msg"
+  "msg/Node.msg"
+  "msg/NodeList.msg"
+  "msg/NodeDescription.msg"
 )
 
 set(srv_files
-  "srv/GetEventId.srv"
-	"srv/GetEventName.srv"
-	"srv/GetNodeIds.srv"
+  # "srv/GetEventId.srv"
+	# "srv/GetEventName.srv"
+	# "srv/GetNodeIds.srv"
 	"srv/GetNodeList.srv"
-	"srv/GetNodeName.srv"
-	"srv/GetVariableList.srv"
+	# "srv/GetNodeName.srv"
+	# "srv/GetVariableList.srv"
 	"srv/GetVariable.srv"
-	"srv/LoadScripts.srv"
+	"srv/LoadScript.srv"
 	"srv/SetVariable.srv"
+  "srv/GetDescription.srv"
 )
 
 rosidl_generate_interfaces(${PROJECT_NAME}

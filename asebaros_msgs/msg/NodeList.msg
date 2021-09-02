@@ -1,3 +1,1 @@
-bool ignored false
----
 asebaros_msgs/Node[] nodes
