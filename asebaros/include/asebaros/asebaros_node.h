@@ -19,7 +19,7 @@ using diagnostic_msgs::DiagnosticStatus;
 #include "common/msg/NodesManager.h"
 #include "common/msg/msg.h"
 
-#include "asebascript.h"
+#include "aseba_script.h"
 #include "utils.h"
 #include "aseba_dashel_hub.h"
 

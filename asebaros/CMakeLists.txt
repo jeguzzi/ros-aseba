@@ -55,10 +55,19 @@ endif()
 macro(codesign target)
 endmacro(codesign)
 
-set(ASEBA_DIR $ENV{ASEBA_DIR})  #/Users/Jerome/Dev/Others/aseba
-set(DASHEL_DIR $ENV{DASHEL_DIR}) #/Users/Jerome/Dev/Others/dashel
+if(DEFINED ENV{DASHEL_DIR})
+  set(DASHEL_DIR $ENV{DASHEL_DIR})
+else()
+  set(DASHEL_DIR PROJECT_SOURCE_DIR/dashel)
+endif()
 
 add_subdirectory(${DASHEL_DIR} dashel)
+
+if(DEFINED ENV{ASEBA_DIR})
+  set(ASEBA_DIR $ENV{ASEBA_DIR})
+else()
+  set(ASEBA_DIR PROJECT_SOURCE_DIR/aseba)
+endif()
 
 set(LIB_VERSION_MAJOR 3) # Must be bumped for incompatible ABI changes
 set(LIB_VERSION_MINOR 0)

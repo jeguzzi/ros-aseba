@@ -1,0 +1,6 @@
+[submodule "dashel"]
+	path = dashel
+	url = git://github.com/aseba-community/dashel.git
+[submodule "aseba"]
+	path = aseba
+	url = git://github.com/aseba-community/aseba.git

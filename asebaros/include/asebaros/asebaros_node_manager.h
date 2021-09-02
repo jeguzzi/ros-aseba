@@ -54,8 +54,8 @@ typedef asebaros_msgs::LoadScript::Response * LoadScriptResponsePtr;
 #include "compiler/compiler.h"
 
 #include "aseba_dashel_hub.h"
-#include "asebarosnode.h"
-#include "asebascript.h"
+#include "asebaros_node.h"
+#include "aseba_script.h"
 
 class AsebaROS : public Aseba::NodesManager {
   friend class AsebaROSNode;

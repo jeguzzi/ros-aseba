@@ -14,7 +14,7 @@
 #include "asebaros_msgs/srv/get_description.hpp"
 #include "asebaros_msgs/srv/get_variable.hpp"
 #include "asebaros_msgs/srv/set_variable.hpp"
-#include "asebascript.h"
+#include "aseba_script.h"
 #include "utils.h"
 
 class AsebaROS2;
