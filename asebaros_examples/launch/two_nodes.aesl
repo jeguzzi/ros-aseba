@@ -1,0 +1,34 @@
+<!DOCTYPE aesl-source>
+<network>
+
+<!--list of global events-->
+<event size="3" name="ping_thymio"/>
+<event size="3" name="ping_epuck"/>
+<event size="3" name="pong"/>
+
+<!--list of constants-->
+<constant value="0" name="MY_CONSTANT_THYMIO"/>
+<constant value="0" name="MY_CONSTANT_EPUCK"/>
+
+<!--show keywords state-->
+<keywords flag="true"/>
+
+<!--node thymio-II-->
+<node nodeId="1" name="thymio-II">
+var value[3] = [MY_CONSTANT_THYMIO, MY_CONSTANT_THYMIO, MY_CONSTANT_THYMIO]
+emit pong value
+onevent ping_thymio
+value = event.args[0:2]
+emit pong value
+</node>
+
+<!--node e-puck0-->
+<node nodeId="2" name="e-puck0">
+var value[3] = [MY_CONSTANT_EPUCK, MY_CONSTANT_EPUCK, MY_CONSTANT_EPUCK]
+emit pong value
+onevent ping_epuck
+value = args[0:2]
+emit pong value
+</node>
+
+</network>
