@@ -23,12 +23,7 @@ set(msg_files
 )
 
 set(srv_files
-  # "srv/GetEventId.srv"
-	# "srv/GetEventName.srv"
-	# "srv/GetNodeIds.srv"
 	"srv/GetNodeList.srv"
-	# "srv/GetNodeName.srv"
-	# "srv/GetVariableList.srv"
 	"srv/GetVariable.srv"
 	"srv/LoadScript.srv"
 	"srv/SetVariable.srv"

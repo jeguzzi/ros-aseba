@@ -25,6 +25,22 @@ find_package(std_msgs REQUIRED)
 find_package(asebaros_msgs REQUIRED)
 find_package(LibXml2 REQUIRED)
 
+find_package(diagnostic_msgs)
+find_package(diagnostic_updater)
+if( diagnostic_msgs_FOUND AND diagnostic_updater_FOUND )
+  add_compile_definitions(DIAGNOSTICS)
+  set(EXTRA_DEPS diagnostic_msgs diagnostic_updater)
+  message("Will use ROS diagnostics")
+else()
+  message("Will not use ROS diagnostics")
+endif()
+add_compile_definitions(ROS_VERSION_M=$ENV{ROS_VERSION})
+message("Using ROS VERSION $ENV{ROS_VERSION}")
+
+
+# TODO(Jerome): make this dependent on the availability of diagnostic_updater and diagnostic_msgs
+#
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
@@ -65,8 +81,15 @@ add_subdirectory(${ASEBA_DIR}/aseba/transport/dashel_plugins dashel_plugins)
 
 # target_compile_options(asebaros PRIVATE -Wno-literal-suffix)
 
-add_executable(asebaros src/multi_asebaros.cpp)
-ament_target_dependencies(asebaros rclcpp std_msgs asebaros_msgs)
+add_executable(asebaros
+  src/aseba_script.cpp
+  src/aseba_dashel_hub.cpp
+  src/asebaros_node.cpp
+  src/asebaros_node_ros2.cpp
+  src/asebaros_node_manager.cpp
+  src/asebaros_node_manager_ros2.cpp)
+
+ament_target_dependencies(asebaros rclcpp std_msgs asebaros_msgs ${EXTRA_DEPS})
 target_link_libraries(asebaros dashel asebacommon asebacompiler asebadashelplugins ${LIBXML2_LIBRARIES})
 
 # target_compile_options(multi_asebaros PRIVATE -Wno-literal-suffix)
