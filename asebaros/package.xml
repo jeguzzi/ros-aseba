@@ -2,10 +2,13 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>asebaros</name>
-  <version>0.0.0</version>
-  <description>TODO: Package description</description>
+  <version>0.1.0</version>
+  <description>
+    Bridge to access an Aseba network from ROS.
+    For more information about Aseba, see: http://aseba.wikidot.com
+  </description>
   <maintainer email="jerome@idsia.ch">Jerome</maintainer>
-  <license>TODO: License declaration</license>
+  <license>BSD</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 

@@ -17,9 +17,6 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-# uncomment the following section in order to fill in
-# further dependencies manually.
-# find_package(<dependency> REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(asebaros_msgs REQUIRED)
@@ -37,9 +34,6 @@ endif()
 add_compile_definitions(ROS_VERSION_M=$ENV{ROS_VERSION})
 message("Using ROS VERSION $ENV{ROS_VERSION}")
 
-
-# TODO(Jerome): make this dependent on the availability of diagnostic_updater and diagnostic_msgs
-#
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -84,12 +78,6 @@ add_subdirectory(${ASEBA_DIR}/aseba/compiler asebacommon)
 add_subdirectory(${ASEBA_DIR}/aseba/common asebacompiler)
 add_subdirectory(${ASEBA_DIR}/aseba/transport/dashel_plugins dashel_plugins)
 
-# add_executable(asebaros src/asebaros.cpp)
-# ament_target_dependencies(asebaros rclcpp std_msgs asebaros_msgs)
-# target_link_libraries(asebaros dashel asebacommon asebacompiler asebadashelplugins ${LIBXML2_LIBRARIES})
-
-# target_compile_options(asebaros PRIVATE -Wno-literal-suffix)
-
 add_executable(asebaros
   src/aseba_script.cpp
   src/aseba_dashel_hub.cpp
@@ -98,10 +86,13 @@ add_executable(asebaros
   src/asebaros_node_manager.cpp
   src/asebaros_node_manager_ros2.cpp)
 
+# if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+#   target_compile_options(asebaros PUBLIC -Wall -Wextra -Wpedantic)
+# endif()
+
+
 ament_target_dependencies(asebaros rclcpp std_msgs asebaros_msgs ${EXTRA_DEPS})
 target_link_libraries(asebaros dashel asebacommon asebacompiler asebadashelplugins ${LIBXML2_LIBRARIES})
-
-# target_compile_options(multi_asebaros PRIVATE -Wno-literal-suffix)
 
 target_include_directories(asebaros
   PUBLIC
@@ -111,27 +102,8 @@ target_include_directories(asebaros
     $<BUILD_INTERFACE:${ASEBA_DIR}/aseba>
     $<INSTALL_INTERFACE:include>)
 
-# target_include_directories(multi_asebaros
-#   PUBLIC
-#     ${LIBXML2_INCLUDE_DIR}
-#     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-#     $<BUILD_INTERFACE:${DASHEL_DIR}>
-#     $<BUILD_INTERFACE:${ASEBA_DIR}/aseba>
-#     $<INSTALL_INTERFACE:include>)
-
 install(TARGETS
   asebaros
   DESTINATION lib/${PROJECT_NAME}
 )
-
-# install(TARGETS
-#   multi_asebaros
-#   DESTINATION lib/${PROJECT_NAME}
-# )
-
-install(DIRECTORY
-  launch
-  DESTINATION share/${PROJECT_NAME}
-)
-
 ament_package()

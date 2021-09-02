@@ -63,8 +63,8 @@ public:
                const Aseba::TargetDescription *description,
                const std::string &namespace_,
                bool include_id_in_events, bool is_connected = true)
-      : hub(hub), manager(manager), id(id), name(name), description(description),
-        namespace_(namespace_), script(nullptr),
+      : hub(hub), manager(manager), id(id), name(name), namespace_(namespace_),
+        description(description), script(nullptr),
         include_id_in_events(include_id_in_events), is_connected(is_connected) {
     unsigned _;
     variables = description->getVariablesMap(_);
@@ -88,16 +88,16 @@ public:
                     bool should_lock = true);
   virtual bool publish_event(const Aseba::UserMessage *aseba_message) = 0;
 protected:
+  AsebaDashelHub * hub;
+  AsebaROS * manager;
   const unsigned id;
   const std::string name;
   const std::string namespace_;
   const Aseba::TargetDescription *description;
-  AsebaDashelHub * hub;
-  AsebaROS * manager;
-  Aseba::VariablesMap variables;
   std::shared_ptr<AsebaScript> script;
   bool include_id_in_events;
   bool is_connected;
+  Aseba::VariablesMap variables;
   mutable std::mutex mutex;
   // mutable std::shared_timed_mutex mutex;
   std::string ros_name(const std::string &topic_name) const;

@@ -14,7 +14,7 @@ AsebaROS2Node::AsebaROS2Node(AsebaDashelHub *hub, AsebaROS2 *manager,
                              bool include_id_in_events, bool is_connected)
     : AsebaROSNode(hub, manager, id, name, description, namespace_,
                    include_id_in_events, is_connected),
-      pubs(), subs(), services(), ros_node(ros_node) {
+      ros_node(ros_node), pubs(), subs(), services() {
   desc_pub = ros_node->create_publisher<NodeDescriptionMsg>(
             ros_name("description"), rclcpp::QoS(1).transient_local());
   services.push_back(
@@ -58,9 +58,6 @@ void AsebaROS2Node::create_subscribers() {
   }
 }
 
-// TODO(Jerome) Maybe they are sync because pubs can only change after a
-// load_script which lock dashel (same lock as the fn that call
-// get_publisher_for)
 std::shared_ptr<rclcpp::Publisher<asebaros_msgs::msg::Event>>
 AsebaROS2Node::get_publisher_for(const Aseba::UserMessage *asebaMessage) {
   unsigned type = asebaMessage->type;

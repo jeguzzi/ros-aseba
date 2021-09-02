@@ -75,7 +75,7 @@ void AsebaROSNode::set_variable(const std::string &name, int16_t value,
 }
 
 std::vector<int16_t> AsebaROSNode::get_variable(const std::string &name) {
-  unsigned position, length, value;
+  unsigned position, length;
   // lock the access to the member methods, wait will unlock the underlying
   // mutex
   std::wstring wname = widen(name);

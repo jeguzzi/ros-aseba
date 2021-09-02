@@ -93,8 +93,7 @@ void AsebaDashelHub::incomingData(Dashel::Stream *stream) {
   }
 }
 
-// TODO(Jerome): this is prob. no more needed in aseba >= 5
-// as we are already using ping Netwoek
+// TODO(Jerome): Is this still needed in aseba >= 5, as we are already using pingNetwork?
 void AsebaDashelHub::connectionCreated(Dashel::Stream *stream) {
   LOG_INFO("Incoming connection from %s", stream->getTargetName().c_str());
   asebaROS->set_connected_target(stream->getTargetName());

@@ -51,9 +51,6 @@ void AsebaROS1Node::create_subscribers() {
   }
 }
 
-// TODO(Jerome) Maybe they are sync because pubs can only change after a
-// load_script which lock dashel (same lock as the fn that call
-// get_publisher_for)
 ros::Publisher *
 AsebaROS1Node::get_publisher_for(const Aseba::UserMessage *asebaMessage) {
   unsigned type = asebaMessage->type;
