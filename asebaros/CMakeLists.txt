@@ -51,13 +51,19 @@ set(LibXml2_LIBRARIES ${LIBXML2_LIBRARIES})
 macro(codesign target)
 endmacro(codesign)
 
-# set(ASEBA_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../aseba/upstream_src)
-# set(DASHEL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../dashel/upstream_src)
-
-set(ASEBA_DIR $ENV{ASEBA_DIR})
-set(DASHEL_DIR $ENV{DASHEL_DIR})
+if(DEFINED ENV{DASHEL_DIR})
+  set(DASHEL_DIR $ENV{DASHEL_DIR})
+else()
+  set(DASHEL_DIR PROJECT_SOURCE_DIR/dashel)
+endif()
 
 add_subdirectory(${DASHEL_DIR} dashel)
+
+if(DEFINED ENV{ASEBA_DIR})
+  set(ASEBA_DIR $ENV{ASEBA_DIR})
+else()
+  set(ASEBA_DIR PROJECT_SOURCE_DIR/aseba)
+endif()
 
 set(LIB_VERSION_MAJOR 3) # Must be bumped for incompatible ABI changes
 set(LIB_VERSION_MINOR 0)
