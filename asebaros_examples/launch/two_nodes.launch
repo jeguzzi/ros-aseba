@@ -28,7 +28,7 @@
         name: epuck
     </rosparam>
     <rosparam param="script">
-      path: $(find asebaros_examples)/two_nodes.aesl
+      path: $(find asebaros_examples)/launch/two_nodes.aesl
       constants:
         MY_CONSTANT_THYMIO: 3
         MY_CONSTANT_EPUCK: 333

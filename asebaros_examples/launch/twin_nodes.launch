@@ -20,7 +20,7 @@
         accept: true
     </rosparam>
     <rosparam param="script">
-      path: $(find asebaros_examples)/twin_nodes.aesl
+      path: $(find asebaros_examples)/launch/twin_nodes.aesl
       constants:
         MY_CONSTANT: 3
     </rosparam>

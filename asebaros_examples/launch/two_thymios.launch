@@ -32,7 +32,7 @@
         name: second_thymio
     </rosparam>
     <rosparam param="script">
-      path: $(find asebaros_examples)/two_thymios.aesl
+      path: $(find asebaros_examples)/launch/two_thymios.aesl
     </rosparam>
   </node>
 </launch>

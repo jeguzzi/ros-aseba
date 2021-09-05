@@ -23,7 +23,7 @@
         name: thymio
     </rosparam>
     <rosparam param="script">
-      path: $(find asebaros_examples)/single_thymio.aesl
+      path: $(find asebaros_examples)/launch/single_thymio.aesl
       constants:
         OBSTACLE_THRESHOLD: 2500
     </rosparam>

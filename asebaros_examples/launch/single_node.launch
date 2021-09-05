@@ -22,7 +22,7 @@
         accept: true
     </rosparam>
     <rosparam param="script">
-      path: $(find asebaros_examples)/single_node.aesl
+      path: $(find asebaros_examples)/launch/single_node.aesl
       constants:
         MY_CONSTANT: 3
     </rosparam>
