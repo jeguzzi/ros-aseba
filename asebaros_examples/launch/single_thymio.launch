@@ -3,30 +3,29 @@
   <arg name="device" default="tcp:host=localhost;port=33333"/>
   <let name="port" value="44444"/>
 
-  <node pkg="asebaros" exec="asebaros" args="--log-level info" output="screen">
+  <node name="asebaros" pkg="asebaros" type="asebaros" output="screen">
     <param name="include_id_in_events" value="false"/>
     <param name="maximal_number_of_nodes" value="1"/>
-    <param name="port" value="$(var port)"/>
+    <param name="port" value="$(arg port)"/>
     <param name="reload_script_on_reconnect" value="true"/>
     <param name="set_id_variable" value="false"/>
     <param name="shutdown_on_unconnect" value="false"/>
-    <param name="targets" value="$(var device)" value-sep=","/>
-    <param name="nodes">
-      <param name="thymio">
-        <param name="type" value="thymio-II"/>
-        <param name="id_variable" value="_id"/>
-        <param name="accept" value="true"/>
-        <param name="name" value="thymio"/>
-      </param>
-      <param name="others">
-        <param name="accept" value="false"/>
-      </param>
-    </param>
-    <param name="script">
-      <param name="path" value="$(find-pkg-share asebaros_examples)/launch/single_thymio.aesl"/>
-      <param name="constants">
-        <param name="MY_CONSTANT" value="3"/>
-      </param>
-    </param>
+    <rosparam param="targets" subst_value="true">
+      [$(arg device),]
+    </rosparam>
+    <rosparam param="nodes">
+      others:
+        accept: false
+      thymio:
+        type: thymio-II
+        id_variable: _id
+        accept: true
+        name: thymio
+    </rosparam>
+    <rosparam param="script">
+      path: $(find asebaros_examples)/single_thymio.aesl
+      constants:
+        OBSTACLE_THRESHOLD: 2500
+    </rosparam>
   </node>
 </launch>
