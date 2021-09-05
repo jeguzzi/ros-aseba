@@ -1,0 +1,15 @@
+<!DOCTYPE aseba-playground>
+<aseba-playground>
+	<author name="Jerome Guzzi" email="jerome at idsia dot ch" />
+	<description lang="en">A simple multi-robot playground to experiment with asebaros without physical robots.</description>
+	<color name="wall" r="0.9" g="0.9" b="0.9" />
+	<world w="100" h="100" color="wall"/>
+	<robot type="thymio2" x="45" y="15" port="33334" name="Thymio A" nodeId="1" />
+	<robot type="thymio2" x="45" y="45" port="33335" name="Thymio B" nodeId="1"/>
+	<robot type="e-puck" x="15" y="15" port="33336" name="E-Puck A" nodeId="1" />
+	<robot type="e-puck" x="15" y="45" port="33337" name="E-Puck B" nodeId="1" />
+</aseba-playground>
+
+<!-- put all nodes in the same network with
+asebaswitch "tcp:host=localhost\;port=33334\;remapLocal=21181\;remapTarget=1" "tcp:host=localhost\;port=33335\;remapLocal=14031\;remapTarget=1" "tcp:host=localhost\;port=33336\;remapLocal=1\;remapTarget=1" "tcp:host=localhost\;port=33336\;remapLocal=2\;remapTarget=1" -p 33333
+-->
