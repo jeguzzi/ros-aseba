@@ -21,7 +21,7 @@
         id_variable: _id
         accept: true
     </rosparam>
-    <rosparam param="script">
+    <rosparam param="script" subst_value="true">
       path: $(find asebaros_examples)/launch/single_node.aesl
       constants:
         MY_CONSTANT: 3
