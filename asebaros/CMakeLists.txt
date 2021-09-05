@@ -32,7 +32,6 @@ find_package(catkin REQUIRED COMPONENTS
 
 # find_package(catkin COMPONENTS diagnostic_updater)
 if(diagnostic_updater_FOUND )
-  add_compile_definitions(DIAGNOSTICS)
   set(EXTRA_DEPS diagnostic_updater)
   message("Will use ROS diagnostics")
 else()
@@ -133,12 +132,18 @@ add_executable(asebaros
   src/asebaros_node_manager.cpp
   src/asebaros_node_manager_ros1.cpp)
 
+if(diagnostic_updater_FOUND )
+  target_compile_definitions(asebaros PUBLIC DIAGNOSTICS)
+endif()
+
 target_link_libraries(
   asebaros
   dashel asebacommon asebacompiler asebadashelplugins
   ${catkin_LIBRARIES}
   ${LIBXML2_LIBRARIES}
   )
+
+
 
 #############
 ## Install ##
