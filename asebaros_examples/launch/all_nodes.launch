@@ -8,7 +8,7 @@
     <param name="port" value="$(arg port)"/>
     <param name="shutdown_on_unconnect" value="false"/>
     <rosparam param="targets" subst_value="true">
-      [$(arg device),]
+      ["$(arg device)",]
     </rosparam>
     <rosparam param="nodes">
       any:

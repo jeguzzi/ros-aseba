@@ -11,7 +11,7 @@
     <param name="set_id_variable" value="true"/>
     <param name="shutdown_on_unconnect" value="false"/>
     <rosparam param="targets" subst_value="true">
-      [$(arg device),]
+      ["$(arg device)",]
     </rosparam>
     <rosparam param="nodes">
       others:
