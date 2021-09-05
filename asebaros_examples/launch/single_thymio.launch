@@ -25,7 +25,7 @@
     <param name="script">
       <param name="path" value="$(find-pkg-share asebaros_examples)/launch/single_thymio.aesl"/>
       <param name="constants">
-        <param name="MY_CONSTANT" value="3"/>
+        <param name="OBSTACLE_THRESHOLD" value="2500"/>
       </param>
     </param>
   </node>

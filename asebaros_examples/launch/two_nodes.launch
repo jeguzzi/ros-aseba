@@ -29,7 +29,7 @@
       <param name="path" value="$(find-pkg-share asebaros_examples)/launch/two_nodes.aesl"/>
       <param name="constants">
         <param name="MY_CONSTANT_THYMIO" value="3"/>
-        <param name="MY_CONSTANT_EPUCK" value="3"/>
+        <param name="MY_CONSTANT_EPUCK" value="333"/>
       </param>
     </param>
   </node>
