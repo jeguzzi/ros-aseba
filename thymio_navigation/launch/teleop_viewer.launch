@@ -1,4 +1,0 @@
-<launch>
-  <include file="$(find thymio_navigation_driver)/launch/teleop.launch"/>
-  <node pkg="rviz" type="rviz" name="rviz" output="screen" args="-d $(find thymio_navigation_driver)/launch/teleop.vcg"/>
-</launch>

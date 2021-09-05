@@ -1,0 +1,29 @@
+<!DOCTYPE aesl-source>
+<network>
+
+<!--list of global events-->
+<event size="4" name="set_color"/>
+<event size="0" name="obstacle"/>
+
+<!--list of constants-->
+<constant value="2000" name="OBSTACLE_THRESHOLD"/>
+
+<!--show keywords state-->
+<keywords flag="true"/>
+
+<!--node thymio-II-->
+<node name="thymio-II">
+onevent prox
+if (prox.horizontal[2] > OBSTACLE_THRESHOLD) then
+  call leds.buttons(32, 32, 32, 32)
+  emit obstacle
+else
+  call leds.buttons(0, 0, 0, 0)
+end
+onevent set_color
+if (event.args[0] == _id) then
+  call leds.top(event.args[1], event.args[2], event.args[3])
+end
+</node>
+
+</network>

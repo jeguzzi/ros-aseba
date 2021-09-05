@@ -1,0 +1,25 @@
+<!DOCTYPE aesl-source>
+<network>
+
+<!--list of global events-->
+<event size="4" name="ping"/>
+<event size="3" name="pong"/>
+
+<!--list of constants-->
+<constant value="0" name="MY_CONSTANT"/>
+
+<!--show keywords state-->
+<keywords flag="true"/>
+
+<!--node thymio-II-->
+<node name="thymio-II">
+var value[3] = [MY_CONSTANT, MY_CONSTANT, MY_CONSTANT]
+emit pong value
+onevent ping
+if (event.args[0] == _id) then
+  value = event.args[1:3]
+  emit pong value
+end
+</node>
+
+</network>

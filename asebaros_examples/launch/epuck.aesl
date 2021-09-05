@@ -1,0 +1,27 @@
+<!DOCTYPE aesl-source>
+<network>
+
+<!--list of global events-->
+<event size="2" name="event_b"/>
+<event size="2" name="set_color"/>
+
+<!--list of constants-->
+<constant value="1" name="CONSTANT_B"/>
+
+<!--show keywords state-->
+<keywords flag="true"/>
+
+<node name="e-puck0">
+var variable_a[2] = [id, CONSTANT_B]
+timer.period = 1000
+
+onevent set_color
+if (args[0] == id) then
+  leds[1] = args[1]
+end
+
+onevent timer
+emit event_b variable_a
+</node>
+
+</network>

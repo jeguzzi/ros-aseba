@@ -1,7 +1,0 @@
-<launch>
-  <node pkg="asebaros" type="asebaros" name="asebaros" output="screen" args="ser:device=/dev/ttyACM1"/>
-  <include file="$(find thymio_navigation_driver)/launch/teleop.launch"/>
-  <include file="$(find thymio_navigation_driver)/launch/slam.launch"/>
-  <include file="$(find thymio_navigation_driver)/launch/nav.launch"/>
-  <node pkg="rviz" type="rviz" name="rviz" output="screen" args="-d $(find thymio_navigation_driver)/launch/slam_nav.vcg"/>
-</launch>

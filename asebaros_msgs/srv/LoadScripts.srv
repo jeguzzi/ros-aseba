@@ -1,5 +1,0 @@
-string file_name
-asebaros_msgs/AsebaConstant[] constants
-# Leave empty to load to all nodes
-uint16[] node_ids
----

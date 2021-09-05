@@ -45,3 +45,4 @@ thymio_driver/calibration/*
 
 # Catkin custom files
 CATKIN_IGNORE
+archive

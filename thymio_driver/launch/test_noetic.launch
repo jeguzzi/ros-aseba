@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<launch>
-<include file="$(find thymio_driver)/launch/thymio.launch">
-  <arg name="device" value="tcp:192.168.1.112.;port=33333"/>
-  <arg name="name" value="thymio" />
-</include>
-</launch>

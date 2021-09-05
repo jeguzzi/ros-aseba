@@ -1,0 +1,5 @@
+<launch>
+  <let name="world" value="$(find-pkg-share asebaros_examples)/multirobot.playground"/>
+  <executable cmd="$(env ASEBA_BIN_DIR)/asebaplayground $(var world)" name="asebaplayground" output="screen" shell="true"/>
+  <executable cmd='$(env ASEBA_BIN_DIR)/asebaswitch &apos;tcp:host=localhost\;port=33334\;remapLocal=21181\;remapTarget=1&apos; &quot;tcp:host=localhost\;port=33335\;remapLocal=14031\;remapTarget=1&quot; \"tcp:host=localhost\;port=33336\;remapLocal=1\;remapTarget=1\" &quot;tcp:host=localhost\;port=33336\;remapLocal=2\;remapTarget=1&quot; -p 33333' name="asebaswitch" output="screen" shell="true"/>
+</launch>

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.0.2)
 # if (POLICY CMP0048)
 #   cmake_policy(SET CMP0048 NEW)
 # endif (POLICY CMP0048)
@@ -30,6 +30,17 @@ find_package(catkin REQUIRED COMPONENTS
   diagnostic_updater
 )
 
+# find_package(catkin COMPONENTS diagnostic_updater)
+if(diagnostic_updater_FOUND )
+  add_compile_definitions(DIAGNOSTICS)
+  set(EXTRA_DEPS diagnostic_updater)
+  message("Will use ROS diagnostics")
+else()
+  message("Will not use ROS diagnostics")
+endif()
+add_compile_definitions(ROS_VERSION_M=$ENV{ROS_VERSION})
+message("Using ROS VERSION $ENV{ROS_VERSION}")
+
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS thread)
 find_package(LibXml2 REQUIRED)
@@ -40,8 +51,11 @@ set(LibXml2_LIBRARIES ${LIBXML2_LIBRARIES})
 macro(codesign target)
 endmacro(codesign)
 
-set(ASEBA_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../aseba/upstream_src)
-set(DASHEL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../dashel/upstream_src)
+# set(ASEBA_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../aseba/upstream_src)
+# set(DASHEL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../dashel/upstream_src)
+
+set(ASEBA_DIR $ENV{ASEBA_DIR})
+set(DASHEL_DIR $ENV{DASHEL_DIR})
 
 add_subdirectory(${DASHEL_DIR} dashel)
 
@@ -88,7 +102,7 @@ add_subdirectory(${ASEBA_DIR}/aseba/transport/dashel_plugins dashel_plugins)
 ###################################
 
 catkin_package(
-  CATKIN_DEPENDS roscpp asebaros_msgs diagnostic_updater
+  CATKIN_DEPENDS roscpp asebaros_msgs ${EXTRA_DEPS}
   DEPENDS LibXml2
 )
 
@@ -96,15 +110,23 @@ catkin_package(
 ## Build ##
 ###########
 
+message("catkin_INCLUDE_DIRS ${catkin_INCLUDE_DIRS}")
+
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
   ${ASEBA_DIR}/aseba
   ${LIBXML2_INCLUDE_DIR}
-  # ${Boost_INCLUDE_DIRS}
 )
 
-add_executable(asebaros src/asebaros.cpp)
+add_executable(asebaros
+  src/asebascript.cpp
+  src/aseba_dashel_hub.cpp
+  src/asebarosnode.cpp
+  src/asebaros_node_ros1.cpp
+  src/asebaros_node_manager.cpp
+  src/asebaros_node_manager_ros1.cpp)
+
 target_link_libraries(
   asebaros
   dashel asebacommon asebacompiler asebadashelplugins

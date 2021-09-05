@@ -1,0 +1,19 @@
+<!DOCTYPE aesl-source>
+<network>
+
+<!--list of global events-->
+
+<!--list of constants-->
+
+<!--show keywords state-->
+<keywords flag="true"/>
+
+<!--node thymio-II-->
+<node nodeId="21181" name="thymio-II">
+call leds.top(32, 0, 0)
+</node>
+<node nodeId="14031" name="thymio-II">
+call leds.top(0, 32, 0)
+</node>
+
+</network>

@@ -13,24 +13,21 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate messages in the 'msg' folder
 add_message_files(
   FILES
-	AsebaAnonymousEvent.msg
-	AsebaConstant.msg
-  AsebaEvent.msg
-	AsebaNode.msg
-	AsebaNodeList.msg
+	AnonymousEvent.msg
+	Constant.msg
+  Event.msg
+	Node.msg
+	NodeDescription.msg
+	NodeList.msg
 )
 
 ## Generate services in the 'srv' folder
 add_service_files(
   FILES
-  GetEventId.srv
-  GetEventName.srv
-  GetNodeIds.srv
+	GetDescription.srv
   GetNodeList.srv
-  GetNodeName.srv
 	GetVariable.srv
-  GetVariableList.srv
-  LoadScripts.srv
+  LoadScript.srv
   SetVariable.srv
 )
 

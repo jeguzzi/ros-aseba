@@ -1,4 +1,3 @@
-string node_name
-string variable_name
+string variable
 ---
 int16[] data
