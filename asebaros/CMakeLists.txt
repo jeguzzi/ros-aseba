@@ -54,7 +54,7 @@ endmacro(codesign)
 if(DEFINED ENV{DASHEL_DIR})
   set(DASHEL_DIR $ENV{DASHEL_DIR})
 else()
-  set(DASHEL_DIR PROJECT_SOURCE_DIR/dashel)
+  set(DASHEL_DIR ${PROJECT_SOURCE_DIR}/dashel)
 endif()
 
 add_subdirectory(${DASHEL_DIR} dashel)
@@ -62,7 +62,7 @@ add_subdirectory(${DASHEL_DIR} dashel)
 if(DEFINED ENV{ASEBA_DIR})
   set(ASEBA_DIR $ENV{ASEBA_DIR})
 else()
-  set(ASEBA_DIR PROJECT_SOURCE_DIR/aseba)
+  set(ASEBA_DIR ${PROJECT_SOURCE_DIR}/aseba)
 endif()
 
 set(LIB_VERSION_MAJOR 3) # Must be bumped for incompatible ABI changes
@@ -126,9 +126,9 @@ include_directories(
 )
 
 add_executable(asebaros
-  src/asebascript.cpp
+  src/aseba_script.cpp
   src/aseba_dashel_hub.cpp
-  src/asebarosnode.cpp
+  src/asebaros_node.cpp
   src/asebaros_node_ros1.cpp
   src/asebaros_node_manager.cpp
   src/asebaros_node_manager_ros1.cpp)
@@ -153,10 +153,6 @@ install(TARGETS dashel asebacommon asebacompiler asebadashelplugins
 
 install(TARGETS ${PROJECT_NAME}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
-
-install(DIRECTORY launch/
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
 )
 
 
