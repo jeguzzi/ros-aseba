@@ -32,13 +32,11 @@ find_package(catkin REQUIRED COMPONENTS
 
 # find_package(catkin COMPONENTS diagnostic_updater)
 if(diagnostic_updater_FOUND )
-  add_compile_definitions(DIAGNOSTICS)
   set(EXTRA_DEPS diagnostic_updater)
   message("Will use ROS diagnostics")
 else()
   message("Will not use ROS diagnostics")
 endif()
-add_compile_definitions(ROS_VERSION_M=$ENV{ROS_VERSION})
 message("Using ROS VERSION $ENV{ROS_VERSION}")
 
 ## System dependencies are found with CMake's conventions
@@ -133,12 +131,19 @@ add_executable(asebaros
   src/asebaros_node_manager.cpp
   src/asebaros_node_manager_ros1.cpp)
 
+if(diagnostic_updater_FOUND )
+  target_compile_definitions(asebaros PUBLIC DIAGNOSTICS)
+endif()
+target_compile_definitions(asebaros PUBLIC ROS_VERSION_M=$ENV{ROS_VERSION})
+
 target_link_libraries(
   asebaros
   dashel asebacommon asebacompiler asebadashelplugins
   ${catkin_LIBRARIES}
   ${LIBXML2_LIBRARIES}
   )
+
+
 
 #############
 ## Install ##
