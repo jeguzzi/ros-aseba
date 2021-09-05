@@ -52,7 +52,7 @@ endmacro(codesign)
 if(DEFINED ENV{DASHEL_DIR})
   set(DASHEL_DIR $ENV{DASHEL_DIR})
 else()
-  set(DASHEL_DIR PROJECT_SOURCE_DIR/dashel)
+  set(DASHEL_DIR ${PROJECT_SOURCE_DIR}/dashel)
 endif()
 
 add_subdirectory(${DASHEL_DIR} dashel)
@@ -60,7 +60,7 @@ add_subdirectory(${DASHEL_DIR} dashel)
 if(DEFINED ENV{ASEBA_DIR})
   set(ASEBA_DIR $ENV{ASEBA_DIR})
 else()
-  set(ASEBA_DIR PROJECT_SOURCE_DIR/aseba)
+  set(ASEBA_DIR ${PROJECT_SOURCE_DIR}/aseba)
 endif()
 
 set(LIB_VERSION_MAJOR 3) # Must be bumped for incompatible ABI changes
