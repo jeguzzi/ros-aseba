@@ -14,7 +14,9 @@
     <param name="nodes">
       <param name="thymio">
         <param name="type" value="thymio-II"/>
+        <param name="id_variable" value="_id"/>
         <param name="accept" value="true"/>
+        <param name="name" value="thymio"/>
       </param>
       <param name="others">
         <param name="accept" value="false"/>

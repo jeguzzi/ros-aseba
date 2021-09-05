@@ -16,11 +16,13 @@
         <param name="type" value="thymio-II"/>
         <param name="name" value="thymio"/>
         <param name="accept" value="true"/>
+        <param name="id_variable" value="_id"/>
       </param>
       <param name="epuck">
         <param name="type" value="e-puck0"/>
         <param name="name" value="epuck"/>
         <param name="accept" value="true"/>
+        <param name="id_variable" value="id"/>
       </param>
     </param>
     <param name="script">

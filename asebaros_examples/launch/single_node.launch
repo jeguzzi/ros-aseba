@@ -12,7 +12,12 @@
     <param name="shutdown_on_unconnect" value="false"/>
     <param name="targets" value="$(var device)" value-sep=","/>
     <param name="nodes">
-      <param name="any">
+      <param name="others">
+        <param name="accept" value="false"/>
+      </param>
+      <param name="thymio">
+        <param name="type" value="thymio-II"/>
+        <param name="id_variable" value="_id"/>
         <param name="accept" value="true"/>
       </param>
     </param>
