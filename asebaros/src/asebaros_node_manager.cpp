@@ -16,12 +16,24 @@ std::string AsebaROS::variable_id_for_node(const std::string &type,
   return nodes_configs.id_variable.get_config(type, id);
 }
 
+int AsebaROS::number_of_nodes(const std::string type) {
+  if (type.empty()) return (int) asebaros_nodes.size();
+  int n = 0;
+  for (auto &it : asebaros_nodes) {
+    if (it.second->type() == type) n++;
+  }
+  return n;
+}
+
 bool AsebaROS::should_ignore_node(const std::string &type, unsigned id) {
-  if (maximal_number_of_nodes > 0 &&
-      maximal_number_of_nodes <= (int) asebaros_nodes.size() &&
-      asebaros_nodes.count(id) == 0)
-    return true;
-  return !nodes_configs.accept.get_config(type, id);
+  if (asebaros_nodes.count(id) == 0) return true;
+  if (!nodes_configs.accept.get_config(type, id)) return true;
+  for (const auto & t : std::vector<std::string>{type, ""}) {
+    int maximal_number = nodes_configs.maximal_number_of_nodes.get_config(t, id);
+    if (maximal_number > 0 && maximal_number <= number_of_nodes(t))
+      return true;
+  }
+  return false;
 }
 
 std::string AsebaROS::namespace_for_node(const std::string &type, unsigned id) {
@@ -102,17 +114,9 @@ void AsebaROS::forward_event_to_ros(const Aseba::UserMessage *aseba_message) {
 }
 
 void AsebaROS::log_initialized() {
-  std::string desc;
-  if (maximal_number_of_nodes <= 0) {
-    desc = "any Aseba node";
-  } else if (maximal_number_of_nodes == 1) {
-    desc = "the first Aseba node";
-  } else {
-    desc =
-        "the first " + std::to_string(maximal_number_of_nodes) + "Aseba nodes";
-  }
-  LOG_INFO("Initialized AsebaROS: will connect to %s%s.", desc.c_str(),
-           default_script ? ", ready to load a default script" : "");
+  LOG_INFO("Initialized AsebaROS: will connect to Aseba nodes%s with config\n%s",
+           default_script ? ", ready to load a default script" : "",
+           nodes_configs.description().c_str());
 }
 
 std::vector<int16_t> AsebaROS::query_variable(unsigned nodeId, unsigned pos,
@@ -188,6 +192,7 @@ void AsebaROS::nodeDescriptionReceived(unsigned nodeId) {
   std::string name = narrow(nodes.at(nodeId).name);
   std::string ns = namespace_for_node(name, nodeId);
   bool ignore = should_ignore_node(name, nodeId);
+  bool include_id_in_events = nodes_configs.include_id_in_events.get_config(name, nodeId);
   LOG_INFO("Received %s description of an Aseba node with name %s and id %d",
            (nodes[nodeId].isComplete() ? "a complete" : "an uncomplete"),
            name.data(), nodeId);
@@ -199,7 +204,7 @@ void AsebaROS::nodeDescriptionReceived(unsigned nodeId) {
     LOG_WARN("Will ignore description as node %d was already known", nodeId);
     return;
   }
-  AsebaROSNode *node = add_asebaros_node(nodeId, name, ns);
+  AsebaROSNode *node = add_asebaros_node(nodeId, name, ns, include_id_in_events);
   LOG_INFO("Has connected to a new Aseba node for with %d and namespace %s", nodeId, ns.c_str());
   sleep_for_ms(200);
   if (set_id_variable) {
