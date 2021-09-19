@@ -87,15 +87,53 @@ protected:
     void set_config(std::string name, int id, T value) {
       config[name][id] = value;
     }
+
+    std::string description() const {
+      std::stringstream desc;
+      bool has_bottom = false;
+      for (const auto &i : config) {
+        std::string type = i.first.size() ? i.first : "*";
+        for (const auto &j : i.second) {
+          std::string id = j.first >= 0 ? std::to_string(j.first) : "*";
+          desc << std::right << std::setw (10) << type << " | " << std::setw (10) << std::left << id << j.second << std::endl;
+          if(type=="*" && id == "*") {
+            has_bottom = true;
+          }
+        }
+      }
+      if (!has_bottom) {
+        std::string type = "*";
+        desc << std::right << std::setw (10) << type << " | " << std::setw (10) << std::left << type << default_value << std::endl;
+      }
+      return desc.str();
+    }
   };
 
   struct NodesConfigs {
     NodesConfig<std::string> prefix;
     NodesConfig<std::string> name;
     NodesConfig<std::string> id_variable;
+    NodesConfig<int> maximal_number_of_nodes;
+    NodesConfig<bool> include_id_in_events;
     NodesConfig<bool> accept;
-    NodesConfigs() : prefix(""), name(""), id_variable(""), accept(true){};
+    NodesConfigs() :
+      prefix(""), name(""), id_variable(""),
+      maximal_number_of_nodes(-1), include_id_in_events(false), accept(true) {};
+
+    std::string description ( ) const {
+      std::stringstream desc;
+      desc << "accept:" << std::endl << accept.description();
+      desc << "maximal number:" << std::endl <<  maximal_number_of_nodes.description();
+      desc << "include id in events:" << std::endl <<  include_id_in_events.description();
+      desc << "name:" << std::endl << name.description();
+      desc << "prefix:" << std::endl << prefix.description();
+      desc << "id variable:" << std::endl << id_variable.description();
+      return desc.str();
+    }
+
   };
+
+
 
   NodesConfigs nodes_configs;
 
@@ -131,11 +169,10 @@ protected:
   bool shutdown_on_unconnect;
   bool reset_on_closing;
   bool set_id_variable;
-  int maximal_number_of_nodes;
-  bool include_id_in_events;
   bool reload_script_on_reconnect;
 
 protected:
+  int number_of_nodes(const std::string type);
   void has_updated_nodes();
   void update_script_constants(
       AsebaScript *script, bool set_parameters,
@@ -167,7 +204,7 @@ protected:
   virtual std::string init_params() = 0;
   virtual void import_node_config(const std::string &prefix) = 0;
   virtual AsebaROSNode *add_asebaros_node(unsigned id, const std::string &name,
-                                          const std::string &ns) = 0;
+                                          const std::string &ns, bool include_id_in_events) = 0;
   virtual void publish_node_list(const NodeListMsg & msg) = 0;
   virtual void set_script_param(const std::string & path) = 0;
   virtual void

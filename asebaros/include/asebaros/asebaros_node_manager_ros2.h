@@ -55,7 +55,7 @@ protected:
   void import_node_config(const std::string &prefix);
   void publish_anonymous_event(const Aseba::UserMessage *aseba_message);
   AsebaROSNode *add_asebaros_node(unsigned id, const std::string &name,
-                                  const std::string &ns);
+                                  const std::string &ns, bool include_id_in_events);
   void publish_node_list(const NodeListMsg &msg);
   void set_script_param(const std::string &path);
 };

@@ -1,27 +1,27 @@
 <!DOCTYPE aesl-source>
 <network>
 
-<!--list of global events-->
-<event size="3" name="set_color"/>
-<event size="0" name="obstacle"/>
+  <!--list of global events-->
+  <event size="3" name="set_color"/>
+  <event size="0" name="obstacle"/>
 
-<!--list of constants-->
-<constant value="2000" name="OBSTACLE_THRESHOLD"/>
+  <!--list of constants-->
+  <constant value="2000" name="OBSTACLE_THRESHOLD"/>
 
-<!--show keywords state-->
-<keywords flag="true"/>
+  <!--show keywords state-->
+  <keywords flag="true"/>
 
-<!--node thymio-II-->
-<node name="thymio-II">
-onevent prox
-if (prox.horizontal[2] > OBSTACLE_THRESHOLD) then
-  call leds.buttons(32, 32, 32, 32)
-  emit obstacle
-else
-  call leds.buttons(0, 0, 0, 0)
-end
-onevent set_color
-call leds.top(event.args[0], event.args[1], event.args[2])
-</node>
+  <!--node thymio-II-->
+  <node name="thymio-II">
+    onevent prox
+    if (prox.horizontal[2] > OBSTACLE_THRESHOLD) then
+      call leds.buttons(32, 32, 32, 32)
+      emit obstacle
+    else
+      call leds.buttons(0, 0, 0, 0)
+    end
+    onevent set_color
+    call leds.top(event.args[0], event.args[1], event.args[2])
+  </node>
 
 </network>

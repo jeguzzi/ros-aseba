@@ -4,8 +4,6 @@
   <let name="port" value="44444"/>
 
   <node pkg="asebaros" exec="asebaros" args="--log-level info" output="screen">
-    <param name="include_id_in_events" value="true"/>
-    <param name="maximal_number_of_nodes" value="0"/>
     <param name="port" value="$(var port)"/>
     <param name="reload_script_on_reconnect" value="true"/>
     <param name="set_id_variable" value="false"/>
@@ -15,6 +13,7 @@
       <param name="any">
         <param name="prefix" value="node_"/>
         <param name="accept" value="true"/>
+        <param name="include_id_in_events" value="true"/>
       </param>
     </param>
     <param name="script">

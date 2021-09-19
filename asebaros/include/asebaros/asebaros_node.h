@@ -87,6 +87,9 @@ public:
   void set_variable(const std::string &name, int16_t value,
                     bool should_lock = true);
   virtual bool publish_event(const Aseba::UserMessage *aseba_message) = 0;
+  std::string type() const {
+    return name;
+  }
 protected:
   AsebaDashelHub * hub;
   AsebaROS * manager;

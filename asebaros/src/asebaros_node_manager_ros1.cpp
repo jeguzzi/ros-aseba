@@ -67,10 +67,12 @@ void AsebaROS1::set_connected_target(const std::string &target) {
 #if DIAGNOSTICS
   updater.setHardwareID(target);
 #endif
+
+  log_initialized();
 }
 
 AsebaROSNode *AsebaROS1::add_asebaros_node(unsigned id, const std::string &name,
-                                           const std::string &ns) {
+                                           const std::string &ns, bool include_id_in_events) {
   auto node =
       std::dynamic_pointer_cast<AsebaROSNode>(std::make_shared<AsebaROS1Node>(
           &hub, this, id, name, &nodes.at(id), ns, include_id_in_events));
@@ -115,8 +117,6 @@ std::string AsebaROS1::init_params() {
   // Additional targets are any valid Dashel targets.
   nh.param<std::vector<std::string>>("targets", additionalTargets,
                                      std::vector<std::string>());
-  nh.param<bool>("include_id_in_events", include_id_in_events, false);
-  nh.param<int>("maximal_number_of_nodes", maximal_number_of_nodes, 0);
   nh.param<bool>("reload_script_on_reconnect", reload_script_on_reconnect,
                  false);
   nh.param<bool>("shutdown_on_unconnect", shutdown_on_unconnect, false);
@@ -152,7 +152,9 @@ void AsebaROS1::import_node_config(const std::string &prefix) {
   std::string type, name, item_prefix, id_variable;
   bool accept;
   int id = -1;
-  nh.param<std::string>("nodes/" + prefix + "/type", type, "");
+  int maximal_number_of_nodes = -1;
+  bool include_id_in_events = false;
+  nh.param<std::string>("nodes/" + prefix + "/name", type, "");
   nh.param<int>("nodes/" + prefix + "/id", id, -1);
   if (nh.getParam("nodes/" + prefix + "/accept", accept)) {
     nodes_configs.accept.set_config(type, id, accept);
@@ -160,11 +162,17 @@ void AsebaROS1::import_node_config(const std::string &prefix) {
   if (nh.getParam("nodes/" + prefix + "/prefix", item_prefix)) {
     nodes_configs.prefix.set_config(type, id, item_prefix);
   }
-  if (nh.getParam("nodes/" + prefix + "/name", name)) {
+  if (nh.getParam("nodes/" + prefix + "/namespace", name)) {
     nodes_configs.name.set_config(type, id, name);
   }
   if (nh.getParam("nodes/" + prefix + "/id_variable", id_variable)) {
     nodes_configs.id_variable.set_config(type, id, id_variable);
+  }
+  if (nh.getParam("nodes/" + prefix + "/include_id_in_events", include_id_in_events)) {
+    nodes_configs.include_id_in_events.set_config(type, id, id_variable);
+  }
+  if (nh.getParam("nodes/" + prefix + "/maximal_number", maximal_number_of_nodes)) {
+    nodes_configs.maximal_number_of_nodes.set_config(type, id, maximal_number_of_nodes);
   }
 }
 

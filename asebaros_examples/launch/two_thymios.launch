@@ -4,8 +4,6 @@
   <let name="port" value="44444"/>
 
   <node pkg="asebaros" exec="asebaros" args="--log-level info" output="screen">
-    <param name="include_id_in_events" value="false"/>
-    <param name="maximal_number_of_nodes" value="2"/>
     <param name="port" value="$(var port)"/>
     <param name="reload_script_on_reconnect" value="true"/>
     <param name="set_id_variable" value="true"/>
@@ -13,21 +11,21 @@
     <param name="targets" value="$(var device)" value-sep=","/>
     <param name="nodes">
       <param name="thymio">
-        <param name="type" value="thymio-II"/>
+        <param name="name" value="thymio-II"/>
         <param name="id_variable" value="_id"/>
         <param name="accept" value="false"/>
       </param>
       <param name="thymio_21181">
-        <param name="type" value="thymio-II"/>
+        <param name="name" value="thymio-II"/>
         <param name="accept" value="true"/>
         <param name="id" value="21181"/>
-        <param name="name" value="first_thymio"/>
+        <param name="namespace" value="first_thymio"/>
       </param>
       <param name="thymio_14031">
-        <param name="type" value="thymio-II"/>
+        <param name="name" value="thymio-II"/>
         <param name="accept" value="true"/>
         <param name="id" value="14031"/>
-        <param name="name" value="second_thymio"/>
+        <param name="namespace" value="second_thymio"/>
       </param>
       <param name="others">
         <param name="accept" value="false"/>

@@ -4,7 +4,6 @@
   <let name="port" value="44444"/>
 
   <node pkg="asebaros" exec="asebaros" args="--log-level info" output="screen">
-    <param name="maximal_number_of_nodes" value="0"/>
     <param name="port" value="$(var port)"/>
     <param name="shutdown_on_unconnect" value="false"/>
     <param name="targets" value="$(var device)" value-sep=","/>

@@ -64,6 +64,8 @@ AsebaROS2::AsebaROS2()
     update_diagnostics(stat);
   });
 #endif
+
+  log_initialized();
 };
 
 void AsebaROS2::set_connected_target(const std::string &target) {
@@ -71,10 +73,11 @@ void AsebaROS2::set_connected_target(const std::string &target) {
 #if DIAGNOSTICS
   updater.setHardwareID(target);
 #endif
+
 }
 
 AsebaROSNode *AsebaROS2::add_asebaros_node(unsigned id, const std::string &name,
-                                           const std::string &ns) {
+                                           const std::string &ns, bool include_id_in_events) {
   auto node =
       std::dynamic_pointer_cast<AsebaROSNode>(std::make_shared<AsebaROS2Node>(
           &hub, this, this, id, name, &nodes.at(id), ns, include_id_in_events));
@@ -118,15 +121,9 @@ std::string AsebaROS2::init_params() {
   rclcpp::Parameter targets_param("targets", std::vector<std::string>());
   get_parameter("targets", targets_param);
   additionalTargets = targets_param.as_string_array();
-  rclcpp::Parameter include_id_in_events_param("include_id_in_events", false);
-  get_parameter("include_id_in_events", include_id_in_events_param);
-  include_id_in_events = include_id_in_events_param.as_bool();
-  rclcpp::Parameter maximal_number_of_nodes_param("maximal_number_of_nodes", 0);
-  get_parameter("maximal_number_of_nodes", maximal_number_of_nodes_param);
-  maximal_number_of_nodes = maximal_number_of_nodes_param.as_int();
   rclcpp::Parameter reload_script_on_reconnect_param(
-      "reload_script_on_reconnect", false);
-  get_parameter("reload_script_on_reconnect", reload_script_on_reconnect_param);
+      "script.reload_on_reconnect", false);
+  get_parameter("script.reload_on_reconnect", reload_script_on_reconnect_param);
   reload_script_on_reconnect = reload_script_on_reconnect_param.as_bool();
   rclcpp::Parameter shutdown_on_unconnect_param("shutdown_on_unconnect", false);
   if (get_parameter("shutdown_on_unconnect", shutdown_on_unconnect_param))
@@ -153,7 +150,7 @@ void AsebaROS2::import_node_config(const std::string &prefix) {
   rclcpp::Parameter param;
   std::string name = "";
   int id = -1;
-  if (get_parameter(prefix + ".type", param)) {
+  if (get_parameter(prefix + ".name", param)) {
     name = param.as_string();
   }
   if (get_parameter(prefix + ".id", param)) {
@@ -165,11 +162,17 @@ void AsebaROS2::import_node_config(const std::string &prefix) {
   if (get_parameter(prefix + ".prefix", param)) {
     nodes_configs.prefix.set_config(name, id, param.as_string());
   }
-  if (get_parameter(prefix + ".name", param)) {
+  if (get_parameter(prefix + ".namespace", param)) {
     nodes_configs.name.set_config(name, id, param.as_string());
   }
   if (get_parameter(prefix + ".id_variable", param)) {
     nodes_configs.id_variable.set_config(name, id, param.as_string());
+  }
+  if (get_parameter(prefix + ".include_id_in_events", param)) {
+    nodes_configs.include_id_in_events.set_config(name, id, param.as_bool());
+  }
+  if (get_parameter(prefix + ".maximal_number", param)) {
+    nodes_configs.maximal_number_of_nodes.set_config(name, id, param.as_int());
   }
 }
 
