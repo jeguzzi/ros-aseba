@@ -4,7 +4,6 @@
   <arg name="port" value="44444"/>
 
   <node name="asebaros" pkg="asebaros" type="asebaros" output="screen">
-    <param name="maximal_number_of_nodes" value="0"/>
     <param name="port" value="$(arg port)"/>
     <param name="shutdown_on_unconnect" value="false"/>
     <rosparam param="targets" subst_value="true">

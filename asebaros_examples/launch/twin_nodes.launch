@@ -4,8 +4,6 @@
   <arg name="port" value="44444"/>
 
   <node name="asebaros" pkg="asebaros" type="asebaros" output="screen">
-    <param name="include_id_in_events" value="true"/>
-    <param name="maximal_number_of_nodes" value="0"/>
     <param name="port" value="$(arg port)"/>
     <param name="reload_script_on_reconnect" value="true"/>
     <param name="set_id_variable" value="false"/>
@@ -18,6 +16,7 @@
         accept: false
         prefix: node_
         accept: true
+        include_id_in_events: true
     </rosparam>
     <rosparam param="script" subst_value="true">
       path: $(find asebaros_examples)/launch/twin_nodes.aesl
