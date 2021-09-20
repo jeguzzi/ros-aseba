@@ -26,7 +26,7 @@ int AsebaROS::number_of_nodes(const std::string type) {
 }
 
 bool AsebaROS::should_ignore_node(const std::string &type, unsigned id) {
-  if (asebaros_nodes.count(id) == 0) return true;
+  if (asebaros_nodes.count(id)) return true;
   if (!nodes_configs.accept.get_config(type, id)) return true;
   for (const auto & t : std::vector<std::string>{type, ""}) {
     int maximal_number = nodes_configs.maximal_number_of_nodes.get_config(t, id);
