@@ -6,7 +6,7 @@
   <node pkg="asebaros" exec="asebaros" args="--log-level info" output="screen">
     <param name="port" value="$(var port)"/>
     <param name="reload_script_on_reconnect" value="true"/>
-    <param name="set_id_variable" value="false"/>
+    <param name="set_id_variable" value="true"/>
     <param name="shutdown_on_unconnect" value="false"/>
     <param name="targets" value="$(var device)" value-sep=","/>
     <param name="nodes">
@@ -14,6 +14,14 @@
         <param name="prefix" value="node_"/>
         <param name="accept" value="true"/>
         <param name="include_id_in_events" value="true"/>
+      </param>
+      <param name="thymio">
+        <param name="name" value="thymio-II"/>
+        <param name="id_variable" value="_id"/>
+      </param>
+      <param name="epuck">
+        <param name="name" value="e-puck0"/>
+        <param name="id_variable" value="id"/>
       </param>
     </param>
     <param name="script">

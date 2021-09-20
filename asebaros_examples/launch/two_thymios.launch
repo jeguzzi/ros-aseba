@@ -14,18 +14,19 @@
         <param name="name" value="thymio-II"/>
         <param name="id_variable" value="_id"/>
         <param name="accept" value="false"/>
+        <param name="include_id_in_events" value="false"/>
       </param>
       <param name="thymio_21181">
         <param name="name" value="thymio-II"/>
         <param name="accept" value="true"/>
         <param name="id" value="21181"/>
-        <param name="namespace" value="first_thymio"/>
+        <param name="namespace" value="red"/>
       </param>
       <param name="thymio_14031">
         <param name="name" value="thymio-II"/>
         <param name="accept" value="true"/>
         <param name="id" value="14031"/>
-        <param name="namespace" value="second_thymio"/>
+        <param name="namespace" value="green"/>
       </param>
       <param name="others">
         <param name="accept" value="false"/>
