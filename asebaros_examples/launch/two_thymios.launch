@@ -4,8 +4,6 @@
   <arg name="port" value="44444"/>
 
   <node name="asebaros" pkg="asebaros" type="asebaros" output="screen">
-    <param name="include_id_in_events" value="false"/>
-    <param name="maximal_number_of_nodes" value="2"/>
     <param name="port" value="$(arg port)"/>
     <param name="reload_script_on_reconnect" value="true"/>
     <param name="set_id_variable" value="true"/>
@@ -20,16 +18,17 @@
         name: thymio-II
         id_variable: _id
         accept: false
+        include_id_in_events: false
       thymio_21181:
         id: 21181
         name: thymio-II
         accept: true
-        namespace: first_thymio
+        namespace: red
       thymio_14031:
         id: 14031
         name: thymio-II
         accept: true
-        namespace: second_thymio
+        namespace: green
     </rosparam>
     <rosparam param="script" subst_value="true">
       path: $(find asebaros_examples)/launch/two_thymios.aesl
