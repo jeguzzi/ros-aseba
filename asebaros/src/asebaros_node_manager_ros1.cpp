@@ -60,6 +60,7 @@ AsebaROS1::AsebaROS1()
                 update_diagnostics(stat);
               });
 #endif
+  log_initialized();
 };
 
 void AsebaROS1::set_connected_target(const std::string &target) {
@@ -67,8 +68,6 @@ void AsebaROS1::set_connected_target(const std::string &target) {
 #if DIAGNOSTICS
   updater.setHardwareID(target);
 #endif
-
-  log_initialized();
 }
 
 AsebaROSNode *AsebaROS1::add_asebaros_node(unsigned id, const std::string &name,
@@ -169,7 +168,7 @@ void AsebaROS1::import_node_config(const std::string &prefix) {
     nodes_configs.id_variable.set_config(type, id, id_variable);
   }
   if (nh.getParam("nodes/" + prefix + "/include_id_in_events", include_id_in_events)) {
-    nodes_configs.include_id_in_events.set_config(type, id, id_variable);
+    nodes_configs.include_id_in_events.set_config(type, id, include_id_in_events);
   }
   if (nh.getParam("nodes/" + prefix + "/maximal_number", maximal_number_of_nodes)) {
     nodes_configs.maximal_number_of_nodes.set_config(type, id, maximal_number_of_nodes);
