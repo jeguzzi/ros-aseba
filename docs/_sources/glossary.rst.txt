@@ -1,0 +1,125 @@
+Aseba and ROS Networks
+=======================
+
+The following minimal introduction to the Aseba and ROS Networks makes some simplifications.
+Please refer to the respective documentations at http://wiki.thymio.org/en:Asebaconcepts and http://docs.ros.org for more complete overviews.
+
+
+.. _Aseba:
+
+Aseba Network
+-------------
+
+
+Nodes
+~~~~~
+
+An Aseba node has a unique integer identifier ``id``
+and a name ``name`` that is shared with nodes of the same type, e.g., all Thymio have name ``"thymio-II"``.
+
+Variables
+~~~~~~~~~
+
+Aseba nodes keep a list of variables. Each variable as a name and holds an array of 16-bit signed integers as value.
+Some variable are defined by the node itself (e.g., in the Thymio firmware), other by the script running on the node.
+
+.. All variable are exposes to ROS.
+
+Script
+~~~~~~~
+
+An Aseba node can run an Aseba script. The script is compiled to a byte-code representation
+before being uploaded to the node.
+The script defines constants, global events, and variables shared by all nodes running the same script.
+
+Aseba script are stored in XML files that may contain code (``<node name=... nodeId=...>`` tag) for different nodes identified by the attributes ``name`` and ``nodeId``.
+
+Global Events
+~~~~~~~~~~~~~
+
+Aseba nodes exchange information by broadcasting global events.
+Aseba events are defined in Aseba scripts where they are identified by a unique name.
+Event messages contains the type of event, the id of the sender node, and a array of 16-bit signed integers as payload.
+
+Internally, Aseba tags event messages with an integer type that corresponds to the rank of the event in the script:
+for the same script the mapping between an event's type and name is unambiguous.
+
+Aseba nodes implement also *internal events* (e.g., notifications when proximity sensors get updated),
+which are only accessible by the same node and therefore cannot be exposed to ROS.
+
+User interaction
+~~~~~~~~~~~~~~~~~
+
+Users interact with the Aseba network through specific messages. For instance,
+they can send messages to start/stop/reset a node, to get the node's description, or to load a script to a node.
+They can also query the network to discover all nodes.
+
+
+Typical workflow
+~~~~~~~~~~~~~~~~
+
+The typical Aseba workflow uses Aseba Studio (an IDE) to connect to one or more robots running Aseba nodes,
+to get and set variables, and to edit and load Aseba scripts to be execute on board of the robots.
+
+
+.. _ros:
+
+ROS Network
+-----------
+
+Nodes
+~~~~~
+
+ROS nodes are identifies by unique names. In ROS1 a process contains a unique node while in ROS2 is may contain multiple nodes.
+
+Topics
+~~~~~~
+
+ROS nodes exchange data with other nodes through named topics (i.e., using the pub/sub IPC pattern).
+They receive message notifications by subscribing to a topic and they send messages by publishing messages on a topic.
+Messages are typed and topic only transport messages of the same type. ROS topics are similar to Aseba [global] events.
+
+Services
+~~~~~~~~
+
+ROS nodes can also use services (client/server IPC pattern) to communicate among them.
+The client node sends a query which the server node answers.
+Like topics, services are also typed. Services have similarities with Aseba variables.
+
+Interfaces
+~~~~~~~~~~~
+
+Messages and services define the IPC interface of ROS nodes.
+Good practice is to use common interfaces, e.g., all laser scanner drivers should publish ``sensor_msgs/Range`` messages, and
+all information about an object pose with respect to a reference frame should be encoded as ``geometry_msgs/PoseStamped``.
+By conforming to common interfaces, nodes are reusable and composable.
+
+Launch files
+~~~~~~~~~~~~~
+
+At run-time, nodes can be launched one by one but the most common practice in ROS is to use
+ROS launch files to launch a collection of nodes that fulfils a task. For examples, you may use a launch file to launch
+a camera driver together with the node implementing image filtering. ROS1 only supports XML launch files,
+while ROS2 supports YAML and Python launch files too.
+
+Packages
+~~~~~~~~
+
+ROS Packages are self-contained units of code. A ROS installation is a collection of packages.
+A ROS package add executables (nodes), interfaces, and launch files to a ROS installation.
+
+User interaction
+~~~~~~~~~~~~~~~~~
+
+Users interact with the ROS network by creating nodes (possibly short-lived)
+and using topics or services through them.
+Nodes can be programmed in several languages, with C++ and Python being the most common and well-supported.
+For quick interactions, e.g., sending a message on a topic, ROS offers a set of shell commands
+(separated as ``rostopic``, ``rosnode``, ... for ROS1 and grouped together as ``ros2 topic``, ``ros2 node``, ... for ROS2).
+
+Typical workflow
+~~~~~~~~~~~~~~~~
+
+The typical ROS workflow involves connecting together ROS nodes (motor drivers, sensor drivers, controllers)
+using topics and services as pipes, to which the users add application-specific nodes.
+Tools like ``rosbag``, ``rviz``, and ``rqt`` make it easy to manage, debug, visualize, and record the ROS system.

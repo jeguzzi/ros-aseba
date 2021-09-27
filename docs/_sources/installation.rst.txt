@@ -1,0 +1,110 @@
+Installation
+============
+
+Prerequisites
+-------------
+
+The packages support recent versions of ROS1 (melodic, noetic) and ROS2 (foxy, galactic).
+
+===========  =================  =================
+ROS-VERSION  ROS-ASEBA-BRANCH   ROS-THYMIO-BRANCH
+===========  =================  =================
+melodic      ros1               melodic
+noetic       ros1               noetic
+foxy         ros2               master
+galactic     ros2               master
+===========  =================  =================
+
+The functionality of ROS-Aseba and ROS-Thymio are the same for all supported ROS versions.
+You don't know which ROS version to use? Pick the one that works with your OS
+(look at the targeted platforms for `ROS 1 <https://www.ros.org/reps/rep-0003.html>`_ and
+`ROS 2 <https://www.ros.org/reps/rep-2000.html>`_). Consider that ROS1 will reach end-of-live in 2025,
+and that noetic will be the last official ROS1 release.
+If you still have a doubt, go for ROS2: foxy is the current long-term-release (2020--2023)
+while galactic is the current short-term-release (2021--2022).
+
+
+ROS
+----
+
+Before installing ROS-Aseba and ROS-Thymio, you need to setup ROS on your machine.
+Please refer to the `official instructions <http://wiki.ros.org/ROS/Installation>`_ to install
+at least the ``ROS-Base`` distribution of your version of choice, which on Linux Ubuntu may just require you to run
+
+.. code-block:: console
+
+    sudo apt install ros-<ROS-VERSION>-ros-base
+
+
+Only for ROS1, to follow the instructions below, install also `catkin-tools <https://catkin-tools.readthedocs.io/en/latest/installing.html>`_.
+
+If you don't already have one, create a ROS workspace in a folder ``<WORKSPACE>`` of you choice.
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      mkdir -p <WORKSPACE>/src
+      cd <WORKSPACE>
+      source /opt/ros/<ROS-VERSION>/setup.bash
+      catkin init
+      // This is optional: it will install packages instead of
+      // just linking them in the develop folder.
+      // This is the same behavior as ROS2 using colcon.
+      catkin config --install
+
+   .. code-tab:: console ROS2
+
+      mkdir -p <WORKSPACE>/src
+      cd <WORKSPACE>
+      source /opt/ros/<ROS-VERSION>/setup.bash
+      colcon init
+
+
+ROS-Aseba
+------------
+
+1. Install ``libudev-dev``, ``libxml2-dev``, ``git`` and ``ros-<ROS-VERSION>-diagnostic-updater``
+
+2. Download and install ROS-Aseba
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      cd <WORKSPACE>
+      source install/setup.bash
+      git clone https://github.com/jeguzzi/ros-aseba.git --branch ros1 --recurse-submodules src/ros-aseba
+      catkin build
+
+
+   .. code-tab:: console ROS2
+
+      cd <WORKSPACE>
+      source install/setup.bash
+      git clone https://github.com/jeguzzi/ros-aseba.git --branch ros2 --recurse-submodules src/ros-aseba
+      colcon build
+
+
+ROS-Thymio
+------------
+
+1. Install ``ros-<ROS-VERSION>-xacro``, ``ros-<ROS-VERSION>-tf``, ``ros-<ROS-VERSION>-robot-state-publisher``
+
+2. Download and install ROS-Thymio
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      cd <WORKSPACE>
+      source install/setup.bash
+      git clone https://github.com/jeguzzi/ros-thymio.git --branch <ROS-THYMIO-BRANCH> --recurse-submodules src/ros-thymio
+      catkin build
+
+   .. code-tab:: console ROS2
+
+      cd <WORKSPACE>
+      source install/setup.bash
+      git clone https://github.com/jeguzzi/ros-thymio.git --branch master --recurse-submodules src/ros-thymio
+      colcon build

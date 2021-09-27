@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ROS-Thymio: thymio_driver reference &mdash; ROS for Aseba and Thymio 0.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ROS-Thymio: thymio_msgs reference" href="thymio_msgs.html" />
+    <link rel="prev" title="ROS-Thymio: examples" href="thymio_examples.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> ROS for Aseba and Thymio
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#a-bridge-between-aseba-and-ros">A bridge between Aseba and ROS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#ros-packages">ROS Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#use-cases">Use-cases</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#ros-aseba-alone">ROS-Aseba alone</a></li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#ros-aseba-with-ros-thymio">ROS-Aseba with ROS-Thymio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#ros-thymio-alone">ROS-Thymio alone</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#ros-aseba">ROS-Aseba</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#ros-thymio">ROS-Thymio</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#setup">Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="getting_started.html#using-a-simulation">Using a simulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting_started.html#using-a-real-thymio">Using a real Thymio</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#running-ros-aseba">Running ROS-Aseba</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#running-ros-thymio">Running ROS-Thymio</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Aseba and ROS Networks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html#aseba-network">Aseba Network</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#nodes">Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#variables">Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#script">Script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#global-events">Global Events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#user-interaction">User interaction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#typical-workflow">Typical workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html#ros-network">ROS Network</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#id1">Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#topics">Topics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#services">Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#interfaces">Interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#launch-files">Launch files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#packages">Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#id2">User interaction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#id3">Typical workflow</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bridge.html">ROS-Aseba: how it works</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bridge.html#connection-to-the-aseba-network">Connection to the Aseba network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bridge.html#discovery-of-aseba-nodes">Discovery of Aseba nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bridge.html#introspection">Introspection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bridge.html#variables">Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bridge.html#scripts">Scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bridge.html#events">Events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">ROS-Aseba: examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#all-nodes">All nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#a-single-node">A single node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#twin-nodes">Twin nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#two-nodes">Two nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#a-single-thymio">A single Thymio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#twin-thymios">Twin Thymios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#two-thymios">Two Thymios</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="asebaros.html">ROS-Aseba: asebaros reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="asebaros.html#executable-asebaros">Executable asebaros</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="asebaros.html#parameters">Parameters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#targets">targets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#port">port</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#loop">loop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#shutdown-on-unconnect">shutdown_on_unconnect</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#reset-on-closing">reset_on_closing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#set-id-variable">set_id_variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#nodes">nodes</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#accept">accept</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#maximal-number">maximal_number</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#name">name</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#id">id</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#prefix">prefix</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#namespace">namespace</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#id-variable">id_variable</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#include-id-in-events">include_id_in_events</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#script">script</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#reload-on-reconnect">reload_on_reconnect</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#path">path</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#constants">constants</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros.html#publishers">Publishers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#anonymous-events">Anonymous events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#events">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#node-list">Node list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#node-description">Node description</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros.html#subscribers">Subscribers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#id1">Anonymous events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#id2">Events</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros.html#services">Services</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#get-node-description">Get node description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#load-script">Load script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#get-node-list">Get node list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#get-variable">Get variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#set-variable">Set variable</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="asebaros_msgs.html">ROS-Aseba: asebaros_msgs reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="asebaros_msgs.html#interfaces">Interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_msgs.html#messages">Messages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#anonymousevent">AnonymousEvent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#constant">Constant</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#event">Event</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#node">Node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#nodedescription">NodeDescription</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#nodelist">NodeList</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_msgs.html#services">Services</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#getdescription">GetDescription</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#getnodelist">GetNodeList</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#getvariable">GetVariable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#loadscript">LoadScript</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#setvariable">SetVariable</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="asebaros_examples.html">ROS-Aseba: asebaros_examples reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="asebaros_examples.html#launch-files">Launch files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#all-nodes-launch">all_nodes.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#arguments">Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#single-node-launch">single_node.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#id1">Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#single-thymio-launch">single_thymio.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#id2">Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#twin-nodes-launch">twin_nodes.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#id3">Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#twin-thymios-launch">twin_thymios.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#id4">Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#two-nodes-launch">two_nodes.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#id5">Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#two-thymios-launch">two_thymios.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#id6">Arguments</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thymio.html">ROS-Thymio: how it works</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="thymio.html#discovery">Discovery</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio.html#thymio-driver">thymio_driver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="thymio.html#multi-thymio-driver">multi_thymio_driver</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="thymio.html#aseba-script-s">Aseba Script[s]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thymio.html#functionality">Functionality</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio.html#sensors">Sensors</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#odometry">Odometry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#accelerometer">Accelerometer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#tap">Tap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#buttons">Buttons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#proximity">Proximity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#ground">Ground</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#sound">Sound</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#temperature">Temperature</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="thymio.html#actuators">Actuators</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#wheels">Wheels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#id2">Sound</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#led">LED</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio.html#gestures">Gestures</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#alarm">Alarm</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="thymio.html#communication">Communication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#remote">Remote</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#proximity-communication">Proximity communication</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="thymio.html#model">Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio.html#gazebo-simulation">Gazebo Simulation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thymio_examples.html">ROS-Thymio: examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="thymio_examples.html#one-thymio">One Thymio</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio_examples.html#single-driver">Single driver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="thymio_examples.html#multi-driver">Multi driver</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="thymio_examples.html#multiple-thymios-on-the-same-aseba-network">Multiple Thymios on the same Aseba network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thymio_examples.html#multiple-thymios-on-different-aseba-networks">Multiple Thymios on different Aseba networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio_examples.html#a-single-driver-for-each-network">A single driver for each network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="thymio_examples.html#aseba-switch-and-multi-driver">Aseba Switch and multi driver</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ROS-Thymio: thymio_driver reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#executable">Executable</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#thymio-driver">thymio_driver</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#parameters">Parameters</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#axis-length">axis_length</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#ground-threshold">ground.threshold</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#left-wheel-joint">left_wheel_joint</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#right-wheel-joint">right_wheel_joint</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#odom-frame">odom_frame</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#odom-max-rate">odom_max_rate</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#robot-frame">robot_frame</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#tf-prefix">tf_prefix</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#publishers">Publishers</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#internal-asebaros-topics-of-type-event">Internal <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> topics of type <span class="xref std std-ref">Event</span></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#all-buttons">All Buttons</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#individual-buttons">Individual Buttons</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#proximity-communication-received">Proximity Communication Received</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#ground-sensors">Ground Sensors</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#imu">IMU</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#joint-states">Joint States</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#odometry">Odometry</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#proximity-sensors">Proximity Sensors</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#proximity-sensors-scan">Proximity Sensors Scan</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#remote-controller">Remote Controller</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#sound">Sound</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#tap">Tap</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#temperature">Temperature</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#subscribers">Subscribers</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id2">Internal <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> topics of type <span class="xref std std-ref">Event</span></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#alarm">Alarm</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#velocity-command">Velocity command</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#proximity-communication-enable">Proximity Communication Enable</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#proximity-communication-transmit">Proximity Communication Transmit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#led">LED</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#body-led">Body LED</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#led-gestures">LED Gestures</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#play-sound">Play Sound</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#play-system-sound">Play System Sound</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#set-sound-threshold">Set sound threshold</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#services">Services</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#ready">Ready</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#multi-thymio-driver">multi_thymio_driver</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">Parameters</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#launch-model">launch_model</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">Subscribers</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#internal-asebaros-topic">Internal <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> topic</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">Publishers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#launch-files">Launch files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#main-launch">main.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#arguments">Arguments</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#id8">axis_length</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#id9">odom_max_rate</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#single">single</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#name">name</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#simulation">simulation</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#simulation-has-reduced-api">simulation_has_reduced_api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#calibration-file">calibration_file</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#device">device</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#port">port</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#emit-motor">emit_motor</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#emit-buttons">emit_buttons</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#emit-acc">emit_acc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#emit-ground-raw">emit_ground_raw</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#emit-proximity">emit_proximity</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#enable-prox-comm">enable_prox_comm</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#motor-deadband">motor_deadband</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#motor-period">motor_period</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#acc-period">acc_period</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#buttons-period">buttons_period</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thymio_msgs.html">ROS-Thymio: thymio_msgs reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="thymio_msgs.html#interfaces">Interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio_msgs.html#messages">Messages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio_msgs.html#comm">Comm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_msgs.html#led">Led</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_msgs.html#ledgesture">LedGesture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_msgs.html#sound">Sound</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_msgs.html#systemsound">SystemSound</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thymio_description.html">ROS-Thymio: thymio_description reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="thymio_description.html#launch-files">Launch files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio_description.html#model-launch-py-for-ros2">model.launch[.py for ROS2]</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio_description.html#arguments">Arguments</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#name">name</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#proximity-max-range">proximity_max_range</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#proximity-resolution">proximity_resolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#proximity-fov">proximity_fov</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#publish-ground-truth">publish_ground_truth</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#ground-truth-frame-id">ground_truth_frame_id</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#ground-truth-frame-rate">ground_truth_frame_rate</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#odom-rate">odom_rate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="thymio_description.html#rviz-launch-py-for-ros2">rviz.launch[.py for ROS2]</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio_description.html#id1">Arguments</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#id2">name</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thymio_aseba_script.html">ROS-Thymio Aseba script</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ROS for Aseba and Thymio</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>ROS-Thymio: thymio_driver reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/thymio_driver.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ros-thymio-thymio-driver-reference">
+<h1>ROS-Thymio: thymio_driver reference<a class="headerlink" href="#ros-thymio-thymio-driver-reference" title="Permalink to this headline"></a></h1>
+<section id="executable">
+<h2>Executable<a class="headerlink" href="#executable" title="Permalink to this headline"></a></h2>
+<section id="thymio-driver">
+<span id="id1"></span><h3>thymio_driver<a class="headerlink" href="#thymio-driver" title="Permalink to this headline"></a></h3>
+<section id="parameters">
+<h4>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline"></a></h4>
+<section id="axis-length">
+<span id="param-axis-length"></span><h5>axis_length<a class="headerlink" href="#axis-length" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">0.0915</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="ground-threshold">
+<span id="param-ground-threshold"></span><h5>ground.threshold<a class="headerlink" href="#ground-threshold" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float]</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">200</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="left-wheel-joint">
+<h5>left_wheel_joint<a class="headerlink" href="#left-wheel-joint" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">&quot;left_wheel_joint&quot;</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="right-wheel-joint">
+<h5>right_wheel_joint<a class="headerlink" href="#right-wheel-joint" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">&quot;right_wheel_joint&quot;</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="odom-frame">
+<h5>odom_frame<a class="headerlink" href="#odom-frame" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">&quot;odom&quot;</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="odom-max-rate">
+<h5>odom_max_rate<a class="headerlink" href="#odom-max-rate" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">-1</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="robot-frame">
+<h5>robot_frame<a class="headerlink" href="#robot-frame" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">&quot;base_link&quot;</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="tf-prefix">
+<h5>tf_prefix<a class="headerlink" href="#tf-prefix" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="publishers">
+<h4>Publishers<a class="headerlink" href="#publishers" title="Permalink to this headline"></a></h4>
+<section id="internal-asebaros-topics-of-type-event">
+<h5>Internal <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> topics of type <a class="reference internal" href="asebaros_msgs.html#event"><span class="std std-ref">Event</span></a><a class="headerlink" href="#internal-asebaros-topics-of-type-event" title="Permalink to this headline"></a></h5>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/aseba/events/enable_comm:</span> <span class="pre">asebaros_msgs/msg/Event</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/aseba/events/play_sound:</span> <span class="pre">asebaros_msgs/msg/Event</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/aseba/events/play_system_sound:</span> <span class="pre">asebaros_msgs/msg/Event</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/aseba/events/set_comm_payload:</span> <span class="pre">asebaros_msgs/msg/Event</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/aseba/events/set_led:</span> <span class="pre">asebaros_msgs/msg/Event</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/aseba/events/set_led_bottom_left:</span> <span class="pre">asebaros_msgs/msg/Event</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/aseba/events/set_led_bottom_right:</span> <span class="pre">asebaros_msgs/msg/Event</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/aseba/events/set_led_gesture:</span> <span class="pre">asebaros_msgs/msg/Event</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/aseba/events/set_led_top:</span> <span class="pre">asebaros_msgs/msg/Event</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/aseba/events/set_sound_threshold:</span> <span class="pre">asebaros_msgs/msg/Event</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/aseba/events/set_speed:</span> <span class="pre">asebaros_msgs/msg/Event</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/aseba/events/shutdown:</span> <span class="pre">asebaros_msgs/msg/Event</span></code></p></li>
+</ul>
+</section>
+<section id="all-buttons">
+<span id="pub-all-buttons"></span><h5>All Buttons<a class="headerlink" href="#all-buttons" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">buttons</span></code></p>
+</dd>
+<dt class="field-even">type</dt>
+<dd class="field-even"><p>sensor_msgs/msg/Joy</p>
+</dd>
+</dl>
+</section>
+<section id="individual-buttons">
+<span id="pub-individual-buttons"></span><h5>Individual Buttons<a class="headerlink" href="#individual-buttons" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">buttons/{backward,center,forward,left,right}</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>std_msgs/msg/Bool</p>
+</dd>
+</dl>
+</section>
+<section id="proximity-communication-received">
+<span id="pub-comm-rx"></span><h5>Proximity Communication Received<a class="headerlink" href="#proximity-communication-received" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">comm/rx</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><a class="reference internal" href="thymio_msgs.html#comm"><span class="std std-ref">Comm</span></a></p>
+</dd>
+</dl>
+</section>
+<section id="ground-sensors">
+<span id="pub-ground"></span><h5>Ground Sensors<a class="headerlink" href="#ground-sensors" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">ground/{left,right}</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>sensor_msgs/msg/Range</p>
+</dd>
+</dl>
+</section>
+<section id="imu">
+<span id="pub-imu"></span><h5>IMU<a class="headerlink" href="#imu" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">imu</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>sensor_msgs/msg/Imu</p>
+</dd>
+</dl>
+</section>
+<section id="joint-states">
+<span id="pub-joints"></span><h5>Joint States<a class="headerlink" href="#joint-states" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">joint_states</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>sensor_msgs/msg/JointState</p>
+</dd>
+</dl>
+</section>
+<section id="odometry">
+<span id="odometry-pub"></span><h5>Odometry<a class="headerlink" href="#odometry" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">odom</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>nav_msgs/msg/Odometry</p>
+</dd>
+</dl>
+</section>
+<section id="proximity-sensors">
+<span id="pub-proximity"></span><h5>Proximity Sensors<a class="headerlink" href="#proximity-sensors" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">proximity/{left,center_left,center,center_right,right,rear_left,rear_right}</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>sensor_msgs/msg/Range</p>
+</dd>
+</dl>
+</section>
+<section id="proximity-sensors-scan">
+<span id="pub-proximity-scan"></span><h5>Proximity Sensors Scan<a class="headerlink" href="#proximity-sensors-scan" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">proximity/laser</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>sensor_msgs/msg/LaserScan</p>
+</dd>
+</dl>
+</section>
+<section id="remote-controller">
+<span id="pub-remote"></span><h5>Remote Controller<a class="headerlink" href="#remote-controller" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">remote</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>std_msgs/msg/Int8</p>
+</dd>
+</dl>
+</section>
+<section id="sound">
+<span id="pub-sound"></span><h5>Sound<a class="headerlink" href="#sound" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">sound</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>std_msgs/msg/Float32</p>
+</dd>
+</dl>
+</section>
+<section id="tap">
+<span id="pub-tap"></span><h5>Tap<a class="headerlink" href="#tap" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">tap</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>std_msgs/msg/Empty</p>
+</dd>
+</dl>
+</section>
+<section id="temperature">
+<span id="pub-temperature"></span><h5>Temperature<a class="headerlink" href="#temperature" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">temperature</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>sensor_msgs/msg/Temperature</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="subscribers">
+<h4>Subscribers<a class="headerlink" href="#subscribers" title="Permalink to this headline"></a></h4>
+<section id="id2">
+<h5>Internal <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> topics of type <a class="reference internal" href="asebaros_msgs.html#event"><span class="std std-ref">Event</span></a><a class="headerlink" href="#id2" title="Permalink to this headline"></a></h5>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">aseba/events/accelerometer</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aseba/events/button_backward:</span> <span class="pre">asebaros_msgs/msg/Event</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aseba/events/button_center:</span> <span class="pre">asebaros_msgs/msg/Event</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aseba/events/button_forward:</span> <span class="pre">asebaros_msgs/msg/Event</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aseba/events/button_left:</span> <span class="pre">asebaros_msgs/msg/Event</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aseba/events/button_right:</span> <span class="pre">asebaros_msgs/msg/Event</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aseba/events/buttons:</span> <span class="pre">asebaros_msgs/msg/Event</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aseba/events/comm:</span> <span class="pre">asebaros_msgs/msg/Event</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aseba/events/ground:</span> <span class="pre">asebaros_msgs/msg/Event</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aseba/events/odometry:</span> <span class="pre">asebaros_msgs/msg/Event</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aseba/events/proximity:</span> <span class="pre">asebaros_msgs/msg/Event</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aseba/events/remote:</span> <span class="pre">asebaros_msgs/msg/Event</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aseba/events/sound:</span> <span class="pre">asebaros_msgs/msg/Event</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aseba/events/tap:</span> <span class="pre">asebaros_msgs/msg/Event</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aseba/events/temperature:</span> <span class="pre">asebaros_msgs/msg/Event</span></code></p></li>
+</ul>
+</section>
+<section id="alarm">
+<span id="sub-alarm"></span><h5>Alarm<a class="headerlink" href="#alarm" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">alarm</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>std_msgs/msg/Bool</p>
+</dd>
+</dl>
+</section>
+<section id="velocity-command">
+<span id="pub-speed"></span><h5>Velocity command<a class="headerlink" href="#velocity-command" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">cmd_vel</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>geometry_msgs/msg/Twist</p>
+</dd>
+</dl>
+</section>
+<section id="proximity-communication-enable">
+<span id="sub-comm-enable"></span><h5>Proximity Communication Enable<a class="headerlink" href="#proximity-communication-enable" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">comm/enable</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>std_msgs/msg/Bool</p>
+</dd>
+</dl>
+</section>
+<section id="proximity-communication-transmit">
+<span id="sub-comm-tx"></span><h5>Proximity Communication Transmit<a class="headerlink" href="#proximity-communication-transmit" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">comm/tx</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>std_msgs/msg/Int16</p>
+</dd>
+</dl>
+</section>
+<section id="led">
+<span id="sub-led"></span><h5>LED<a class="headerlink" href="#led" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">led</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>thymio_msgs/msg/Led</p>
+</dd>
+</dl>
+</section>
+<section id="body-led">
+<span id="sub-body-led"></span><h5>Body LED<a class="headerlink" href="#body-led" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">led/body/{bottom_left,bottom_right,top}</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>std_msgs/msg/ColorRGBA</p>
+</dd>
+</dl>
+</section>
+<section id="led-gestures">
+<span id="sub-led-gestures"></span><h5>LED Gestures<a class="headerlink" href="#led-gestures" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">led/gesture</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">thymio_msgs/msg/LedGesture</span></code></p>
+</dd>
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">led/gesture/alive</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>std_msgs/msg/Empty</p>
+</dd>
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">led/gesture/blink</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>std_msgs/msg/Float32</p>
+</dd>
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">led/gesture/circle</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>std_msgs/msg/Float32</p>
+</dd>
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">led/gesture/kit</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>std_msgs/msg/Float32</p>
+</dd>
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">led/gesture/off</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>std_msgs/msg/Empty</p>
+</dd>
+</dl>
+</section>
+<section id="play-sound">
+<span id="sub-pure-sound"></span><h5>Play Sound<a class="headerlink" href="#play-sound" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">sound/play</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><a class="reference internal" href="thymio_msgs.html#sound"><span class="std std-ref">Sound</span></a></p>
+</dd>
+</dl>
+</section>
+<section id="play-system-sound">
+<span id="sub-system-sound"></span><h5>Play System Sound<a class="headerlink" href="#play-system-sound" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">sound/play/system</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><a class="reference internal" href="thymio_msgs.html#systemsound"><span class="std std-ref">SystemSound</span></a></p>
+</dd>
+</dl>
+</section>
+<section id="set-sound-threshold">
+<span id="sub-sound-threshold"></span><h5>Set sound threshold<a class="headerlink" href="#set-sound-threshold" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">sound_threshold</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>std_msgs/msg/Float32</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="services">
+<h4>Services<a class="headerlink" href="#services" title="Permalink to this headline"></a></h4>
+<section id="ready">
+<h5>Ready<a class="headerlink" href="#ready" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Service</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">is_ready</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>std_srvs/srv/Empty</p>
+</dd>
+</dl>
+</section>
+</section>
+</section>
+<section id="multi-thymio-driver">
+<span id="id3"></span><h3>multi_thymio_driver<a class="headerlink" href="#multi-thymio-driver" title="Permalink to this headline"></a></h3>
+<section id="id4">
+<h4>Parameters<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h4>
+<p>All parameters of <a class="reference internal" href="#thymio-driver"><span class="std std-ref">thymio_driver</span></a></p>
+<section id="launch-model">
+<h5>launch_model<a class="headerlink" href="#launch-model" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="id5">
+<h4>Subscribers<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h4>
+<p>All subscribers of <a class="reference internal" href="#thymio-driver"><span class="std std-ref">thymio_driver</span></a> with a <code class="docutils literal notranslate"><span class="pre">&lt;node_namespace&gt;</span></code> for <em>each</em> Thymio connected.</p>
+<section id="internal-asebaros-topic">
+<h5>Internal <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> topic<a class="headerlink" href="#internal-asebaros-topic" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Topic</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">aseba/nodes</span></code></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><a class="reference internal" href="asebaros_msgs.html#nodelist"><span class="std std-ref">NodeList</span></a></p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="id6">
+<h4>Publishers<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h4>
+<p>All publishers of <a class="reference internal" href="#thymio-driver"><span class="std std-ref">thymio_driver</span></a> with a <code class="docutils literal notranslate"><span class="pre">&lt;node_namespace&gt;</span></code> for <em>each</em> Thymio connected.</p>
+</section>
+</section>
+</section>
+<section id="launch-files">
+<h2>Launch files<a class="headerlink" href="#launch-files" title="Permalink to this headline"></a></h2>
+<section id="main-launch">
+<span id="id7"></span><h3>main.launch<a class="headerlink" href="#main-launch" title="Permalink to this headline"></a></h3>
+<p>Launches the single- or multi- thymio driver and, if configured, includes <a class="reference internal" href="thymio_description.html#model-launch"><span class="std std-ref">model.launch[.py for ROS2]</span></a>.</p>
+<section id="arguments">
+<h4>Arguments<a class="headerlink" href="#arguments" title="Permalink to this headline"></a></h4>
+<section id="id8">
+<h5>axis_length<a class="headerlink" href="#id8" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">0.0935</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="id9">
+<h5>odom_max_rate<a class="headerlink" href="#id9" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">-1</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="single">
+<h5>single<a class="headerlink" href="#single" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>boolean</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="name">
+<h5>name<a class="headerlink" href="#name" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="simulation">
+<h5>simulation<a class="headerlink" href="#simulation" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>boolean</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="simulation-has-reduced-api">
+<h5>simulation_has_reduced_api<a class="headerlink" href="#simulation-has-reduced-api" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>boolean</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="calibration-file">
+<h5>calibration_file<a class="headerlink" href="#calibration-file" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">&quot;$HOME/.ros/thymio_calibration.yaml&quot;</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="device">
+<h5>device<a class="headerlink" href="#device" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="port">
+<h5>port<a class="headerlink" href="#port" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>integer</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">44444</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="emit-motor">
+<span id="param-emit-motor"></span><span id="param-emit-period"></span><h5>emit_motor<a class="headerlink" href="#emit-motor" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>integer (binary)</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="emit-buttons">
+<span id="param-emit-buttons"></span><h5>emit_buttons<a class="headerlink" href="#emit-buttons" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>integer (binary)</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="emit-acc">
+<span id="param-emit-acc"></span><h5>emit_acc<a class="headerlink" href="#emit-acc" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>integer (binary)</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="emit-ground-raw">
+<span id="param-emit-ground-raw"></span><h5>emit_ground_raw<a class="headerlink" href="#emit-ground-raw" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>integer (binary)</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="emit-proximity">
+<span id="param-emit-proximity"></span><h5>emit_proximity<a class="headerlink" href="#emit-proximity" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>integer (binary)</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="enable-prox-comm">
+<span id="param-enable-prox-comm"></span><h5>enable_prox_comm<a class="headerlink" href="#enable-prox-comm" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>integer (binary)</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="motor-deadband">
+<span id="param-motor-deadband"></span><h5>motor_deadband<a class="headerlink" href="#motor-deadband" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>integer (binary)</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">10</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="motor-period">
+<span id="param-motor-period"></span><h5>motor_period<a class="headerlink" href="#motor-period" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>integer</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">5</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="acc-period">
+<span id="param-acc-period"></span><h5>acc_period<a class="headerlink" href="#acc-period" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>integer</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="buttons-period">
+<span id="param-buttons-period"></span><h5>buttons_period<a class="headerlink" href="#buttons-period" title="Permalink to this headline"></a></h5>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>integer</p>
+</dd>
+<dt class="field-even">Default</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">5</span></code></p>
+</dd>
+</dl>
+</section>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="thymio_examples.html" class="btn btn-neutral float-left" title="ROS-Thymio: examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="thymio_msgs.html" class="btn btn-neutral float-right" title="ROS-Thymio: thymio_msgs reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Jérôme Guzzi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

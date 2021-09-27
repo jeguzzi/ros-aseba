@@ -1,0 +1,292 @@
+ROS-Aseba: asebaros_msgs reference
+==================================
+
+The package *asebaros_msgs* only define interfaces.
+
+Interfaces
+----------
+
+You can list of interfaces defined in asebaros_msgs
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      rosmsgs package asebaros_msgs
+      rossrv package asebaros_msgs
+
+   .. code-tab:: console ROS2
+
+      ros2 interface package asebaros_msgs
+
+Messages
+^^^^^^^^
+
+.. _AnonymousEvent:
+
+AnonymousEvent
+""""""""""""""
+
+.. tabs::
+
+   .. code-tab:: IDL ROS1
+
+      time stamp
+      uint16 source
+      uint16 type
+      int16[] data
+
+   .. code-tab:: IDL ROS2
+
+      builtin_interfaces/Time stamp
+      uint16 source
+      uint16 type
+      int16[] data
+
+:stamp: is the time-stamp when the Aseba event is received by ``asebaros``
+:source: is the node id that send the Aseba event. Should be set to ``0`` if the client generates the event
+:type: is the event id (the rank of the event in the Aseba script)
+
+.. _Constant:
+
+Constant
+"""""""""
+
+.. tabs::
+
+   .. code-tab:: IDL ROS1
+
+      string name
+      int16 value
+
+   .. code-tab:: IDL ROS2
+
+      string name
+      int16 value
+
+:name: the name of the constant
+:value: the value of the constant
+
+.. _Event:
+
+Event
+"""""
+
+.. tabs::
+
+   .. code-tab:: IDL ROS1
+
+      time stamp
+      uint16 source
+      int16[] data
+
+   .. code-tab:: IDL ROS2
+
+      builtin_interfaces/Time stamp
+      uint16 source
+      int16[] data
+
+:stamp: is the time-stamp when the Aseba event is received by ``asebaros``
+:source: is the node id that send the Aseba event. Should be set to ``0`` if the client generates the event.
+:data: is the event payload. The size of an event payload is specified in the script.
+
+
+.. _Node:
+
+Node
+""""""
+
+.. tabs::
+
+   .. code-tab:: IDL ROS1
+
+      uint16 id
+      string name
+      string name_space
+      bool running
+      bool ignored
+      bool connected
+
+   .. code-tab:: IDL ROS2
+
+      uint16 id
+      string name
+      string name_space
+      bool running
+      bool ignored
+      bool connected
+
+:id: the node id
+:name: the node name which corresponds to the node type (i.e. ``"thymio-II"`` for all Thymios)
+:name_space: the ROS namespace assigned to the Aseba node
+:running: whenever the ROS is running a known Aseba script, i.e., a script loaded through ``asebaros``.
+:ignored: whenever the Aseba node was ignore (and therefore not bridged to the ROS network)
+:connected: if the Aseba node is currently connected
+
+NodeDescription
+""""""""""""""""""
+
+.. tabs::
+
+   .. code-tab:: IDL ROS1
+
+      uint16 id
+      string name
+      asebaros_msgs/Constant[] constants
+      string[] events
+      string[] variables
+
+   .. code-tab:: IDL ROS2
+
+      uint16 id
+      string name
+      asebaros_msgs/Constant[] constants
+      string[] events
+      string[] variables
+
+:id: the node id
+:name: the node name which corresponds to the node type (i.e. ``"thymio-II"`` for all Thymios)
+:constants: the list of constant of the Aseba script running on the node
+:events: the list of event names of the Aseba script running on the node
+:variables: the list of variable names of the Aseba script running on the node
+
+.. _NodeList:
+
+NodeList
+"""""""""
+
+.. tabs::
+
+   .. code-tab:: IDL ROS1
+
+      asebaros_msgs/Node[] nodes
+
+   .. code-tab:: IDL ROS2
+
+      asebaros_msgs/Node[] nodes
+
+:nodes: a list of Aseba nodes
+
+.. _NodeDescription:
+
+
+
+Services
+^^^^^^^^^
+
+.. _GetDescription:
+
+GetDescription
+""""""""""""""
+
+.. tabs::
+
+   .. code-tab:: IDL ROS1
+
+      ---
+      asebaros_msgs/NodeDescription description
+
+   .. code-tab:: IDL ROS2
+
+      ---
+      asebaros_msgs/NodeDescription description
+
+:description: the node description
+
+
+.. _GetNodeList:
+
+GetNodeList
+"""""""""""
+
+.. tabs::
+
+   .. code-tab:: IDL ROS1
+
+      bool ignored
+      ---
+      asebaros_msgs/Node[] nodes
+
+   .. code-tab:: IDL ROS2
+
+      bool ignored false
+      ---
+      asebaros_msgs/Node[] nodes
+
+:ignored: set to ``true`` to include nodes that are being ignored
+:nodes: a list of nodes
+
+.. _GetVariable:
+
+GetVariable
+"""""""""""
+
+.. tabs::
+
+   .. code-tab:: IDL ROS1
+
+      string variable
+      ---
+      int16[] data
+
+   .. code-tab:: IDL ROS2
+
+      string variable
+      ---
+      int16[] data
+
+:variable: the variable name
+:data: the variable value
+
+.. _LoadScript:
+
+LoadScript
+"""""""""""
+
+.. tabs::
+
+   .. code-tab:: IDL ROS1
+
+      string file_name
+      asebaros_msgs/Constant[] constants
+      # Leave empty to load to all nodes
+      uint16[] node_ids
+      bool set_as_default
+      ---
+
+   .. code-tab:: IDL ROS2
+
+      string file_name
+      asebaros_msgs/Constant[] constants
+      # Leave empty to load to all nodes
+      uint16[] node_ids
+      bool set_as_default false
+      ---
+
+:file_name: the path to the file where the Aseba script is stored
+:constants: a list of constants that overwrites the values set in the file
+:node_ids: the list of node to which to load the script; leave empty to load it to all nodes
+:set_as_default: whenever to load this script to any new discovered nodes (default is ``false``).
+
+.. _SetVariable:
+
+SetVariable
+"""""""""""
+
+.. tabs::
+
+   .. code-tab:: IDL ROS1
+
+      string variable
+      int16[] data
+      ---
+
+
+   .. code-tab:: IDL ROS2
+
+      string variable
+      int16[] data
+      ---
+
+:variable: the variable name
+:data: the variable value

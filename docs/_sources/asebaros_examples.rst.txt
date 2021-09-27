@@ -1,0 +1,64 @@
+ROS-Aseba: asebaros_examples reference
+======================================
+
+The package *asebaros_examples* only define launch files.
+They are used as examples and commented in :ref:`examples`.
+
+Launch files
+------------
+
+all_nodes.launch
+~~~~~~~~~~~~~~~~
+
+Arguments
+"""""""""
+
+:device: a valid Dashel target to connect (default ``"tcp:host=localhost;port=33333"``)
+
+single_node.launch
+~~~~~~~~~~~~~~~~~~
+
+Arguments
+"""""""""
+
+:device: a valid Dashel target to connect (default ``"tcp:host=localhost;port=33333"``)
+
+single_thymio.launch
+~~~~~~~~~~~~~~~~~~~~
+
+Arguments
+"""""""""
+
+:device: a valid Dashel target to connect (default ``"tcp:host=localhost;port=33333"``)
+
+twin_nodes.launch
+~~~~~~~~~~~~~~~~~
+
+Arguments
+"""""""""
+
+:device: a valid Dashel target to connect (default ``"tcp:host=localhost;port=33333"``)
+
+twin_thymios.launch
+~~~~~~~~~~~~~~~~~~~
+
+Arguments
+"""""""""
+
+:device: a valid Dashel target to connect (default ``"tcp:host=localhost;port=33333"``)
+
+two_nodes.launch
+~~~~~~~~~~~~~~~~
+
+Arguments
+"""""""""
+
+:device: a valid Dashel target to connect (default ``"tcp:host=localhost;port=33333"``)
+
+two_thymios.launch
+~~~~~~~~~~~~~~~~~~
+
+Arguments
+"""""""""
+
+:device: a valid Dashel target to connect (default ``"tcp:host=localhost;port=33333"``)

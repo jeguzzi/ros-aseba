@@ -1,0 +1,90 @@
+Getting started
+===============
+
+Setup
+------
+
+Using a simulation
+~~~~~~~~~~~~~~~~~~
+
+If you have `Aseba Playground <http://wiki.thymio.org/en:asebaplayground>`_, you can use it to simulate a Thymio.
+Launch the simulation with
+
+.. code-block:: console
+
+  asebaplayground
+
+and open the ``thymio.playground`` world that is distributed with Aseba Playground.
+
+Open a console and setup the environment
+
+.. code-block:: console
+
+  source <WORKSPACE>/install/setup.bash
+  export DEVICE="tcp:host=localhost;port=33333"
+  export SIMULATION=True
+
+
+Using a real Thymio
+~~~~~~~~~~~~~~~~~~~
+
+Connect the Thymio to your machine and take note of which serial device ``<SERIAL_DEVICE>``
+it uses (e.g., using Aseba Studio).
+
+Open a console and setup the environment
+
+.. code-block:: console
+
+  source <WORKSPACE>/install/setup.bash
+  export DEVICE="ser:device=<SERIAL_DEVICE>"
+  export SIMULATION=False
+
+
+Running ROS-Aseba
+-----------------
+
+Launch the Aseba-ROS bridge with
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      roslaunch asebaros_examples all_nodes.launch device:=$DEVICE
+
+   .. code-tab:: console ROS2
+
+      ros2 launch asebaros_examples all_nodes.launch device:=$DEVICE
+
+
+See :ref:`examples` for more.
+
+Running ROS-Thymio
+------------------
+
+Launch the Aseba-ROS bridge, the Thymio driver and the Thymio model with
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      roslaunch thymio_driver main.launch device:=$DEVICE simulation:=$SIMULATION
+
+   .. code-tab:: console ROS2
+
+      ros2 launch thymio_driver main.launch device:=$DEVICE simulation:=$SIMULATION
+
+In another console, launch rviz to visualize the robot.
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      source <WORKSPACE>/install/setup.bash
+      roslaunch thymio_description rviz.launch
+
+   .. code-tab:: console ROS2
+
+      source <WORKSPACE>/install/setup.bash
+      ros2 launch thymio_description rviz.launch
+
+Move the robot around and observe how the proximity sensors are displayed in rviz.

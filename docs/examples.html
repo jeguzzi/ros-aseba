@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ROS-Aseba: examples &mdash; ROS for Aseba and Thymio 0.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/tabs.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ROS-Aseba: asebaros reference" href="asebaros.html" />
+    <link rel="prev" title="ROS-Aseba: how it works" href="bridge.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> ROS for Aseba and Thymio
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#a-bridge-between-aseba-and-ros">A bridge between Aseba and ROS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#ros-packages">ROS Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#use-cases">Use-cases</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#ros-aseba-alone">ROS-Aseba alone</a></li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#ros-aseba-with-ros-thymio">ROS-Aseba with ROS-Thymio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#ros-thymio-alone">ROS-Thymio alone</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#ros">ROS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#ros-aseba">ROS-Aseba</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#ros-thymio">ROS-Thymio</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#setup">Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="getting_started.html#using-a-simulation">Using a simulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting_started.html#using-a-real-thymio">Using a real Thymio</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#running-ros-aseba">Running ROS-Aseba</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#running-ros-thymio">Running ROS-Thymio</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Aseba and ROS Networks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html#aseba-network">Aseba Network</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#nodes">Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#variables">Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#script">Script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#global-events">Global Events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#user-interaction">User interaction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#typical-workflow">Typical workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html#ros-network">ROS Network</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#id1">Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#topics">Topics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#services">Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#interfaces">Interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#launch-files">Launch files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#packages">Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#id2">User interaction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#id3">Typical workflow</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bridge.html">ROS-Aseba: how it works</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bridge.html#connection-to-the-aseba-network">Connection to the Aseba network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bridge.html#discovery-of-aseba-nodes">Discovery of Aseba nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bridge.html#introspection">Introspection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bridge.html#variables">Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bridge.html#scripts">Scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bridge.html#events">Events</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ROS-Aseba: examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#all-nodes">All nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-single-node">A single node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#twin-nodes">Twin nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#two-nodes">Two nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#a-single-thymio">A single Thymio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#twin-thymios">Twin Thymios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#two-thymios">Two Thymios</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="asebaros.html">ROS-Aseba: asebaros reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="asebaros.html#executable-asebaros">Executable asebaros</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="asebaros.html#parameters">Parameters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#targets">targets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#port">port</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#loop">loop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#shutdown-on-unconnect">shutdown_on_unconnect</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#reset-on-closing">reset_on_closing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#set-id-variable">set_id_variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#nodes">nodes</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#accept">accept</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#maximal-number">maximal_number</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#name">name</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#id">id</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#prefix">prefix</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#namespace">namespace</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#id-variable">id_variable</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#include-id-in-events">include_id_in_events</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#script">script</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#reload-on-reconnect">reload_on_reconnect</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#path">path</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#constants">constants</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros.html#publishers">Publishers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#anonymous-events">Anonymous events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#events">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#node-list">Node list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#node-description">Node description</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros.html#subscribers">Subscribers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#id1">Anonymous events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#id2">Events</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros.html#services">Services</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#get-node-description">Get node description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#load-script">Load script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#get-node-list">Get node list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#get-variable">Get variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#set-variable">Set variable</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="asebaros_msgs.html">ROS-Aseba: asebaros_msgs reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="asebaros_msgs.html#interfaces">Interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_msgs.html#messages">Messages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#anonymousevent">AnonymousEvent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#constant">Constant</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#event">Event</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#node">Node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#nodedescription">NodeDescription</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#nodelist">NodeList</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_msgs.html#services">Services</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#getdescription">GetDescription</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#getnodelist">GetNodeList</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#getvariable">GetVariable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#loadscript">LoadScript</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#setvariable">SetVariable</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="asebaros_examples.html">ROS-Aseba: asebaros_examples reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="asebaros_examples.html#launch-files">Launch files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#all-nodes-launch">all_nodes.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#arguments">Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#single-node-launch">single_node.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#id1">Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#single-thymio-launch">single_thymio.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#id2">Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#twin-nodes-launch">twin_nodes.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#id3">Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#twin-thymios-launch">twin_thymios.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#id4">Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#two-nodes-launch">two_nodes.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#id5">Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#two-thymios-launch">two_thymios.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#id6">Arguments</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thymio.html">ROS-Thymio: how it works</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="thymio.html#discovery">Discovery</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio.html#thymio-driver">thymio_driver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="thymio.html#multi-thymio-driver">multi_thymio_driver</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="thymio.html#aseba-script-s">Aseba Script[s]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thymio.html#functionality">Functionality</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio.html#sensors">Sensors</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#odometry">Odometry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#accelerometer">Accelerometer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#tap">Tap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#buttons">Buttons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#proximity">Proximity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#ground">Ground</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#sound">Sound</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#temperature">Temperature</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="thymio.html#actuators">Actuators</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#wheels">Wheels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#id2">Sound</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#alarm">Alarm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#led">LED</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio.html#gestures">Gestures</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="thymio.html#communication">Communication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#remote">Remote</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#proximity-communication">Proximity communication</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="thymio.html#robot-model">Robot Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio.html#gazebo-simulation">Gazebo Simulation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thymio_examples.html">ROS-Thymio: examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="thymio_examples.html#one-thymio">One Thymio</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio_examples.html#single-driver">Single driver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="thymio_examples.html#multi-driver">Multi driver</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="thymio_examples.html#multiple-thymios-on-the-same-aseba-network">Multiple Thymios on the same Aseba network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thymio_examples.html#multiple-thymios-on-different-aseba-networks">Multiple Thymios on different Aseba networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio_examples.html#a-single-driver-for-each-network">A single driver for each network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="thymio_examples.html#aseba-switch-and-multi-driver">Aseba Switch and multi driver</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thymio_driver.html">ROS-Thymio: thymio_driver reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="thymio_driver.html#executable">Executable</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio_driver.html#thymio-driver">thymio_driver</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio_driver.html#parameters">Parameters</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#axis-length">axis_length</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#ground-threshold">ground.threshold</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#left-wheel-joint">left_wheel_joint</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#right-wheel-joint">right_wheel_joint</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#odom-frame">odom_frame</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#odom-max-rate">odom_max_rate</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#robot-frame">robot_frame</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#tf-prefix">tf_prefix</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_driver.html#publishers">Publishers</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#internal-asebaros-topics-of-type-event">Internal <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> topics of type <span class="xref std std-ref">Event</span></a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#all-buttons">All Buttons</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#individual-buttons">Individual Buttons</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#proximity-communication-received">Proximity Communication Received</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#ground-sensors">Ground Sensors</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#imu">IMU</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#joint-states">Joint States</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#odometry">Odometry</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#proximity-sensors">Proximity Sensors</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#proximity-sensors-scan">Proximity Sensors Scan</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#remote-controller">Remote Controller</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#sound">Sound</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#tap">Tap</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#temperature">Temperature</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_driver.html#subscribers">Subscribers</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#id2">Internal <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> topics of type <span class="xref std std-ref">Event</span></a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#alarm">Alarm</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#velocity-command">Velocity command</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#proximity-communication-enable">Proximity Communication Enable</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#proximity-communication-transmit">Proximity Communication Transmit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#led">LED</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#body-led">Body LED</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#led-gestures">LED Gestures</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#play-sound">Play Sound</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#play-system-sound">Play System Sound</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#set-sound-threshold">Set sound threshold</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_driver.html#services">Services</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#ready">Ready</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="thymio_driver.html#multi-thymio-driver">multi_thymio_driver</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio_driver.html#id4">Parameters</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#launch-model">launch_model</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_driver.html#id5">Subscribers</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#internal-asebaros-topic">Internal <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> topic</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_driver.html#id6">Publishers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="thymio_driver.html#launch-files">Launch files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio_driver.html#main-launch">main.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio_driver.html#arguments">Arguments</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#id8">axis_length</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#id9">odom_max_rate</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#single">single</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#name">name</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#simulation">simulation</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#simulation-has-reduced-api">simulation_has_reduced_api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#calibration-file">calibration_file</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#device">device</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#port">port</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-motor">emit_motor</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-buttons">emit_buttons</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-acc">emit_acc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-ground-raw">emit_ground_raw</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-proximity">emit_proximity</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#enable-prox-comm">enable_prox_comm</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#motor-deadband">motor_deadband</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#motor-period">motor_period</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#acc-period">acc_period</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#buttons-period">buttons_period</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thymio_msgs.html">ROS-Thymio: thymio_msgs reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="thymio_msgs.html#interfaces">Interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio_msgs.html#messages">Messages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio_msgs.html#comm">Comm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_msgs.html#led">Led</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_msgs.html#ledgesture">LedGesture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_msgs.html#sound">Sound</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_msgs.html#systemsound">SystemSound</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thymio_description.html">ROS-Thymio: thymio_description reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="thymio_description.html#launch-files">Launch files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio_description.html#model-launch-py-for-ros2">model.launch[.py for ROS2]</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio_description.html#arguments">Arguments</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#name">name</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#proximity-max-range">proximity_max_range</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#proximity-resolution">proximity_resolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#proximity-fov">proximity_fov</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#publish-ground-truth">publish_ground_truth</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#ground-truth-frame-id">ground_truth_frame_id</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#ground-truth-frame-rate">ground_truth_frame_rate</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#odom-rate">odom_rate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="thymio_description.html#rviz-launch-py-for-ros2">rviz.launch[.py for ROS2]</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio_description.html#id1">Arguments</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#id2">name</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thymio_aseba_script.html">ROS-Thymio Aseba script</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ROS for Aseba and Thymio</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>ROS-Aseba: examples</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/examples.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ros-aseba-examples">
+<span id="examples"></span><h1>ROS-Aseba: examples<a class="headerlink" href="#ros-aseba-examples" title="Permalink to this headline"></a></h1>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline"></a></h2>
+<p>To reproduce a multi-robot network (two Thymios with id 14031 and 21181, and two e-pucks with id 1 and 2), launch <a class="reference external" href="http://wiki.thymio.org/en:asebaplayground">Aseba Playground</a></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">asebaplayground</span>
+</pre></div>
+</div>
+<p>and open the world at <code class="docutils literal notranslate"><span class="pre">ros-aseba/asebaros_examples/launch/simulation/multirobot.playground</span></code></p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE aseba-playground&gt;</span>
+<span class="nt">&lt;aseba-playground&gt;</span>
+     <span class="nt">&lt;author</span> <span class="na">name=</span><span class="s">&quot;Jerome Guzzi&quot;</span> <span class="na">email=</span><span class="s">&quot;jerome at idsia dot ch&quot;</span> <span class="nt">/&gt;</span>
+     <span class="nt">&lt;description</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>A simple multi-robot playground to experiment with asebaros without physical robots.<span class="nt">&lt;/description&gt;</span>
+     <span class="nt">&lt;color</span> <span class="na">name=</span><span class="s">&quot;wall&quot;</span> <span class="na">r=</span><span class="s">&quot;0.9&quot;</span> <span class="na">g=</span><span class="s">&quot;0.9&quot;</span> <span class="na">b=</span><span class="s">&quot;0.9&quot;</span> <span class="nt">/&gt;</span>
+     <span class="nt">&lt;world</span> <span class="na">w=</span><span class="s">&quot;100&quot;</span> <span class="na">h=</span><span class="s">&quot;100&quot;</span> <span class="na">color=</span><span class="s">&quot;wall&quot;</span><span class="nt">/&gt;</span>
+     <span class="nt">&lt;robot</span> <span class="na">type=</span><span class="s">&quot;thymio2&quot;</span> <span class="na">x=</span><span class="s">&quot;45&quot;</span> <span class="na">y=</span><span class="s">&quot;15&quot;</span> <span class="na">port=</span><span class="s">&quot;33334&quot;</span> <span class="na">name=</span><span class="s">&quot;Thymio A&quot;</span> <span class="na">nodeId=</span><span class="s">&quot;1&quot;</span> <span class="nt">/&gt;</span>
+     <span class="nt">&lt;robot</span> <span class="na">type=</span><span class="s">&quot;thymio2&quot;</span> <span class="na">x=</span><span class="s">&quot;45&quot;</span> <span class="na">y=</span><span class="s">&quot;45&quot;</span> <span class="na">port=</span><span class="s">&quot;33335&quot;</span> <span class="na">name=</span><span class="s">&quot;Thymio B&quot;</span> <span class="na">nodeId=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
+     <span class="nt">&lt;robot</span> <span class="na">type=</span><span class="s">&quot;e-puck&quot;</span> <span class="na">x=</span><span class="s">&quot;15&quot;</span> <span class="na">y=</span><span class="s">&quot;15&quot;</span> <span class="na">port=</span><span class="s">&quot;33336&quot;</span> <span class="na">name=</span><span class="s">&quot;E-Puck A&quot;</span> <span class="na">nodeId=</span><span class="s">&quot;1&quot;</span> <span class="nt">/&gt;</span>
+     <span class="nt">&lt;robot</span> <span class="na">type=</span><span class="s">&quot;e-puck&quot;</span> <span class="na">x=</span><span class="s">&quot;15&quot;</span> <span class="na">y=</span><span class="s">&quot;45&quot;</span> <span class="na">port=</span><span class="s">&quot;33337&quot;</span> <span class="na">name=</span><span class="s">&quot;E-Puck B&quot;</span> <span class="na">nodeId=</span><span class="s">&quot;1&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/aseba-playground&gt;</span>
+</pre></div>
+</div>
+<p>Use <a class="reference external" href="http://wiki.thymio.org/en:asebaswitchremap">Aseba Switch</a> to make the robots join the same network at port 33333.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">asebaswitch &quot;tcp:host=localhost\;port=33334\;remapLocal=21181\;remapTarget=1&quot; &quot;tcp:host=localhost\;port=33335\;remapLocal=14031\;remapTarget=1&quot; &quot;tcp:host=localhost\;port=33336\;remapLocal=1\;remapTarget=1&quot; &quot;tcp:host=localhost\;port=33337\;remapLocal=2\;remapTarget=1&quot; -p 33333</span>
+</pre></div>
+</div>
+<p>With this setup <code class="docutils literal notranslate"><span class="pre">DEVICE=&quot;tcp:host=localhost;port=33333&quot;</span></code>.</p>
+<p>To execute any ROS command, you have first to source the ROS setup script</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">source &lt;WORKSPACE&gt;/install/setup.bash</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The examples below works with any other Aseba network, and in particular with real robots too. In this case, just change the ids and add <code class="docutils literal notranslate"><span class="pre">device:=&lt;DEVICE&gt;</span></code> to the ROS launch arguments.</p>
+</div>
+</section>
+<section id="all-nodes">
+<h2>All nodes<a class="headerlink" href="#all-nodes" title="Permalink to this headline"></a></h2>
+<p>The following launch files configure <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> to connect to all nodes at Dashel target <code class="docutils literal notranslate"><span class="pre">device</span></code>.
+Each node will receive a ROS namespace <code class="docutils literal notranslate"><span class="pre">&quot;node_{id}&quot;</span></code>. No script will be automatically loaded into the nodes.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-0-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-0-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+
+  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">type=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(arg port)&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;targets&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+      [&quot;$(arg device)&quot;,]
+    <span class="nt">&lt;/rosparam&gt;</span>
+    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+      any:
+        accept: true
+        prefix: node_
+    <span class="nt">&lt;/rosparam&gt;</span>
+  <span class="nt">&lt;/node&gt;</span>
+<span class="nt">&lt;/launch&gt;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-0-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+
+  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;let</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;node</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">exec=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">args=</span><span class="s">&quot;--log-level info&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var port)&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;targets&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span> <span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;any&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;prefix&quot;</span> <span class="na">value=</span><span class="s">&quot;node_&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;/param&gt;</span>
+  <span class="nt">&lt;/node&gt;</span>
+<span class="nt">&lt;/launch&gt;</span>
+</pre></div>
+</div>
+</div></div>
+<p>Launch it with</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-1-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-1-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-1-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roslaunch asebaros_examples all_nodes.launch</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-1-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-1-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 launch asebaros_examples all_nodes.launch</span>
+</pre></div>
+</div>
+</div></div>
+<p>Inspect the system using services:</p>
+<ol class="arabic simple">
+<li><p>Get the list of nodes</p></li>
+</ol>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-2-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-2-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-2-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rosservice call /aseba/get_nodes asebaros_msgs/GetNodeList &#39;{}&#39;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-2-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-2-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 service call /aseba/get_nodes asebaros_msgs/GetNodeList &#39;{}&#39;</span>
+</pre></div>
+</div>
+</div></div>
+<ol class="arabic simple" start="2">
+<li><p>Get the description of one of the nodes</p></li>
+</ol>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-3-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-3-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-3-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rosservice call /node_14031/aseba/get_description asebaros_msgs/GetDescription &#39;{}&#39;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-3-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-3-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 service call /node_14031/aseba/get_description asebaros_msgs/GetDescription &#39;{}&#39;</span>
+</pre></div>
+</div>
+</div></div>
+<ol class="arabic simple" start="3">
+<li><p>Get the value of a variable</p></li>
+</ol>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-4-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-4-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-4-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-4-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-4-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-4-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rosservice call /node_14031/aseba/get_variable asebaros_msgs/GetVariable &quot;{variable: prox.horizontal}&quot;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-4-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-4-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 service call /node_14031/aseba/get_variable asebaros_msgs/GetVariable &quot;{variable: prox.horizontal}&quot;</span>
+</pre></div>
+</div>
+</div></div>
+<ol class="arabic simple" start="4">
+<li><p>Set the value of a variable</p></li>
+</ol>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-5-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-5-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-5-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-5-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-5-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-5-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rosservice call /node_14031/aseba/set_variable asebaros_msgs/SetVariable &quot;{variable: motor.left.target, data: [100]}&quot;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-5-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-5-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 service call /node_14031/aseba/set_variable asebaros_msgs/SetVariable &quot;{variable: motor.left.target, data: [100]}&quot;</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="a-single-node">
+<h2>A single node<a class="headerlink" href="#a-single-node" title="Permalink to this headline"></a></h2>
+<p>The following launch files configure <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> to connect to just the first Thymio
+(i.e., the first Aseba node with <code class="docutils literal notranslate"><span class="pre">name==&quot;thymio-II&quot;</span></code>)</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-6-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-6-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-6-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-6-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-6-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-6-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+
+  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">type=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(arg port)&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;targets&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+      [&quot;$(arg device)&quot;,]
+    <span class="nt">&lt;/rosparam&gt;</span>
+    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+      others:
+        accept: false
+      thymio:
+        name: thymio-II
+        id_variable: _id
+        accept: true
+        include_id_in_events: false
+        maximal_number: 1
+    <span class="nt">&lt;/rosparam&gt;</span>
+    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;script&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+      path: $(find asebaros_examples)/launch/single_node.aesl
+      constants:
+        MY_CONSTANT: 3
+    <span class="nt">&lt;/rosparam&gt;</span>
+  <span class="nt">&lt;/node&gt;</span>
+<span class="nt">&lt;/launch&gt;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-6-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-6-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+
+  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;let</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;node</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">exec=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">args=</span><span class="s">&quot;--log-level info&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var port)&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;targets&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span> <span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;others&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/param&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;thymio&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;type&quot;</span> <span class="na">value=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;_id&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;include_id_in_events&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;maximal_number&quot;</span> <span class="na">value=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;script&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;path&quot;</span> <span class="na">value=</span><span class="s">&quot;$(find-pkg-share asebaros_examples)/launch/single_node.aesl&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;constants&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;MY_CONSTANT&quot;</span> <span class="na">value=</span><span class="s">&quot;3&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;/param&gt;</span>
+  <span class="nt">&lt;/node&gt;</span>
+<span class="nt">&lt;/launch&gt;</span>
+</pre></div>
+</div>
+</div></div>
+<p>The node will receive an empty ROS namespace and a script will be automatically loaded into the node.
+The script has a single constant <code class="docutils literal notranslate"><span class="pre">MY_CONSTANT</span></code>, which the launch file sets to <code class="docutils literal notranslate"><span class="pre">3</span></code>, and two events: <code class="docutils literal notranslate"><span class="pre">ping</span></code> and <code class="docutils literal notranslate"><span class="pre">pong</span></code>.</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE aesl-source&gt;</span>
+<span class="nt">&lt;network&gt;</span>
+
+  <span class="c">&lt;!--list of global events--&gt;</span>
+  <span class="nt">&lt;event</span> <span class="na">size=</span><span class="s">&quot;3&quot;</span> <span class="na">name=</span><span class="s">&quot;ping&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;event</span> <span class="na">size=</span><span class="s">&quot;3&quot;</span> <span class="na">name=</span><span class="s">&quot;pong&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="c">&lt;!--list of constants--&gt;</span>
+  <span class="nt">&lt;constant</span> <span class="na">value=</span><span class="s">&quot;0&quot;</span> <span class="na">name=</span><span class="s">&quot;MY_CONSTANT&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="c">&lt;!--show keywords state--&gt;</span>
+  <span class="nt">&lt;keywords</span> <span class="na">flag=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="c">&lt;!--node thymio-II--&gt;</span>
+  <span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">&gt;</span>
+    var value[3] = [MY_CONSTANT, MY_CONSTANT, MY_CONSTANT]
+    emit pong value
+    onevent ping
+    value = event.args[0:2]
+    emit pong value
+  <span class="nt">&lt;/node&gt;</span>
+
+<span class="nt">&lt;/network&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The events are used to make the robot “pong” back the values (an array of length 3) sent with the ping.
+Launch it with</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-7-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-7-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-7-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-7-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-7-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-7-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roslaunch asebaros_examples single_node.launch</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-7-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-7-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 launch asebaros_examples single_node.launch</span>
+</pre></div>
+</div>
+</div></div>
+<p>In a new tab send a ping each second</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-8-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-8-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-8-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-8-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-8-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-8-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic pub -r 1 /aseba/events/ping asebaros_msgs/Event &#39;{data:  [1, 2, 3]}&#39;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-8-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-8-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic pub -r 1 /aseba/events/ping asebaros_msgs/Event &#39;{data:  [1, 2, 3]}&#39;</span>
+</pre></div>
+</div>
+</div></div>
+<p>and in another one, listen for pongs</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-9-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-9-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-9-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-9-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-9-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-9-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic echo /aseba/events/pong</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-9-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-9-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic echo /aseba/events/pong</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="twin-nodes">
+<h2>Twin nodes<a class="headerlink" href="#twin-nodes" title="Permalink to this headline"></a></h2>
+<p>In this case, we want to connect to <em>all</em> nodes and load the same script.
+Each node will receive a namespace <code class="docutils literal notranslate"><span class="pre">&quot;node_{id}&quot;</span></code>.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-10-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-10-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-10-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-10-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-10-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-10-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+
+  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">type=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(arg port)&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;targets&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+      [&quot;$(arg device)&quot;,]
+    <span class="nt">&lt;/rosparam&gt;</span>
+    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+      any:
+        prefix: node_
+        accept: true
+        include_id_in_events: true
+      thymio:
+        name: thymio-II
+        id_variable: _id
+      epuck:
+        name: e-puck0
+        id_variable: id
+    <span class="nt">&lt;/rosparam&gt;</span>
+    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;script&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+      path: $(find asebaros_examples)/launch/twin_nodes.aesl
+      constants:
+        MY_CONSTANT: 3
+    <span class="nt">&lt;/rosparam&gt;</span>
+  <span class="nt">&lt;/node&gt;</span>
+<span class="nt">&lt;/launch&gt;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-10-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-10-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+
+  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;let</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;node</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">exec=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">args=</span><span class="s">&quot;--log-level info&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var port)&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;targets&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span> <span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;any&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;prefix&quot;</span> <span class="na">value=</span><span class="s">&quot;node_&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;include_id_in_events&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/param&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;thymio&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;_id&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/param&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;epuck&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;e-puck0&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;id&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;script&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;path&quot;</span> <span class="na">value=</span><span class="s">&quot;$(find-pkg-share asebaros_examples)/launch/twin_nodes.aesl&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;constants&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;MY_CONSTANT&quot;</span> <span class="na">value=</span><span class="s">&quot;3&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;/param&gt;</span>
+  <span class="nt">&lt;/node&gt;</span>
+<span class="nt">&lt;/launch&gt;</span>
+</pre></div>
+</div>
+</div></div>
+<p>Because the id of the target node is included in the event <code class="docutils literal notranslate"><span class="pre">ping</span></code> (<code class="docutils literal notranslate"><span class="pre">include_id_in_events=true</span></code>),
+the script can check if the event is addressed at the current node,
+and <em>only in this case</em> “pong” back.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE aesl-source&gt;</span>
+<span class="nt">&lt;network&gt;</span>
+
+  <span class="c">&lt;!--list of global events--&gt;</span>
+  <span class="nt">&lt;event</span> <span class="na">size=</span><span class="s">&quot;4&quot;</span> <span class="na">name=</span><span class="s">&quot;ping&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;event</span> <span class="na">size=</span><span class="s">&quot;3&quot;</span> <span class="na">name=</span><span class="s">&quot;pong&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="c">&lt;!--list of constants--&gt;</span>
+  <span class="nt">&lt;constant</span> <span class="na">value=</span><span class="s">&quot;0&quot;</span> <span class="na">name=</span><span class="s">&quot;MY_CONSTANT&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="c">&lt;!--show keywords state--&gt;</span>
+  <span class="nt">&lt;keywords</span> <span class="na">flag=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="c">&lt;!--node thymio-II--&gt;</span>
+  <span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">&gt;</span>
+    var value[3] = [MY_CONSTANT, MY_CONSTANT, MY_CONSTANT]
+    emit pong value
+    onevent ping
+    if (event.args[0] == _id) then
+      value = event.args[1:3]
+      emit pong value
+    end
+  <span class="nt">&lt;/node&gt;</span>
+
+<span class="nt">&lt;/network&gt;</span>
+</pre></div>
+</div>
+<p>Launch ROS with</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-11-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-11-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-11-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-11-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-11-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-11-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roslaunch asebaros_examples twin_nodes.launch</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-11-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-11-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 launch asebaros_examples twin_nodes.launch</span>
+</pre></div>
+</div>
+</div></div>
+<p>In a new tab send pings each second to a specific robot</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-12-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-12-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-12-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-12-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-12-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-12-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic pub -r 1 /node_14031/aseba/events/ping asebaros_msgs/Event &#39;{data:  [1, 2, 3]}&#39;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-12-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-12-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic pub -r 1 /node_14031/aseba/events/ping asebaros_msgs/Event &#39;{data:  [1, 2, 3]}&#39;</span>
+</pre></div>
+</div>
+</div></div>
+<p>and in another one, listen for pongs from different robots</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-13-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-13-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-13-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-13-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-13-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-13-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic echo /node_14031/aseba/events/pong</span>
+<span class="go">ros2 topic echo /node_21181/aseba/events/pong</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-13-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-13-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic echo /node_14031/aseba/events/pong</span>
+<span class="go">ros2 topic echo /node_21181/aseba/events/pong</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="two-nodes">
+<h2>Two nodes<a class="headerlink" href="#two-nodes" title="Permalink to this headline"></a></h2>
+<p>In this case, we want to connect to two nodes of different types.
+As the different nodes uses different [incoming] events, we don’t need to include the node id in the event.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-14-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-14-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-14-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-14-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-14-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-14-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+
+  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">type=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(arg port)&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;targets&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+      [&quot;$(arg device)&quot;,]
+    <span class="nt">&lt;/rosparam&gt;</span>
+    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+      others:
+        accept: false
+      thymio:
+        name: thymio-II
+        id_variable: _id
+        accept: true
+        namespace: thymio
+        include_id_in_events: false
+        maximal_number: 1
+      epuck:
+        name: e-puck0
+        id_variable: id
+        accept: true
+        namespace: epuck
+        include_id_in_events: false
+        maximal_number: 1
+    <span class="nt">&lt;/rosparam&gt;</span>
+    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;script&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+      path: $(find asebaros_examples)/launch/two_nodes.aesl
+      constants:
+        MY_CONSTANT_THYMIO: 3
+        MY_CONSTANT_EPUCK: 333
+    <span class="nt">&lt;/rosparam&gt;</span>
+  <span class="nt">&lt;/node&gt;</span>
+<span class="nt">&lt;/launch&gt;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-14-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-14-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+
+  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;let</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;node</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">exec=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">args=</span><span class="s">&quot;--log-level info&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var port)&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;targets&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span> <span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;thymio&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;namespace&quot;</span> <span class="na">value=</span><span class="s">&quot;thymio&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;_id&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;maximal_number&quot;</span> <span class="na">value=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;include_id_in_events&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/param&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;epuck&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;e-puck0&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;namespace&quot;</span> <span class="na">value=</span><span class="s">&quot;epuck&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;id&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;maximal_number&quot;</span> <span class="na">value=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;include_id_in_events&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;script&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;path&quot;</span> <span class="na">value=</span><span class="s">&quot;$(find-pkg-share asebaros_examples)/launch/two_nodes.aesl&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;constants&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;MY_CONSTANT_THYMIO&quot;</span> <span class="na">value=</span><span class="s">&quot;3&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;MY_CONSTANT_EPUCK&quot;</span> <span class="na">value=</span><span class="s">&quot;333&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;/param&gt;</span>
+  <span class="nt">&lt;/node&gt;</span>
+<span class="nt">&lt;/launch&gt;</span>
+</pre></div>
+</div>
+</div></div>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE aesl-source&gt;</span>
+<span class="nt">&lt;network&gt;</span>
+
+  <span class="c">&lt;!--list of global events--&gt;</span>
+  <span class="nt">&lt;event</span> <span class="na">size=</span><span class="s">&quot;3&quot;</span> <span class="na">name=</span><span class="s">&quot;ping_thymio&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;event</span> <span class="na">size=</span><span class="s">&quot;3&quot;</span> <span class="na">name=</span><span class="s">&quot;ping_epuck&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;event</span> <span class="na">size=</span><span class="s">&quot;3&quot;</span> <span class="na">name=</span><span class="s">&quot;pong&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="c">&lt;!--list of constants--&gt;</span>
+  <span class="nt">&lt;constant</span> <span class="na">value=</span><span class="s">&quot;0&quot;</span> <span class="na">name=</span><span class="s">&quot;MY_CONSTANT_THYMIO&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;constant</span> <span class="na">value=</span><span class="s">&quot;0&quot;</span> <span class="na">name=</span><span class="s">&quot;MY_CONSTANT_EPUCK&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="c">&lt;!--show keywords state--&gt;</span>
+  <span class="nt">&lt;keywords</span> <span class="na">flag=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="c">&lt;!--node thymio-II--&gt;</span>
+  <span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">&gt;</span>
+    var value[3] = [MY_CONSTANT_THYMIO, MY_CONSTANT_THYMIO, MY_CONSTANT_THYMIO]
+    emit pong value
+    onevent ping_thymio
+    value = event.args[0:2]
+    emit pong value
+  <span class="nt">&lt;/node&gt;</span>
+
+  <span class="c">&lt;!--node e-puck0--&gt;</span>
+  <span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;e-puck0&quot;</span><span class="nt">&gt;</span>
+    var value[3] = [MY_CONSTANT_EPUCK, MY_CONSTANT_EPUCK, MY_CONSTANT_EPUCK]
+    emit pong value
+    onevent ping_epuck
+    value = args[0:2]
+    emit pong value
+  <span class="nt">&lt;/node&gt;</span>
+
+<span class="nt">&lt;/network&gt;</span>
+</pre></div>
+</div>
+<p>Launch ROS with</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-15-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-15-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-15-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-15-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-15-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-15-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roslaunch asebaros_examples two_nodes.launch</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-15-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-15-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 launch asebaros_examples two_nodes.launch</span>
+</pre></div>
+</div>
+</div></div>
+<p>In a new tab send pings each second to a specific robot</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-16-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-16-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-16-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-16-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-16-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-16-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic pub -r 1 /epuck/aseba/events/ping_epuck asebaros_msgs/Event &#39;{data:  [1, 2, 3]}&#39;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-16-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-16-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic pub -r 1 /epuck/aseba/events/ping_epuck asebaros_msgs/Event &#39;{data:  [1, 2, 3]}&#39;</span>
+</pre></div>
+</div>
+</div></div>
+<p>and in another one, listen for pongs</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-17-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-17-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-17-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-17-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-17-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-17-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic echo /epuck/aseba/events/pong</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-17-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-17-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic echo /epuck/aseba/events/pong</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="a-single-thymio">
+<h2>A single Thymio<a class="headerlink" href="#a-single-thymio" title="Permalink to this headline"></a></h2>
+<p>The following launch files configure asebaros to connect to just the first Thymio
+(i.e., the first Aseba node with <code class="docutils literal notranslate"><span class="pre">name==&quot;thymio-II&quot;</span></code>), and a script will be automatically loaded into the node.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-18-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-18-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-18-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-18-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-18-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-18-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+
+  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">type=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(arg port)&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;targets&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+      [&quot;$(arg device)&quot;,]
+    <span class="nt">&lt;/rosparam&gt;</span>
+    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+      others:
+        accept: false
+      thymio:
+        type: thymio-II
+        id_variable: _id
+        accept: true
+        name: thymio
+        include_id_in_events: false
+        maximal_number: 1
+    <span class="nt">&lt;/rosparam&gt;</span>
+    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;script&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+      path: $(find asebaros_examples)/launch/single_thymio.aesl
+      constants:
+        OBSTACLE_THRESHOLD: 2500
+    <span class="nt">&lt;/rosparam&gt;</span>
+  <span class="nt">&lt;/node&gt;</span>
+<span class="nt">&lt;/launch&gt;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-18-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-18-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+
+  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;let</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;node</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">exec=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">args=</span><span class="s">&quot;--log-level info&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var port)&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;targets&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span> <span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;thymio&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;type&quot;</span> <span class="na">value=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;_id&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;thymio&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;include_id_in_events&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;maximal_number&quot;</span> <span class="na">value=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/param&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;others&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;script&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;path&quot;</span> <span class="na">value=</span><span class="s">&quot;$(find-pkg-share asebaros_examples)/launch/single_thymio.aesl&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;constants&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;OBSTACLE_THRESHOLD&quot;</span> <span class="na">value=</span><span class="s">&quot;2500&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;/param&gt;</span>
+  <span class="nt">&lt;/node&gt;</span>
+<span class="nt">&lt;/launch&gt;</span>
+</pre></div>
+</div>
+</div></div>
+<p>This time, the node will receive a ROS namespace <code class="docutils literal notranslate"><span class="pre">thymio</span></code> and the script is specific for the Thymio.</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE aesl-source&gt;</span>
+<span class="nt">&lt;network&gt;</span>
+
+  <span class="c">&lt;!--list of global events--&gt;</span>
+  <span class="nt">&lt;event</span> <span class="na">size=</span><span class="s">&quot;3&quot;</span> <span class="na">name=</span><span class="s">&quot;set_color&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;event</span> <span class="na">size=</span><span class="s">&quot;0&quot;</span> <span class="na">name=</span><span class="s">&quot;obstacle&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="c">&lt;!--list of constants--&gt;</span>
+  <span class="nt">&lt;constant</span> <span class="na">value=</span><span class="s">&quot;2000&quot;</span> <span class="na">name=</span><span class="s">&quot;OBSTACLE_THRESHOLD&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="c">&lt;!--show keywords state--&gt;</span>
+  <span class="nt">&lt;keywords</span> <span class="na">flag=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="c">&lt;!--node thymio-II--&gt;</span>
+  <span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">&gt;</span>
+    onevent prox
+    if (prox.horizontal[2] &gt; OBSTACLE_THRESHOLD) then
+      call leds.buttons(32, 32, 32, 32)
+      emit obstacle
+    else
+      call leds.buttons(0, 0, 0, 0)
+    end
+    onevent set_color
+    call leds.top(event.args[0], event.args[1], event.args[2])
+  <span class="nt">&lt;/node&gt;</span>
+
+<span class="nt">&lt;/network&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The constant <code class="docutils literal notranslate"><span class="pre">OBSTACLE_THRESHOLD</span></code>  controls the onboard behavior that makes the Thymio turn on the button LED
+to signal a close object. The <code class="docutils literal notranslate"><span class="pre">obstacle</span></code> event is used to notify ROS of an obstacle while the <code class="docutils literal notranslate"><span class="pre">set_color</span></code> event
+is used by ROS to change the Thymio body color.</p>
+<p>Launch ROS with</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-19-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-19-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-19-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-19-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-19-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-19-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roslaunch asebaros_examples single_thymio.launch</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-19-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-19-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 launch asebaros_examples single_thymio.launch</span>
+</pre></div>
+</div>
+</div></div>
+<p>In a new tab set the body LED of the Thymio to cyan</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-20-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-20-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-20-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-20-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-20-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-20-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic pub --once /thymio/aseba/events/set_color asebaros_msgs/Event &#39;{data:  [0, 32, 32]}&#39;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-20-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-20-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic pub --once /thymio/aseba/events/set_color asebaros_msgs/Event &#39;{data:  [0, 32, 32]}&#39;</span>
+</pre></div>
+</div>
+</div></div>
+<p>and in another one, listen for obstacles (move around the cyan robot)</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-21-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-21-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-21-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-21-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-21-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-21-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic echo /thymio/aseba/events/obstacle</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-21-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-21-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic echo /thymio/aseba/events/obstacle</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="twin-thymios">
+<h2>Twin Thymios<a class="headerlink" href="#twin-thymios" title="Permalink to this headline"></a></h2>
+<p>We want to connect to any Thymio in the network and load the same script. Each of them will get the namespace <code class="docutils literal notranslate"><span class="pre">&quot;thymio_{id}&quot;</span></code>.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-22-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-22-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-22-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-22-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-22-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-22-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+
+  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">type=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(arg port)&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;targets&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+      [&quot;$(arg device)&quot;,]
+    <span class="nt">&lt;/rosparam&gt;</span>
+    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+      others:
+        accept: false
+      thymio:
+        name: thymio-II
+        id_variable: _id
+        accept: true
+        prefix: thymio_
+        include_id_in_events: true
+    <span class="nt">&lt;/rosparam&gt;</span>
+    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;script&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+      path: $(find asebaros_examples)/launch/twin_thymios.aesl
+      constants:
+        OBSTACLE_THRESHOLD: 2500
+    <span class="nt">&lt;/rosparam&gt;</span>
+  <span class="nt">&lt;/node&gt;</span>
+<span class="nt">&lt;/launch&gt;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-22-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-22-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+
+  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;let</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;node</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">exec=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">args=</span><span class="s">&quot;--log-level info&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var port)&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;targets&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span> <span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;thymio&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;_id&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;prefix&quot;</span> <span class="na">value=</span><span class="s">&quot;thymio_&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;include_id_in_events&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/param&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;others&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;script&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;path&quot;</span> <span class="na">value=</span><span class="s">&quot;$(find-pkg-share asebaros_examples)/launch/twin_thymios.aesl&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;constants&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;OBSTACLE_THRESHOLD&quot;</span> <span class="na">value=</span><span class="s">&quot;2500&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;/param&gt;</span>
+  <span class="nt">&lt;/node&gt;</span>
+<span class="nt">&lt;/launch&gt;</span>
+</pre></div>
+</div>
+</div></div>
+<p>Because the paramer <code class="docutils literal notranslate"><span class="pre">include_id_in_events</span></code> is set to <code class="docutils literal notranslate"><span class="pre">true</span></code>, <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> will include the [target] robot id in the event <code class="docutils literal notranslate"><span class="pre">set_color</span></code>.
+The script checks that the command targets the current robot, else it ignores it.</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE aesl-source&gt;</span>
+<span class="nt">&lt;network&gt;</span>
+
+<span class="c">&lt;!--list of global events--&gt;</span>
+<span class="nt">&lt;event</span> <span class="na">size=</span><span class="s">&quot;4&quot;</span> <span class="na">name=</span><span class="s">&quot;set_color&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;event</span> <span class="na">size=</span><span class="s">&quot;0&quot;</span> <span class="na">name=</span><span class="s">&quot;obstacle&quot;</span><span class="nt">/&gt;</span>
+
+<span class="c">&lt;!--list of constants--&gt;</span>
+<span class="nt">&lt;constant</span> <span class="na">value=</span><span class="s">&quot;2000&quot;</span> <span class="na">name=</span><span class="s">&quot;OBSTACLE_THRESHOLD&quot;</span><span class="nt">/&gt;</span>
+
+<span class="c">&lt;!--show keywords state--&gt;</span>
+<span class="nt">&lt;keywords</span> <span class="na">flag=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+
+<span class="c">&lt;!--node thymio-II--&gt;</span>
+<span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">&gt;</span>
+  onevent prox
+    if (prox.horizontal[2] &gt; OBSTACLE_THRESHOLD) then
+      call leds.buttons(32, 32, 32, 32)
+      emit obstacle
+    else
+      call leds.buttons(0, 0, 0, 0)
+    end
+  onevent set_color
+    if (event.args[0] == _id) then
+      call leds.top(event.args[1], event.args[2], event.args[3])
+    end
+<span class="nt">&lt;/node&gt;</span>
+
+<span class="nt">&lt;/network&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Launch ROS with</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-23-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-23-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-23-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-23-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-23-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-23-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roslaunch asebaros_examples twin_thymios.launch</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-23-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-23-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 launch asebaros_examples twin_thymios.launch</span>
+</pre></div>
+</div>
+</div></div>
+<p>In a new tab set the body LED of Thymio to cyan and of the other to yellow</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-24-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-24-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-24-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-24-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-24-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-24-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic pub --once /thymio_14031/aseba/events/set_color asebaros_msgs/Event &#39;{data:  [32, 32, 0]}&#39;</span>
+<span class="go">rostopic pub --once /thymio_21181/aseba/events/set_color asebaros_msgs/Event &#39;{data:  [0, 32, 32]}&#39;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-24-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-24-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic pub --once /thymio_14031/aseba/events/set_color asebaros_msgs/Event &#39;{data:  [0, 32, 32]}&#39;</span>
+<span class="go">ros2 topic pub --once /thymio_21181/aseba/events/set_color asebaros_msgs/Event &#39;{data:  [32, 32, 0]}&#39;</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+<section id="two-thymios">
+<h2>Two Thymios<a class="headerlink" href="#two-thymios" title="Permalink to this headline"></a></h2>
+<p>In this example, we want connect to two specific Thymio identified by id, assign them to predefined namespaces (Thymio 21181 to <code class="docutils literal notranslate"><span class="pre">&quot;red&quot;</span></code> and Thymio 14031 to <code class="docutils literal notranslate"><span class="pre">&quot;green&quot;</span></code>), and automatically set their body LED color coherently.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-25-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-25-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-25-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-25-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-25-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-25-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+
+  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">type=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(arg port)&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;targets&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+      [&quot;$(arg device)&quot;,]
+    <span class="nt">&lt;/rosparam&gt;</span>
+    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+      others:
+        accept: false
+      thymio:
+        name: thymio-II
+        id_variable: _id
+        accept: false
+        include_id_in_events: false
+      thymio_21181:
+        id: 21181
+        name: thymio-II
+        accept: true
+        namespace: red
+      thymio_14031:
+        id: 14031
+        name: thymio-II
+        accept: true
+        namespace: green
+    <span class="nt">&lt;/rosparam&gt;</span>
+    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;script&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+      path: $(find asebaros_examples)/launch/two_thymios.aesl
+    <span class="nt">&lt;/rosparam&gt;</span>
+  <span class="nt">&lt;/node&gt;</span>
+<span class="nt">&lt;/launch&gt;</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-25-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-25-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+
+  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;let</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;node</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">exec=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">args=</span><span class="s">&quot;--log-level info&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var port)&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;targets&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span> <span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;thymio&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;_id&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;include_id_in_events&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/param&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;thymio_21181&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;id&quot;</span> <span class="na">value=</span><span class="s">&quot;21181&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;namespace&quot;</span> <span class="na">value=</span><span class="s">&quot;red&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/param&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;thymio_14031&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;id&quot;</span> <span class="na">value=</span><span class="s">&quot;14031&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;namespace&quot;</span> <span class="na">value=</span><span class="s">&quot;green&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/param&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;others&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;/param&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;script&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;path&quot;</span> <span class="na">value=</span><span class="s">&quot;$(find-pkg-share asebaros_examples)/launch/two_thymios.aesl&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/param&gt;</span>
+  <span class="nt">&lt;/node&gt;</span>
+<span class="nt">&lt;/launch&gt;</span>
+</pre></div>
+</div>
+</div></div>
+<p>Different code get uploaded to each of them: one will turn red, while the other green.</p>
+<blockquote>
+<div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE aesl-source&gt;</span>
+<span class="nt">&lt;network&gt;</span>
+
+<span class="c">&lt;!--list of global events--&gt;</span>
+
+<span class="c">&lt;!--list of constants--&gt;</span>
+
+<span class="c">&lt;!--show keywords state--&gt;</span>
+<span class="nt">&lt;keywords</span> <span class="na">flag=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+
+<span class="c">&lt;!--node thymio-II--&gt;</span>
+<span class="nt">&lt;node</span> <span class="na">nodeId=</span><span class="s">&quot;21181&quot;</span> <span class="na">name=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">&gt;</span>
+  call leds.top(32, 0, 0)
+<span class="nt">&lt;/node&gt;</span>
+<span class="nt">&lt;node</span> <span class="na">nodeId=</span><span class="s">&quot;14031&quot;</span> <span class="na">name=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">&gt;</span>
+  call leds.top(0, 32, 0)
+<span class="nt">&lt;/node&gt;</span>
+
+<span class="nt">&lt;/network&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Launch ROS with</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-26-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-26-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-26-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-26-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-26-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-26-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roslaunch asebaros_examples two_thymios.launch</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-26-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-26-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 launch asebaros_examples two_thymios.launch</span>
+</pre></div>
+</div>
+</div></div>
+<p>Check that the correct namespaces are being used</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-27-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-27-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-27-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-27-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-27-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-27-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic list</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-27-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-27-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic list</span>
+</pre></div>
+</div>
+</div></div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="bridge.html" class="btn btn-neutral float-left" title="ROS-Aseba: how it works" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="asebaros.html" class="btn btn-neutral float-right" title="ROS-Aseba: asebaros reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Jérôme Guzzi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

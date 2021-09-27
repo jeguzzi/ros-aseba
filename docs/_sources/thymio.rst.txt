@@ -1,0 +1,362 @@
+.. _thymio:
+
+ROS-Thymio: how it works
+========================
+
+ROS-Thymio implements a Thymio-specific, ROS-conform interface
+on-top of the generic interface provided by ROS-Aseba.
+
+It supports single and multiple robots through two different drivers:
+
+  - :ref:`thymio_driver` for single robots: it connects to the first Thymio discovered by `asebaros`
+  - :ref:`multi_thymio_driver` for multiple robots: it connects to any Thymio discovered by `asebaros`,
+    using the namespace assigned to them by `asebaros` to separate them.
+
+The two ROS driver share most functionality. In fact, ``multi_thymio_driver`` launches (for ROS2), or embed (for ROS1)
+a copy of ``thymio_driver`` for each discovered Thymio. When you want to connect to a single robot,
+you can pick one of the two driver, as they offer the same interface; to managed
+multiple Thymio in the same Aseba network with a single ROS driver, you have to use ``multi_thymio_driver`` instead.
+
+
+Discovery
+----------
+
+We assume that ``asebaros`` is already running and properly configured to connect to Thymios.
+
+thymio_driver
+~~~~~~~~~~~~~
+
+``thymio_driver`` first waits until one Thymio is discovered by ``asebaros``; then,
+if the Aseba node is not already running a script, it tries to load the specified script.
+At that point, ``thymio_driver`` finalizes the initialization of the ROS node and starts the run-loop.
+
+The image below illustrates the default configuration for single robot defined in :ref:`main.launch`.
+Three nodes are launched in the same ROS namespace (``asebaros``, ``thymio_driver``, ``robot_state_publisher``):
+``thymio_driver`` synchronizes with ``asebaros`` waiting for the first connected Thymio.
+
+.. tikz:: single robot ROS-Thymio launched by :ref:`main.launch` with ``single=True``
+   :align: center
+   :libs: arrows, positioning, fit, shapes.geometric, arrows
+   :xscale: 100
+
+   \coordinate (ai) at (0, 0);
+   \coordinate (ac) at (0, -1);
+   \coordinate (af) at (0, -2);
+   \coordinate (ti) at (4, 0);
+   \coordinate (tc) at (4, -1);
+   \coordinate (tf) at (4, -2);
+   \coordinate (mi) at (8, 0);
+   \coordinate (mf) at (8, -2);
+
+   \filldraw (ai) circle (1pt)  node[align=right, left] (asebaros_init) {init};
+   \filldraw (ac) circle (1pt) node[align=right, left] (asebaros_conn) {connected Thymio};
+   \node (asebaros) [above of=ai, anchor=north] {\texttt{asebaros}};
+   \draw (ai) -- (ac) ;
+   \draw[dashed] (ac) -- (af) ;
+
+   \filldraw (ti) circle (1pt)  node[align=left, right] (thymio_init) {init};
+   \filldraw (tc) circle (1pt) node[align=left, right] (thymio_conn) {wait};
+   \node (thymio)  [above of=ti, anchor=north] {\texttt{thymio\_driver}};
+
+   \draw (ti) -- (tc) ;
+   \draw[dashed] (tc) -- (tf) ;
+
+   \draw[->, >=latex] (ac) -- node[above]{\texttt{aseba/nodes}} (tc) ;
+
+   \filldraw (mi) circle (1pt)  node[align=left, right] (model_init) {init};
+   \node (model) [above of=mi, anchor=north] {\texttt{robot\_state\_publisher}};
+
+   \draw[dashed] (mi) -- (mf) ;
+
+   \node (ROS) [rectangle, dotted, draw=black, fit=(asebaros)  (model) (asebaros_conn)  (af) (mf) ] {};
+
+   \node[minimum width=15cm, draw=none, fit=(ROS)]{};
+
+multi_thymio_driver
+~~~~~~~~~~~~~~~~~~~
+
+The multi-robot ROS driver ``multi_thymio_driver`` keeps checking if new Thymio get discovered
+by ``asebaros`` and launches a ``thymio_driver`` node, using the namespace passed by ``asebaros``.
+For ROS1, as there can only be one ROS node per process,
+``multi_thymio_driver`` does not actually create new nodes but exposes an analogous interface using a shared ROS node.
+Contrary to ``thymio_driver``, ``multi_thymio_driver`` does not load a script to the newly discovered Aseba nodes,
+leaving this task solely to ``asebaros``.
+
+
+.. tikz:: multi-robot ROS-Thymio launched by :ref:`main.launch` with ``single=False``
+   :align: center
+   :libs: arrows, positioning, fit, shapes.geometric, arrows
+   :xscale: 100
+
+   \coordinate (ai) at (0, 0);
+   \coordinate (ac) at (0, -1);
+   \coordinate (ac2) at (0, -3);
+   \coordinate (af) at (0, -4);
+
+   \coordinate (ti) at (3.5, 0);
+   \coordinate (tc) at (3.5, -1);
+   \coordinate (tc2) at (3.5, -3);
+   \coordinate (tf) at (3.5, -4);
+
+   \filldraw (ai) circle (1pt)  node[align=right, left] (asebaros_init) {init};
+   \filldraw (ac) circle (1pt) node[align=right, left] (asebaros_conn) {connected \texttt{thymio\_<id1>}};
+   \filldraw (ac2) circle (1pt) node[align=right, left] {connected \texttt{thymio\_<id2>}};
+
+   \node (asebaros) [above of=ai, anchor=north] {\texttt{asebaros}};
+   \draw (ai) -- (ac) ;
+   \draw (ac) -- (ac2) ;
+   \draw[dashed] (ac2) -- (af) ;
+
+   \filldraw (ti) circle (1pt)  node[align=left, right] (thymio_init) {init};
+   \filldraw (tc) circle (1pt) node[align=left, above right] (thymio_conn) {create};
+   \filldraw (tc2) circle (1pt) node[align=left, above right]  {create};
+   \node (thymio)  [above of=ti, anchor=north] {\texttt{multi\_thymio\_driver}};
+
+
+   \draw (ti) -- (tc) ;
+   \draw (tc) -- (tc2) ;
+   \draw[dashed] (tc2) -- (tf) ;
+
+   \draw[->, >=latex] (ac) -- node[above]{\texttt{aseba/nodes}} (tc) ;
+   \draw[->, >=latex] (ac2) -- (tc2) ;
+
+
+   \node (d) [right= 1.75cm of tc, anchor=west, rectangle, draw=black, dotted, text width=4.5cm, label={above:\texttt{thymio\_<id1>}}] {\texttt{thymio\_driver}\\\texttt{robot\_state\_publisher}};
+   \node (d2) [right=1.75cm of tc2, anchor=west, rectangle, draw=black, dotted, text width=4.5cm, label={above:\texttt{thymio\_<id2>}}] {\texttt{thymio\_driver}\\\texttt{robot\_state\_publisher}};
+
+   \draw[->, >=latex] (tc) -- (d);
+   \draw[->, >=latex] (tc2) -- (d2);
+   \draw[->, >=latex] (ac2) -- (tc2) ;
+   \node (ROS) [rectangle, dotted, draw=black, fit=(d2)  (d) (tf)  (asebaros_init) (asebaros_conn) (asebaros)] {};
+
+   \node[minimum width=15cm, draw=none, fit=(ROS)]{};
+
+Aseba Script[s]
+----------------
+
+As introduced in :ref:`AsebaThymio`, we use Aseba events to share data between Aseba and ROS.
+The specific ROS functionality implemented by ``thymio_driver`` is supported by events defined in a
+family of four Aseba scripts, which covers all combinations of simulated/real and single/multiple Thymios.
+The correct script is picked automatically based on the arguments of :ref:`main.launch`.
+
+Robots simulated in Aseba Playground or Enki, do not have some of the Aseba API of real Thymios;
+in particular the following API are missing
+
+  - ``_poweroff()``
+  - ``prox.comm.rx._payloads``
+  - ``prox.comm.rx._intensities``
+
+which the Aseba scripts for simulated robots do not use.
+
+To support multiple Thymios, ``asebaros``
+parameter :ref:`param_include_id_in_events` should be set to ``true``: the *multi\** Aseba scripts
+use the id from the additional payload to filter commands, as explained in :ref:`Events`.
+All scripts are small variants of the script listed in :ref:`asebascript`.
+
+Functionality
+-------------
+
+Sensors
+~~~~~~~~
+
+.. _odometry:
+
+Odometry
+^^^^^^^^^
+
+Wheel odometry is computed onboard from the estimated wheel speed and exposed by ``asebaros`` as
+the event ``aseba/events/odometry``. The parameter :ref:`param-motor_deadband` defines a deadband to filter out noise from the motor speed estimation.
+
+If :ref:`param-emit_motor` is ``1``, the Aseba event is emitted once every :ref:`param-motor_period` update steps of the wheel odometry (which runs 100Hz), and
+it's published by ``asebaros`` on ``aseba/events/odometry``.
+
+The ROS driver uses a simple [calibrated] quadratic function to map wheel steps *r* measured onboard in Aseba units to distance *d* in meters.
+
+.. math::
+
+  r \mapsto d = d_0 r + d_1 r |r|
+
+Then, it applies forward kinematics and computes the odometry of the chassis
+(composed by position, orientation, linear and angular velocities)
+and publishes it as :ref:`odometry_pub`. The main advantage of this approach is that
+the accuracy does not depend on the rate at which the Aseba wheel odometry event is published.
+
+
+Accelerometer
+^^^^^^^^^^^^^
+
+If :ref:`param-emit_acc` is ``1``, raw data from the accelerometer is filtered (mean value over a running window at 16Hz);
+every :ref:`param-acc_period` steps it is emitted and then exposed on ``aseba/events/accelerometer``,
+which the ROS driver transforms into SI-units and publishes as :ref:`pub-imu`.
+The precision is very low as raw data has just 5-bit resolution.
+
+Tap
+^^^
+
+When the Thymio detects a large acceleration, it interprets it as somebody tapping on it.
+The Thymio driver republishes these events on :ref:`pub-tap`.
+
+
+Buttons
+^^^^^^^^^
+
+The robot emits a notification every time each one of the five buttons get pressed or released, which is exposed by ``asebaros``
+on ``aseba/events/button_{backward,left,center,forward,right}``, which the driver republishes as :ref:`pub-individual_buttons`.
+
+Moreover, if :ref:`param-emit_buttons` is ``1``, the state of all buttons is filtered
+(mean value over a running window at 20Hz);
+every :ref:`param-buttons_period` steps it is emitted and then exposed on ``aseba/events/buttons``,
+which the driver republishes as :ref:`pub-all_buttons` emulating a joypad.
+
+
+Proximity
+^^^^^^^^^
+
+Proximity sensors are read onboard at 10 Hz.
+If the parameter  :ref:`param-emit_proximity` is ``1``, they are send to ``asebaros`` and
+published as ``aseba/events/proximity``. The Thymio driver uses a calibration function to map reading `r` to distance `d` in meters.
+
+.. math::
+
+    r \mapsto d = \left\{ \begin{array}{lr}
+      d_\inf, &  \text{for } r = 0\\
+      d_0 + \sqrt{(d_0^ 2 - r_0) (1 - \frac{r_\max}{r})}, & \text{for } 0 < r < r_\max \\
+      d_\sup, & \text{for } r \geq r_\max \\
+        \end{array}\right\}
+
+
+Ground
+^^^^^^^^^
+
+Like proximity sensors, ground sensors are updated at 10 Hz if parameter :ref:`param-emit_proximity` is ``1``,
+and published by ``asebaros`` on ``aseba/events/ground``.
+They are republished by ``thymio_driver`` as :ref:`pub-ground` with a binary resolution
+(i.e., with ``range: 0.0`` or ``range: 1.0`` depending if the reading is above or below
+the threshold defined by parameter :ref:`param-ground_threshold`).
+
+If :ref:`param-emit_ground_raw` is ``1``,
+raw readings on ambient and reflected light is published on ``aseba/events/ground_{ambient,reflected}`` too.
+
+
+
+Sound
+^^^^^
+
+Any sounds detected by the microphone with an high enough volume are republished as :ref:`pub-sound`.
+The threshold can be set publishing a message on :ref:`sub-sound_threshold`.
+
+
+Temperature
+^^^^^^^^^^^
+
+The robot temperature (updated at 1Hz) is republished on :ref:`pub-temperature`.
+
+Actuators
+~~~~~~~~~
+
+Wheels
+^^^^^^
+
+As common for mobile robots in ROS, you control the robot velocity using a ``geometry_msgs/Twist`` (with linear and angular velocities)
+on :ref:`pub-speed`, where only forward speed ```linear.x`` and angular speed ``angular.z`` need to be specified and will be considered.
+The mapping between a twist in SI-units and the target value of the motor speed uses the inverse of the calibration functions described in :ref:`odometry`.
+
+
+Sound
+^^^^^
+
+You can play a sound by sending a message
+
+  - for a system sound to :ref:`sub-system_sound`
+  - for a pure sound to :ref:`sub-pure_sound`
+
+Alarm
+^^^^^^
+
+We also expose a simple high-level interface to start/stop an alarm on :ref:`sub-alarm`.
+
+
+LED
+^^^
+
+You set the color of the three large RGB LED using the topics :ref:`sub-body_led`,
+
+You control the intensities of the other monochromatic small LED by sending a message to the topic :ref:`sub-led`, specifying:
+
+  - the group of LED you target
+  - a mask for individual LED in the group
+  - the intensity value
+
+Any LED not targeted by the group and mask, will keep the previous state.
+
+Gestures
+"""""""""
+
+We also expose an interface to trigger LED gestures (or *animations*) on topic :ref:`sub-led_gestures`.
+Animations are implemented as travelling waves and are specified by
+
+  - the group of LED
+  - a mask for individual LED in the group
+  - the type of the wave (rectangular or sinusoidal)
+  - the period of the wave (with possible static waves)
+  - the length of the wave (in number of LED)
+  - bouncing back or not once the wave reaches the boundary.
+
+We also define higher-level interfaces with predefined gestures, such as
+
+  - switching off
+  - blinking
+  - circling
+  - "I'm alive" pattern
+
+Communication
+~~~~~~~~~~~~~~
+
+Remote
+^^^^^^^^^
+
+Raw IR remote events are exposed on ``aseba/events/remote`` and republished by the driver as :ref:`pub-remote`.
+
+Proximity communication
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The Thymio provides a local communication service through its proximity sensors.
+At the same 10 Hz frequency used to update proximity sensors,
+the robot, after the pulse used for the proximity sensing, can send an additional IR pulse, encoding a 11-bit payload
+in the interval between the two pulses. The Aseba API let you enable this communication interface,
+specify the payload to be transmitted, and
+query payloads received  from the neighboring robots.
+
+
+Using the Thymio driver, you can enable/disable proximity communication with the topic :ref:`sub-comm_enable`.
+You can also specify the default state for all robots using parameter :ref:`param-enable_prox_comm`.
+
+When proximity communication is enabled, the Thymio will broadcast the payload set on topic :ref:`sub-comm_tx`.
+Any message received, will be forwarded to topic :ref:`pub-comm_rx`, which contains the payloads and intensities
+received by the seven individual sensors too that you can use to roughly estimate the position of the robot sending the message.
+
+
+.. note:: The real Thymio firmware exposes the payload received by the individual sensors as ``prox.{_intensities,_payloads}``.
+          The Thymio simulated by the distributed and upstream versions of Aseba Playground does not implement proximity communication and in particular
+          does not have the internal variables ``prox.{_intensities,_payloads}``.
+          The version available at https://github.com/jeguzzi/enki/tree/ir_comm does support proximity communication.
+
+
+Robot Model
+-------------
+
+The robot model provided by ``thymio_description`` contains the complete description of the
+robot geometry, with realistic visual meshes (from `original specifications <http://wiki.thymio.org/en:thymiospecifications>`_) and simplified collision shapes.
+The model is needed to work with `TF <http://wiki.ros.org/tf>`_ and visualize the robot in rviz.
+
+
+Gazebo Simulation
+~~~~~~~~~~~~~~~~~~
+
+You can use the model to simulate the robot in Gazebo where a subset of sensor and actuators are exposed:
+
+  - odometry and velocity commands
+  - proximity sensors
+  - accelerometer
+
+.. note:: Other simulators provide a more complete simulation of a Thymio running Aseba: Enki, Aseba Playground (based on Enki), Webots and CoppeliaSim.

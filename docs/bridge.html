@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ROS-Aseba: how it works &mdash; ROS for Aseba and Thymio 0.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ROS-Aseba: examples" href="examples.html" />
+    <link rel="prev" title="Aseba and ROS Networks" href="glossary.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> ROS for Aseba and Thymio
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#a-bridge-between-aseba-and-ros">A bridge between Aseba and ROS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#ros-packages">ROS Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#use-cases">Use-cases</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#ros-aseba-alone">ROS-Aseba alone</a></li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#ros-aseba-with-ros-thymio">ROS-Aseba with ROS-Thymio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#ros-thymio-alone">ROS-Thymio alone</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#ros">ROS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#ros-aseba">ROS-Aseba</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#ros-thymio">ROS-Thymio</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#setup">Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="getting_started.html#using-a-simulation">Using a simulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting_started.html#using-a-real-thymio">Using a real Thymio</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#running-ros-aseba">Running ROS-Aseba</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#running-ros-thymio">Running ROS-Thymio</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Aseba and ROS Networks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html#aseba-network">Aseba Network</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#nodes">Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#variables">Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#script">Script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#global-events">Global Events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#user-interaction">User interaction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#typical-workflow">Typical workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html#ros-network">ROS Network</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#id1">Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#topics">Topics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#services">Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#interfaces">Interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#launch-files">Launch files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#packages">Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#id2">User interaction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#id3">Typical workflow</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ROS-Aseba: how it works</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#connection-to-the-aseba-network">Connection to the Aseba network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#discovery-of-aseba-nodes">Discovery of Aseba nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#introspection">Introspection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#variables">Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#scripts">Scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#events">Events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">ROS-Aseba: examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#all-nodes">All nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#a-single-node">A single node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#twin-nodes">Twin nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#two-nodes">Two nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#a-single-thymio">A single Thymio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#twin-thymios">Twin Thymios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#two-thymios">Two Thymios</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="asebaros.html">ROS-Aseba: asebaros reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="asebaros.html#executable-asebaros">Executable asebaros</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="asebaros.html#parameters">Parameters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#targets">targets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#port">port</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#loop">loop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#shutdown-on-unconnect">shutdown_on_unconnect</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#reset-on-closing">reset_on_closing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#set-id-variable">set_id_variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#nodes">nodes</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#accept">accept</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#maximal-number">maximal_number</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#name">name</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#id">id</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#prefix">prefix</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#namespace">namespace</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#id-variable">id_variable</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#include-id-in-events">include_id_in_events</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#script">script</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#reload-on-reconnect">reload_on_reconnect</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#path">path</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#constants">constants</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros.html#publishers">Publishers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#anonymous-events">Anonymous events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#events">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#node-list">Node list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#node-description">Node description</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros.html#subscribers">Subscribers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#id1">Anonymous events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#id2">Events</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros.html#services">Services</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#get-node-description">Get node description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#load-script">Load script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#get-node-list">Get node list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#get-variable">Get variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#set-variable">Set variable</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="asebaros_msgs.html">ROS-Aseba: asebaros_msgs reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="asebaros_msgs.html#interfaces">Interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_msgs.html#messages">Messages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#anonymousevent">AnonymousEvent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#constant">Constant</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#event">Event</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#node">Node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#nodedescription">NodeDescription</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#nodelist">NodeList</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_msgs.html#services">Services</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#getdescription">GetDescription</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#getnodelist">GetNodeList</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#getvariable">GetVariable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#loadscript">LoadScript</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#setvariable">SetVariable</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="asebaros_examples.html">ROS-Aseba: asebaros_examples reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="asebaros_examples.html#launch-files">Launch files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#all-nodes-launch">all_nodes.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#arguments">Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#single-node-launch">single_node.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#id1">Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#single-thymio-launch">single_thymio.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#id2">Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#twin-nodes-launch">twin_nodes.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#id3">Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#twin-thymios-launch">twin_thymios.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#id4">Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#two-nodes-launch">two_nodes.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#id5">Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#two-thymios-launch">two_thymios.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#id6">Arguments</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thymio.html">ROS-Thymio: how it works</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="thymio.html#discovery">Discovery</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio.html#thymio-driver">thymio_driver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="thymio.html#multi-thymio-driver">multi_thymio_driver</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="thymio.html#aseba-script-s">Aseba Script[s]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thymio.html#functionality">Functionality</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio.html#sensors">Sensors</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#odometry">Odometry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#accelerometer">Accelerometer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#tap">Tap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#buttons">Buttons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#proximity">Proximity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#ground">Ground</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#sound">Sound</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#temperature">Temperature</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="thymio.html#actuators">Actuators</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#wheels">Wheels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#id2">Sound</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#alarm">Alarm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#led">LED</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio.html#gestures">Gestures</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="thymio.html#communication">Communication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#remote">Remote</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#proximity-communication">Proximity communication</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="thymio.html#robot-model">Robot Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio.html#gazebo-simulation">Gazebo Simulation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thymio_examples.html">ROS-Thymio: examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="thymio_examples.html#one-thymio">One Thymio</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio_examples.html#single-driver">Single driver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="thymio_examples.html#multi-driver">Multi driver</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="thymio_examples.html#multiple-thymios-on-the-same-aseba-network">Multiple Thymios on the same Aseba network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thymio_examples.html#multiple-thymios-on-different-aseba-networks">Multiple Thymios on different Aseba networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio_examples.html#a-single-driver-for-each-network">A single driver for each network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="thymio_examples.html#aseba-switch-and-multi-driver">Aseba Switch and multi driver</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thymio_driver.html">ROS-Thymio: thymio_driver reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="thymio_driver.html#executable">Executable</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio_driver.html#thymio-driver">thymio_driver</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio_driver.html#parameters">Parameters</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#axis-length">axis_length</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#ground-threshold">ground.threshold</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#left-wheel-joint">left_wheel_joint</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#right-wheel-joint">right_wheel_joint</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#odom-frame">odom_frame</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#odom-max-rate">odom_max_rate</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#robot-frame">robot_frame</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#tf-prefix">tf_prefix</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_driver.html#publishers">Publishers</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#internal-asebaros-topics-of-type-event">Internal <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> topics of type <span class="xref std std-ref">Event</span></a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#all-buttons">All Buttons</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#individual-buttons">Individual Buttons</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#proximity-communication-received">Proximity Communication Received</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#ground-sensors">Ground Sensors</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#imu">IMU</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#joint-states">Joint States</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#odometry">Odometry</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#proximity-sensors">Proximity Sensors</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#proximity-sensors-scan">Proximity Sensors Scan</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#remote-controller">Remote Controller</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#sound">Sound</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#tap">Tap</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#temperature">Temperature</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_driver.html#subscribers">Subscribers</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#id2">Internal <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> topics of type <span class="xref std std-ref">Event</span></a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#alarm">Alarm</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#velocity-command">Velocity command</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#proximity-communication-enable">Proximity Communication Enable</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#proximity-communication-transmit">Proximity Communication Transmit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#led">LED</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#body-led">Body LED</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#led-gestures">LED Gestures</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#play-sound">Play Sound</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#play-system-sound">Play System Sound</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#set-sound-threshold">Set sound threshold</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_driver.html#services">Services</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#ready">Ready</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="thymio_driver.html#multi-thymio-driver">multi_thymio_driver</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio_driver.html#id4">Parameters</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#launch-model">launch_model</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_driver.html#id5">Subscribers</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#internal-asebaros-topic">Internal <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> topic</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_driver.html#id6">Publishers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="thymio_driver.html#launch-files">Launch files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio_driver.html#main-launch">main.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio_driver.html#arguments">Arguments</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#id8">axis_length</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#id9">odom_max_rate</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#single">single</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#name">name</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#simulation">simulation</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#simulation-has-reduced-api">simulation_has_reduced_api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#calibration-file">calibration_file</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#device">device</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#port">port</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-motor">emit_motor</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-buttons">emit_buttons</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-acc">emit_acc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-ground-raw">emit_ground_raw</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-proximity">emit_proximity</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#enable-prox-comm">enable_prox_comm</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#motor-deadband">motor_deadband</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#motor-period">motor_period</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#acc-period">acc_period</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#buttons-period">buttons_period</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thymio_msgs.html">ROS-Thymio: thymio_msgs reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="thymio_msgs.html#interfaces">Interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio_msgs.html#messages">Messages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio_msgs.html#comm">Comm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_msgs.html#led">Led</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_msgs.html#ledgesture">LedGesture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_msgs.html#sound">Sound</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_msgs.html#systemsound">SystemSound</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thymio_description.html">ROS-Thymio: thymio_description reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="thymio_description.html#launch-files">Launch files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio_description.html#model-launch-py-for-ros2">model.launch[.py for ROS2]</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio_description.html#arguments">Arguments</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#name">name</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#proximity-max-range">proximity_max_range</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#proximity-resolution">proximity_resolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#proximity-fov">proximity_fov</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#publish-ground-truth">publish_ground_truth</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#ground-truth-frame-id">ground_truth_frame_id</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#ground-truth-frame-rate">ground_truth_frame_rate</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#odom-rate">odom_rate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="thymio_description.html#rviz-launch-py-for-ros2">rviz.launch[.py for ROS2]</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio_description.html#id1">Arguments</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#id2">name</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thymio_aseba_script.html">ROS-Thymio Aseba script</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ROS for Aseba and Thymio</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>ROS-Aseba: how it works</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/bridge.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ros-aseba-how-it-works">
+<h1>ROS-Aseba: how it works<a class="headerlink" href="#ros-aseba-how-it-works" title="Permalink to this headline"></a></h1>
+<p>The Aseba-ROS bridge provides run-time integration of an Aseba network into ROS.
+As illustrated below, the <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> ROS node communicates with the Aseba network.
+The other ROS nodes interact indirectly with the Aseba network through the topics and the services exposed by <code class="docutils literal notranslate"><span class="pre">asebaros</span></code>.</p>
+<div class="figure" id="id2" style="text-align: center"><p><img width="100%" src="_images/tikz-8d785c4a01ad9c537a9960ecb472f258e61adb1e.svg" alt="Figure made with TikZ" /></p>
+<p><span class="caption-text">The Aseba-ROS bridge</span></p>
+</div><p>The bridge offers functionalities to</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>discover Aseba nodes connected to an Aseba network</p></li>
+<li><p>expose information about Aseba nodes to ROS</p></li>
+<li><p>load Aseba scripts from ROS</p></li>
+<li><p>provide read/write access to the Aseba nodes’ variables from ROS</p></li>
+<li><p>send/receive global Aseba events from ROS</p></li>
+</ul>
+</div></blockquote>
+<section id="connection-to-the-aseba-network">
+<h2>Connection to the Aseba network<a class="headerlink" href="#connection-to-the-aseba-network" title="Permalink to this headline"></a></h2>
+<p>When launched, <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> tries to connect to an Aseba network at the Dashel targets listed in the parameter <a class="reference internal" href="asebaros.html#param-targets"><span class="std std-ref">targets</span></a>,
+looping through them until the first successful connection.</p>
+<p><code class="docutils literal notranslate"><span class="pre">asebaros</span></code> behaves also as an <a class="reference external" href="http://wiki.thymio.org/en:asebaswitchremap">Aseba switch</a> by:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>forwarding Aseba messages to the tcp port defined by parameter <a class="reference internal" href="asebaros.html#param-port"><span class="std std-ref">port</span></a></p></li>
+<li><p>transmitting Aseba messages back to the sender if parameter <a class="reference internal" href="asebaros.html#param-loop"><span class="std std-ref">loop</span></a> is <code class="docutils literal notranslate"><span class="pre">true</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>During initialization, <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> create services and topics only in the ROS namespace <code class="docutils literal notranslate"><span class="pre">aseba</span></code>.</p>
+</section>
+<section id="discovery-of-aseba-nodes">
+<h2>Discovery of Aseba nodes<a class="headerlink" href="#discovery-of-aseba-nodes" title="Permalink to this headline"></a></h2>
+<p>After connecting to the Aseba network, <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> regularly (each second) queries the network for connected node.</p>
+<p>When it discovers a new Aseba node with <code class="docutils literal notranslate"><span class="pre">id</span></code> and <code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> checks if it should connect the Aseba node to ROS.
+Scanning the configuration stored in parameter <a class="reference internal" href="asebaros.html#param-nodes"><span class="std std-ref">nodes</span></a>, it first tries to match both <code class="docutils literal notranslate"><span class="pre">id</span></code> and <code class="docutils literal notranslate"><span class="pre">name</span></code>,
+then only <code class="docutils literal notranslate"><span class="pre">name</span></code>, and, if none is found, it uses the generic configuration.
+For the selected configuration, nodes are accepted if <code class="docutils literal notranslate"><span class="pre">accept</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code> and if there are not already <code class="docutils literal notranslate"><span class="pre">max_number</span></code> nodes with the same name.</p>
+<p>For example, a parameter</p>
+<div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nt">nodes</span><span class="p">:</span>
+  <span class="nt">others</span><span class="p">:</span>
+    <span class="nt">accept</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+  <span class="nt">thymio</span><span class="p">:</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">thymio-II</span>
+    <span class="nt">accept</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="nt">maximal_number</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+</pre></div>
+</div>
+<p>makes <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> accept only the first connected node with <code class="docutils literal notranslate"><span class="pre">name=&quot;thymio-II&quot;</span></code>.
+A parameter</p>
+<div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nt">nodes</span><span class="p">:</span>
+  <span class="nt">others</span><span class="p">:</span>
+    <span class="nt">accept</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+  <span class="nt">thymio</span><span class="p">:</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">thymio-II</span>
+    <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1928</span>
+    <span class="nt">accept</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+<p>makes <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> accept only the node with <code class="docutils literal notranslate"><span class="pre">name=&quot;thymio-II&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">id=1928</span></code>.
+Finally, a parameter</p>
+<div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nt">nodes</span><span class="p">:</span>
+  <span class="nt">others</span><span class="p">:</span>
+    <span class="nt">accept</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="nt">thymio</span><span class="p">:</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">thymio-II</span>
+    <span class="nt">accept</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+</div>
+<p>makes <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> accept all but the node with <code class="docutils literal notranslate"><span class="pre">name=&quot;thymio-II&quot;</span></code>.</p>
+<p>Accepted Aseba nodes are assigned to a namespace:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">{namespace}/aseba</span></code> if the configuration <code class="docutils literal notranslate"><span class="pre">namespace</span></code> is not empty, or else</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{prefix}{id}/aseba</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>For example, the parameter</p>
+<blockquote>
+<div><div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nt">nodes</span><span class="p">:</span>
+  <span class="nt">others</span><span class="p">:</span>
+    <span class="nt">accept</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+  <span class="nt">thymio</span><span class="p">:</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">thymio-II</span>
+    <span class="nt">accept</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="nt">prefix</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">thymio_</span>
+  <span class=" -Error"> </span><span class="nt">my-thymio</span><span class="p">:</span>
+      <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">thymio-II</span>
+      <span class="nt">accept</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+      <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1928</span>
+      <span class="nt">prefix</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my_thymio</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>makes <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> use the namespace <code class="docutils literal notranslate"><span class="pre">thymio_1234</span></code> for a Thymio with id <code class="docutils literal notranslate"><span class="pre">1234</span></code>
+or  <code class="docutils literal notranslate"><span class="pre">my_thymio</span></code> for one with id <code class="docutils literal notranslate"><span class="pre">1928</span></code>.</p>
+<p>This way, one <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> node can manage multiple Aseba nodes of the same Aseba network,
+separating the related ROS topics and services in well-defined namespaces.</p>
+<div class="figure" id="id3" style="text-align: center"><p><img width="100%" src="_images/tikz-707429684cc5ee14e3117ea15710393a2c227f03.svg" alt="Figure made with TikZ" /></p>
+<p><span class="caption-text">Discovery</span></p>
+</div></section>
+<section id="introspection">
+<h2>Introspection<a class="headerlink" href="#introspection" title="Permalink to this headline"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">asebaros</span></code> exposes the list of nodes (and their state) in three ways:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>regularly publishing diagnostics messages, which can be visualizited for example with <cite>rqt</cite>,</p></li>
+<li><p>publishing <a class="reference internal" href="asebaros_msgs.html#nodelist"><span class="std std-ref">NodeList</span></a> messages on topic <code class="docutils literal notranslate"><span class="pre">aseba/nodes</span></code> each time there is a change,</p></li>
+<li><p>serving [on-demand] <a class="reference internal" href="asebaros_msgs.html#getnodelist"><span class="std std-ref">GetNodeList</span></a> queries on <code class="docutils literal notranslate"><span class="pre">aseba/get_nodes</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>For each connected Aseba node, a <a class="reference internal" href="asebaros_msgs.html#id6"><span class="std std-ref">Services</span></a> message is published on
+<code class="docutils literal notranslate"><span class="pre">&lt;node_namespace&gt;/aseba/description</span></code> each time there is a change in the node.
+It contains the global events and constants defined in the script running on the node, and the list of all variables.
+The same information is served on demand as <a class="reference internal" href="asebaros_msgs.html#getdescription"><span class="std std-ref">GetDescription</span></a> queries on <code class="docutils literal notranslate"><span class="pre">&lt;node_namespace&gt;/aseba/get_description</span></code>.</p>
+</section>
+<section id="variables">
+<h2>Variables<a class="headerlink" href="#variables" title="Permalink to this headline"></a></h2>
+<p>For each connected Aseba node, the services <code class="docutils literal notranslate"><span class="pre">&lt;node_namespace&gt;/aseba/{get|set}_variable</span></code> of type <a class="reference internal" href="asebaros_msgs.html#getvariable"><span class="std std-ref">GetVariable</span></a> | <a class="reference internal" href="asebaros_msgs.html#setvariable"><span class="std std-ref">SetVariable</span></a>
+allow to get | set variables. All variables are accessible: the internal ones and the ones defined in the Aseba script running on the node.
+Variables values are integer arrays of constant length. A scalar value corresponds to an array of one element.</p>
+</section>
+<section id="scripts">
+<h2>Scripts<a class="headerlink" href="#scripts" title="Permalink to this headline"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">asebaros</span></code> tries to load an Aseba script to a node when</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>it connects and accepts the node, if the parameter <a class="reference internal" href="asebaros.html#param-script"><span class="std std-ref">script</span></a> is set.</p></li>
+<li><p>it receive a query of type <a class="reference internal" href="asebaros_msgs.html#loadscript"><span class="std std-ref">LoadScript</span></a> on service <code class="docutils literal notranslate"><span class="pre">aseba/load_script</span></code>.</p></li>
+</ul>
+</div></blockquote>
+<p>In the first case, the same script is loaded to all nodes; the user can set <em>at launch time</em> the value of the Aseba script constants using
+the <code class="docutils literal notranslate"><span class="pre">constants</span></code> field of the parameter <a class="reference internal" href="asebaros.html#param-script"><span class="std std-ref">script</span></a>.
+In the second case, the request may specify the set of targeted nodes and the value of the constants.</p>
+<p>When parsing an Aseba script file, we need to identify which code to load to which Aseba node.
+Similarly to Aseba Studio, we match the identifiers <code class="docutils literal notranslate"><span class="pre">(name,</span> <span class="pre">id)</span></code> of the Aseba node with the code.
+In order of preference, we try to select a code tagged with</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>the same name and id</p></li>
+<li><p>the same name and <code class="docutils literal notranslate"><span class="pre">id==0</span></code></p></li>
+<li><p>the first code with the same name</p></li>
+</ol>
+</div></blockquote>
+<p>Once a script is successfully compiled and loaded to an Asaba node, the node description will
+contain the new set of events, constants, and variables.
+At the same time, <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> subscribes to the topics <code class="docutils literal notranslate"><span class="pre">&lt;node_namespace&gt;/aseba/event/&lt;event_name&gt;</span></code>
+for each global event in the script and sync the value of the parameters <code class="docutils literal notranslate"><span class="pre">script/constants</span></code>
+with the value of the scripts’ constants.</p>
+<div class="figure" id="id4" style="text-align: center"><p><img width="100%" src="_images/tikz-b5e4f8238a79d85f54b3d5dcc00300760435b376.svg" alt="Figure made with TikZ" /></p>
+<p><span class="caption-text">Loading an Aseba script</span></p>
+</div></section>
+<section id="events">
+<span id="id1"></span><h2>Events<a class="headerlink" href="#events" title="Permalink to this headline"></a></h2>
+<p>The preferable way to exchange data between ROS and Aseba nodes is through Aseba global events.
+Contrary to getting/setting variables, this conforms to the event-driver approach that is most common both in Aseba and in ROS.
+Events can be used to control/trigger behaviors on the Aseba node and to asynchronously stream sensing readings to ROS.</p>
+<p>Two kind of topics are linked with Aseba events:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="asebaros_msgs.html#anonymousevent"><span class="std std-ref">AnonymousEvent</span></a> messages on <code class="docutils literal notranslate"><span class="pre">aseba/anonymous_events</span></code> for events for which <code class="docutils literal notranslate"><span class="pre">asebaros</span></code>
+cannot find either the source node or the event. The type of the event is contained in the messagge.</p></li>
+<li><p><a class="reference internal" href="asebaros_msgs.html#event"><span class="std std-ref">Event</span></a> messages on <code class="docutils literal notranslate"><span class="pre">&lt;node_namespace&gt;/aseba/events/&lt;event_name&gt;`</span></code>
+for events with a well defined name and source node. The type and the source of the event are mapped to a topic.</p></li>
+</ul>
+</div></blockquote>
+<p>When <code class="docutils literal notranslate"><span class="pre">aseba</span></code> receives a new Aseba event, it tries to match it to a known event for a node,
+and then forward it as ROS message.</p>
+<div class="figure" id="id5" style="text-align: center"><p><img width="100%" src="_images/tikz-021daa4700e404b4583a2c5b0403c274376efd04.svg" alt="Figure made with TikZ" /></p>
+<p><span class="caption-text">Forwarding Aseba events to ROS</span></p>
+</div><p>In many scenarios, when events are used as commands and different Aseba nodes run the same Aseba script,
+it is useful to distinguish command send to different robots/nodes.
+To this aim, if the parameter <code class="docutils literal notranslate"><span class="pre">include_id_in_events</span></code> in <a class="reference internal" href="asebaros.html#param-nodes"><span class="std std-ref">nodes</span></a> is set to <code class="docutils literal notranslate"><span class="pre">true</span></code>,
+we include the id of the target node in the event payload.
+Robots can then ignore all but the commands send to them, like in this example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">onevent</span> <span class="n">ping</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">_id</span><span class="p">)</span> <span class="n">then</span>
+  <span class="n">emit</span> <span class="n">pong</span>
+  <span class="n">end</span>
+</pre></div>
+</div>
+<p>When it receives a <a class="reference internal" href="asebaros_msgs.html#event"><span class="std std-ref">Event</span></a> message, <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> forwards it only if the source is set to 0.</p>
+<div class="figure" id="id6" style="text-align: center"><p><img width="100%" src="_images/tikz-17d3131911ac6768d48cee8b528ff8237cc419df.svg" alt="Figure made with TikZ" /></p>
+<p><span class="caption-text">Forwarding ROS messages to Aseba</span></p>
+</div><p>When it receives a <a class="reference internal" href="asebaros_msgs.html#anonymousevent"><span class="std std-ref">AnonymousEvent</span></a> message, it forwards it to Aseba as it is.</p>
+<div class="figure" id="id7" style="text-align: center"><p><img width="100%" src="_images/tikz-90a3eba09a883ce7138941c99c421e4a69762a72.svg" alt="Figure made with TikZ" /></p>
+<p><span class="caption-text">Forwarding anonymous ROS messages to Aseba</span></p>
+</div></section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="glossary.html" class="btn btn-neutral float-left" title="Aseba and ROS Networks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="examples.html" class="btn btn-neutral float-right" title="ROS-Aseba: examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Jérôme Guzzi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

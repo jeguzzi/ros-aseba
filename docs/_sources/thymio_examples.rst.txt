@@ -1,0 +1,120 @@
+ROS-Thymio: examples
+====================
+
+The launch file :ref:`main.launch` covers different use-cases.
+It launches all you need to interact with one or more Thymio: ``asebaros``, ``thymio_driver``,
+and publishes the robot's model with the correct names.
+Add ``simulation:=True`` if the Thymios are simulated.
+
+One Thymio
+~~~~~~~~~~~
+
+You want to control a single Thymio that is connected to an Aseba network at ``<DEVICE>``.
+
+Single driver
+^^^^^^^^^^^^^
+
+You can either use the single driver version, optionally selecting a ``<name>``,
+which can be left empty.
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      roslaunch thymio_driver main.launch device:=<DEVICE> name:=<NAME> [simulation:=True]
+
+   .. code-tab:: console ROS2
+
+      ros2 launch thymio_driver main.launch device:=<DEVICE> name:=<NAME> [simulation:=True]
+
+This will launch all nodes within a parent namespace ``<NAME>``, i.e. ``asebaros`` will create topics like
+``<NAME>/aseba/events/odometry``, and ``thymio_driver`` topics like ``<NAME>/odom``.
+The namespace ``<NAME>`` is also added to services and topics related to the
+whole Aseba network, like ``<NAME>/aseba/nodes`` or ``<NAME>/aseba/load_script``.
+
+Multi driver
+^^^^^^^^^^^^^
+
+Alternatively, you can use the multi driver version: namespaces will be automatically assigned by ``asebaros``
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      roslaunch thymio_driver main.launch device:=<DEVICE> single:=False [simulation:=True]
+
+   .. code-tab:: console ROS2
+
+      ros2 launch thymio_driver main.launch device:=<DEVICE> single:=False [simulation:=True]
+
+This will launch all nodes without a parent namespace. ``asebaros`` will create topics like
+``thymio_<ID>/aseba/events/odometry``, and ``thymio_driver`` topics like ``thymio_<ID>/odom``.
+Services and topics related to the whole Aseba network, won't have a namespace.
+
+.. _multiple:
+
+Multiple Thymios on the same Aseba network
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The second configuration above, works fine for multiple Thymio all connected to the same Aseba network.
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      roslaunch thymio_driver main.launch device:=<DEVICE> single:=False [simulation:=True]
+
+   .. code-tab:: console ROS2
+
+      ros2 launch thymio_driver main.launch device:=<DEVICE> single:=False [simulation:=True]
+
+Each Thymio will have its own ROS namespace ``thymio_<ID>``
+and a model with frame names prefixed by ``thymio_<ID>`` too.
+
+Multiple Thymios on different Aseba networks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you want to connect to different Aseba networks (e.g., two Thymios connected by cable), you have two ways.
+
+A single driver for each network
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Launch one ``asebaros`` and ``thymio_driver`` pair for each network.
+Use different names to differentiate them.
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      roslaunch thymio_driver main.launch device:=<DEVICE_1> name:=<NAME_1> [simulation:=True]
+      roslaunch thymio_driver main.launch device:=<DEVICE_2> name:=<NAME_2> [simulation:=True]
+
+   .. code-tab:: console ROS2
+
+      ros2 launch thymio_driver main.launch device:=<DEVICE_1> name:=<NAME_1> [simulation:=True]
+      ros2 launch thymio_driver main.launch device:=<DEVICE_2> name:=<NAME_2> [simulation:=True]
+
+This results in two independent copies of ``asebaros`` and ``thymio_driver``, prefixed with ``<NAME_1>`` or ``<NAME_2>``.
+As they are connected to the same ROS network, you will be able to access both robots from ROS.
+For example, odometry will be available on ``NAME_1/odom`` and ``NAME_2/odom``.
+
+Aseba Switch and multi driver
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Alternatively you can first join the Aseba networks using `Aseba Switch <http://wiki.thymio.org/en:asebaswitchremap>`_ to make the robot join the same network at port 33333.
+
+.. code-block:: console
+
+  asebaswitch <DEVICE_1> <DEVICE_2> -p 33333
+
+We are back at use-case :ref:`multiple`, i.e., you can now launch one copy of `multi_thymio_driver` and manage all Thymios.
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      roslaunch thymio_driver main.launch device:="tcp:host=localhost;port=33333" single:=False [simulation:=True]
+
+   .. code-tab:: console ROS2
+
+      ros2 launch thymio_driver main.launch device:="tcp:host=localhost;port=33333" single:=False [simulation:=True]

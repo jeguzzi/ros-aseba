@@ -1,0 +1,120 @@
+Introduction
+============
+
+A bridge between Aseba and ROS
+------------------------------
+
+**Aseba** is an event-based architecture for real-time distributed control of mobile robots using a simple scripting language.
+Scripts are interpreted onboard of the robots' microprocessors with minimal requirements (integer-only arithmetics).
+Tools such as Aseba Studio let users interact with Aseba.
+The official documentation is hosted at http://wiki.thymio.org/en:asebaconcepts.
+
+**ROS** is a set of open-source software libraries and tools to build robotic applications.
+ROS targets a broad range of platforms, from real-time controllers to personal computer.
+The official documentation is hosted at https://docs.ros.org.
+
+Aseba and ROS are both distributed systems: nodes performs a task
+(like controlling a specific robot) and use specific protocols to exchange information with other nodes in the network.
+
+The ROS node ``asebaros`` acts as a bridge between the Aseba and the ROS networks, passing back and forth information.
+This allows users to use ROS to program and interact with a robot that runs Aseba.
+
+.. note:: This repository is a fork of the `original ROS-Aseba <https://github.com/ethz-asl/ros-aseba>`_ by Stéphane Magnenat with several modifications to support new versions of ROS, multiple Aseba nodes and a larger set of functionalities. `Branch master <https://github.com/jeguzzi/ros-aseba/tree/master>`_ is the most similar to the original work and supports up to ROS1 melodic.
+
+
+
+ROS Packages
+------------
+
+The `ros-aseba repository <https://github.com/jeguzzi/ros-aseba>`_ contains ROS tools to interface with a generic robot running Aseba:
+
+  - *asebaros*: the implementation of the Aseba-ROS bridge
+  - *asebaros_msgs*: interfaces for the Aseba-ROS bridge
+  - *asebaros_examples*: examples of Aseba scripts and ROS launch files
+
+The `ros-thymio repository <https://github.com/jeguzzi/ros-thymio>`_ contains ROS tools to use the `Thymio robot <https://www.thymio.org>`_:
+
+  - *thymio_driver*: a driver that pairs with ``asebaros`` to offer a ROS-conform interface to the Thymio
+  - *thymio_msgs*: Thymio-specific interfaces used by ``thymio_driver``
+  - *thymio_description*: the 3D model of the Thymio robot
+
+
+Use-cases
+---------
+
+ROS-Aseba alone
+~~~~~~~~~~~~~~~
+
+Using ``asebaros`` you can interface ROS with one or more robots running Aseba nodes.
+You can access the Aseba node variables, send and receive Aseba events, and load Aseba scripts from ROS.
+The ROS interface mimics the Aseba interface: values are arrays of (16-bit) integers.
+The bridge translates data transparently between ROS and Aseba without modifying it.
+Using ``asebaros`` alone requires some understanding of Aseba.
+
+.. _AsebaThymio:
+
+ROS-Aseba with ROS-Thymio
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ROS-Thymio uses a set of Thymio-specific Aseba scripts, a specific ROS node ``thymio_driver``, and
+the generic interface from ``asebaros`` to provide a ROS-conform interface
+to all the actuators and sensors of the Thymio.
+
+For examples, let us look at the steps to get readings from the Thymio IR [proximity/range] sensors:
+
+  1. ROS-Thymio loads a Thymio-specific Aseba script to (among other things) send out a notification when the proximity readings are updated
+
+    .. code-block::
+
+       onevent prox
+         emit proximity prox.horizontal
+
+  2. The above Aseba event ``proximity`` is captured by ``asebaros``,
+     translated to a ROS message of type :ref:`Event`
+     (storing the value of ``prox.horizontal`` in the field ``data``),
+     and published on the ROS topic ``aseba/events/proximity``
+
+    .. code-block:: yaml
+
+      # informally
+      asebaros_msgs/Event:
+        data: [928, 3212, 2039, 1292, 1029, 0, 0]
+
+  3. The Thymio ROS driver subscribes to the topic ``aseba/events/proximity``,
+     uses the data in the messages to compute a range in meters for the central sensor,
+     and publishes this as message a type `sensor_msgs/Range <http://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/Range.html>`_, which has an accurate semantic,
+     on topics like ``proximity/center``.
+
+    .. code-block:: yaml
+
+      # informally
+      sensor_msgs/Range:
+        radiation_type: 1
+        field_of_view: 0.3
+        min_range: 0.0215
+        max_range: 0.14
+        range: 0.0543
+
+
+  4. Users programming an application-specific ROS node, may access ``aseba/events/proximity``
+     and/or ``proximity/center``, depending if they want raw and/or processed data.
+     Users may also re-use a generic ROS node for range sensing, i.e., to filter or display the readings,
+     that works with any range sensor conforming to the ``sensor_msgs/Range`` interface.
+
+More generally, ``asebaros`` provides raw, low-level data, while ``thymio_driver`` processed, high-level data.
+Users who do not need low-level data, can treat ``asebaros`` as a black-box and do not need
+to understand how ``asebaros`` or ``Aseba`` work. If this is your case, you can skip the documentation of ROS-Aseba and jump to :ref:`thymio`.
+
+ROS-Thymio alone
+~~~~~~~~~~~~~~~~
+
+Users can use the Thymio model provided by ROS-Thymio to simulate a Thymio using Gazebo,
+which exposes a *subset* of the functionality of a real Thymio connected to ``thymio_driver``.
+
+
+.. note::
+  In order to interact with ROS nodes, you don't need to install the packages that provide the executables
+  (like ``asebaros`` or ``thymio_driver``), but only the packages that provide the interfaces
+  (like `asebaros_msgs` and `thymio_msgs`).
+  For instance, if a Thymio is connected to ``asebaros`` running on PC in the same network,
+  the user can interact with the robot without installing ``asebaros``.

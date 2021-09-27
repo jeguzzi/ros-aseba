@@ -1,0 +1,1071 @@
+.. _examples:
+
+ROS-Aseba: examples
+===================
+
+Setup
+-----
+
+To reproduce a multi-robot network (two Thymios with id 14031 and 21181, and two e-pucks with id 1 and 2), launch `Aseba Playground <http://wiki.thymio.org/en:asebaplayground>`_
+
+.. code-block:: console
+
+  asebaplayground
+
+and open the world at ``ros-aseba/asebaros_examples/launch/simulation/multirobot.playground``
+
+.. code-block:: xml
+
+   <!DOCTYPE aseba-playground>
+   <aseba-playground>
+   	<author name="Jerome Guzzi" email="jerome at idsia dot ch" />
+   	<description lang="en">A simple multi-robot playground to experiment with asebaros without physical robots.</description>
+   	<color name="wall" r="0.9" g="0.9" b="0.9" />
+   	<world w="100" h="100" color="wall"/>
+   	<robot type="thymio2" x="45" y="15" port="33334" name="Thymio A" nodeId="1" />
+   	<robot type="thymio2" x="45" y="45" port="33335" name="Thymio B" nodeId="1"/>
+   	<robot type="e-puck" x="15" y="15" port="33336" name="E-Puck A" nodeId="1" />
+   	<robot type="e-puck" x="15" y="45" port="33337" name="E-Puck B" nodeId="1" />
+   </aseba-playground>
+
+Use `Aseba Switch <http://wiki.thymio.org/en:asebaswitchremap>`_ to make the robots join the same network at port 33333.
+
+.. code-block:: console
+
+  asebaswitch "tcp:host=localhost\;port=33334\;remapLocal=21181\;remapTarget=1" "tcp:host=localhost\;port=33335\;remapLocal=14031\;remapTarget=1" "tcp:host=localhost\;port=33336\;remapLocal=1\;remapTarget=1" "tcp:host=localhost\;port=33337\;remapLocal=2\;remapTarget=1" -p 33333
+
+With this setup ``DEVICE="tcp:host=localhost;port=33333"``.
+
+
+To execute any ROS command, you have first to source the ROS setup script
+
+.. code-block:: console
+
+   source <WORKSPACE>/install/setup.bash
+
+.. note:: The examples below works with any other Aseba network, and in particular with real robots too. In this case, just change the ids and add ``device:=<DEVICE>`` to the ROS launch arguments.
+
+All nodes
+----------
+
+The following launch files configure ``asebaros`` to connect to all nodes at Dashel target ``device``.
+Each node will receive a ROS namespace ``"node_{id}"``. No script will be automatically loaded into the nodes.
+
+.. tabs::
+
+   .. code-tab:: xml ROS1
+
+      <launch>
+
+        <arg name="device" default="tcp:host=localhost;port=33333"/>
+        <arg name="port" value="44444"/>
+
+        <node name="asebaros" pkg="asebaros" type="asebaros" output="screen">
+          <param name="port" value="$(arg port)"/>
+          <param name="shutdown_on_unconnect" value="false"/>
+          <rosparam param="targets" subst_value="true">
+            ["$(arg device)",]
+          </rosparam>
+          <rosparam param="nodes">
+            any:
+              accept: true
+              prefix: node_
+          </rosparam>
+        </node>
+      </launch>
+
+
+   .. code-tab:: xml ROS2
+
+      <launch>
+
+        <arg name="device" default="tcp:host=localhost;port=33333"/>
+        <let name="port" value="44444"/>
+
+        <node pkg="asebaros" exec="asebaros" args="--log-level info" output="screen">
+          <param name="port" value="$(var port)"/>
+          <param name="shutdown_on_unconnect" value="false"/>
+          <param name="targets" value="$(var device)" value-sep=","/>
+          <param name="nodes">
+            <param name="any">
+              <param name="accept" value="true"/>
+              <param name="prefix" value="node_"/>
+            </param>
+          </param>
+        </node>
+      </launch>
+
+
+Launch it with
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      roslaunch asebaros_examples all_nodes.launch
+
+   .. code-tab:: console ROS2
+
+      ros2 launch asebaros_examples all_nodes.launch
+
+Inspect the system using services:
+
+1. Get the list of nodes
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      rosservice call /aseba/get_nodes asebaros_msgs/GetNodeList '{}'
+
+
+   .. code-tab:: console ROS2
+
+      ros2 service call /aseba/get_nodes asebaros_msgs/GetNodeList '{}'
+
+2. Get the description of one of the nodes
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      rosservice call /node_14031/aseba/get_description asebaros_msgs/GetDescription '{}'
+
+
+   .. code-tab:: console ROS2
+
+      ros2 service call /node_14031/aseba/get_description asebaros_msgs/GetDescription '{}'
+
+3. Get the value of a variable
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      rosservice call /node_14031/aseba/get_variable asebaros_msgs/GetVariable "{variable: prox.horizontal}"
+
+
+   .. code-tab:: console ROS2
+
+      ros2 service call /node_14031/aseba/get_variable asebaros_msgs/GetVariable "{variable: prox.horizontal}"
+
+
+4. Set the value of a variable
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      rosservice call /node_14031/aseba/set_variable asebaros_msgs/SetVariable "{variable: motor.left.target, data: [100]}"
+
+   .. code-tab:: console ROS2
+
+      ros2 service call /node_14031/aseba/set_variable asebaros_msgs/SetVariable "{variable: motor.left.target, data: [100]}"
+
+
+A single node
+-------------
+
+The following launch files configure ``asebaros`` to connect to just the first Thymio
+(i.e., the first Aseba node with ``name=="thymio-II"``)
+
+.. tabs::
+
+   .. code-tab:: xml ROS1
+
+      <launch>
+
+        <arg name="device" default="tcp:host=localhost;port=33333"/>
+        <arg name="port" value="44444"/>
+
+        <node name="asebaros" pkg="asebaros" type="asebaros" output="screen">
+          <param name="port" value="$(arg port)"/>
+          <param name="reload_script_on_reconnect" value="true"/>
+          <param name="set_id_variable" value="false"/>
+          <param name="shutdown_on_unconnect" value="false"/>
+          <rosparam param="targets" subst_value="true">
+            ["$(arg device)",]
+          </rosparam>
+          <rosparam param="nodes">
+            others:
+              accept: false
+            thymio:
+              name: thymio-II
+              id_variable: _id
+              accept: true
+              include_id_in_events: false
+              maximal_number: 1
+          </rosparam>
+          <rosparam param="script" subst_value="true">
+            path: $(find asebaros_examples)/launch/single_node.aesl
+            constants:
+              MY_CONSTANT: 3
+          </rosparam>
+        </node>
+      </launch>
+
+
+   .. code-tab:: xml ROS2
+
+      <launch>
+
+        <arg name="device" default="tcp:host=localhost;port=33333"/>
+        <let name="port" value="44444"/>
+
+        <node pkg="asebaros" exec="asebaros" args="--log-level info" output="screen">
+          <param name="port" value="$(var port)"/>
+          <param name="reload_script_on_reconnect" value="true"/>
+          <param name="set_id_variable" value="false"/>
+          <param name="shutdown_on_unconnect" value="false"/>
+          <param name="targets" value="$(var device)" value-sep=","/>
+          <param name="nodes">
+            <param name="others">
+              <param name="accept" value="false"/>
+            </param>
+            <param name="thymio">
+              <param name="type" value="thymio-II"/>
+              <param name="id_variable" value="_id"/>
+              <param name="accept" value="true"/>
+              <param name="include_id_in_events" value="false"/>
+              <param name="maximal_number" value="1"/>
+            </param>
+          </param>
+          <param name="script">
+            <param name="path" value="$(find-pkg-share asebaros_examples)/launch/single_node.aesl"/>
+            <param name="constants">
+              <param name="MY_CONSTANT" value="3"/>
+            </param>
+          </param>
+        </node>
+      </launch>
+
+The node will receive an empty ROS namespace and a script will be automatically loaded into the node.
+The script has a single constant ``MY_CONSTANT``, which the launch file sets to ``3``, and two events: ``ping`` and ``pong``.
+
+  .. code-block:: xml
+
+     <!DOCTYPE aesl-source>
+     <network>
+
+       <!--list of global events-->
+       <event size="3" name="ping"/>
+       <event size="3" name="pong"/>
+
+       <!--list of constants-->
+       <constant value="0" name="MY_CONSTANT"/>
+
+       <!--show keywords state-->
+       <keywords flag="true"/>
+
+       <!--node thymio-II-->
+       <node name="thymio-II">
+         var value[3] = [MY_CONSTANT, MY_CONSTANT, MY_CONSTANT]
+         emit pong value
+         onevent ping
+         value = event.args[0:2]
+         emit pong value
+       </node>
+
+     </network>
+
+The events are used to make the robot "pong" back the values (an array of length 3) sent with the ping.
+Launch it with
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      roslaunch asebaros_examples single_node.launch
+
+
+   .. code-tab:: console ROS2
+
+      ros2 launch asebaros_examples single_node.launch
+
+In a new tab send a ping each second
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      rostopic pub -r 1 /aseba/events/ping asebaros_msgs/Event '{data:  [1, 2, 3]}'
+
+
+   .. code-tab:: console ROS2
+
+      ros2 topic pub -r 1 /aseba/events/ping asebaros_msgs/Event '{data:  [1, 2, 3]}'
+
+and in another one, listen for pongs
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      rostopic echo /aseba/events/pong
+
+
+   .. code-tab:: console ROS2
+
+      ros2 topic echo /aseba/events/pong
+
+
+Twin nodes
+----------
+
+In this case, we want to connect to *all* nodes and load the same script.
+Each node will receive a namespace ``"node_{id}"``.
+
+.. tabs::
+
+   .. code-tab:: xml ROS1
+
+      <launch>
+
+        <arg name="device" default="tcp:host=localhost;port=33333"/>
+        <arg name="port" value="44444"/>
+
+        <node name="asebaros" pkg="asebaros" type="asebaros" output="screen">
+          <param name="port" value="$(arg port)"/>
+          <param name="reload_script_on_reconnect" value="true"/>
+          <param name="set_id_variable" value="true"/>
+          <param name="shutdown_on_unconnect" value="false"/>
+          <rosparam param="targets" subst_value="true">
+            ["$(arg device)",]
+          </rosparam>
+          <rosparam param="nodes">
+            any:
+              prefix: node_
+              accept: true
+              include_id_in_events: true
+            thymio:
+              name: thymio-II
+              id_variable: _id
+            epuck:
+              name: e-puck0
+              id_variable: id
+          </rosparam>
+          <rosparam param="script" subst_value="true">
+            path: $(find asebaros_examples)/launch/twin_nodes.aesl
+            constants:
+              MY_CONSTANT: 3
+          </rosparam>
+        </node>
+      </launch>
+
+   .. code-tab:: xml ROS2
+
+      <launch>
+
+        <arg name="device" default="tcp:host=localhost;port=33333"/>
+        <let name="port" value="44444"/>
+
+        <node pkg="asebaros" exec="asebaros" args="--log-level info" output="screen">
+          <param name="port" value="$(var port)"/>
+          <param name="reload_script_on_reconnect" value="true"/>
+          <param name="set_id_variable" value="true"/>
+          <param name="shutdown_on_unconnect" value="false"/>
+          <param name="targets" value="$(var device)" value-sep=","/>
+          <param name="nodes">
+            <param name="any">
+              <param name="prefix" value="node_"/>
+              <param name="accept" value="true"/>
+              <param name="include_id_in_events" value="true"/>
+            </param>
+            <param name="thymio">
+              <param name="name" value="thymio-II"/>
+              <param name="id_variable" value="_id"/>
+            </param>
+            <param name="epuck">
+              <param name="name" value="e-puck0"/>
+              <param name="id_variable" value="id"/>
+            </param>
+          </param>
+          <param name="script">
+            <param name="path" value="$(find-pkg-share asebaros_examples)/launch/twin_nodes.aesl"/>
+            <param name="constants">
+              <param name="MY_CONSTANT" value="3"/>
+            </param>
+          </param>
+        </node>
+      </launch>
+
+Because the id of the target node is included in the event ``ping`` (``include_id_in_events=true``),
+the script can check if the event is addressed at the current node,
+and *only in this case* "pong" back.
+
+.. code-block:: xml
+
+   <!DOCTYPE aesl-source>
+   <network>
+
+     <!--list of global events-->
+     <event size="4" name="ping"/>
+     <event size="3" name="pong"/>
+
+     <!--list of constants-->
+     <constant value="0" name="MY_CONSTANT"/>
+
+     <!--show keywords state-->
+     <keywords flag="true"/>
+
+     <!--node thymio-II-->
+     <node name="thymio-II">
+       var value[3] = [MY_CONSTANT, MY_CONSTANT, MY_CONSTANT]
+       emit pong value
+       onevent ping
+       if (event.args[0] == _id) then
+         value = event.args[1:3]
+         emit pong value
+       end
+     </node>
+
+   </network>
+
+Launch ROS with
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      roslaunch asebaros_examples twin_nodes.launch
+
+
+   .. code-tab:: console ROS2
+
+      ros2 launch asebaros_examples twin_nodes.launch
+
+In a new tab send pings each second to a specific robot
+
+.. tabs::
+
+  .. code-tab:: console ROS1
+
+     rostopic pub -r 1 /node_14031/aseba/events/ping asebaros_msgs/Event '{data:  [1, 2, 3]}'
+
+
+  .. code-tab:: console ROS2
+
+     ros2 topic pub -r 1 /node_14031/aseba/events/ping asebaros_msgs/Event '{data:  [1, 2, 3]}'
+
+and in another one, listen for pongs from different robots
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      ros2 topic echo /node_14031/aseba/events/pong
+      ros2 topic echo /node_21181/aseba/events/pong
+
+
+   .. code-tab:: console ROS2
+
+      ros2 topic echo /node_14031/aseba/events/pong
+      ros2 topic echo /node_21181/aseba/events/pong
+
+
+Two nodes
+---------
+
+In this case, we want to connect to two nodes of different types.
+As the different nodes uses different [incoming] events, we don't need to include the node id in the event.
+
+.. tabs::
+
+   .. code-tab:: xml ROS1
+
+      <launch>
+
+        <arg name="device" default="tcp:host=localhost;port=33333"/>
+        <arg name="port" value="44444"/>
+
+        <node name="asebaros" pkg="asebaros" type="asebaros" output="screen">
+          <param name="port" value="$(arg port)"/>
+          <param name="reload_script_on_reconnect" value="true"/>
+          <param name="set_id_variable" value="false"/>
+          <param name="shutdown_on_unconnect" value="false"/>
+          <rosparam param="targets" subst_value="true">
+            ["$(arg device)",]
+          </rosparam>
+          <rosparam param="nodes">
+            others:
+              accept: false
+            thymio:
+              name: thymio-II
+              id_variable: _id
+              accept: true
+              namespace: thymio
+              include_id_in_events: false
+              maximal_number: 1
+            epuck:
+              name: e-puck0
+              id_variable: id
+              accept: true
+              namespace: epuck
+              include_id_in_events: false
+              maximal_number: 1
+          </rosparam>
+          <rosparam param="script" subst_value="true">
+            path: $(find asebaros_examples)/launch/two_nodes.aesl
+            constants:
+              MY_CONSTANT_THYMIO: 3
+              MY_CONSTANT_EPUCK: 333
+          </rosparam>
+        </node>
+      </launch>
+
+   .. code-tab:: xml ROS2
+
+      <launch>
+
+        <arg name="device" default="tcp:host=localhost;port=33333"/>
+        <let name="port" value="44444"/>
+
+        <node pkg="asebaros" exec="asebaros" args="--log-level info" output="screen">
+          <param name="port" value="$(var port)"/>
+          <param name="reload_script_on_reconnect" value="true"/>
+          <param name="set_id_variable" value="false"/>
+          <param name="shutdown_on_unconnect" value="false"/>
+          <param name="targets" value="$(var device)" value-sep=","/>
+          <param name="nodes">
+            <param name="thymio">
+              <param name="name" value="thymio-II"/>
+              <param name="namespace" value="thymio"/>
+              <param name="accept" value="true"/>
+              <param name="id_variable" value="_id"/>
+              <param name="maximal_number" value="1"/>
+              <param name="include_id_in_events" value="false"/>
+            </param>
+            <param name="epuck">
+              <param name="name" value="e-puck0"/>
+              <param name="namespace" value="epuck"/>
+              <param name="accept" value="true"/>
+              <param name="id_variable" value="id"/>
+              <param name="maximal_number" value="1"/>
+              <param name="include_id_in_events" value="false"/>
+            </param>
+          </param>
+          <param name="script">
+            <param name="path" value="$(find-pkg-share asebaros_examples)/launch/two_nodes.aesl"/>
+            <param name="constants">
+              <param name="MY_CONSTANT_THYMIO" value="3"/>
+              <param name="MY_CONSTANT_EPUCK" value="333"/>
+            </param>
+          </param>
+        </node>
+      </launch>
+
+
+.. code-block:: xml
+
+   <!DOCTYPE aesl-source>
+   <network>
+
+     <!--list of global events-->
+     <event size="3" name="ping_thymio"/>
+     <event size="3" name="ping_epuck"/>
+     <event size="3" name="pong"/>
+
+     <!--list of constants-->
+     <constant value="0" name="MY_CONSTANT_THYMIO"/>
+     <constant value="0" name="MY_CONSTANT_EPUCK"/>
+
+     <!--show keywords state-->
+     <keywords flag="true"/>
+
+     <!--node thymio-II-->
+     <node name="thymio-II">
+       var value[3] = [MY_CONSTANT_THYMIO, MY_CONSTANT_THYMIO, MY_CONSTANT_THYMIO]
+       emit pong value
+       onevent ping_thymio
+       value = event.args[0:2]
+       emit pong value
+     </node>
+
+     <!--node e-puck0-->
+     <node name="e-puck0">
+       var value[3] = [MY_CONSTANT_EPUCK, MY_CONSTANT_EPUCK, MY_CONSTANT_EPUCK]
+       emit pong value
+       onevent ping_epuck
+       value = args[0:2]
+       emit pong value
+     </node>
+
+   </network>
+
+Launch ROS with
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      roslaunch asebaros_examples two_nodes.launch
+
+
+   .. code-tab:: console ROS2
+
+      ros2 launch asebaros_examples two_nodes.launch
+
+In a new tab send pings each second to a specific robot
+
+.. tabs::
+
+  .. code-tab:: console ROS1
+
+     rostopic pub -r 1 /epuck/aseba/events/ping_epuck asebaros_msgs/Event '{data:  [1, 2, 3]}'
+
+
+  .. code-tab:: console ROS2
+
+     ros2 topic pub -r 1 /epuck/aseba/events/ping_epuck asebaros_msgs/Event '{data:  [1, 2, 3]}'
+
+and in another one, listen for pongs
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      rostopic echo /epuck/aseba/events/pong
+
+
+   .. code-tab:: console ROS2
+
+      ros2 topic echo /epuck/aseba/events/pong
+
+
+
+A single Thymio
+---------------
+
+The following launch files configure asebaros to connect to just the first Thymio
+(i.e., the first Aseba node with ``name=="thymio-II"``), and a script will be automatically loaded into the node.
+
+.. tabs::
+
+   .. code-tab:: xml ROS1
+
+      <launch>
+
+        <arg name="device" default="tcp:host=localhost;port=33333"/>
+        <arg name="port" value="44444"/>
+
+        <node name="asebaros" pkg="asebaros" type="asebaros" output="screen">
+          <param name="port" value="$(arg port)"/>
+          <param name="reload_script_on_reconnect" value="true"/>
+          <param name="set_id_variable" value="false"/>
+          <param name="shutdown_on_unconnect" value="false"/>
+          <rosparam param="targets" subst_value="true">
+            ["$(arg device)",]
+          </rosparam>
+          <rosparam param="nodes">
+            others:
+              accept: false
+            thymio:
+              type: thymio-II
+              id_variable: _id
+              accept: true
+              name: thymio
+              include_id_in_events: false
+              maximal_number: 1
+          </rosparam>
+          <rosparam param="script" subst_value="true">
+            path: $(find asebaros_examples)/launch/single_thymio.aesl
+            constants:
+              OBSTACLE_THRESHOLD: 2500
+          </rosparam>
+        </node>
+      </launch>
+
+
+   .. code-tab:: xml ROS2
+
+      <launch>
+
+        <arg name="device" default="tcp:host=localhost;port=33333"/>
+        <let name="port" value="44444"/>
+
+        <node pkg="asebaros" exec="asebaros" args="--log-level info" output="screen">
+          <param name="port" value="$(var port)"/>
+          <param name="reload_script_on_reconnect" value="true"/>
+          <param name="set_id_variable" value="false"/>
+          <param name="shutdown_on_unconnect" value="false"/>
+          <param name="targets" value="$(var device)" value-sep=","/>
+          <param name="nodes">
+            <param name="thymio">
+              <param name="type" value="thymio-II"/>
+              <param name="id_variable" value="_id"/>
+              <param name="accept" value="true"/>
+              <param name="name" value="thymio"/>
+              <param name="include_id_in_events" value="false"/>
+              <param name="maximal_number" value="1"/>
+            </param>
+            <param name="others">
+              <param name="accept" value="false"/>
+            </param>
+          </param>
+          <param name="script">
+            <param name="path" value="$(find-pkg-share asebaros_examples)/launch/single_thymio.aesl"/>
+            <param name="constants">
+              <param name="OBSTACLE_THRESHOLD" value="2500"/>
+            </param>
+          </param>
+        </node>
+      </launch>
+
+This time, the node will receive a ROS namespace ``thymio`` and the script is specific for the Thymio.
+
+  .. code-block:: xml
+
+     <!DOCTYPE aesl-source>
+     <network>
+
+       <!--list of global events-->
+       <event size="3" name="set_color"/>
+       <event size="0" name="obstacle"/>
+
+       <!--list of constants-->
+       <constant value="2000" name="OBSTACLE_THRESHOLD"/>
+
+       <!--show keywords state-->
+       <keywords flag="true"/>
+
+       <!--node thymio-II-->
+       <node name="thymio-II">
+         onevent prox
+         if (prox.horizontal[2] > OBSTACLE_THRESHOLD) then
+           call leds.buttons(32, 32, 32, 32)
+           emit obstacle
+         else
+           call leds.buttons(0, 0, 0, 0)
+         end
+         onevent set_color
+         call leds.top(event.args[0], event.args[1], event.args[2])
+       </node>
+
+     </network>
+
+The constant ``OBSTACLE_THRESHOLD``  controls the onboard behavior that makes the Thymio turn on the button LED
+to signal a close object. The ``obstacle`` event is used to notify ROS of an obstacle while the ``set_color`` event
+is used by ROS to change the Thymio body color.
+
+Launch ROS with
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      roslaunch asebaros_examples single_thymio.launch
+
+
+   .. code-tab:: console ROS2
+
+      ros2 launch asebaros_examples single_thymio.launch
+
+
+In a new tab set the body LED of the Thymio to cyan
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      rostopic pub --once /thymio/aseba/events/set_color asebaros_msgs/Event '{data:  [0, 32, 32]}'
+
+
+   .. code-tab:: console ROS2
+
+      ros2 topic pub --once /thymio/aseba/events/set_color asebaros_msgs/Event '{data:  [0, 32, 32]}'
+
+and in another one, listen for obstacles (move around the cyan robot)
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      rostopic echo /thymio/aseba/events/obstacle
+
+
+   .. code-tab:: console ROS2
+
+      ros2 topic echo /thymio/aseba/events/obstacle
+
+
+Twin Thymios
+---------------
+
+We want to connect to any Thymio in the network and load the same script. Each of them will get the namespace ``"thymio_{id}"``.
+
+.. tabs::
+
+   .. code-tab:: xml ROS1
+
+      <launch>
+
+        <arg name="device" default="tcp:host=localhost;port=33333"/>
+        <arg name="port" value="44444"/>
+
+        <node name="asebaros" pkg="asebaros" type="asebaros" output="screen">
+          <param name="port" value="$(arg port)"/>
+          <param name="reload_script_on_reconnect" value="true"/>
+          <param name="set_id_variable" value="true"/>
+          <param name="shutdown_on_unconnect" value="false"/>
+          <rosparam param="targets" subst_value="true">
+            ["$(arg device)",]
+          </rosparam>
+          <rosparam param="nodes">
+            others:
+              accept: false
+            thymio:
+              name: thymio-II
+              id_variable: _id
+              accept: true
+              prefix: thymio_
+              include_id_in_events: true
+          </rosparam>
+          <rosparam param="script" subst_value="true">
+            path: $(find asebaros_examples)/launch/twin_thymios.aesl
+            constants:
+              OBSTACLE_THRESHOLD: 2500
+          </rosparam>
+        </node>
+      </launch>
+
+
+
+   .. code-tab:: xml ROS2
+
+      <launch>
+
+        <arg name="device" default="tcp:host=localhost;port=33333"/>
+        <let name="port" value="44444"/>
+
+        <node pkg="asebaros" exec="asebaros" args="--log-level info" output="screen">
+          <param name="port" value="$(var port)"/>
+          <param name="reload_script_on_reconnect" value="true"/>
+          <param name="set_id_variable" value="true"/>
+          <param name="shutdown_on_unconnect" value="false"/>
+          <param name="targets" value="$(var device)" value-sep=","/>
+          <param name="nodes">
+            <param name="thymio">
+              <param name="name" value="thymio-II"/>
+              <param name="id_variable" value="_id"/>
+              <param name="prefix" value="thymio_"/>
+              <param name="accept" value="true"/>
+              <param name="include_id_in_events" value="true"/>
+            </param>
+            <param name="others">
+              <param name="accept" value="false"/>
+            </param>
+          </param>
+          <param name="script">
+            <param name="path" value="$(find-pkg-share asebaros_examples)/launch/twin_thymios.aesl"/>
+            <param name="constants">
+              <param name="OBSTACLE_THRESHOLD" value="2500"/>
+            </param>
+          </param>
+        </node>
+      </launch>
+
+Because the paramer ``include_id_in_events`` is set to ``true``, ``asebaros`` will include the [target] robot id in the event ``set_color``.
+The script checks that the command targets the current robot, else it ignores it.
+
+  .. code-block:: xml
+
+     <!DOCTYPE aesl-source>
+     <network>
+
+     <!--list of global events-->
+     <event size="4" name="set_color"/>
+     <event size="0" name="obstacle"/>
+
+     <!--list of constants-->
+     <constant value="2000" name="OBSTACLE_THRESHOLD"/>
+
+     <!--show keywords state-->
+     <keywords flag="true"/>
+
+     <!--node thymio-II-->
+     <node name="thymio-II">
+       onevent prox
+         if (prox.horizontal[2] > OBSTACLE_THRESHOLD) then
+           call leds.buttons(32, 32, 32, 32)
+           emit obstacle
+         else
+           call leds.buttons(0, 0, 0, 0)
+         end
+       onevent set_color
+         if (event.args[0] == _id) then
+           call leds.top(event.args[1], event.args[2], event.args[3])
+         end
+     </node>
+
+     </network>
+
+Launch ROS with
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      roslaunch asebaros_examples twin_thymios.launch
+
+
+   .. code-tab:: console ROS2
+
+      ros2 launch asebaros_examples twin_thymios.launch
+
+
+In a new tab set the body LED of Thymio to cyan and of the other to yellow
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      rostopic pub --once /thymio_14031/aseba/events/set_color asebaros_msgs/Event '{data:  [32, 32, 0]}'
+      rostopic pub --once /thymio_21181/aseba/events/set_color asebaros_msgs/Event '{data:  [0, 32, 32]}'
+
+
+   .. code-tab:: console ROS2
+
+      ros2 topic pub --once /thymio_14031/aseba/events/set_color asebaros_msgs/Event '{data:  [0, 32, 32]}'
+      ros2 topic pub --once /thymio_21181/aseba/events/set_color asebaros_msgs/Event '{data:  [32, 32, 0]}'
+
+
+Two Thymios
+-----------
+
+In this example, we want connect to two specific Thymio identified by id, assign them to predefined namespaces (Thymio 21181 to ``"red"`` and Thymio 14031 to ``"green"``), and automatically set their body LED color coherently.
+
+.. tabs::
+
+   .. code-tab:: xml ROS1
+
+      <launch>
+
+        <arg name="device" default="tcp:host=localhost;port=33333"/>
+        <arg name="port" value="44444"/>
+
+        <node name="asebaros" pkg="asebaros" type="asebaros" output="screen">
+          <param name="port" value="$(arg port)"/>
+          <param name="reload_script_on_reconnect" value="true"/>
+          <param name="set_id_variable" value="true"/>
+          <param name="shutdown_on_unconnect" value="false"/>
+          <rosparam param="targets" subst_value="true">
+            ["$(arg device)",]
+          </rosparam>
+          <rosparam param="nodes">
+            others:
+              accept: false
+            thymio:
+              name: thymio-II
+              id_variable: _id
+              accept: false
+              include_id_in_events: false
+            thymio_21181:
+              id: 21181
+              name: thymio-II
+              accept: true
+              namespace: red
+            thymio_14031:
+              id: 14031
+              name: thymio-II
+              accept: true
+              namespace: green
+          </rosparam>
+          <rosparam param="script" subst_value="true">
+            path: $(find asebaros_examples)/launch/two_thymios.aesl
+          </rosparam>
+        </node>
+      </launch>
+
+   .. code-tab:: xml ROS2
+
+      <launch>
+
+        <arg name="device" default="tcp:host=localhost;port=33333"/>
+        <let name="port" value="44444"/>
+
+        <node pkg="asebaros" exec="asebaros" args="--log-level info" output="screen">
+          <param name="port" value="$(var port)"/>
+          <param name="reload_script_on_reconnect" value="true"/>
+          <param name="set_id_variable" value="true"/>
+          <param name="shutdown_on_unconnect" value="false"/>
+          <param name="targets" value="$(var device)" value-sep=","/>
+          <param name="nodes">
+            <param name="thymio">
+              <param name="name" value="thymio-II"/>
+              <param name="id_variable" value="_id"/>
+              <param name="accept" value="false"/>
+              <param name="include_id_in_events" value="false"/>
+            </param>
+            <param name="thymio_21181">
+              <param name="name" value="thymio-II"/>
+              <param name="accept" value="true"/>
+              <param name="id" value="21181"/>
+              <param name="namespace" value="red"/>
+            </param>
+            <param name="thymio_14031">
+              <param name="name" value="thymio-II"/>
+              <param name="accept" value="true"/>
+              <param name="id" value="14031"/>
+              <param name="namespace" value="green"/>
+            </param>
+            <param name="others">
+              <param name="accept" value="false"/>
+            </param>
+          </param>
+          <param name="script">
+            <param name="path" value="$(find-pkg-share asebaros_examples)/launch/two_thymios.aesl"/>
+          </param>
+        </node>
+      </launch>
+
+
+Different code get uploaded to each of them: one will turn red, while the other green.
+
+  .. code-block:: xml
+
+     <!DOCTYPE aesl-source>
+     <network>
+
+     <!--list of global events-->
+
+     <!--list of constants-->
+
+     <!--show keywords state-->
+     <keywords flag="true"/>
+
+     <!--node thymio-II-->
+     <node nodeId="21181" name="thymio-II">
+       call leds.top(32, 0, 0)
+     </node>
+     <node nodeId="14031" name="thymio-II">
+       call leds.top(0, 32, 0)
+     </node>
+
+     </network>
+
+
+Launch ROS with
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      roslaunch asebaros_examples two_thymios.launch
+
+
+   .. code-tab:: console ROS2
+
+      ros2 launch asebaros_examples two_thymios.launch
+
+
+Check that the correct namespaces are being used
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      rostopic list
+
+   .. code-tab:: console ROS2
+
+      ros2 topic list

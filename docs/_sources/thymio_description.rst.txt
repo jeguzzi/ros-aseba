@@ -1,0 +1,79 @@
+ROS-Thymio: thymio_description reference
+========================================
+
+Launch files
+------------
+
+.. _model.launch:
+
+model.launch[.py for ROS2]
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Uses ``xacro`` to generate the model and then launches ``robot_state_publisher``
+
+Arguments
+^^^^^^^^^
+
+name
+"""""
+
+:Type: string
+:Default: ``""``
+
+proximity_max_range
+"""""""""""""""""""
+
+:Type: float
+:Default: ``0.12``
+
+proximity_resolution
+"""""""""""""""""""""
+
+:Type: float
+:Default: ``0.005``
+
+proximity_fov
+""""""""""""""
+
+:Type: float
+:Default: ``0.3``
+
+
+publish_ground_truth
+""""""""""""""""""""
+
+:Type: boolean
+:Default: ``False``
+
+ground_truth_frame_id
+"""""""""""""""""""""
+
+:Type: string
+:Default: ``"/world"``
+
+ground_truth_frame_rate
+""""""""""""""""""""""""
+
+:Type: float
+:Default: ``30.0``
+
+odom_rate
+""""""""""""""""""""""""
+
+:Type: float
+:Default: ``20.0``
+
+
+rviz.launch[.py for ROS2]
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Generate an rviz configuration dynamically and launches rviz.
+
+Arguments
+^^^^^^^^^
+
+name
+"""""
+
+:Type: string
+:Default: ``""``

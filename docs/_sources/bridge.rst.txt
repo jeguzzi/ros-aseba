@@ -1,0 +1,426 @@
+ROS-Aseba: how it works
+=======================
+
+
+The Aseba-ROS bridge provides run-time integration of an Aseba network into ROS.
+As illustrated below, the ``asebaros`` ROS node communicates with the Aseba network.
+The other ROS nodes interact indirectly with the Aseba network through the topics and the services exposed by ``asebaros``.
+
+.. tikz:: The Aseba-ROS bridge
+   :align: center
+   :libs: arrows, positioning, fit, shapes.geometric
+   :xscale: 100
+
+   \tikzstyle{aseba} = [fill=yellow!50!black, align=center, circle, inner sep=1pt, minimum width=0.5cm, minimum height=0.5cm, text centered, draw=black]
+   \tikzstyle{ros} = [align=center, rounded corners, rectangle, minimum width=1.75cm, minimum height=0.5cm, text centered, draw=black, fill=black!30]
+   \path
+   node[aseba] (a1) at (0, 0.5cm) {}
+   node[aseba] (a2) at (0.5, 1cm) {}
+   node[aseba] (a3) at (0, 1.5cm) {}
+   node[aseba] (a4) at (0.5, 2cm) {}
+   node[aseba] (a5) at (0, 2.55cm) {}
+   node[behind path, draw=yellow!50!black, fill=yellow!50, dashed, fit=(a1) (a2) (a3) (a4) (a5), label={Aseba network}] (aseba) {};
+
+   \node[ros, fill=yellow!50, draw=yellow!50!black, ultra thick] (asebaros) at (5cm, 2.5cm)  {\texttt{asebaros}};
+   \node[ros] (r1) at (5cm, 1.5cm) {};
+   \node[ros] (r2) at (5cm, 0.5cm) {};
+   \node[draw, dashed, fit=(asebaros) (r1) (r2), label={ROS network}] (ros){};
+   \draw[<->, >=latex] (aseba.0) to[out=0,in=180] (asebaros.west);
+
+   \node[minimum width=15cm, draw=none, fit=(aseba) (ros)]{};
+
+
+The bridge offers functionalities to
+
+  - discover Aseba nodes connected to an Aseba network
+  - expose information about Aseba nodes to ROS
+  - load Aseba scripts from ROS
+  - provide read/write access to the Aseba nodes' variables from ROS
+  - send/receive global Aseba events from ROS
+
+
+Connection to the Aseba network
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+When launched, ``asebaros`` tries to connect to an Aseba network at the Dashel targets listed in the parameter :ref:`param-targets`,
+looping through them until the first successful connection.
+
+``asebaros`` behaves also as an `Aseba switch <http://wiki.thymio.org/en:asebaswitchremap>`_ by:
+
+  - forwarding Aseba messages to the tcp port defined by parameter :ref:`param-port`
+  - transmitting Aseba messages back to the sender if parameter :ref:`param-loop` is ``true``
+
+During initialization, ``asebaros`` create services and topics only in the ROS namespace ``aseba``.
+
+
+Discovery of Aseba nodes
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+After connecting to the Aseba network, ``asebaros`` regularly (each second) queries the network for connected node.
+
+When it discovers a new Aseba node with ``id`` and ``name``, ``asebaros`` checks if it should connect the Aseba node to ROS.
+Scanning the configuration stored in parameter :ref:`param-nodes`, it first tries to match both ``id`` and ``name``,
+then only ``name``, and, if none is found, it uses the generic configuration.
+For the selected configuration, nodes are accepted if ``accept`` is ``true`` and if there are not already ``max_number`` nodes with the same name.
+
+For example, a parameter
+
+.. code-block:: YAML
+
+   nodes:
+     others:
+       accept: false
+     thymio:
+       name: thymio-II
+       accept: true
+       maximal_number: 1
+
+makes ``asebaros`` accept only the first connected node with ``name="thymio-II"``.
+A parameter
+
+.. code-block:: YAML
+
+   nodes:
+     others:
+       accept: false
+     thymio:
+       name: thymio-II
+       id: 1928
+       accept: true
+
+makes ``asebaros`` accept only the node with ``name="thymio-II"`` and ``id=1928``.
+Finally, a parameter
+
+.. code-block:: YAML
+
+   nodes:
+     others:
+       accept: true
+     thymio:
+       name: thymio-II
+       accept: false
+
+makes ``asebaros`` accept all but the node with ``name="thymio-II"``.
+
+Accepted Aseba nodes are assigned to a namespace:
+
+  - ``{namespace}/aseba`` if the configuration ``namespace`` is not empty, or else
+  - ``{prefix}{id}/aseba``
+
+
+For example, the parameter
+
+  .. code-block:: YAML
+
+     nodes:
+       others:
+         accept: false
+       thymio:
+         name: thymio-II
+         accept: true
+         prefix: thymio_
+        my-thymio:
+           name: thymio-II
+           accept: true
+           id: 1928
+           prefix: my_thymio
+
+makes ``asebaros`` use the namespace ``thymio_1234`` for a Thymio with id ``1234``
+or  ``my_thymio`` for one with id ``1928``.
+
+
+This way, one ``asebaros`` node can manage multiple Aseba nodes of the same Aseba network,
+separating the related ROS topics and services in well-defined namespaces.
+
+
+.. tikz:: Discovery
+   :align: center
+   :libs: arrows, positioning, fit, shapes.geometric
+   :xscale: 100
+
+   \tikzstyle{aseba} = [text width=1cm, align=center, circle, inner sep=1pt, minimum width=1.25cm, minimum height=1.25cm, text centered, draw=black, fill=yellow!50!black]
+   \tikzstyle{ros} = [align=center, rectangle, minimum width=4.75cm, minimum height=0.75cm, text centered, draw=black, fill=white]
+   \path
+   node[aseba] (a1) at (0, -0.4cm)  {\colorbox{blue!50}{\texttt{name}}\\\colorbox{blue!50}{\texttt{id}}}
+   node[aseba, opacity=0.5] (a2) at (0, 1.5cm) {}
+   node[behind path, fill=yellow!0, draw, dashed, fit=(a1) (a2), label={Aseba network}] (aseba) {};
+   \path
+   node[ros, label={[name=namespaces] namespaces}] (aseba_ns) at (7cm, 1.25cm)  {\texttt{aseba}}
+   node[ros, fill=yellow!50!black] (node_ns) at (7cm, -0.75cm)  {\colorbox{blue!50}{\texttt{node\_namespace}}\texttt{/aseba}}
+   node[ros, fill=yellow!50!black, opacity=0.5] (node2_ns) at (7cm, 0.25cm){}
+   node[rectangle, draw, fill=white, align=center, label={[name=params]parameters}] (param) at (3cm, 1.25cm) {\texttt{nodes}}
+   node[diamond, draw, fill=white, aspect=2, align=center, inner sep=2pt]  (accept) at (3cm, -0.4cm) {\small accept}
+   node[behind path, fill=yellow!0, draw=yellow!50!black, ultra thick, rounded corners, fit=(aseba_ns) (node_ns) (node2_ns) (param) (accept) (params) (namespaces), label={asebaros}] (ros){};
+   \path[->, >=latex] (a1)  edge  (accept.west);
+   \path[->, >=latex] (accept)  edge [bend right=10] node[below]{yes} (node_ns.west);
+   \path[->, >=latex] (a1)  edge  [bend right] (node_ns);
+   \path[->, >=latex] (param.south) edge (accept.north);
+   \path[->, >=latex] (param) edge [bend right=15] (node_ns.175);
+
+   \node[minimum width=15cm, draw=none, fit=(aseba) (ros)]{};
+
+Introspection
+~~~~~~~~~~~~~
+
+``asebaros`` exposes the list of nodes (and their state) in three ways:
+
+  - regularly publishing diagnostics messages, which can be visualizited for example with `rqt`,
+  - publishing :ref:`NodeList` messages on topic ``aseba/nodes`` each time there is a change,
+  - serving [on-demand] :ref:`GetNodeList` queries on ``aseba/get_nodes``
+
+For each connected Aseba node, a :ref:`NodeDescription` message is published on
+``<node_namespace>/aseba/description`` each time there is a change in the node.
+It contains the global events and constants defined in the script running on the node, and the list of all variables.
+The same information is served on demand as :ref:`GetDescription` queries on ``<node_namespace>/aseba/get_description``.
+
+Variables
+~~~~~~~~~
+
+For each connected Aseba node, the services ``<node_namespace>/aseba/{get|set}_variable`` of type :ref:`GetVariable` | :ref:`SetVariable`
+allow to get | set variables. All variables are accessible: the internal ones and the ones defined in the Aseba script running on the node.
+Variables values are integer arrays of constant length. A scalar value corresponds to an array of one element.
+
+
+Scripts
+~~~~~~~
+
+``asebaros`` tries to load an Aseba script to a node when
+
+  - it connects and accepts the node, if the parameter :ref:`param-script` is set.
+  - it receive a query of type :ref:`LoadScript` on service ``aseba/load_script``.
+
+In the first case, the same script is loaded to all nodes; the user can set *at launch time* the value of the Aseba script constants using
+the ``constants`` field of the parameter :ref:`param-script`.
+In the second case, the request may specify the set of targeted nodes and the value of the constants.
+
+When parsing an Aseba script file, we need to identify which code to load to which Aseba node.
+Similarly to Aseba Studio, we match the identifiers ``(name, id)`` of the Aseba node with the code.
+In order of preference, we try to select a code tagged with
+
+  1. the same name and id
+  2. the same name and ``id==0``
+  3. the first code with the same name
+
+Once a script is successfully compiled and loaded to an Asaba node, the node description will
+contain the new set of events, constants, and variables.
+At the same time, ``asebaros`` subscribes to the topics ``<node_namespace>/aseba/event/<event_name>``
+for each global event in the script and sync the value of the parameters ``script/constants``
+with the value of the scripts' constants.
+
+
+.. tikz:: Loading an Aseba script
+   :align: center
+   :libs: arrows, positioning, fit, shapes.geometric
+   :xscale: 100
+
+
+   \tikzstyle{event} = [fill=red!50, inner sep=3pt,outer sep=1, rectangle, minimum width=0.3cm, minimum height=0.3cm, draw=black]
+   \tikzstyle{constant} = [fill=black!50, inner sep=3pt,outer sep=1, rectangle, minimum width=0.3cm, minimum height=0.3cm, draw=black]
+   \tikzstyle{var} = [fill=green!50, inner sep=3pt,outer sep=1, rectangle, minimum width=0.3cm, minimum height=0.3cm, draw=black]
+   \begin{scope}[]
+   \node[constant] (c1) at (0, 2) {constant};
+   \node[event] (e1) at (0, 1.25) {event};
+   \node[var] (v1) at (0, 0) {variable};
+   \node (n1) at (0, 0.5) {node};
+   \node[draw=blue!50, fit=(v1) (n1), ultra thick] (node){};
+   \node[draw=black, fit=(node) (c1) (e1), label=Aseba script] (script){};
+   \end{scope}
+   \begin{scope}[xshift=9cm]
+   \node[align=center, draw, label={create ROS topic (subscriber)}] (er) at (0, 1){ \colorbox{blue!50}{\texttt{node\_namespace}}\texttt{/aseba/events/\colorbox{red!50}{\texttt{event}}}};
+   \node[align=center,draw, label={sync ROS parameter}] (cr)  at (0, 2.75) {\texttt{asebaros/script/constants/\colorbox{black!50}{\texttt{constant}}}};
+   \node[align=center,draw, label={ROS services accept \colorbox{green!50}{\texttt{variable}}}] (vr)  at (0, -0.75) { \colorbox{blue!50}{\texttt{node\_namespace}}\texttt{/aseba/\{set|get\}\_variable}};
+   \end{scope}
+   \node[draw, rounded corners, minimum height=1cm, minimum width=1cm, text width=1.25cm,align=center, right= of script] (load) {load \\ script};
+   \path[->, >=latex] (script) edge (load);
+   \draw[<->, >=latex] (load.90) to[out=90,in=180] (cr.west);
+   \draw[->, >=latex] (load.0) to[out=0,in=180]  (er.west);
+   \draw[->, >=latex] (load.270) to[out=-90,in=180]  (vr.west);
+
+   \node[minimum width=15cm, draw=none, fit=(script) (vr) (er) (cr)]{};
+
+
+.. _Events:
+
+Events
+~~~~~~~
+
+The preferable way to exchange data between ROS and Aseba nodes is through Aseba global events.
+Contrary to getting/setting variables, this conforms to the event-driver approach that is most common both in Aseba and in ROS.
+Events can be used to control/trigger behaviors on the Aseba node and to asynchronously stream sensing readings to ROS.
+
+Two kind of topics are linked with Aseba events:
+
+  - :ref:`AnonymousEvent` messages on ``aseba/anonymous_events`` for events for which ``asebaros``
+    cannot find either the source node or the event. The type of the event is contained in the messagge.
+  - :ref:`Event` messages on ``<node_namespace>/aseba/events/<event_name>```
+    for events with a well defined name and source node. The type and the source of the event are mapped to a topic.
+
+
+When ``aseba`` receives a new Aseba event, it tries to match it to a known event for a node,
+and then forward it as ROS message.
+
+.. tikz:: Forwarding Aseba events to ROS
+   :align: center
+   :libs: arrows, positioning, fit, shapes.geometric
+   :xscale: 100
+
+   \tikzstyle{data} = [fill=orange!50, rectangle, minimum width=0.3cm, minimum height=0.3cm, draw=black]
+
+   \node[data] (p1) at (0,0) {};
+   \node[data]  at (0.3,0) {};
+   \node[data]  (p3) at (0.6,0) {};
+   \node[left=0cm of p1] (lp) {data};
+   \node[data, fill=blue!50] (s) at (0,1.2) {};
+   \node[left=0cm of s] (ls) {source};
+   \node[data, fill=red!50] (t) at (0,0.6) {};
+   \node[left=0cm of t] (lt) {type};
+
+   \node[draw,fit=(p1) (p3) (s) (ls) (lp)] (e){};
+   \node[above of=e, anchor=south, align=center]{Aseba event};
+
+   \begin{scope}[xshift=8cm, yshift=1.5cm]
+   \node[data] (d1) at (0,0) {};
+   \node[data]  at (0.3,0) {};
+   \node[data]  (d3) at (0.6,0) {};
+   \node[data, fill=blue!50] (s) at (0,0.6) {};
+   \node[left=0cm of s] (ls) {source};
+   \node[left=0cm of d1] (ld){data};
+   \node[draw,fit=(d3) (ld) (s) (ls)] (m){};
+   \node[above=0cm of m, align=center,anchor=south, label={ROS topic publishers}] (ns){\\ \colorbox{blue!50}{\texttt{node\_namespace}}\texttt{/aseba/events/\colorbox{red!50}{\texttt{event\_name}}}};
+   \end{scope}
+
+   \begin{scope}[xshift=8cm,  yshift=-1.55cm]
+   \node[data] (p1) at (0,0) {};
+   \node[data]  at (0.3,0) {};
+   \node[data]  (p3) at (0.6,0) {};
+   \node[left=0cm of p1] (lp) {data};
+   \node[data, fill=blue!50] (s) at (0,1.2) {};
+   \node[left=0cm of s] (ls) {source};
+   \node[data, fill=red!50] (t) at (0,0.6) {};
+   \node[left=0cm of t] (lt) {type};
+   \node[draw,fit=(p3)  (lp) (s) (ls)] (m2){};
+   \node[above of=m2, anchor=south, text width=4cm, align=center, anchor=south] (){\texttt{aseba/anonymous\_events}};
+   \end{scope}
+
+   \node[diamond, draw, aspect=2, align=center, right = of e]  (k)  {\small know event};
+   \path[->, >=latex] (e)  edge (k.180);
+   \path[->, >=latex] (k)  edge [bend left] node[above] {yes}  (m);
+   \path[->, >=latex] (k)  edge [bend right] node[left] {no} (m2);
+
+   \node[minimum width=15cm, draw=none, fit=(e) (ns)]{};
+
+
+In many scenarios, when events are used as commands and different Aseba nodes run the same Aseba script,
+it is useful to distinguish command send to different robots/nodes.
+To this aim, if the parameter ``include_id_in_events`` in :ref:`param-nodes` is set to ``true``,
+we include the id of the target node in the event payload.
+Robots can then ignore all but the commands send to them, like in this example
+
+::
+
+  onevent ping
+  if (event.args[0] == _id) then
+    emit pong
+    end
+
+When it receives a :ref:`Event` message, ``asebaros`` forwards it only if the source is set to 0.
+
+.. Here the mapping between topic and events is always defined and `asebaros` uses namespaces fan-in to route events to Aseba nodes.
+
+
+.. tikz:: Forwarding ROS messages to Aseba
+   :align: center
+   :libs: arrows, positioning, fit, shapes.geometric
+   :xscale: 100
+
+   \tikzstyle{data} = [fill=orange!50, rectangle, minimum width=0.3cm, minimum height=0.3cm, draw=black]
+   \begin{scope}[xshift=10cm, yshift=1.5cm]
+   \node[data, fill=blue!50] (p1) at (0,0) {};
+   \node[data]  at (0.3,0) {};
+   \node[data]  at (0.6,0) {};
+   \node[data]  (p3) at (0.9,0) {};
+   \node[left=0cm of p1] (lp) {data};
+   \node[data, fill=blue!0] (s) at (0,1.2) {\footnotesize 0};
+   \node[left=0cm of s] (ls) {source};
+   \node[data, fill=red!50] (t) at (0,0.6) {};
+   \node[left=0cm of t] (lt) {type};
+   \node[draw,fit=(p1) (p3) (s) (ls) (lp)] (e){};
+   \node[above of=e, anchor=south, align=center]{Aseba event};
+   \end{scope}
+   \begin{scope}[xshift=10.15cm, yshift=-1.5cm]
+   \node[data] (p1) at (0,0) {};
+   \node[data]  at (0.3,0) {};
+   \node[data]  (p3) at (0.6,0) {};
+   \node[left=0cm of p1] (lp) {data};
+   \node[data, fill=blue!0] (s) at (0,1.2) {\footnotesize 0};
+   \node[left=0cm of s] (ls) {source};
+   \node[data, fill=red!50] (t) at (0,0.6) {};
+   \node[left=0cm of t] (lt) {type};
+   \node[draw,fit=(p1) (p3) (s) (ls) (lp)] (e2){};
+   \node[above of=e2, anchor=south, align=center]{Aseba event};
+   \end{scope}
+   \begin{scope}[xshift=0cm, yshift=0cm]
+   \node[data] (d1) at (0,0) {};
+   \node[data]  at (0.3,0) {};
+   \node[data]  (d3) at (0.6,0) {};
+   \node[data, fill=black!50] (s) at (0,0.6) {};
+   \node[left=0cm of s] (ls) {source};
+   \node[left=0cm of d1] (ld){data};
+   \node[draw,fit=(d3) (ld) (s) (ls)] (m){};
+   \node[above=0cm of m,  align=center,anchor=south, label={ROS topic subscriber}] (t){\colorbox{blue!50}{\texttt{node\_namespace}}\texttt{/aseba/events/\colorbox{red!50}{\texttt{event\_name}}}};
+   \end{scope}
+   \node[diamond, draw, aspect=2, align=center]  (k) at (3, 0.3) {\small source is 0};
+   \node[diamond, draw, aspect=2, align=center]  (i) at (6.5, 0.3) {\small include id};
+   \node[rectangle, draw, fill=white, align=center, label={[name=params]parameters}] (param) at (5cm, 2cm) {\texttt{nodes}};
+   \path[->, >=latex] (m)  edge  (k);
+   \path[->, >=latex] (param)  edge  (i);
+   \path[->, >=latex] (k)  edge node[above] {yes}  (i);
+   \path[->, >=latex] (i)  edge  [bend left] node[left] {yes} (e);
+   \path[->, >=latex] (i)  edge  [bend right] node[left] {no} (e2);
+
+   \node[minimum width=15cm, draw=none, fit=(e) (t)]{};
+
+When it receives a :ref:`AnonymousEvent` message, it forwards it to Aseba as it is.
+
+.. tikz:: Forwarding anonymous ROS messages to Aseba
+   :align: center
+   :libs: arrows, positioning, fit, shapes.geometric
+   :xscale: 100
+
+   \tikzstyle{data} = [fill=orange!50, rectangle, minimum width=0.3cm, minimum height=0.3cm, draw=black]
+   \node[data] (p1) at (0,0) {};
+   \node[data]  at (0.3,0) {};
+   \node[data]  (p3) at (0.6,0) {};
+   \node[left=0cm of p1] (lp) {data};
+   \node[data, fill=blue!50] (s) at (0,1.2) {};
+   \node[left=0cm of s] (ls) {source};
+   \node[data, fill=red!50] (t) at (0,0.6) {};
+   \node[left=0cm of t] (lt) {type};
+   \node[draw,fit=(p1) (p3) (s) (ls) (lp)] (e){};
+   \node[above of=e, anchor=south, align=center]{Aseba event};
+   \begin{scope}[xshift=-5cm]
+   \node[data] (p1) at (0,0) {};
+   \node[data]  at (0.3,0) {};
+   \node[data]  (p3) at (0.6,0) {};
+   \node[left=0cm of p1] (lp) {data};
+   \node[data, fill=blue!50] (s) at (0,1.2) {};
+   \node[left=0cm of s] (ls) {source};
+   \node[data, fill=red!50] (t) at (0,0.6) {};
+   \node[left=0cm of t] (lt) {type};
+   \node[draw,fit=(p3)  (lp) (s) (ls)] (m2){};
+   \node[above of=m2, anchor=south, text width=5cm, align=center, label={ROS topic subscriber}] (t){\texttt{aseba/anonymous\_events}};
+   \end{scope}
+   \path[->, >=latex] (m2)  edge (e);
+
+   \node[minimum width=15cm, draw=none, fit=(e) (t)]{};
+
+
+.. Comparison with Asebastudio
+.. ---------------------------
+.. Table
+..
+..
+.. Comparison with python API (should look for the name)
+..
+.. Paragraph

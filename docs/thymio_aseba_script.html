@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ROS-Thymio Aseba script &mdash; ROS for Aseba and Thymio 0.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="ROS-Thymio: thymio_description reference" href="thymio_description.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> ROS for Aseba and Thymio
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#a-bridge-between-aseba-and-ros">A bridge between Aseba and ROS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#ros-packages">ROS Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#use-cases">Use-cases</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#ros-aseba-alone">ROS-Aseba alone</a></li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#ros-aseba-with-ros-thymio">ROS-Aseba with ROS-Thymio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#ros-thymio-alone">ROS-Thymio alone</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#ros-aseba">ROS-Aseba</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#ros-thymio">ROS-Thymio</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#setup">Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="getting_started.html#using-a-simulation">Using a simulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting_started.html#using-a-real-thymio">Using a real Thymio</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#running-ros-aseba">Running ROS-Aseba</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#running-ros-thymio">Running ROS-Thymio</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Aseba and ROS Networks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html#aseba-network">Aseba Network</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#nodes">Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#variables">Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#script">Script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#global-events">Global Events</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#user-interaction">User interaction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#typical-workflow">Typical workflow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html#ros-network">ROS Network</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#id1">Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#topics">Topics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#services">Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#interfaces">Interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#launch-files">Launch files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#packages">Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#id2">User interaction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#id3">Typical workflow</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bridge.html">ROS-Aseba: how it works</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bridge.html#connection-to-the-aseba-network">Connection to the Aseba network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bridge.html#discovery-of-aseba-nodes">Discovery of Aseba nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bridge.html#introspection">Introspection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bridge.html#variables">Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bridge.html#scripts">Scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bridge.html#events">Events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">ROS-Aseba: examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#all-nodes">All nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#a-single-node">A single node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#twin-nodes">Twin nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#two-nodes">Two nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#a-single-thymio">A single Thymio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#twin-thymios">Twin Thymios</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#two-thymios">Two Thymios</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="asebaros.html">ROS-Aseba: asebaros reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="asebaros.html#executable-asebaros">Executable asebaros</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="asebaros.html#parameters">Parameters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#targets">targets</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#port">port</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#loop">loop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#shutdown-on-unconnect">shutdown_on_unconnect</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#reset-on-closing">reset_on_closing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#set-id-variable">set_id_variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#nodes">nodes</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#accept">accept</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#maximal-number">maximal_number</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#name">name</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#id">id</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#prefix">prefix</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#namespace">namespace</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#id-variable">id_variable</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#include-id-in-events">include_id_in_events</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#script">script</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#reload-on-reconnect">reload_on_reconnect</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#path">path</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#constants">constants</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros.html#publishers">Publishers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#anonymous-events">Anonymous events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#events">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#node-list">Node list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#node-description">Node description</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros.html#subscribers">Subscribers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#id1">Anonymous events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#id2">Events</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros.html#services">Services</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#get-node-description">Get node description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#load-script">Load script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#get-node-list">Get node list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#get-variable">Get variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#set-variable">Set variable</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="asebaros_msgs.html">ROS-Aseba: asebaros_msgs reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="asebaros_msgs.html#interfaces">Interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_msgs.html#messages">Messages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#anonymousevent">AnonymousEvent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#constant">Constant</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#event">Event</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#node">Node</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#nodedescription">NodeDescription</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#nodelist">NodeList</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_msgs.html#services">Services</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#getdescription">GetDescription</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#getnodelist">GetNodeList</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#getvariable">GetVariable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#loadscript">LoadScript</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_msgs.html#setvariable">SetVariable</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="asebaros_examples.html">ROS-Aseba: asebaros_examples reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="asebaros_examples.html#launch-files">Launch files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#all-nodes-launch">all_nodes.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#arguments">Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#single-node-launch">single_node.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#id1">Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#single-thymio-launch">single_thymio.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#id2">Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#twin-nodes-launch">twin_nodes.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#id3">Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#twin-thymios-launch">twin_thymios.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#id4">Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#two-nodes-launch">two_nodes.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#id5">Arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asebaros_examples.html#two-thymios-launch">two_thymios.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="asebaros_examples.html#id6">Arguments</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thymio.html">ROS-Thymio: how it works</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="thymio.html#discovery">Discovery</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio.html#thymio-driver">thymio_driver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="thymio.html#multi-thymio-driver">multi_thymio_driver</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="thymio.html#aseba-script-s">Aseba Script[s]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thymio.html#functionality">Functionality</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio.html#sensors">Sensors</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#odometry">Odometry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#accelerometer">Accelerometer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#tap">Tap</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#buttons">Buttons</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#proximity">Proximity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#ground">Ground</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#sound">Sound</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#temperature">Temperature</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="thymio.html#actuators">Actuators</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#wheels">Wheels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#id2">Sound</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#led">LED</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio.html#gestures">Gestures</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#alarm">Alarm</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="thymio.html#communication">Communication</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#remote">Remote</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio.html#proximity-communication">Proximity communication</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="thymio.html#model">Model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio.html#gazebo-simulation">Gazebo Simulation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thymio_examples.html">ROS-Thymio: examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="thymio_examples.html#one-thymio">One Thymio</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio_examples.html#single-driver">Single driver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="thymio_examples.html#multi-driver">Multi driver</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="thymio_examples.html#multiple-thymios-on-the-same-aseba-network">Multiple Thymios on the same Aseba network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="thymio_examples.html#multiple-thymios-on-different-aseba-networks">Multiple Thymios on different Aseba networks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio_examples.html#a-single-driver-for-each-network">A single driver for each network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="thymio_examples.html#aseba-switch-and-multi-driver">Aseba Switch and multi driver</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thymio_driver.html">ROS-Thymio: thymio_driver reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="thymio_driver.html#executable">Executable</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio_driver.html#thymio-driver">thymio_driver</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio_driver.html#parameters">Parameters</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#axis-length">axis_length</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#ground-threshold">ground.threshold</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#left-wheel-joint">left_wheel_joint</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#right-wheel-joint">right_wheel_joint</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#odom-frame">odom_frame</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#odom-max-rate">odom_max_rate</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#robot-frame">robot_frame</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#tf-prefix">tf_prefix</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_driver.html#publishers">Publishers</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#internal-asebaros-topics-of-type-event">Internal <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> topics of type <span class="xref std std-ref">Event</span></a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#all-buttons">All Buttons</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#individual-buttons">Individual Buttons</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#proximity-communication-received">Proximity Communication Received</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#ground-sensors">Ground Sensors</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#imu">IMU</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#joint-states">Joint States</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#odometry">Odometry</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#proximity-sensors">Proximity Sensors</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#proximity-sensors-scan">Proximity Sensors Scan</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#remote-controller">Remote Controller</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#sound">Sound</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#tap">Tap</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#temperature">Temperature</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_driver.html#subscribers">Subscribers</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#id2">Internal <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> topics of type <span class="xref std std-ref">Event</span></a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#alarm">Alarm</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#velocity-command">Velocity command</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#proximity-communication-enable">Proximity Communication Enable</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#proximity-communication-transmit">Proximity Communication Transmit</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#led">LED</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#body-led">Body LED</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#led-gestures">LED Gestures</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#play-sound">Play Sound</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#play-system-sound">Play System Sound</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#set-sound-threshold">Set sound threshold</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_driver.html#services">Services</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#ready">Ready</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="thymio_driver.html#multi-thymio-driver">multi_thymio_driver</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio_driver.html#id4">Parameters</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#launch-model">launch_model</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_driver.html#id5">Subscribers</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#internal-asebaros-topic">Internal <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> topic</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_driver.html#id6">Publishers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="thymio_driver.html#launch-files">Launch files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio_driver.html#main-launch">main.launch</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio_driver.html#arguments">Arguments</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#id8">axis_length</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#id9">odom_max_rate</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#single">single</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#name">name</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#simulation">simulation</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#simulation-has-reduced-api">simulation_has_reduced_api</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#calibration-file">calibration_file</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#device">device</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#port">port</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-motor">emit_motor</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-buttons">emit_buttons</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-acc">emit_acc</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-ground-raw">emit_ground_raw</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-proximity">emit_proximity</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#enable-prox-comm">enable_prox_comm</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#motor-deadband">motor_deadband</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#motor-period">motor_period</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#acc-period">acc_period</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#buttons-period">buttons_period</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thymio_msgs.html">ROS-Thymio: thymio_msgs reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="thymio_msgs.html#interfaces">Interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio_msgs.html#messages">Messages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio_msgs.html#comm">Comm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_msgs.html#led">Led</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_msgs.html#ledgesture">LedGesture</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_msgs.html#sound">Sound</a></li>
+<li class="toctree-l4"><a class="reference internal" href="thymio_msgs.html#systemsound">SystemSound</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="thymio_description.html">ROS-Thymio: thymio_description reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="thymio_description.html#launch-files">Launch files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="thymio_description.html#model-launch-py-for-ros2">model.launch[.py for ROS2]</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio_description.html#arguments">Arguments</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#name">name</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#proximity-max-range">proximity_max_range</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#proximity-resolution">proximity_resolution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#proximity-fov">proximity_fov</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#publish-ground-truth">publish_ground_truth</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#ground-truth-frame-id">ground_truth_frame_id</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#ground-truth-frame-rate">ground_truth_frame_rate</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#odom-rate">odom_rate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="thymio_description.html#rviz-launch-py-for-ros2">rviz.launch[.py for ROS2]</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="thymio_description.html#id1">Arguments</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="thymio_description.html#id2">name</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ROS-Thymio Aseba script</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ROS for Aseba and Thymio</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>ROS-Thymio Aseba script</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/thymio_aseba_script.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ros-thymio-aseba-script">
+<span id="asebascript"></span><h1>ROS-Thymio Aseba script<a class="headerlink" href="#ros-thymio-aseba-script" title="Permalink to this headline"></a></h1>
+<p>All Aseba scripts used by ROS-Thymio are a variant of the single+real robot Aseba script below</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">var</span> <span class="n">t</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">var</span> <span class="n">a</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">var</span> <span class="n">b</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span>
+<span class="n">var</span> <span class="n">angle</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span>
+<span class="n">var</span> <span class="n">led</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span>
+<span class="n">var</span> <span class="n">l</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span>
+<span class="n">var</span> <span class="n">p</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span>
+<span class="n">var</span> <span class="n">m</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span>
+<span class="n">var</span> <span class="n">n</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span>
+<span class="n">var</span> <span class="n">i</span>
+<span class="n">var</span> <span class="n">mask</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">var</span> <span class="n">motor_counter</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">var</span> <span class="n">gesture</span>
+<span class="n">var</span> <span class="n">wave</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">var</span> <span class="n">leds</span><span class="o">=-</span><span class="mi">1</span>
+<span class="n">var</span> <span class="n">mirror</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">var</span> <span class="n">period</span><span class="o">=</span><span class="mi">1000</span> <span class="c1">#ms</span>
+<span class="n">var</span> <span class="n">length</span><span class="o">=</span><span class="mi">8</span>
+
+<span class="n">var</span> <span class="n">temp</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">var</span> <span class="n">buttons</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">var</span> <span class="nb">id</span>
+<span class="n">var</span> <span class="n">comm</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span>
+
+<span class="n">var</span> <span class="n">steps</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">var</span> <span class="n">steps_h</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="n">var</span> <span class="n">buttons_counter</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">var</span> <span class="n">button_backward_queue</span><span class="p">[</span><span class="n">BUTTONS_PERIOD</span><span class="p">]</span>
+<span class="n">var</span> <span class="n">button_left_queue</span><span class="p">[</span><span class="n">BUTTONS_PERIOD</span><span class="p">]</span>
+<span class="n">var</span> <span class="n">button_center_queue</span><span class="p">[</span><span class="n">BUTTONS_PERIOD</span><span class="p">]</span>
+<span class="n">var</span> <span class="n">button_forward_queue</span><span class="p">[</span><span class="n">BUTTONS_PERIOD</span><span class="p">]</span>
+<span class="n">var</span> <span class="n">button_right_queue</span><span class="p">[</span><span class="n">BUTTONS_PERIOD</span><span class="p">]</span>
+
+<span class="n">var</span> <span class="n">acc_counter</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">var</span> <span class="n">acc_x_queue</span><span class="p">[</span><span class="n">ACC_PERIOD</span><span class="p">]</span>
+<span class="n">var</span> <span class="n">acc_y_queue</span><span class="p">[</span><span class="n">ACC_PERIOD</span><span class="p">]</span>
+<span class="n">var</span> <span class="n">acc_z_queue</span><span class="p">[</span><span class="n">ACC_PERIOD</span><span class="p">]</span>
+
+<span class="n">var</span> <span class="n">deadband</span> <span class="o">=</span> <span class="n">MOTOR_DEADBAND</span>
+
+<span class="n">mic</span><span class="o">.</span><span class="n">threshold</span><span class="o">=</span><span class="mi">20</span>
+
+<span class="n">call</span> <span class="n">prox</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">enable</span><span class="p">(</span><span class="n">ENABLE_PROX_COMM</span><span class="p">)</span>
+
+<span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="o">-</span><span class="mi">32768</span><span class="p">)</span>
+<span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="mi">32</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="mi">0</span><span class="p">:</span><span class="mi">15</span> <span class="n">do</span>
+  <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">i</span>
+<span class="n">end</span>
+
+<span class="n">onevent</span> <span class="n">set_speed</span>
+<span class="n">motor</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">motor</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">onevent</span> <span class="n">motor</span>
+<span class="k">if</span> <span class="n">EMIT_MOTOR</span> <span class="o">==</span> <span class="mi">0</span> <span class="n">then</span>
+  <span class="k">return</span>
+<span class="n">end</span>
+<span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">motor</span><span class="o">.</span><span class="n">left</span><span class="o">.</span><span class="n">speed</span><span class="p">,</span> <span class="n">motor</span><span class="o">.</span><span class="n">right</span><span class="o">.</span><span class="n">speed</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span> <span class="n">do</span>
+<span class="k">if</span> <span class="nb">abs</span> <span class="n">temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">deadband</span> <span class="n">then</span>
+  <span class="n">temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">end</span>
+<span class="k">if</span> <span class="n">temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">steps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">steps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="n">then</span>
+  <span class="n">steps_h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="n">end</span>
+<span class="k">if</span> <span class="n">temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">steps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">steps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="n">then</span>
+  <span class="n">steps_h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+<span class="n">end</span>
+  <span class="n">steps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="n">end</span>
+<span class="n">motor_counter</span><span class="o">++</span>
+<span class="k">if</span> <span class="n">motor_counter</span> <span class="o">==</span> <span class="n">MOTOR_PERIOD</span> <span class="n">then</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span> <span class="n">do</span>
+    <span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">muldiv</span><span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">steps_h</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mh">0x4000</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">steps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="mi">100</span>
+  <span class="n">end</span>
+  <span class="n">motor_counter</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="n">emit</span> <span class="n">odometry</span> <span class="n">temp</span>
+<span class="n">end</span>
+
+<span class="c1">#BUTTONS</span>
+
+<span class="n">onevent</span> <span class="n">buttons</span>
+<span class="k">if</span> <span class="n">EMIT_BUTTONS</span> <span class="o">==</span> <span class="mi">0</span> <span class="n">then</span>
+    <span class="k">return</span>
+<span class="n">end</span>
+<span class="n">button_backward_queue</span><span class="p">[</span><span class="n">buttons_counter</span><span class="p">]</span> <span class="o">=</span> <span class="n">button</span><span class="o">.</span><span class="n">backward</span>
+<span class="n">button_left_queue</span><span class="p">[</span><span class="n">buttons_counter</span><span class="p">]</span> <span class="o">=</span> <span class="n">button</span><span class="o">.</span><span class="n">left</span>
+<span class="n">button_center_queue</span><span class="p">[</span><span class="n">buttons_counter</span><span class="p">]</span> <span class="o">=</span> <span class="n">button</span><span class="o">.</span><span class="n">center</span>
+<span class="n">button_forward_queue</span><span class="p">[</span><span class="n">buttons_counter</span><span class="p">]</span> <span class="o">=</span> <span class="n">button</span><span class="o">.</span><span class="n">forward</span>
+<span class="n">button_right_queue</span><span class="p">[</span><span class="n">buttons_counter</span><span class="p">]</span> <span class="o">=</span> <span class="n">button</span><span class="o">.</span><span class="n">right</span>
+<span class="n">buttons_counter</span><span class="o">++</span>
+<span class="k">if</span> <span class="n">buttons_counter</span> <span class="o">==</span> <span class="n">BUTTONS_PERIOD</span> <span class="n">then</span>
+  <span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">button_backward_queue</span><span class="p">,</span> <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">buttons</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+  <span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">button_left_queue</span><span class="p">,</span> <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">buttons</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+  <span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">button_center_queue</span><span class="p">,</span> <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">buttons</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+  <span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">button_forward_queue</span><span class="p">,</span> <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">buttons</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+  <span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">button_right_queue</span><span class="p">,</span> <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">buttons</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+  <span class="n">buttons_counter</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="n">emit</span> <span class="n">buttons</span> <span class="n">buttons</span>
+<span class="n">end</span>
+
+<span class="n">onevent</span> <span class="n">button</span><span class="o">.</span><span class="n">backward</span>
+<span class="n">emit</span> <span class="n">button_backward</span> <span class="n">button</span><span class="o">.</span><span class="n">backward</span>
+
+<span class="n">onevent</span> <span class="n">button</span><span class="o">.</span><span class="n">left</span>
+<span class="n">emit</span> <span class="n">button_left</span> <span class="n">button</span><span class="o">.</span><span class="n">left</span>
+
+<span class="n">onevent</span> <span class="n">button</span><span class="o">.</span><span class="n">center</span>
+<span class="n">emit</span> <span class="n">button_center</span> <span class="n">button</span><span class="o">.</span><span class="n">center</span>
+
+<span class="n">onevent</span> <span class="n">button</span><span class="o">.</span><span class="n">forward</span>
+<span class="n">emit</span> <span class="n">button_forward</span> <span class="n">button</span><span class="o">.</span><span class="n">forward</span>
+
+<span class="n">onevent</span> <span class="n">button</span><span class="o">.</span><span class="n">right</span>
+<span class="n">emit</span> <span class="n">button_right</span> <span class="n">button</span><span class="o">.</span><span class="n">right</span>
+
+<span class="c1">#PROXIMITY</span>
+
+<span class="n">onevent</span> <span class="n">prox</span>
+<span class="k">if</span> <span class="n">EMIT_PROXIMITY</span> <span class="o">==</span> <span class="mi">0</span> <span class="n">then</span>
+    <span class="k">return</span>
+<span class="n">end</span>
+<span class="n">emit</span> <span class="n">proximity</span> <span class="n">prox</span><span class="o">.</span><span class="n">horizontal</span>
+<span class="n">emit</span> <span class="n">ground</span> <span class="n">prox</span><span class="o">.</span><span class="n">ground</span><span class="o">.</span><span class="n">delta</span>
+<span class="k">if</span> <span class="n">EMIT_GROUND_RAW</span> <span class="o">==</span> <span class="mi">1</span> <span class="n">then</span>
+  <span class="n">emit</span> <span class="n">ground_reflected</span> <span class="n">prox</span><span class="o">.</span><span class="n">ground</span><span class="o">.</span><span class="n">reflected</span>
+  <span class="n">emit</span> <span class="n">ground_ambient</span> <span class="n">prox</span><span class="o">.</span><span class="n">ground</span><span class="o">.</span><span class="n">ambiant</span>
+<span class="n">end</span>
+
+<span class="c1"># IMU</span>
+
+<span class="n">onevent</span> <span class="n">acc</span>
+<span class="k">if</span> <span class="n">EMIT_ACC</span> <span class="o">==</span> <span class="mi">0</span> <span class="n">then</span>
+    <span class="k">return</span>
+<span class="n">end</span>
+<span class="n">acc_x_queue</span><span class="p">[</span><span class="n">acc_counter</span><span class="p">]</span> <span class="o">=</span> <span class="n">acc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">acc_y_queue</span><span class="p">[</span><span class="n">acc_counter</span><span class="p">]</span> <span class="o">=</span> <span class="n">acc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">acc_z_queue</span><span class="p">[</span><span class="n">acc_counter</span><span class="p">]</span> <span class="o">=</span> <span class="n">acc</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">acc_counter</span><span class="o">++</span>
+<span class="k">if</span> <span class="n">acc_counter</span> <span class="o">==</span> <span class="n">ACC_PERIOD</span> <span class="n">then</span>
+  <span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">acc_x_queue</span><span class="p">,</span> <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">acc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+  <span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">acc_y_queue</span><span class="p">,</span> <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">acc</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+  <span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">acc_z_queue</span><span class="p">,</span> <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">acc</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+  <span class="n">acc_counter</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="n">emit</span> <span class="n">accelerometer</span> <span class="n">acc</span>
+<span class="n">end</span>
+
+<span class="n">onevent</span> <span class="n">tap</span>
+<span class="n">emit</span> <span class="n">tap</span>
+
+<span class="n">onevent</span> <span class="n">temperature</span>
+<span class="n">emit</span> <span class="n">temperature</span> <span class="n">temperature</span>
+
+<span class="n">onevent</span> <span class="n">mic</span>
+<span class="n">emit</span> <span class="n">sound</span> <span class="n">mic</span><span class="o">.</span><span class="n">intensity</span>
+
+<span class="n">onevent</span> <span class="n">set_sound_threshold</span>
+<span class="n">mic</span><span class="o">.</span><span class="n">threshold</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">onevent</span> <span class="n">rc5</span>
+<span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">rc5</span><span class="o">.</span><span class="n">address</span>
+<span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">rc5</span><span class="o">.</span><span class="n">command</span>
+<span class="n">emit</span> <span class="n">remote</span> <span class="n">temp</span>
+
+<span class="n">onevent</span> <span class="n">set_comm_payload</span>
+<span class="n">prox</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">tx</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">onevent</span> <span class="n">enable_comm</span>
+<span class="n">call</span> <span class="n">prox</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">enable</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">onevent</span> <span class="n">prox</span><span class="o">.</span><span class="n">comm</span>
+<span class="n">comm</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">prox</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">rx</span>
+<span class="n">comm</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="n">prox</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">rx</span><span class="o">.</span><span class="n">_payloads</span>
+<span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">prox</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">rx</span><span class="o">.</span><span class="n">_payloads</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">comm</span><span class="p">[</span><span class="mi">8</span><span class="p">:</span><span class="mi">14</span><span class="p">]</span> <span class="o">=</span> <span class="n">prox</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">rx</span><span class="o">.</span><span class="n">_intensities</span>
+<span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">prox</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">rx</span><span class="o">.</span><span class="n">_intensities</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">emit</span> <span class="n">comm</span> <span class="n">comm</span>
+
+<span class="n">onevent</span> <span class="n">play_system_sound</span>
+<span class="n">call</span> <span class="n">sound</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">onevent</span> <span class="n">play_sound</span>
+<span class="n">call</span> <span class="n">sound</span><span class="o">.</span><span class="n">freq</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">onevent</span> <span class="n">set_led_top</span>
+<span class="n">call</span> <span class="n">leds</span><span class="o">.</span><span class="n">top</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+<span class="n">onevent</span> <span class="n">set_led_bottom_right</span>
+<span class="n">call</span> <span class="n">leds</span><span class="o">.</span><span class="n">bottom</span><span class="o">.</span><span class="n">right</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+<span class="n">onevent</span> <span class="n">set_led_bottom_left</span>
+<span class="n">call</span> <span class="n">leds</span><span class="o">.</span><span class="n">bottom</span><span class="o">.</span><span class="n">left</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+<span class="n">onevent</span> <span class="n">set_led</span>
+<span class="nb">id</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">if</span> <span class="nb">id</span><span class="o">==</span><span class="mi">0</span> <span class="n">then</span>
+<span class="n">call</span> <span class="n">leds</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">8</span><span class="p">])</span>
+<span class="n">elseif</span> <span class="nb">id</span><span class="o">==</span><span class="mi">1</span> <span class="n">then</span>
+<span class="n">call</span> <span class="n">leds</span><span class="o">.</span><span class="n">prox</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span>
+<span class="n">elseif</span> <span class="nb">id</span><span class="o">==</span><span class="mi">2</span> <span class="n">then</span>
+<span class="n">call</span> <span class="n">leds</span><span class="o">.</span><span class="n">buttons</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">elseif</span> <span class="nb">id</span><span class="o">==</span><span class="mi">3</span> <span class="n">then</span>
+<span class="n">call</span> <span class="n">leds</span><span class="o">.</span><span class="n">prox</span><span class="o">.</span><span class="n">v</span><span class="p">(</span> <span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">elseif</span> <span class="nb">id</span><span class="o">==</span><span class="mi">4</span> <span class="n">then</span>
+<span class="n">call</span> <span class="n">leds</span><span class="o">.</span><span class="n">temperature</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">elseif</span> <span class="nb">id</span><span class="o">==</span><span class="mi">5</span> <span class="n">then</span>
+<span class="n">call</span> <span class="n">leds</span><span class="o">.</span><span class="n">sound</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">elseif</span> <span class="nb">id</span><span class="o">==</span><span class="mi">6</span> <span class="n">then</span>
+<span class="n">call</span> <span class="n">leds</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">end</span>
+
+<span class="c1">#gestures</span>
+
+<span class="n">sub</span> <span class="n">update_phase</span>
+<span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="o">+</span><span class="n">timer</span><span class="o">.</span><span class="n">period</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">muldiv</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="o">-</span><span class="mi">32768</span><span class="p">,</span><span class="n">period</span><span class="p">)</span>
+<span class="c1">#a=abs(a)</span>
+<span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">addscalar</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
+
+<span class="n">sub</span> <span class="n">rect_wave</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="mi">0</span><span class="p">:</span><span class="mi">7</span> <span class="n">do</span>
+  <span class="k">if</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">angle</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;</span><span class="mi">0</span> <span class="n">then</span>
+    <span class="n">led</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+  <span class="n">elseif</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">angle</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;</span><span class="mi">16384</span> <span class="n">then</span>
+    <span class="n">led</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="mi">3</span>
+  <span class="k">else</span>
+    <span class="n">led</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="mi">32</span>
+  <span class="n">end</span>
+<span class="n">end</span>
+
+<span class="n">sub</span> <span class="n">harmonic_wave</span>
+<span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">led</span><span class="p">,</span><span class="n">angle</span><span class="p">)</span>
+<span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">muldiv</span><span class="p">(</span><span class="n">led</span><span class="p">,</span><span class="n">led</span><span class="p">,</span><span class="n">led</span><span class="p">,</span><span class="n">m</span><span class="p">)</span>
+<span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">muldiv</span><span class="p">(</span><span class="n">led</span><span class="p">,</span><span class="n">led</span><span class="p">,</span><span class="n">led</span><span class="p">,</span><span class="n">m</span><span class="p">)</span>
+<span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">muldiv</span><span class="p">(</span><span class="n">led</span><span class="p">,</span><span class="n">led</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">)</span>
+<span class="c1">#led=led+1</span>
+
+<span class="n">sub</span> <span class="n">mirror</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="mi">0</span><span class="p">:</span><span class="mi">8</span> <span class="n">do</span>
+  <span class="k">if</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">mirror</span> <span class="n">then</span>
+    <span class="n">led</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="n">led</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">led</span><span class="p">[</span><span class="n">mirror</span><span class="o">-</span><span class="n">i</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+  <span class="n">end</span>
+<span class="n">end</span>
+
+<span class="n">sub</span> <span class="n">mask</span>
+<span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="n">led</span><span class="p">,</span><span class="n">led</span><span class="p">,</span><span class="n">mask</span><span class="p">)</span>
+
+<span class="n">sub</span> <span class="n">setleds</span>
+<span class="k">if</span> <span class="n">leds</span><span class="o">==</span><span class="mi">0</span> <span class="n">then</span>
+<span class="n">call</span> <span class="n">leds</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">led</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">led</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">led</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">led</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">led</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span><span class="n">led</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span><span class="n">led</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span><span class="n">led</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span>
+<span class="n">elseif</span> <span class="n">leds</span><span class="o">==</span><span class="mi">1</span> <span class="n">then</span>
+<span class="n">call</span> <span class="n">leds</span><span class="o">.</span><span class="n">prox</span><span class="o">.</span><span class="n">h</span><span class="p">(</span><span class="n">led</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">led</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">led</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">led</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="n">led</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span><span class="n">led</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span><span class="n">led</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span><span class="n">led</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span>
+<span class="n">elseif</span> <span class="n">leds</span><span class="o">==</span><span class="mi">2</span> <span class="n">then</span>
+<span class="n">call</span> <span class="n">leds</span><span class="o">.</span><span class="n">buttons</span><span class="p">(</span><span class="n">led</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">led</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">led</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="n">led</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">end</span>
+
+<span class="n">sub</span> <span class="n">reset_leds</span>
+<span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">led</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">callsub</span> <span class="n">setleds</span>
+
+<span class="n">onevent</span> <span class="n">timer0</span>
+<span class="n">callsub</span> <span class="n">update_phase</span>
+<span class="k">if</span> <span class="n">wave</span><span class="o">==</span><span class="mi">0</span> <span class="n">then</span>
+  <span class="n">callsub</span> <span class="n">rect_wave</span>
+<span class="n">elseif</span>  <span class="n">wave</span><span class="o">==</span><span class="mi">1</span> <span class="n">then</span>
+  <span class="n">callsub</span> <span class="n">harmonic_wave</span>
+<span class="n">end</span>
+<span class="k">if</span>  <span class="n">mirror</span><span class="o">&gt;</span><span class="mi">0</span> <span class="n">then</span>
+  <span class="n">callsub</span> <span class="n">mirror</span>
+<span class="n">end</span>
+<span class="n">callsub</span> <span class="n">mask</span>
+<span class="n">callsub</span> <span class="n">setleds</span>
+
+<span class="n">onevent</span> <span class="n">set_led_gesture</span>
+<span class="n">gesture</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">if</span> <span class="n">gesture</span><span class="o">==</span><span class="mi">0</span> <span class="n">then</span>
+  <span class="n">timer</span><span class="o">.</span><span class="n">period</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+  <span class="n">callsub</span> <span class="n">reset_leds</span>
+  <span class="k">return</span>
+<span class="k">else</span>
+
+  <span class="n">callsub</span> <span class="n">reset_leds</span>
+  <span class="n">leds</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+  <span class="n">wave</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+  <span class="n">period</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+  <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">period</span><span class="p">)</span><span class="o">&lt;</span><span class="mi">20</span> <span class="n">then</span>
+    <span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">period</span><span class="p">,</span><span class="nb">abs</span><span class="p">(</span><span class="n">period</span><span class="p">),</span><span class="mi">20</span><span class="p">)</span>
+  <span class="n">end</span>
+  <span class="n">length</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+  <span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">length</span><span class="p">,</span><span class="n">length</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="n">length</span><span class="p">)</span>
+  <span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">muldiv</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">l</span><span class="p">)</span>
+  <span class="n">mirror</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+  <span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">mirror</span><span class="p">,</span><span class="n">mirror</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+  <span class="n">call</span> <span class="n">math</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">mirror</span><span class="p">,</span><span class="n">mirror</span><span class="p">,</span><span class="mi">15</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="mi">0</span><span class="p">:</span><span class="mi">7</span> <span class="n">do</span>
+    <span class="n">mask</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">event</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">6</span><span class="p">]</span>
+  <span class="n">end</span>
+
+  <span class="n">timer</span><span class="o">.</span><span class="n">period</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">20</span>
+<span class="n">end</span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="thymio_description.html" class="btn btn-neutral float-left" title="ROS-Thymio: thymio_description reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Jérôme Guzzi.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,505 @@
+ROS-Thymio: thymio_driver reference
+===================================
+
+Executable
+----------
+
+.. _thymio_driver:
+
+thymio_driver
+~~~~~~~~~~~~~
+
+Parameters
+^^^^^^^^^^
+
+.. _param-axis_length:
+
+axis_length
+""""""""""""
+
+:Type: float
+:Default: ``0.0915``
+
+
+.. _param-ground_threshold:
+
+ground.threshold
+""""""""""""""""
+
+:Type: float]
+:Default: ``200``
+
+left_wheel_joint
+""""""""""""""""
+
+:Type: string
+:Default: ``"left_wheel_joint"``
+
+right_wheel_joint
+"""""""""""""""""
+
+:Type: string
+:Default: ``"right_wheel_joint"``
+
+odom_frame
+""""""""""
+
+:Type: string
+:Default: ``"odom"``
+
+odom_max_rate
+"""""""""""""
+
+:Type: float
+:Default: ``-1``
+
+robot_frame
+"""""""""""
+
+:Type: string
+:Default: ``"base_link"``
+
+tf_prefix
+"""""""""
+
+:Type: string
+:Default: ``""``
+
+Publishers
+^^^^^^^^^^^
+
+Internal ``asebaros`` topics of type :ref:`Event`
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+- ``/aseba/events/enable_comm: asebaros_msgs/msg/Event``
+- ``/aseba/events/play_sound: asebaros_msgs/msg/Event``
+- ``/aseba/events/play_system_sound: asebaros_msgs/msg/Event``
+- ``/aseba/events/set_comm_payload: asebaros_msgs/msg/Event``
+- ``/aseba/events/set_led: asebaros_msgs/msg/Event``
+- ``/aseba/events/set_led_bottom_left: asebaros_msgs/msg/Event``
+- ``/aseba/events/set_led_bottom_right: asebaros_msgs/msg/Event``
+- ``/aseba/events/set_led_gesture: asebaros_msgs/msg/Event``
+- ``/aseba/events/set_led_top: asebaros_msgs/msg/Event``
+- ``/aseba/events/set_sound_threshold: asebaros_msgs/msg/Event``
+- ``/aseba/events/set_speed: asebaros_msgs/msg/Event``
+- ``/aseba/events/shutdown: asebaros_msgs/msg/Event``
+
+
+.. _pub-all_buttons:
+
+All Buttons
+"""""""""""
+
+:topic: ``buttons``
+:type: sensor_msgs/msg/Joy
+
+
+.. _pub-individual_buttons:
+
+Individual Buttons
+"""""""""""""""""""
+
+:Topic: ``buttons/{backward,center,forward,left,right}``
+:Type: std_msgs/msg/Bool
+
+.. _pub-comm_rx:
+
+Proximity Communication Received
+""""""""""""""""""""""""""""""""""
+
+:Topic: ``comm/rx``
+:Type: :ref:`Comm`
+
+.. _pub-ground:
+
+Ground Sensors
+"""""""""""""""
+
+:Topic: ``ground/{left,right}``
+:Type: sensor_msgs/msg/Range
+
+.. _pub-imu:
+
+IMU
+""""
+
+:Topic: ``imu``
+:Type: sensor_msgs/msg/Imu
+
+.. _pub-joints:
+
+Joint States
+""""""""""""
+
+:Topic: ``joint_states``
+:Type: sensor_msgs/msg/JointState
+
+.. _odometry_pub:
+
+Odometry
+""""""""""""
+
+:Topic: ``odom``
+:Type: nav_msgs/msg/Odometry
+
+.. _pub-proximity:
+
+Proximity Sensors
+"""""""""""""""""
+
+:Topic: ``proximity/{left,center_left,center,center_right,right,rear_left,rear_right}``
+:Type: sensor_msgs/msg/Range
+
+.. _pub-proximity_scan:
+
+Proximity Sensors Scan
+"""""""""""""""""""""""""""
+
+:Topic: ``proximity/laser``
+:Type: sensor_msgs/msg/LaserScan
+
+.. _pub-remote:
+
+Remote Controller
+"""""""""""""""""
+
+:Topic: ``remote``
+:Type: std_msgs/msg/Int8
+
+.. _pub-sound:
+
+Sound
+"""""
+
+:Topic: ``sound``
+:Type: std_msgs/msg/Float32
+
+.. _pub-tap:
+
+Tap
+"""""
+
+:Topic: ``tap``
+:Type: std_msgs/msg/Empty
+
+.. _pub-temperature:
+
+Temperature
+""""""""""""
+
+:Topic: ``temperature``
+:Type: sensor_msgs/msg/Temperature
+
+
+
+Subscribers
+^^^^^^^^^^^
+
+Internal ``asebaros`` topics of type :ref:`Event`
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+- ``aseba/events/accelerometer``
+- ``aseba/events/button_backward: asebaros_msgs/msg/Event``
+- ``aseba/events/button_center: asebaros_msgs/msg/Event``
+- ``aseba/events/button_forward: asebaros_msgs/msg/Event``
+- ``aseba/events/button_left: asebaros_msgs/msg/Event``
+- ``aseba/events/button_right: asebaros_msgs/msg/Event``
+- ``aseba/events/buttons: asebaros_msgs/msg/Event``
+- ``aseba/events/comm: asebaros_msgs/msg/Event``
+- ``aseba/events/ground: asebaros_msgs/msg/Event``
+- ``aseba/events/odometry: asebaros_msgs/msg/Event``
+- ``aseba/events/proximity: asebaros_msgs/msg/Event``
+- ``aseba/events/remote: asebaros_msgs/msg/Event``
+- ``aseba/events/sound: asebaros_msgs/msg/Event``
+- ``aseba/events/tap: asebaros_msgs/msg/Event``
+- ``aseba/events/temperature: asebaros_msgs/msg/Event``
+
+.. _sub-alarm:
+
+Alarm
+""""""
+
+:Topic: ``alarm``
+:Type: std_msgs/msg/Bool
+
+.. _pub-speed:
+
+Velocity command
+"""""""""""""""""
+
+:Topic: ``cmd_vel``
+:Type: geometry_msgs/msg/Twist
+
+.. _sub-comm_enable:
+
+Proximity Communication Enable
+""""""""""""""""""""""""""""""
+
+:Topic: ``comm/enable``
+:Type: std_msgs/msg/Bool
+
+.. _sub-comm_tx:
+
+Proximity Communication Transmit
+""""""""""""""""""""""""""""""""
+
+:Topic: ``comm/tx``
+:Type: std_msgs/msg/Int16
+
+.. _sub-led:
+
+LED
+"""
+
+:Topic: ``led``
+:Type: thymio_msgs/msg/Led
+
+.. _sub-body_led:
+
+Body LED
+""""""""
+:Topic: ``led/body/{bottom_left,bottom_right,top}``
+:Type: std_msgs/msg/ColorRGBA
+
+.. _sub-led_gestures:
+
+LED Gestures
+""""""""""""
+
+:Topic: ``led/gesture``
+:Type: ``thymio_msgs/msg/LedGesture``
+
+:Topic: ``led/gesture/alive``
+:Type: std_msgs/msg/Empty
+
+:Topic: ``led/gesture/blink``
+:Type: std_msgs/msg/Float32
+
+:Topic: ``led/gesture/circle``
+:Type: std_msgs/msg/Float32
+
+:Topic: ``led/gesture/kit``
+:Type: std_msgs/msg/Float32
+
+:Topic: ``led/gesture/off``
+:Type: std_msgs/msg/Empty
+
+
+.. _sub-pure_sound:
+
+Play Sound
+""""""""""
+
+:Topic: ``sound/play``
+:Type: :ref:`Sound`
+
+.. _sub-system_sound:
+
+Play System Sound
+"""""""""""""""""
+
+:Topic: ``sound/play/system``
+:Type: :ref:`SystemSound`
+
+.. _sub-sound_threshold:
+
+Set sound threshold
+""""""""""""""""""""
+
+:Topic: ``sound_threshold``
+:Type: std_msgs/msg/Float32
+
+
+.. /shutdown: std_msgs/msg/Empty
+
+
+Services
+^^^^^^^^
+Ready
+"""""
+
+:Service: ``is_ready``
+:Type: std_srvs/srv/Empty
+
+
+.. _multi_thymio_driver:
+
+multi_thymio_driver
+~~~~~~~~~~~~~~~~~~~~
+
+Parameters
+^^^^^^^^^^
+
+All parameters of :ref:`thymio_driver`
+
+launch_model
+"""""""""""""
+
+:Type: string
+:Default: ``""``
+
+
+Subscribers
+^^^^^^^^^^^
+
+All subscribers of :ref:`thymio_driver` with a ``<node_namespace>`` for *each* Thymio connected.
+
+Internal ``asebaros`` topic
+""""""""""""""""""""""""""""
+
+:Topic: ``aseba/nodes``
+:Type: :ref:`NodeList`
+
+
+Publishers
+^^^^^^^^^^^
+
+All publishers of :ref:`thymio_driver` with a ``<node_namespace>`` for *each* Thymio connected.
+
+
+Launch files
+------------
+
+.. _main.launch:
+
+main.launch
+~~~~~~~~~~~
+
+Launches the single- or multi- thymio driver and, if configured, includes :ref:`model.launch`.
+
+Arguments
+^^^^^^^^^
+
+axis_length
+""""""""""""
+
+:Type: float
+:Default: ``0.0935``
+
+odom_max_rate
+"""""""""""""
+
+:Type: float
+:Default: ``-1``
+
+single
+""""""""""""
+
+:Type: boolean
+:Default: ``True``
+
+name
+"""""
+
+:Type: string
+:Default: ``""``
+
+simulation
+""""""""""""
+
+:Type: boolean
+:Default: ``False``
+
+simulation_has_reduced_api
+"""""""""""""""""""""""""""
+
+:Type: boolean
+:Default: ``True``
+
+calibration_file
+"""""""""""""""""
+
+:Type: string
+:Default: ``"$HOME/.ros/thymio_calibration.yaml"``
+
+device
+""""""""""""
+
+:Type: string
+:Default: ``""``
+
+port
+""""""""""""
+
+:Type: integer
+:Default: ``44444``
+
+.. _param-emit_period:
+
+.. _param-emit_motor:
+
+emit_motor
+""""""""""""
+
+:Type: integer (binary)
+:Default: ``1``
+
+.. _param-emit_buttons:
+
+emit_buttons
+""""""""""""
+
+:Type: integer (binary)
+:Default: ``0``
+
+.. _param-emit_acc:
+
+emit_acc
+""""""""""""
+
+:Type: integer (binary)
+:Default: ``1``
+
+.. _param-emit_ground_raw:
+
+emit_ground_raw
+"""""""""""""""
+
+:Type: integer (binary)
+:Default: ``0``
+
+.. _param-emit_proximity:
+
+emit_proximity
+"""""""""""""""
+
+:Type: integer (binary)
+:Default: ``1``
+
+.. _param-enable_prox_comm:
+
+enable_prox_comm
+""""""""""""""""
+
+:Type: integer (binary)
+:Default: ``1``
+
+.. _param-motor_deadband:
+
+motor_deadband
+""""""""""""""
+
+:Type: integer (binary)
+:Default: ``10``
+
+.. _param-motor_period:
+
+motor_period
+"""""""""""""""
+
+:Type: integer
+:Default: ``5``
+
+.. _param-acc_period:
+
+acc_period
+"""""""""""""""
+
+:Type: integer
+:Default: ``2``
+
+.. _param-buttons_period:
+
+buttons_period
+""""""""""""""""
+
+:Type: integer
+:Default: ``5``

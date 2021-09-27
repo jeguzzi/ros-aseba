@@ -1,0 +1,366 @@
+ROS-Aseba: asebaros reference
+=============================
+
+The *asebaros* package contains a single executable node ``asebaros``.
+
+Executable asebaros
+-------------------
+
+Parameters
+~~~~~~~~~~
+
+You can list all parameter of ``asebaros`` with
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      rosparam list asebaros
+
+   .. code-tab:: console ROS2
+
+      ros2 param list /asebaros
+
+and get all their values with
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      rosparam dump asebaros
+
+   .. code-tab:: console ROS2
+
+      ros2 param dump /asebaros --print
+
+
+No parameter is dynamic, i.e., no parameter should be modified at run-time.
+
+.. _param-targets:
+
+targets
+^^^^^^^
+A list of valid `Dashel targets <https://aseba-community.github.io/dashel>`_.
+
+:Type: [string]
+
+:Default: ``[]``
+
+----
+
+.. _param-port:
+
+port
+^^^^
+The local tcp port where to forward Aseba messages.
+
+:Type: integer
+
+:Default: ``33333``
+
+----
+
+.. _param-loop:
+
+loop
+^^^^
+A flag to not only forward, but also to send back Aseba messages to the sender.
+
+:Type: bool
+
+:Default: ``false``
+
+----
+
+.. _param-shutdown_on_unconnect:
+
+shutdown_on_unconnect
+^^^^^^^^^^^^^^^^^^^^^
+Whenever to shutdown the ``asebaros`` as soon as one Aseba node disconnect.
+
+:Type: bool
+
+:Default: ``false``
+
+----
+
+.. _param-reset_on_closing:
+
+reset_on_closing
+^^^^^^^^^^^^^^^^
+Whenever to reset Aseba nodes before terminating ``asebaros`` node.
+
+:Type: bool
+
+:Default: ``false``
+
+----
+
+.. _param-set_id_variable:
+
+set_id_variable
+^^^^^^^^^^^^^^^^
+Whenever to force resetting the id variable of Aseba nodes.
+Only needed for Aseba nodes simulated with Aseba Playground,
+which have their internal id set to the same value.
+
+:Type: bool
+
+:Default: ``false``
+
+----
+
+.. _param-nodes:
+
+nodes
+^^^^^
+
+A map ``[key -> config]``, with arbitrary keys and values
+that correspond to classes of Aseba nodes identified by ``id`` and ``name``.
+Unspecified values for ``name`` or ``id`` are interpreted as a wildcards.
+
+:Type: ``[string -> NodeConfig]``
+
+:Default: ``[]``
+
+``NodeConfig`` is a map that contains the following parameters:
+
+name
+"""""
+The Aseba name. Leave empty or omit to target all type of nodes.
+
+:Type: string
+
+:Default: ``""``
+
+id
+"""
+The Aseba id. Set to -1 or omit to target all ids (for a given name).
+
+:Type: integer
+
+:Default: ``-1``
+
+
+accept
+"""""""
+
+Whenever to connect an Aseba node to ROS.
+
+:Type: bool
+
+:Default: ``true``
+
+maximal_number
+""""""""""""""
+
+The maximal number of Aseba nodes to connect to ROS. A negative number is interpreted as unbounded.
+
+:Type: int
+
+:Default: ``-1``
+
+prefix
+""""""
+
+The prefix to be used to build the ROS namespace for an Aseba node
+as ``"{prefix}{id}"`` if ``namespace`` is not specified.
+
+:Type: string
+
+:Default: ``""``
+
+namespace
+""""""""""
+
+The ROS namespace to assign to an Aseba node. If left empty, ```prefix``` will be used to form the namespace instead.
+
+:Type: string
+
+:Default: ``""``
+
+id_variable
+"""""""""""
+
+The name of the Aseba variable that stores the internal node id.
+
+:Type: string
+
+:Default: ``""``
+
+.. _param_include_id_in_events:
+
+include_id_in_events
+""""""""""""""""""""
+
+Whenever ROS events forwarded from ROS to Aseba have to include the targeted Aseba node id.
+
+:Type: bool
+
+:Default: ``false``
+
+----
+
+.. _param-script:
+
+script
+^^^^^^
+A map that contains the following parameters:
+
+reload_on_reconnect
+"""""""""""""""""""
+Whenver to reload an Aseba script when a disconnect node connects again.
+
+:Type: bool
+
+:Default: ``false``
+
+
+path
+""""
+The absolute path of a file storing an Aseba script.
+
+:Type: string
+
+:Default: ``""``
+
+constants
+""""""""""
+
+A dictionary ``[name -> value]`` with the integer values of named constants.
+
+:Type: ``[string -> int]``
+
+:Default: ``[]``
+
+Publishers
+~~~~~~~~~~
+
+You can list all subscribers and publishers of ``asebaros`` with
+
+.. tabs::
+
+   .. code-tab:: console ROS1
+
+      rosnode info /asebaros
+
+   .. code-tab:: console ROS2
+
+      ros2 node info /asebaros
+
+
+Anonymous events
+^^^^^^^^^^^^^^^^
+
+Aseba events for which ``asebaros`` cannot match a known node or event, see :ref:`Events`.
+
+:Topic: ``aseba/anonymous_events``
+
+:Type: :ref:`AnonymousEvent`
+
+
+Events
+^^^^^^
+For each event associated to an Aseba node, the first time an Aseba event is received,
+a publisher is created, see :ref:`Events`.
+
+:Topic: ``<node_namespace>/aseba/events/<event_name>``
+
+:Type: :ref:`Event`
+
+
+Node list
+^^^^^^^^^
+
+The publisher sends a notification when a Aseba node connects, disconnects, or loads a script.
+ROS1 publishers are latched, ROS2 publishers have qos durability set to ``transient_local``.
+
+:Topic: ``aseba/nodes``
+
+:Type: :ref:`NodeList`
+
+
+
+Node description
+^^^^^^^^^^^^^^^^
+
+For each Aseba node, a publisher sends notification when the Aseba node description changes.
+ROS1 publishers are latched, ROS2 publishers have qos durability set to ``transient_local``.
+
+:Topic: ``<node_namespace>/aseba/description``
+
+:Type: :ref:`NodeList`
+
+
+Subscribers
+~~~~~~~~~~~
+
+Anonymous events
+^^^^^^^^^^^^^^^^
+
+Anonymous events get directly forwarded to Aseba, see :ref:`Events`.
+
+:Topic: ``aseba/anonymous_events``
+
+:Type: :ref:`AnonymousEvent`
+
+Events
+^^^^^^
+For each event in a script, a subscriber is created once the script is loaded on an Aseba node.
+Events get forwarded to Aseba only if ``source==0``.
+The id of the node corresponding to ``<node_namespace>`` is added to the payload
+if ``include_id_in_events`` is set, see :ref:`Events`.
+
+:Topic: ``<node_namespace>/aseba/events/<event_name>``
+
+:Type: :ref:`Event`
+
+
+Services
+~~~~~~~~
+
+Get node description
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Serves the node description as an alternative to subscribing to ``<node_namespace>/aseba/description``
+
+:Service: ``<node_namespace>/aseba/get_description``
+
+:Type: :ref:`GetDescription`
+
+
+Load script
+^^^^^^^^^^^^^^^^^^
+
+Load a script to a set of nodes.
+
+:Service: ``aseba/load_script``
+
+:Type: :ref:`LoadScript`
+
+Get node list
+^^^^^^^^^^^^^^^^^^
+
+Serve the current node list, as an alternative to subscribing to ```aseba/nodes``
+
+:Service: ``aseba/get_nodes``
+
+:Type: :ref:`GetNodeList`
+
+Get variable
+^^^^^^^^^^^^^^^^^^
+
+Get an Aseba node variable specified by name.
+
+:Service: ``<node_namespace>/aseba/get_variable``
+
+:Type: :ref:`GetVariable`
+
+Set variable
+^^^^^^^^^^^^^^^^^^
+
+Set an Aseba node variable specified by name.
+
+:Service: ``<node_namespace>/aseba/set_variable``
+
+:Type: :ref:`SetVariable`

@@ -1,0 +1,120 @@
+ROS-Thymio: thymio_msgs reference
+=================================
+
+Interfaces
+----------
+
+Messages
+^^^^^^^^
+
+.. _Comm:
+
+Comm
+"""""
+
+.. code-block:: IDL
+
+   int16 value
+   int16[7] payloads
+   int16[7] intensities
+
+
+:value: the 11-bit payload
+:source: the 11-bit payloads received by each sensor (0 if the sensor has not received the message)
+:intensities: the intensity of the received IR pulse.
+
+.. _Led:
+
+Led
+"""""
+
+.. code-block:: IDL
+
+   uint8 CIRCLE=0
+   uint8 PROXIMITY=1
+   uint8 BUTTONS=2
+   uint8 GROUND=3
+   uint8 TEMPERATURE=4
+   uint8 MICROPHONE=5
+   uint8 REMOTE=6
+
+   uint8 id
+   float32[] values
+
+:id:  an enum ``{CIRCLE, PROXIMITY, BUTTONS, GROUND, TEMPERATURE, MICROPHONE, REMOTE}`` that identifies a group of LED.
+:values: an array of intensities (one per LED) between 0 and 1.
+
+.. _LedGesture:
+
+LedGesture
+""""""""""
+.. code-block:: IDL
+
+   uint8 OFF=0
+   uint8 WAVE=1
+
+   uint8 RECT=0
+   uint8 HARMONIC=1
+
+   uint8 CIRCLE=0
+   uint8 PROXIMITY=1
+   uint8 BUTTONS=2
+
+   uint8 gesture
+   uint8 wave
+   uint8 leds
+   float32 period
+   uint16 length
+   uint8 mirror
+   bool[] mask
+
+
+:gesture: an enum ``{OFF, WAVE}``: ``OFF`` stop the gesture, ``WAVE`` start a waving pattern.
+:wave: an enum ``{RECT, HARMONIC}``: the function used to generate the LED intensity wave.
+:leds:  an enum ``{CIRCLE, PROXIMITY, BUTTONS}`` that identifies a group of LED.
+:period: the period of the wave in seconds
+:length: the length of the wave (in number of LED)
+:mirror: whenever to generate a standing wave
+:mask: a bit mask to set which individual LED will be used.
+
+.. _Sound:
+
+Sound
+"""""""""""
+
+.. tabs::
+
+   .. code-tab:: IDL ROS1
+
+      duration duration
+      float32 frequency
+
+   .. code-tab:: IDL ROS2
+
+      builtin_interfaces/Duration duration
+      float32 frequency
+
+:duration: the duration of the sound.
+:frequency: The frequency in Hz of the [pure] sound.
+
+.. _SystemSound:
+
+SystemSound
+"""""""""""
+
+.. code-block:: IDL
+
+   int8 STOP=-1
+   int8 STARTUP=0
+   int8 SHUTDOWN=1
+   int8 ARROW_BUTTON=2
+   int8 CENTRAL_BUTTON=3
+   int8 FREE_FALL=4
+   int8 COLLISION=5
+   int8 TARGET_OK=6
+   int8 TARGET_DETECT=7
+
+   int8 sound
+
+
+:sound: an enum ``{STOP, STARTUP, SHUTDOWN, ARROW_BUTTON, CENTRAL_BUTTON, FREE_FALL, COLLISION, TARGET_OK, TARGET_DETECT}`` that idenifies the sound
