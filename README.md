@@ -1,31 +1,12 @@
+# ROS-Aseba
+
 This [ROS] stack is a bridge to access an [Aseba] network from [ROS].
-For compilation instructions, see the README.md in the `asebaros` directory.
+See the [documentation] for installation instructions.
+
+This repository is a fork of the [original] version of ROS-Aseba by Stéphane Magnenat with several modifications to support new versions of ROS, multiple Aseba nodes and a larger set of functionalities. The branch master of this repository is the most similar to the original work and supports up to ROS1 melodic. Specific functionality of Thymio robots has been extended and moved to a separated [ROS-Thymio] repository.
 
 [Aseba]: http://aseba.wikidot.com
 [ROS]: http://www.ros.org
-
-This branch allows to connect multiple Aseba node to the ROS network.
-
-Compilation
------------
-
-Clone the repository in your catkin [tools] workspace:
-
-```bash
-cd <YOUR_CATKIN_WS>/src
-git clone --recursive -b multi  git://github.com/jeguzzi/ros-aseba.git
-catkin config --blacklist thymio_navigation ethzasl_aseba
-```
-
-Apply a patch to only build the necessary components of Aseba:
-
-```
-cd <YOUR_CATKIN_WS>/src/ros-aseba/aseba/upstream_src
-git apply ../aseba.patch
-```
-
-Build:
-
-```
-catkin build
-```
+[documentation]: http://jeguzzi.github.io/ros-aseba
+[original]: https://github.com/ethz-asl/ros-aseba
+[ROS-Thymio]: http://github.com/jeguzzi/ros-thymio
