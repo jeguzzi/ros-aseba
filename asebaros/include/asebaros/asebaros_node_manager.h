@@ -8,6 +8,7 @@
 #include <string>
 #include <thread>
 #include <vector>
+#include <iomanip>
 
 #if DIAGNOSTICS
 #if (ROS_VERSION_M == 2)
