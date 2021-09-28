@@ -7,8 +7,9 @@
     Bridge to access an Aseba network from ROS.
     For more information about Aseba, see: http://aseba.wikidot.com
   </description>
-  <maintainer email="jerome@idsia.ch">Jerome</maintainer>
+  <maintainer email="jerome@idsia.ch">Jérôme Guzzi</maintainer>
   <license>BSD</license>
+  <url type="website">http://jeguzzi.github.io/ros-aseba</url>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 

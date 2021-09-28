@@ -102,6 +102,8 @@ protected:
   bool is_connected;
   Aseba::VariablesMap variables;
   mutable std::mutex mutex;
+
+
   // mutable std::shared_timed_mutex mutex;
   std::string ros_name(const std::string &topic_name) const;
   void fill_description(NodeDescriptionMsg * msg);
@@ -111,6 +113,7 @@ protected:
   void got_event_message_cb(const uint16_t event_id,
                             const EventMsgPtr & msg);
 
+  virtual std::string absolute_namespace(const std::string &) const = 0;
   virtual void create_subscribers() = 0;
   virtual void reset_publishers() = 0;
   virtual void publish_description(const NodeDescriptionMsg & msg) = 0;

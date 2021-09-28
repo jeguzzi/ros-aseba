@@ -91,3 +91,7 @@ bool AsebaROS1Node::get_description_cb(
 void AsebaROS1Node::publish_description(const NodeDescriptionMsg & msg) {
   desc_pub.publish(msg);
 }
+
+std::string AsebaROS2Node::absolute_namespace(const std::string & name) const {
+  return n.resolveName(name);
+}

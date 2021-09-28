@@ -151,6 +151,7 @@ NodeMsg AsebaROSNode::to_msg() const {
   NodeMsg msg;
   msg.id = id;
   msg.name_space = namespace_;
+  // msg.name_space = absolute_namespace(namespace_);
   msg.name = narrow(description->name);
   msg.ignored = false;
   msg.running = (script != nullptr);
@@ -168,7 +169,7 @@ void AsebaROSNode::update_diagnostics(
   }
   stat.add("Type", name);
   stat.add("Id", id);
-  stat.add("ROS Namespace", namespace_);
+  stat.add("ROS Namespace", absolute_namespace(namespace_));
   stat.add("Loaded script", script ? script->source : "-");
 }
 #endif
