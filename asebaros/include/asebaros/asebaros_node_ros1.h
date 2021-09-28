@@ -52,6 +52,7 @@ protected:
                           asebaros_msgs::GetDescription::Response &res);
 
   // Superclass virtual methods
+  virtual std::string absolute_namespace(const std::string &) const;
   void create_subscribers();
   void reset_publishers();
   void publish_description(const NodeDescriptionMsg & msg);

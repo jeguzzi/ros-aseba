@@ -7,7 +7,7 @@
     For more information about Aseba, see: http://aseba.wikidot.com
   </description>
 
-  <maintainer email="stephane@magnenat.net">Stéphane Magnenat</maintainer>
+  <maintainer email="jerome@idsia.ch">Jérôme Guzzi</maintainer>
   <license>BSD</license>
   <url type="website">http://ros.org/wiki/asebaros</url>
   <url type="repository">https://github.com/ethz-asl/ros-aseba</url>

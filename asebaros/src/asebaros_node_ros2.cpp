@@ -102,3 +102,11 @@ void AsebaROS2Node::get_description_cb(
 void AsebaROS2Node::publish_description(const NodeDescriptionMsg & msg) {
   desc_pub->publish(msg);
 }
+
+std::string AsebaROS2Node::absolute_namespace(const std::string & name) const {
+  std::string ns = std::string(ros_node->get_namespace());
+  if (name.substr(0, 1) != "/" && ns.substr(0, ns.size()) != "/") {
+    ns += "/";
+  }
+  return ns + name;
+}
