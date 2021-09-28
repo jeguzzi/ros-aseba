@@ -11,6 +11,7 @@
 
   <maintainer email="jerome@idsia.ch">Jérôme Guzzi</maintainer>
   <license>BSD</license>
+  <url type="website">http://jeguzzi.github.io/ros-aseba</url>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
   <buildtool_depend>rosidl_default_generators</buildtool_depend>
