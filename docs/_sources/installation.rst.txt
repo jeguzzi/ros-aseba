@@ -1,9 +1,6 @@
 Installation
 ============
 
-Prerequisites
--------------
-
 The packages support recent versions of ROS1 (melodic, noetic) and ROS2 (foxy, galactic).
 
 ===========  =================  =================

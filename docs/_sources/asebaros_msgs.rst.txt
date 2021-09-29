@@ -120,7 +120,7 @@ Node
 :name: the node name which corresponds to the node type (i.e. ``"thymio-II"`` for all Thymios)
 :name_space: the ROS namespace assigned to the Aseba node
 :running: whenever the ROS is running a known Aseba script, i.e., a script loaded through ``asebaros``.
-:ignored: whenever the Aseba node was ignore (and therefore not bridged to the ROS network)
+:ignored: whenever the Aseba node was ignored (and therefore not bridged to the ROS network)
 :connected: if the Aseba node is currently connected
 
 NodeDescription

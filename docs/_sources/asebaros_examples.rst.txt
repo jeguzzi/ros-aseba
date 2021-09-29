@@ -1,7 +1,7 @@
 ROS-Aseba: asebaros_examples reference
 ======================================
 
-The package *asebaros_examples* only define launch files.
+The package *asebaros_examples* only defines launch files.
 They are used as examples and commented in :ref:`examples`.
 
 Launch files

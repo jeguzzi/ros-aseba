@@ -85,6 +85,6 @@ In another console, launch rviz to visualize the robot.
    .. code-tab:: console ROS2
 
       source <WORKSPACE>/install/setup.bash
-      ros2 launch thymio_description rviz.launch
+      ros2 launch thymio_description rviz.launch.py
 
 Move the robot around and observe how the proximity sensors are displayed in rviz.
