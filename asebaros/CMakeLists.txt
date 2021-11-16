@@ -23,6 +23,13 @@ if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 14)
 endif()
 
+if(WIN32)
+  # avoid to overwrite std::max in dashel-win32.cpp
+  add_compile_definitions(NOMINMAX)
+  # force it to build .lib
+  option(BUILD_SHARED_LIBS "" OFF)
+endif()
+
 
 find_package(catkin REQUIRED COMPONENTS
 	roscpp
