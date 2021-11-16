@@ -15,6 +15,13 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   # add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
+if(WIN32)
+  # avoid to overwrite std::max in dashel-win32.cpp
+  add_compile_definitions(NOMINMAX)
+  # force it to build .lib
+  option(BUILD_SHARED_LIBS "" OFF)
+endif()
+
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
