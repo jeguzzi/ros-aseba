@@ -135,6 +135,15 @@ std::string AsebaROS2::init_params() {
   if (get_parameter("set_id_variable", set_id_variable_param)) {
     set_id_variable = set_id_variable_param.as_bool();
   }
+  rclcpp::Parameter max_target_protocol_version_param(
+      "highest_acceptable_protocol_version", ASEBA_PROTOCOL_VERSION);
+  if (get_parameter("highest_acceptable_protocol_version", max_target_protocol_version_param)) {
+    aseba_max_target_protocol_version = max_target_protocol_version_param.as_int();
+  }
+  if (aseba_max_target_protocol_version < ASEBA_PROTOCOL_VERSION) {
+    aseba_max_target_protocol_version = ASEBA_PROTOCOL_VERSION;
+    set_parameter(rclcpp::Parameter("highest_acceptable_protocol_version", ASEBA_PROTOCOL_VERSION));
+  }
   auto params = list_parameters({"nodes"}, 3);
   for (auto &prefix : params.prefixes) {
     import_node_config(prefix);

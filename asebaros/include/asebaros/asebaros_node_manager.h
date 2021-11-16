@@ -171,6 +171,7 @@ protected:
   bool reset_on_closing;
   bool set_id_variable;
   bool reload_script_on_reconnect;
+  uint16_t aseba_max_target_protocol_version;
 
 protected:
   int number_of_nodes(const std::string type);
@@ -218,7 +219,8 @@ protected:
   void get_anonymous_event_cb(const AnonymousEventMsgPtr &event);
   bool get_node_list(GetNodeListRequestPtr req, GetNodeListResponsePtr res);
   bool load_script(LoadScriptRequestPtr req, LoadScriptResponsePtr res);
-
+  void nodeProtocolVersionMismatch(unsigned nodeId, const std::wstring &nodeName,
+                                   uint16_t protocolVersion);
 public:
   // dashel callbacks
   void processAsebaMessage(Aseba::Message *message);

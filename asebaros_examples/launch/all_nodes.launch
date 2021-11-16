@@ -6,6 +6,7 @@
   <node name="asebaros" pkg="asebaros" type="asebaros" output="screen">
     <param name="port" value="$(arg port)"/>
     <param name="shutdown_on_unconnect" value="false"/>
+<<<<<<< HEAD
     <rosparam param="targets" subst_value="true">
       ["$(arg device)",]
     </rosparam>
@@ -14,5 +15,15 @@
         accept: true
         prefix: node_
     </rosparam>
+=======
+    <param name="targets" value="$(var device)" value-sep=","/>
+    <param name="highest_acceptable_protocol_version" value="20"/>
+    <param name="nodes">
+      <param name="any">
+        <param name="accept" value="true"/>
+        <param name="prefix" value="node_"/>
+      </param>
+    </param>
+>>>>>>> 1c6b651 (Relaxed protocol checking adding a parameter highest_acceptable_protocol_version)
   </node>
 </launch>

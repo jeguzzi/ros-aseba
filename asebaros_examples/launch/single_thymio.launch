@@ -8,6 +8,7 @@
     <param name="reload_script_on_reconnect" value="true"/>
     <param name="set_id_variable" value="false"/>
     <param name="shutdown_on_unconnect" value="false"/>
+    <param name="highest_acceptable_protocol_version" value="20"/>
     <rosparam param="targets" subst_value="true">
       ["$(arg device)",]
     </rosparam>
