@@ -7,7 +7,9 @@ A bridge between Aseba and ROS
 **Aseba** is an event-based architecture for real-time distributed control of mobile robots using a simple scripting language.
 Scripts are interpreted onboard of the robots' microprocessors with minimal requirements (integer-only arithmetics).
 Tools such as Aseba Studio let users interact with Aseba.
-The official documentation is hosted at http://wiki.thymio.org/en:asebaconcepts.
+The official documentation is hosted at https://mobsya.github.io/aseba/about.html.
+
+.. old link: http://wiki.thymio.org/en:asebaconcepts.
 
 **ROS** is a set of open-source software libraries and tools to build robotic applications.
 ROS targets a broad range of platforms, from real-time controllers to personal computer.

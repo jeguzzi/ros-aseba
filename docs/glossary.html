@@ -52,7 +52,6 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#prerequisites">Prerequisites</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros">ROS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros-aseba">ROS-Aseba</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros-thymio">ROS-Thymio</a></li>
@@ -71,6 +70,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Aseba and ROS Networks</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#aseba-network">Aseba Network</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#nodes">Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#protocol">Protocol</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#variables">Variables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#script">Script</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#global-events">Global Events</a></li>
@@ -120,11 +120,12 @@
 <li class="toctree-l4"><a class="reference internal" href="asebaros.html#shutdown-on-unconnect">shutdown_on_unconnect</a></li>
 <li class="toctree-l4"><a class="reference internal" href="asebaros.html#reset-on-closing">reset_on_closing</a></li>
 <li class="toctree-l4"><a class="reference internal" href="asebaros.html#set-id-variable">set_id_variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#highest-acceptable-protocol-version">highest_acceptable_protocol_version</a></li>
 <li class="toctree-l4"><a class="reference internal" href="asebaros.html#nodes">nodes</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="asebaros.html#accept">accept</a></li>
-<li class="toctree-l5"><a class="reference internal" href="asebaros.html#maximal-number">maximal_number</a></li>
 <li class="toctree-l5"><a class="reference internal" href="asebaros.html#name">name</a></li>
 <li class="toctree-l5"><a class="reference internal" href="asebaros.html#id">id</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#accept">accept</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#maximal-number">maximal_number</a></li>
 <li class="toctree-l5"><a class="reference internal" href="asebaros.html#prefix">prefix</a></li>
 <li class="toctree-l5"><a class="reference internal" href="asebaros.html#namespace">namespace</a></li>
 <li class="toctree-l5"><a class="reference internal" href="asebaros.html#id-variable">id_variable</a></li>
@@ -353,6 +354,7 @@
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#calibration-file">calibration_file</a></li>
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#device">device</a></li>
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#port">port</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#highest-acceptable-protocol-version">highest_acceptable_protocol_version</a></li>
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-motor">emit_motor</a></li>
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-buttons">emit_buttons</a></li>
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-acc">emit_acc</a></li>
@@ -442,13 +444,18 @@
   <section id="aseba-and-ros-networks">
 <h1>Aseba and ROS Networks<a class="headerlink" href="#aseba-and-ros-networks" title="Permalink to this headline"></a></h1>
 <p>The following minimal introduction to the Aseba and ROS Networks makes some simplifications.
-Please refer to the respective documentations at <a class="reference external" href="http://wiki.thymio.org/en:Asebaconcepts">http://wiki.thymio.org/en:Asebaconcepts</a> and <a class="reference external" href="http://docs.ros.org">http://docs.ros.org</a> for more complete overviews.</p>
+Please refer to the respective documentations at <a class="reference external" href="https://mobsya.github.io/aseba/about.html">https://mobsya.github.io/aseba/about.html</a> and <a class="reference external" href="http://docs.ros.org">http://docs.ros.org</a> for more complete overviews.</p>
 <section id="aseba-network">
 <span id="aseba"></span><h2>Aseba Network<a class="headerlink" href="#aseba-network" title="Permalink to this headline"></a></h2>
 <section id="nodes">
 <h3>Nodes<a class="headerlink" href="#nodes" title="Permalink to this headline"></a></h3>
 <p>An Aseba node has a unique integer identifier <code class="docutils literal notranslate"><span class="pre">id</span></code>
 and a name <code class="docutils literal notranslate"><span class="pre">name</span></code> that is shared with nodes of the same type, e.g., all Thymio have name <code class="docutils literal notranslate"><span class="pre">&quot;thymio-II&quot;</span></code>.</p>
+</section>
+<section id="protocol">
+<h3>Protocol<a class="headerlink" href="#protocol" title="Permalink to this headline"></a></h3>
+<p>Aseba nodes exchange messages according to a binary protocol.
+Messages include the version of the protocol being used.</p>
 </section>
 <section id="variables">
 <h3>Variables<a class="headerlink" href="#variables" title="Permalink to this headline"></a></h3>

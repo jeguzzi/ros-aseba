@@ -110,6 +110,21 @@ which have their internal id set to the same value.
 
 ----
 
+.. _param-highest_acceptable_protocol_version:
+
+highest_acceptable_protocol_version
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Force `asebaros` to accept node running an Aseba protocol version possibly higher than the
+protocol version used by `asebaros`.
+If set lower than the compile-time constant ``ASEBA_PROTOCOL_VERSION=5``,
+then the parameter is reset to ``ASEBA_PROTOCOL_VERSION``.
+
+:Type: int
+
+:Default: ``ASEBA_PROTOCOL_VERSION=5``
+
+----
+
 .. _param-nodes:
 
 nodes

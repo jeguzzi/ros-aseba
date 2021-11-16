@@ -2,8 +2,7 @@ Aseba and ROS Networks
 =======================
 
 The following minimal introduction to the Aseba and ROS Networks makes some simplifications.
-Please refer to the respective documentations at http://wiki.thymio.org/en:Asebaconcepts and http://docs.ros.org for more complete overviews.
-
+Please refer to the respective documentations at https://mobsya.github.io/aseba/about.html and http://docs.ros.org for more complete overviews.
 
 .. _Aseba:
 
@@ -16,6 +15,13 @@ Nodes
 
 An Aseba node has a unique integer identifier ``id``
 and a name ``name`` that is shared with nodes of the same type, e.g., all Thymio have name ``"thymio-II"``.
+
+Protocol
+~~~~~~~~
+
+Aseba nodes exchange messages according to a binary protocol.
+Messages include the version of the protocol being used.
+
 
 Variables
 ~~~~~~~~~

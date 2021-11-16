@@ -71,6 +71,7 @@
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Aseba and ROS Networks</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="glossary.html#aseba-network">Aseba Network</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="glossary.html#nodes">Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#protocol">Protocol</a></li>
 <li class="toctree-l3"><a class="reference internal" href="glossary.html#variables">Variables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="glossary.html#script">Script</a></li>
 <li class="toctree-l3"><a class="reference internal" href="glossary.html#global-events">Global Events</a></li>
@@ -120,6 +121,7 @@
 <li class="toctree-l4"><a class="reference internal" href="asebaros.html#shutdown-on-unconnect">shutdown_on_unconnect</a></li>
 <li class="toctree-l4"><a class="reference internal" href="asebaros.html#reset-on-closing">reset_on_closing</a></li>
 <li class="toctree-l4"><a class="reference internal" href="asebaros.html#set-id-variable">set_id_variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#highest-acceptable-protocol-version">highest_acceptable_protocol_version</a></li>
 <li class="toctree-l4"><a class="reference internal" href="asebaros.html#nodes">nodes</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="asebaros.html#name">name</a></li>
 <li class="toctree-l5"><a class="reference internal" href="asebaros.html#id">id</a></li>
@@ -353,6 +355,7 @@
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#calibration-file">calibration_file</a></li>
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#device">device</a></li>
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#port">port</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#highest-acceptable-protocol-version">highest_acceptable_protocol_version</a></li>
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-motor">emit_motor</a></li>
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-buttons">emit_buttons</a></li>
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-acc">emit_acc</a></li>
@@ -480,6 +483,15 @@ You don’t know which ROS version to use? Pick the one that works with your OS
 and that noetic will be the last official ROS1 release.
 If you still have a doubt, go for ROS2: foxy is the current long-term-release (2020–2023)
 while galactic is the current short-term-release (2021–2022).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ROS-Aseba is using Aseba version 1.6 from the <a class="reference external" href="https://github.com/aseba-community/aseba">aseba-community repository</a>
+that implements Aseba protocol version 5. Aseba is also actively developed in the <a class="reference external" href="https://github.com/Mobsya/aseba">Mobsya repository</a>.
+Mobsya development specifically targets the Thymio robot and has extended the Aseba protocol.
+Currently, and for the foreseeable future, Mobsya’s Aseba protocol will remain compatible with Aseba 1.6; therefore
+Thymios running the newest firmware by Mobsya can be used with ROS-Aseba, provided that the
+parameter <a class="reference internal" href="asebaros.html#param-highest-acceptable-protocol-version"><span class="std std-ref">highest_acceptable_protocol_version</span></a> is set to the correct value.</p>
+</div>
 <section id="ros">
 <h2>ROS<a class="headerlink" href="#ros" title="Permalink to this headline"></a></h2>
 <p>Before installing ROS-Aseba and ROS-Thymio, you need to setup ROS on your machine.
@@ -488,7 +500,11 @@ at least the <code class="docutils literal notranslate"><span class="pre">ROS-Ba
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt install ros-&lt;ROS-VERSION&gt;-ros-base</span>
 </pre></div>
 </div>
-<p>Only for ROS1, to follow the instructions below, install also <a class="reference external" href="https://catkin-tools.readthedocs.io/en/latest/installing.html">catkin-tools</a>.</p>
+<p>For ROS1, to follow the instructions below, install also <a class="reference external" href="https://catkin-tools.readthedocs.io/en/latest/installing.html">catkin-tools</a>.</p>
+<p>For ROS2, <a class="reference external" href="https://docs.ros.org/en/galactic/Tutorials/Colcon-Tutorial.html#install-colcon">install colcon</a>:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt install python3-colcon-common-extensions</span>
+</pre></div>
+</div>
 <p>If you don’t already have one, create a ROS workspace in a folder <code class="docutils literal notranslate"><span class="pre">&lt;WORKSPACE&gt;</span></code> of you choice.</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-0-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-0-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">mkdir -p &lt;WORKSPACE&gt;/src</span>
@@ -513,6 +529,11 @@ at least the <code class="docutils literal notranslate"><span class="pre">ROS-Ba
 <h2>ROS-Aseba<a class="headerlink" href="#ros-aseba" title="Permalink to this headline"></a></h2>
 <ol class="arabic simple">
 <li><p>Install <code class="docutils literal notranslate"><span class="pre">libudev-dev</span></code>, <code class="docutils literal notranslate"><span class="pre">libxml2-dev</span></code>, <code class="docutils literal notranslate"><span class="pre">git</span></code> and <code class="docutils literal notranslate"><span class="pre">ros-&lt;ROS-VERSION&gt;-diagnostic-updater</span></code></p></li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt install libudev-dev libxml2-dev git ros-&lt;ROS-VERSION&gt;-diagnostic-updater</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
 <li><p>Download and install ROS-Aseba</p></li>
 </ol>
 <div class="sphinx-tabs docutils container">
@@ -529,11 +550,22 @@ at least the <code class="docutils literal notranslate"><span class="pre">ROS-Ba
 </pre></div>
 </div>
 </div></div>
+<ol class="arabic simple" start="3">
+<li><p>On Linux, you may need to add the user to the dialout group to connect to a Thymio (and logout once)</p></li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo adduser $USER dialout</span>
+</pre></div>
+</div>
 </section>
 <section id="ros-thymio">
 <h2>ROS-Thymio<a class="headerlink" href="#ros-thymio" title="Permalink to this headline"></a></h2>
 <ol class="arabic simple">
 <li><p>Install <code class="docutils literal notranslate"><span class="pre">ros-&lt;ROS-VERSION&gt;-xacro</span></code>, <code class="docutils literal notranslate"><span class="pre">ros-&lt;ROS-VERSION&gt;-tf</span></code>, <code class="docutils literal notranslate"><span class="pre">ros-&lt;ROS-VERSION&gt;-robot-state-publisher</span></code></p></li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt install ros-&lt;ROS-VERSION&gt;-xacro ros-&lt;ROS-VERSION&gt;-tf ros-&lt;ROS-VERSION&gt;-robot-state-publisher</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
 <li><p>Download and install ROS-Thymio</p></li>
 </ol>
 <div class="sphinx-tabs docutils container">

@@ -28,15 +28,15 @@ Open a console and setup the environment
 Using a real Thymio
 ~~~~~~~~~~~~~~~~~~~
 
-Connect the Thymio to your machine and take note of which serial device ``<SERIAL_DEVICE>``
-it uses (e.g., using Aseba Studio).
+Connect the Thymio to your machine. Open a console and setup the environment
 
-Open a console and setup the environment
+.. and take note of which serial device ``<SERIAL_DEVICE>`` it uses (e.g., using Aseba Studio).
+.. export DEVICE="ser:device=<SERIAL_DEVICE>"
 
 .. code-block:: console
 
   source <WORKSPACE>/install/setup.bash
-  export DEVICE="ser:device=<SERIAL_DEVICE>"
+  export DEVICE="ser:name=Thymio"
   export SIMULATION=False
 
 

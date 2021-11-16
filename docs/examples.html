@@ -53,7 +53,6 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#prerequisites">Prerequisites</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros">ROS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros-aseba">ROS-Aseba</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros-thymio">ROS-Thymio</a></li>
@@ -72,6 +71,7 @@
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Aseba and ROS Networks</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="glossary.html#aseba-network">Aseba Network</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="glossary.html#nodes">Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#protocol">Protocol</a></li>
 <li class="toctree-l3"><a class="reference internal" href="glossary.html#variables">Variables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="glossary.html#script">Script</a></li>
 <li class="toctree-l3"><a class="reference internal" href="glossary.html#global-events">Global Events</a></li>
@@ -121,11 +121,12 @@
 <li class="toctree-l4"><a class="reference internal" href="asebaros.html#shutdown-on-unconnect">shutdown_on_unconnect</a></li>
 <li class="toctree-l4"><a class="reference internal" href="asebaros.html#reset-on-closing">reset_on_closing</a></li>
 <li class="toctree-l4"><a class="reference internal" href="asebaros.html#set-id-variable">set_id_variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#highest-acceptable-protocol-version">highest_acceptable_protocol_version</a></li>
 <li class="toctree-l4"><a class="reference internal" href="asebaros.html#nodes">nodes</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="asebaros.html#accept">accept</a></li>
-<li class="toctree-l5"><a class="reference internal" href="asebaros.html#maximal-number">maximal_number</a></li>
 <li class="toctree-l5"><a class="reference internal" href="asebaros.html#name">name</a></li>
 <li class="toctree-l5"><a class="reference internal" href="asebaros.html#id">id</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#accept">accept</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#maximal-number">maximal_number</a></li>
 <li class="toctree-l5"><a class="reference internal" href="asebaros.html#prefix">prefix</a></li>
 <li class="toctree-l5"><a class="reference internal" href="asebaros.html#namespace">namespace</a></li>
 <li class="toctree-l5"><a class="reference internal" href="asebaros.html#id-variable">id_variable</a></li>
@@ -354,6 +355,7 @@
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#calibration-file">calibration_file</a></li>
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#device">device</a></li>
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#port">port</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#highest-acceptable-protocol-version">highest_acceptable_protocol_version</a></li>
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-motor">emit_motor</a></li>
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-buttons">emit_buttons</a></li>
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-acc">emit_acc</a></li>
@@ -473,7 +475,9 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The examples below works with any other Aseba network, and in particular with real robots too. In this case, just change the ids and add <code class="docutils literal notranslate"><span class="pre">device:=&lt;DEVICE&gt;</span></code> to the ROS launch arguments.</p>
+<p>The examples below works with any other Aseba network, and in particular with real robots too.
+In this case, just change the ids and add <code class="docutils literal notranslate"><span class="pre">device:=&lt;DEVICE&gt;</span></code> to the ROS launch arguments
+(e.g., <code class="docutils literal notranslate"><span class="pre">device:=&quot;ser:name=Thymio&quot;</span></code> to connect a Thymio).</p>
 </div>
 </section>
 <section id="all-nodes">
@@ -489,6 +493,7 @@ Each node will receive a ROS namespace <code class="docutils literal notranslate
   <span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">type=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(arg port)&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;targets&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
       [&quot;$(arg device)&quot;,]
     <span class="nt">&lt;/rosparam&gt;</span>
@@ -509,6 +514,7 @@ Each node will receive a ROS namespace <code class="docutils literal notranslate
   <span class="nt">&lt;node</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">exec=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">args=</span><span class="s">&quot;--log-level info&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var port)&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;targets&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span> <span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;any&quot;</span><span class="nt">&gt;</span>
@@ -591,6 +597,7 @@ Each node will receive a ROS namespace <code class="docutils literal notranslate
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;targets&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
       [&quot;$(arg device)&quot;,]
     <span class="nt">&lt;/rosparam&gt;</span>
@@ -623,6 +630,7 @@ Each node will receive a ROS namespace <code class="docutils literal notranslate
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;targets&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span> <span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;others&quot;</span><span class="nt">&gt;</span>
@@ -720,6 +728,7 @@ Each node will receive a namespace <code class="docutils literal notranslate"><s
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;targets&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
       [&quot;$(arg device)&quot;,]
     <span class="nt">&lt;/rosparam&gt;</span>
@@ -754,6 +763,7 @@ Each node will receive a namespace <code class="docutils literal notranslate"><s
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;targets&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span> <span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;any&quot;</span><span class="nt">&gt;</span>
@@ -856,6 +866,7 @@ As the different nodes uses different [incoming] events, we don’t need to incl
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;targets&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
       [&quot;$(arg device)&quot;,]
     <span class="nt">&lt;/rosparam&gt;</span>
@@ -897,6 +908,7 @@ As the different nodes uses different [incoming] events, we don’t need to incl
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;targets&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span> <span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;thymio&quot;</span><span class="nt">&gt;</span>
@@ -1007,6 +1019,7 @@ As the different nodes uses different [incoming] events, we don’t need to incl
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;targets&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
       [&quot;$(arg device)&quot;,]
     <span class="nt">&lt;/rosparam&gt;</span>
@@ -1040,6 +1053,7 @@ As the different nodes uses different [incoming] events, we don’t need to incl
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;targets&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span> <span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;thymio&quot;</span><span class="nt">&gt;</span>
@@ -1142,6 +1156,7 @@ is used by ROS to change the Thymio body color.</p>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;targets&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
       [&quot;$(arg device)&quot;,]
     <span class="nt">&lt;/rosparam&gt;</span>
@@ -1174,6 +1189,7 @@ is used by ROS to change the Thymio body color.</p>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;targets&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span> <span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;thymio&quot;</span><span class="nt">&gt;</span>
@@ -1268,6 +1284,7 @@ The script checks that the command targets the current robot, else it ignores it
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;targets&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
       [&quot;$(arg device)&quot;,]
     <span class="nt">&lt;/rosparam&gt;</span>
@@ -1307,6 +1324,7 @@ The script checks that the command targets the current robot, else it ignores it
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;targets&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span> <span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;thymio&quot;</span><span class="nt">&gt;</span>

@@ -71,6 +71,7 @@
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Aseba and ROS Networks</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="glossary.html#aseba-network">Aseba Network</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="glossary.html#nodes">Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#protocol">Protocol</a></li>
 <li class="toctree-l3"><a class="reference internal" href="glossary.html#variables">Variables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="glossary.html#script">Script</a></li>
 <li class="toctree-l3"><a class="reference internal" href="glossary.html#global-events">Global Events</a></li>
@@ -120,6 +121,7 @@
 <li class="toctree-l4"><a class="reference internal" href="asebaros.html#shutdown-on-unconnect">shutdown_on_unconnect</a></li>
 <li class="toctree-l4"><a class="reference internal" href="asebaros.html#reset-on-closing">reset_on_closing</a></li>
 <li class="toctree-l4"><a class="reference internal" href="asebaros.html#set-id-variable">set_id_variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#highest-acceptable-protocol-version">highest_acceptable_protocol_version</a></li>
 <li class="toctree-l4"><a class="reference internal" href="asebaros.html#nodes">nodes</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="asebaros.html#name">name</a></li>
 <li class="toctree-l5"><a class="reference internal" href="asebaros.html#id">id</a></li>
@@ -353,6 +355,7 @@
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#calibration-file">calibration_file</a></li>
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#device">device</a></li>
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#port">port</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#highest-acceptable-protocol-version">highest_acceptable_protocol_version</a></li>
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-motor">emit_motor</a></li>
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-buttons">emit_buttons</a></li>
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-acc">emit_acc</a></li>
@@ -460,11 +463,9 @@ Launch the simulation with</p>
 </section>
 <section id="using-a-real-thymio">
 <h3>Using a real Thymio<a class="headerlink" href="#using-a-real-thymio" title="Permalink to this headline"></a></h3>
-<p>Connect the Thymio to your machine and take note of which serial device <code class="docutils literal notranslate"><span class="pre">&lt;SERIAL_DEVICE&gt;</span></code>
-it uses (e.g., using Aseba Studio).</p>
-<p>Open a console and setup the environment</p>
+<p>Connect the Thymio to your machine. Open a console and setup the environment</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">source &lt;WORKSPACE&gt;/install/setup.bash</span>
-<span class="go">export DEVICE=&quot;ser:device=&lt;SERIAL_DEVICE&gt;&quot;</span>
+<span class="go">export DEVICE=&quot;ser:name=Thymio&quot;</span>
 <span class="go">export SIMULATION=False</span>
 </pre></div>
 </div>

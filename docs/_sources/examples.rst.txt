@@ -43,7 +43,10 @@ To execute any ROS command, you have first to source the ROS setup script
 
    source <WORKSPACE>/install/setup.bash
 
-.. note:: The examples below works with any other Aseba network, and in particular with real robots too. In this case, just change the ids and add ``device:=<DEVICE>`` to the ROS launch arguments.
+.. note::
+  The examples below works with any other Aseba network, and in particular with real robots too.
+  In this case, just change the ids and add ``device:=<DEVICE>`` to the ROS launch arguments
+  (e.g., ``device:="ser:name=Thymio"`` to connect a Thymio).
 
 All nodes
 ----------
@@ -63,6 +66,7 @@ Each node will receive a ROS namespace ``"node_{id}"``. No script will be automa
         <node name="asebaros" pkg="asebaros" type="asebaros" output="screen">
           <param name="port" value="$(arg port)"/>
           <param name="shutdown_on_unconnect" value="false"/>
+          <param name="highest_acceptable_protocol_version" value="20"/>
           <rosparam param="targets" subst_value="true">
             ["$(arg device)",]
           </rosparam>
@@ -85,6 +89,7 @@ Each node will receive a ROS namespace ``"node_{id}"``. No script will be automa
         <node pkg="asebaros" exec="asebaros" args="--log-level info" output="screen">
           <param name="port" value="$(var port)"/>
           <param name="shutdown_on_unconnect" value="false"/>
+          <param name="highest_acceptable_protocol_version" value="20"/>
           <param name="targets" value="$(var device)" value-sep=","/>
           <param name="nodes">
             <param name="any">
@@ -183,6 +188,7 @@ The following launch files configure ``asebaros`` to connect to just the first T
           <param name="reload_script_on_reconnect" value="true"/>
           <param name="set_id_variable" value="false"/>
           <param name="shutdown_on_unconnect" value="false"/>
+          <param name="highest_acceptable_protocol_version" value="20"/>
           <rosparam param="targets" subst_value="true">
             ["$(arg device)",]
           </rosparam>
@@ -217,6 +223,7 @@ The following launch files configure ``asebaros`` to connect to just the first T
           <param name="reload_script_on_reconnect" value="true"/>
           <param name="set_id_variable" value="false"/>
           <param name="shutdown_on_unconnect" value="false"/>
+          <param name="highest_acceptable_protocol_version" value="20"/>
           <param name="targets" value="$(var device)" value-sep=","/>
           <param name="nodes">
             <param name="others">
@@ -329,6 +336,7 @@ Each node will receive a namespace ``"node_{id}"``.
           <param name="reload_script_on_reconnect" value="true"/>
           <param name="set_id_variable" value="true"/>
           <param name="shutdown_on_unconnect" value="false"/>
+          <param name="highest_acceptable_protocol_version" value="20"/>
           <rosparam param="targets" subst_value="true">
             ["$(arg device)",]
           </rosparam>
@@ -364,6 +372,7 @@ Each node will receive a namespace ``"node_{id}"``.
           <param name="reload_script_on_reconnect" value="true"/>
           <param name="set_id_variable" value="true"/>
           <param name="shutdown_on_unconnect" value="false"/>
+          <param name="highest_acceptable_protocol_version" value="20"/>
           <param name="targets" value="$(var device)" value-sep=","/>
           <param name="nodes">
             <param name="any">
@@ -483,6 +492,7 @@ As the different nodes uses different [incoming] events, we don't need to includ
           <param name="reload_script_on_reconnect" value="true"/>
           <param name="set_id_variable" value="false"/>
           <param name="shutdown_on_unconnect" value="false"/>
+          <param name="highest_acceptable_protocol_version" value="20"/>
           <rosparam param="targets" subst_value="true">
             ["$(arg device)",]
           </rosparam>
@@ -525,6 +535,7 @@ As the different nodes uses different [incoming] events, we don't need to includ
           <param name="reload_script_on_reconnect" value="true"/>
           <param name="set_id_variable" value="false"/>
           <param name="shutdown_on_unconnect" value="false"/>
+          <param name="highest_acceptable_protocol_version" value="20"/>
           <param name="targets" value="$(var device)" value-sep=","/>
           <param name="nodes">
             <param name="thymio">
@@ -653,6 +664,7 @@ The following launch files configure asebaros to connect to just the first Thymi
           <param name="reload_script_on_reconnect" value="true"/>
           <param name="set_id_variable" value="false"/>
           <param name="shutdown_on_unconnect" value="false"/>
+          <param name="highest_acceptable_protocol_version" value="20"/>
           <rosparam param="targets" subst_value="true">
             ["$(arg device)",]
           </rosparam>
@@ -688,6 +700,7 @@ The following launch files configure asebaros to connect to just the first Thymi
           <param name="reload_script_on_reconnect" value="true"/>
           <param name="set_id_variable" value="false"/>
           <param name="shutdown_on_unconnect" value="false"/>
+          <param name="highest_acceptable_protocol_version" value="20"/>
           <param name="targets" value="$(var device)" value-sep=","/>
           <param name="nodes">
             <param name="thymio">
@@ -807,6 +820,7 @@ We want to connect to any Thymio in the network and load the same script. Each o
           <param name="reload_script_on_reconnect" value="true"/>
           <param name="set_id_variable" value="true"/>
           <param name="shutdown_on_unconnect" value="false"/>
+          <param name="highest_acceptable_protocol_version" value="20"/>
           <rosparam param="targets" subst_value="true">
             ["$(arg device)",]
           </rosparam>
@@ -842,6 +856,7 @@ We want to connect to any Thymio in the network and load the same script. Each o
           <param name="reload_script_on_reconnect" value="true"/>
           <param name="set_id_variable" value="true"/>
           <param name="shutdown_on_unconnect" value="false"/>
+          <param name="highest_acceptable_protocol_version" value="20"/>
           <param name="targets" value="$(var device)" value-sep=","/>
           <param name="nodes">
             <param name="thymio">
@@ -948,6 +963,7 @@ In this example, we want connect to two specific Thymio identified by id, assign
           <param name="reload_script_on_reconnect" value="true"/>
           <param name="set_id_variable" value="true"/>
           <param name="shutdown_on_unconnect" value="false"/>
+          <param name="highest_acceptable_protocol_version" value="20"/>
           <rosparam param="targets" subst_value="true">
             ["$(arg device)",]
           </rosparam>
@@ -988,6 +1004,7 @@ In this example, we want connect to two specific Thymio identified by id, assign
           <param name="reload_script_on_reconnect" value="true"/>
           <param name="set_id_variable" value="true"/>
           <param name="shutdown_on_unconnect" value="false"/>
+          <param name="highest_acceptable_protocol_version" value="20"/>
           <param name="targets" value="$(var device)" value-sep=","/>
           <param name="nodes">
             <param name="thymio">

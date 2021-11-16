@@ -20,6 +20,17 @@ and that noetic will be the last official ROS1 release.
 If you still have a doubt, go for ROS2: foxy is the current long-term-release (2020--2023)
 while galactic is the current short-term-release (2021--2022).
 
+.. note::
+
+  ROS-Aseba is using Aseba version 1.6 from the `aseba-community repository <https://github.com/aseba-community/aseba>`_
+  that implements Aseba protocol version 5. Aseba is also actively developed in the `Mobsya repository <https://github.com/Mobsya/aseba>`_.
+  Mobsya development specifically targets the Thymio robot and has extended the Aseba protocol.
+  Currently, and for the foreseeable future, Mobsya's Aseba protocol will remain compatible with Aseba 1.6; therefore
+  Thymios running the newest firmware by Mobsya can be used with ROS-Aseba, provided that the
+  parameter :ref:`param-highest_acceptable_protocol_version` is set to the correct value.
+
+
+
 
 ROS
 ----
@@ -33,7 +44,13 @@ at least the ``ROS-Base`` distribution of your version of choice, which on Linux
     sudo apt install ros-<ROS-VERSION>-ros-base
 
 
-Only for ROS1, to follow the instructions below, install also `catkin-tools <https://catkin-tools.readthedocs.io/en/latest/installing.html>`_.
+For ROS1, to follow the instructions below, install also `catkin-tools <https://catkin-tools.readthedocs.io/en/latest/installing.html>`_.
+
+For ROS2, `install colcon <https://docs.ros.org/en/galactic/Tutorials/Colcon-Tutorial.html#install-colcon>`_:
+
+.. code-block:: console
+
+    sudo apt install python3-colcon-common-extensions
 
 If you don't already have one, create a ROS workspace in a folder ``<WORKSPACE>`` of you choice.
 
@@ -55,13 +72,19 @@ If you don't already have one, create a ROS workspace in a folder ``<WORKSPACE>`
       mkdir -p <WORKSPACE>/src
       cd <WORKSPACE>
       source /opt/ros/<ROS-VERSION>/setup.bash
-      colcon init
+      colcon build
 
 
 ROS-Aseba
 ------------
 
 1. Install ``libudev-dev``, ``libxml2-dev``, ``git`` and ``ros-<ROS-VERSION>-diagnostic-updater``
+
+.. code-block:: console
+
+    sudo apt install libudev-dev libxml2-dev git ros-<ROS-VERSION>-diagnostic-updater
+
+
 
 2. Download and install ROS-Aseba
 
@@ -83,10 +106,21 @@ ROS-Aseba
       colcon build
 
 
+3. On Linux, you may need to add the user to the dialout group to connect to a Thymio (and logout once)
+
+.. code-block:: console
+
+    sudo adduser $USER dialout
+
 ROS-Thymio
 ------------
 
 1. Install ``ros-<ROS-VERSION>-xacro``, ``ros-<ROS-VERSION>-tf``, ``ros-<ROS-VERSION>-robot-state-publisher``
+
+.. code-block:: console
+
+    sudo apt install ros-<ROS-VERSION>-xacro ros-<ROS-VERSION>-tf ros-<ROS-VERSION>-robot-state-publisher
+
 
 2. Download and install ROS-Thymio
 

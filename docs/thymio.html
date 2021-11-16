@@ -16,7 +16,7 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -53,7 +53,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#ros">ROS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros-aseba">ROS-Aseba</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros-thymio">ROS-Thymio</a></li>
 </ul>
@@ -71,6 +71,7 @@
 <li class="toctree-l1"><a class="reference internal" href="glossary.html">Aseba and ROS Networks</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="glossary.html#aseba-network">Aseba Network</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="glossary.html#nodes">Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="glossary.html#protocol">Protocol</a></li>
 <li class="toctree-l3"><a class="reference internal" href="glossary.html#variables">Variables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="glossary.html#script">Script</a></li>
 <li class="toctree-l3"><a class="reference internal" href="glossary.html#global-events">Global Events</a></li>
@@ -120,11 +121,12 @@
 <li class="toctree-l4"><a class="reference internal" href="asebaros.html#shutdown-on-unconnect">shutdown_on_unconnect</a></li>
 <li class="toctree-l4"><a class="reference internal" href="asebaros.html#reset-on-closing">reset_on_closing</a></li>
 <li class="toctree-l4"><a class="reference internal" href="asebaros.html#set-id-variable">set_id_variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="asebaros.html#highest-acceptable-protocol-version">highest_acceptable_protocol_version</a></li>
 <li class="toctree-l4"><a class="reference internal" href="asebaros.html#nodes">nodes</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="asebaros.html#accept">accept</a></li>
-<li class="toctree-l5"><a class="reference internal" href="asebaros.html#maximal-number">maximal_number</a></li>
 <li class="toctree-l5"><a class="reference internal" href="asebaros.html#name">name</a></li>
 <li class="toctree-l5"><a class="reference internal" href="asebaros.html#id">id</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#accept">accept</a></li>
+<li class="toctree-l5"><a class="reference internal" href="asebaros.html#maximal-number">maximal_number</a></li>
 <li class="toctree-l5"><a class="reference internal" href="asebaros.html#prefix">prefix</a></li>
 <li class="toctree-l5"><a class="reference internal" href="asebaros.html#namespace">namespace</a></li>
 <li class="toctree-l5"><a class="reference internal" href="asebaros.html#id-variable">id_variable</a></li>
@@ -353,6 +355,7 @@
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#calibration-file">calibration_file</a></li>
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#device">device</a></li>
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#port">port</a></li>
+<li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#highest-acceptable-protocol-version">highest_acceptable_protocol_version</a></li>
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-motor">emit_motor</a></li>
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-buttons">emit_buttons</a></li>
 <li class="toctree-l5"><a class="reference internal" href="thymio_driver.html#emit-acc">emit_acc</a></li>
@@ -510,7 +513,7 @@ All scripts are small variants of the script listed in <a class="reference inter
 <span id="id1"></span><h4>Odometry<a class="headerlink" href="#odometry" title="Permalink to this headline"></a></h4>
 <p>Wheel odometry is computed onboard from the estimated wheel speed and exposed by <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> as
 the event <code class="docutils literal notranslate"><span class="pre">aseba/events/odometry</span></code>. The parameter <a class="reference internal" href="thymio_driver.html#param-motor-deadband"><span class="std std-ref">motor_deadband</span></a> defines a deadband to filter out noise from the motor speed estimation.</p>
-<p>If <a class="reference internal" href="thymio_driver.html#param-emit-motor"><span class="std std-ref">emit_motor</span></a> is <code class="docutils literal notranslate"><span class="pre">1</span></code>, the Aseba event is emitted once every <a class="reference internal" href="thymio_driver.html#param-motor-period"><span class="std std-ref">motor_period</span></a> update steps of the wheel odometry (which runs 100Hz), and
+<p>If <a class="reference internal" href="thymio_driver.html#param-emit-motor"><span class="std std-ref">highest_acceptable_protocol_version</span></a> is <code class="docutils literal notranslate"><span class="pre">1</span></code>, the Aseba event is emitted once every <a class="reference internal" href="thymio_driver.html#param-motor-period"><span class="std std-ref">motor_period</span></a> update steps of the wheel odometry (which runs 100Hz), and
 it’s published by <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> on <code class="docutils literal notranslate"><span class="pre">aseba/events/odometry</span></code>.</p>
 <p>The ROS driver uses a simple [calibrated] quadratic function to map wheel steps <em>r</em> measured onboard in Aseba units to distance <em>d</em> in meters.</p>
 <div class="math notranslate nohighlight">
