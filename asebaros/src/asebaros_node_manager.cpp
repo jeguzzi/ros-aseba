@@ -234,7 +234,7 @@ void AsebaROS::nodeProtocolVersionMismatch(unsigned nodeId, const std::wstring &
       LOG_WARN("Connected node %d of type %s: protocol version %d"
                " is higher than the maximal accepted version %d",
                 nodeId, narrow(nodeName).c_str(), protocolVersion,
-                aseba_max_target_protocol_version)
+                aseba_max_target_protocol_version);
     }
 }
 

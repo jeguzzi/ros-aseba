@@ -121,12 +121,13 @@ std::string AsebaROS1::init_params() {
   nh.param<bool>("shutdown_on_unconnect", shutdown_on_unconnect, false);
   nh.param<bool>("reset_on_closing", reset_on_closing, false);
   nh.param<bool>("set_id_variable", set_id_variable, false);
-  nh.param<bool>("highest_acceptable_protocol_version", aseba_max_target_protocol_version,
-                 ASEBA_PROTOCOL_VERSION);
-  if (aseba_max_target_protocol_version < ASEBA_PROTOCOL_VERSION) {
-    aseba_max_target_protocol_version = ASEBA_PROTOCOL_VERSION;
+  int value = ASEBA_PROTOCOL_VERSION;
+  nh.param<int>("highest_acceptable_protocol_version", value, ASEBA_PROTOCOL_VERSION);
+  if (value < ASEBA_PROTOCOL_VERSION) {
+    value = ASEBA_PROTOCOL_VERSION;
     nh.setParam("highest_acceptable_protocol_version", ASEBA_PROTOCOL_VERSION);
   }
+  aseba_max_target_protocol_version = value;
 
   std::vector<std::string> params;
   nh.getParamNames(params);
