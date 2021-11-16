@@ -9,6 +9,7 @@
     <param name="set_id_variable" value="true"/>
     <param name="shutdown_on_unconnect" value="false"/>
     <param name="targets" value="$(var device)" value-sep=","/>
+    <param name="highest_acceptable_protocol_version" value="20"/>
     <param name="nodes">
       <param name="thymio">
         <param name="name" value="thymio-II"/>

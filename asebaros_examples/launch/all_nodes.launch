@@ -7,6 +7,7 @@
     <param name="port" value="$(var port)"/>
     <param name="shutdown_on_unconnect" value="false"/>
     <param name="targets" value="$(var device)" value-sep=","/>
+    <param name="highest_acceptable_protocol_version" value="20"/>
     <param name="nodes">
       <param name="any">
         <param name="accept" value="true"/>

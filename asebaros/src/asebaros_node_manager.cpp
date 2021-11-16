@@ -1,6 +1,7 @@
 #include <chrono> // NOLINT
 #include <sstream>
 #include <stdexcept>
+#include <algorithm>
 
 #include "asebaros/asebaros_node_manager.h"
 #include "asebaros/utils.h"
@@ -222,8 +223,30 @@ void AsebaROS::nodeDescriptionReceived(unsigned nodeId) {
   has_updated_nodes();
 }
 
+void AsebaROS::nodeProtocolVersionMismatch(unsigned nodeId, const std::wstring &nodeName,
+                                           uint16_t protocolVersion) {
+    if (protocolVersion < ASEBA_MIN_TARGET_PROTOCOL_VERSION) {
+      LOG_WARN("Connected node %d of type %s: protocol version %d"
+               " is lower than the minimal accepted version %d",
+                nodeId, narrow(nodeName).c_str(), protocolVersion,
+                ASEBA_MIN_TARGET_PROTOCOL_VERSION);
+    } else {
+      LOG_WARN("Connected node %d of type %s: protocol version %d"
+               " is higher than the maximal accepted version %d",
+                nodeId, narrow(nodeName).c_str(), protocolVersion,
+                aseba_max_target_protocol_version)
+    }
+}
+
 void AsebaROS::processAsebaMessage(Aseba::Message *message) {
   // scan this message for nodes descriptions
+
+  Aseba::Description *description = dynamic_cast<Aseba::Description *>(message);
+  if (description && description->protocolVersion > ASEBA_PROTOCOL_VERSION &&
+      description->protocolVersion <= aseba_max_target_protocol_version) {
+          description->protocolVersion = ASEBA_PROTOCOL_VERSION;
+  }
+
   Aseba::NodesManager::processMessage(message);
 
   // needs locking, called by Dashel hub
@@ -258,7 +281,8 @@ void AsebaROS::processAsebaMessage(Aseba::Message *message) {
 AsebaROS::AsebaROS(unsigned port, bool forward) :
   hub(this, port, forward),
   connected_to(""),
-  default_script(nullptr) {
+  default_script(nullptr),
+  aseba_max_target_protocol_version(ASEBA_PROTOCOL_VERSION) {
   xmlInitParser();
   Dashel::initPlugins();
 }
