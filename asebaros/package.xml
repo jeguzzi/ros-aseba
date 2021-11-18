@@ -15,5 +15,4 @@
   <depend>roscpp</depend>
   <depend>LibXml2</depend>
   <depend>asebaros_msgs</depend>
-  <depend>diagnostic_updater</depend>
 </package>

@@ -34,8 +34,9 @@ endif()
 find_package(catkin REQUIRED COMPONENTS
 	roscpp
 	asebaros_msgs
-  diagnostic_updater
 )
+
+find_package(diagnostic_updater QUIET)
 
 # find_package(catkin COMPONENTS diagnostic_updater)
 if(diagnostic_updater_FOUND )
