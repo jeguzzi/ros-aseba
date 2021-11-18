@@ -118,5 +118,5 @@ which exposes a *subset* of the functionality of a real Thymio connected to ``th
   In order to interact with ROS nodes, you don't need to install the packages that provide the executables
   (like ``asebaros`` or ``thymio_driver``), but only the packages that provide the interfaces
   (like `asebaros_msgs` and `thymio_msgs`).
-  For instance, if a Thymio is connected to ``asebaros`` running on PC in the same network,
-  the user can interact with the robot without installing ``asebaros``.
+  For instance, if a Thymio is already connected to an ``asebaros`` node running on a PC in the same network,
+  the user can interact with the robot from another PC without installing ``asebaros``.

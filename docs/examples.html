@@ -53,6 +53,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#supported-operating-systems">Supported Operating Systems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros">ROS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros-aseba">ROS-Aseba</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros-thymio">ROS-Thymio</a></li>
@@ -470,9 +471,14 @@
 </div>
 <p>With this setup <code class="docutils literal notranslate"><span class="pre">DEVICE=&quot;tcp:host=localhost;port=33333&quot;</span></code>.</p>
 <p>To execute any ROS command, you have first to source the ROS setup script</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">source &lt;WORKSPACE&gt;/install/setup.bash</span>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-TGludXggb3IgbWFjT1M=" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-TGludXggb3IgbWFjT1M=" name="TGludXggb3IgbWFjT1M=" role="tab" tabindex="0">Linux or macOS</button><button aria-controls="panel-0-V2luZG93cw==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-V2luZG93cw==" name="V2luZG93cw==" role="tab" tabindex="-1">Windows</button></div><div aria-labelledby="tab-0-TGludXggb3IgbWFjT1M=" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-TGludXggb3IgbWFjT1M=" name="TGludXggb3IgbWFjT1M=" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> &lt;WORKSPACE&gt;/install/setup.bash
 </pre></div>
 </div>
+</div><div aria-labelledby="tab-0-V2luZG93cw==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-0-V2luZG93cw==" name="V2luZG93cw==" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:&lt;WORKSPACE&gt;<span class="se">\i</span>nstall<span class="se">\s</span>etup.bat
+</pre></div>
+</div>
+</div></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The examples below works with any other Aseba network, and in particular with real robots too.
@@ -485,7 +491,7 @@ In this case, just change the ids and add <code class="docutils literal notransl
 <p>The following launch files configure <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> to connect to all nodes at Dashel target <code class="docutils literal notranslate"><span class="pre">device</span></code>.
 Each node will receive a ROS namespace <code class="docutils literal notranslate"><span class="pre">&quot;node_{id}&quot;</span></code>. No script will be automatically loaded into the nodes.</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-0-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-0-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-1-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-1-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-1-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
   <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
   <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
@@ -506,7 +512,7 @@ Each node will receive a ROS namespace <code class="docutils literal notranslate
 <span class="nt">&lt;/launch&gt;</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-0-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-0-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+</div><div aria-labelledby="tab-1-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-1-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
   <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
   <span class="nt">&lt;let</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
@@ -529,10 +535,10 @@ Each node will receive a ROS namespace <code class="docutils literal notranslate
 </div></div>
 <p>Launch it with</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-1-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-1-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-1-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roslaunch asebaros_examples all_nodes.launch</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-2-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-2-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-2-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roslaunch asebaros_examples all_nodes.launch</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-1-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-1-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 launch asebaros_examples all_nodes.launch</span>
+</div><div aria-labelledby="tab-2-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-2-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 launch asebaros_examples all_nodes.launch</span>
 </pre></div>
 </div>
 </div></div>
@@ -541,10 +547,10 @@ Each node will receive a ROS namespace <code class="docutils literal notranslate
 <li><p>Get the list of nodes</p></li>
 </ol>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-2-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-2-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-2-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rosservice call /aseba/get_nodes asebaros_msgs/GetNodeList &#39;{}&#39;</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-3-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-3-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-3-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rosservice call /aseba/get_nodes asebaros_msgs/GetNodeList &#39;{}&#39;</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-2-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-2-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 service call /aseba/get_nodes asebaros_msgs/GetNodeList &#39;{}&#39;</span>
+</div><div aria-labelledby="tab-3-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-3-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 service call /aseba/get_nodes asebaros_msgs/GetNodeList &#39;{}&#39;</span>
 </pre></div>
 </div>
 </div></div>
@@ -552,10 +558,10 @@ Each node will receive a ROS namespace <code class="docutils literal notranslate
 <li><p>Get the description of one of the nodes</p></li>
 </ol>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-3-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-3-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-3-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rosservice call /node_14031/aseba/get_description asebaros_msgs/GetDescription &#39;{}&#39;</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-4-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-4-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-4-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-4-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-4-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-4-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rosservice call /node_14031/aseba/get_description asebaros_msgs/GetDescription &#39;{}&#39;</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-3-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-3-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 service call /node_14031/aseba/get_description asebaros_msgs/GetDescription &#39;{}&#39;</span>
+</div><div aria-labelledby="tab-4-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-4-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 service call /node_14031/aseba/get_description asebaros_msgs/GetDescription &#39;{}&#39;</span>
 </pre></div>
 </div>
 </div></div>
@@ -563,10 +569,10 @@ Each node will receive a ROS namespace <code class="docutils literal notranslate
 <li><p>Get the value of a variable</p></li>
 </ol>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-4-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-4-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-4-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-4-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-4-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-4-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rosservice call /node_14031/aseba/get_variable asebaros_msgs/GetVariable &quot;{variable: prox.horizontal}&quot;</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-5-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-5-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-5-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-5-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-5-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-5-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rosservice call /node_14031/aseba/get_variable asebaros_msgs/GetVariable &quot;{variable: prox.horizontal}&quot;</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-4-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-4-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 service call /node_14031/aseba/get_variable asebaros_msgs/GetVariable &quot;{variable: prox.horizontal}&quot;</span>
+</div><div aria-labelledby="tab-5-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-5-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 service call /node_14031/aseba/get_variable asebaros_msgs/GetVariable &quot;{variable: prox.horizontal}&quot;</span>
 </pre></div>
 </div>
 </div></div>
@@ -574,10 +580,10 @@ Each node will receive a ROS namespace <code class="docutils literal notranslate
 <li><p>Set the value of a variable</p></li>
 </ol>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-5-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-5-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-5-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-5-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-5-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-5-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rosservice call /node_14031/aseba/set_variable asebaros_msgs/SetVariable &quot;{variable: motor.left.target, data: [100]}&quot;</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-6-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-6-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-6-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-6-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-6-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-6-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rosservice call /node_14031/aseba/set_variable asebaros_msgs/SetVariable &quot;{variable: motor.left.target, data: [100]}&quot;</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-5-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-5-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 service call /node_14031/aseba/set_variable asebaros_msgs/SetVariable &quot;{variable: motor.left.target, data: [100]}&quot;</span>
+</div><div aria-labelledby="tab-6-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-6-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 service call /node_14031/aseba/set_variable asebaros_msgs/SetVariable &quot;{variable: motor.left.target, data: [100]}&quot;</span>
 </pre></div>
 </div>
 </div></div>
@@ -587,7 +593,7 @@ Each node will receive a ROS namespace <code class="docutils literal notranslate
 <p>The following launch files configure <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> to connect to just the first Thymio
 (i.e., the first Aseba node with <code class="docutils literal notranslate"><span class="pre">name==&quot;thymio-II&quot;</span></code>)</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-6-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-6-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-6-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-6-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-6-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-6-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-7-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-7-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-7-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-7-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-7-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-7-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
   <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
   <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
@@ -620,7 +626,7 @@ Each node will receive a ROS namespace <code class="docutils literal notranslate
 <span class="nt">&lt;/launch&gt;</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-6-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-6-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+</div><div aria-labelledby="tab-7-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-7-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
   <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
   <span class="nt">&lt;let</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
@@ -687,28 +693,28 @@ The script has a single constant <code class="docutils literal notranslate"><spa
 <p>The events are used to make the robot “pong” back the values (an array of length 3) sent with the ping.
 Launch it with</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-7-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-7-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-7-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-7-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-7-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-7-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roslaunch asebaros_examples single_node.launch</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-8-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-8-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-8-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-8-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-8-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-8-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roslaunch asebaros_examples single_node.launch</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-7-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-7-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 launch asebaros_examples single_node.launch</span>
+</div><div aria-labelledby="tab-8-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-8-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 launch asebaros_examples single_node.launch</span>
 </pre></div>
 </div>
 </div></div>
 <p>In a new tab send a ping each second</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-8-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-8-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-8-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-8-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-8-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-8-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic pub -r 1 /aseba/events/ping asebaros_msgs/Event &#39;{data:  [1, 2, 3]}&#39;</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-9-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-9-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-9-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-9-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-9-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-9-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic pub -r 1 /aseba/events/ping asebaros_msgs/Event &#39;{data:  [1, 2, 3]}&#39;</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-8-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-8-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic pub -r 1 /aseba/events/ping asebaros_msgs/Event &#39;{data:  [1, 2, 3]}&#39;</span>
+</div><div aria-labelledby="tab-9-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-9-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic pub -r 1 /aseba/events/ping asebaros_msgs/Event &#39;{data:  [1, 2, 3]}&#39;</span>
 </pre></div>
 </div>
 </div></div>
 <p>and in another one, listen for pongs</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-9-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-9-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-9-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-9-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-9-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-9-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic echo /aseba/events/pong</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-10-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-10-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-10-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-10-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-10-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-10-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic echo /aseba/events/pong</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-9-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-9-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic echo /aseba/events/pong</span>
+</div><div aria-labelledby="tab-10-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-10-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic echo /aseba/events/pong</span>
 </pre></div>
 </div>
 </div></div>
@@ -718,7 +724,7 @@ Launch it with</p>
 <p>In this case, we want to connect to <em>all</em> nodes and load the same script.
 Each node will receive a namespace <code class="docutils literal notranslate"><span class="pre">&quot;node_{id}&quot;</span></code>.</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-10-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-10-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-10-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-10-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-10-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-10-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-11-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-11-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-11-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-11-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-11-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-11-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
   <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
   <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
@@ -753,7 +759,7 @@ Each node will receive a namespace <code class="docutils literal notranslate"><s
 <span class="nt">&lt;/launch&gt;</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-10-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-10-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+</div><div aria-labelledby="tab-11-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-11-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
   <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
   <span class="nt">&lt;let</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
@@ -823,29 +829,29 @@ and <em>only in this case</em> “pong” back.</p>
 </div>
 <p>Launch ROS with</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-11-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-11-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-11-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-11-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-11-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-11-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roslaunch asebaros_examples twin_nodes.launch</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-12-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-12-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-12-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-12-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-12-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-12-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roslaunch asebaros_examples twin_nodes.launch</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-11-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-11-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 launch asebaros_examples twin_nodes.launch</span>
+</div><div aria-labelledby="tab-12-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-12-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 launch asebaros_examples twin_nodes.launch</span>
 </pre></div>
 </div>
 </div></div>
 <p>In a new tab send pings each second to a specific robot</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-12-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-12-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-12-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-12-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-12-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-12-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic pub -r 1 /node_14031/aseba/events/ping asebaros_msgs/Event &#39;{data:  [1, 2, 3]}&#39;</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-13-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-13-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-13-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-13-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-13-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-13-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic pub -r 1 /node_14031/aseba/events/ping asebaros_msgs/Event &#39;{data:  [1, 2, 3]}&#39;</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-12-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-12-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic pub -r 1 /node_14031/aseba/events/ping asebaros_msgs/Event &#39;{data:  [1, 2, 3]}&#39;</span>
+</div><div aria-labelledby="tab-13-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-13-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic pub -r 1 /node_14031/aseba/events/ping asebaros_msgs/Event &#39;{data:  [1, 2, 3]}&#39;</span>
 </pre></div>
 </div>
 </div></div>
 <p>and in another one, listen for pongs from different robots</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-13-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-13-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-13-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-13-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-13-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-13-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic echo /node_14031/aseba/events/pong</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-14-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-14-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-14-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-14-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-14-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-14-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic echo /node_14031/aseba/events/pong</span>
 <span class="go">ros2 topic echo /node_21181/aseba/events/pong</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-13-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-13-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic echo /node_14031/aseba/events/pong</span>
+</div><div aria-labelledby="tab-14-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-14-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic echo /node_14031/aseba/events/pong</span>
 <span class="go">ros2 topic echo /node_21181/aseba/events/pong</span>
 </pre></div>
 </div>
@@ -856,7 +862,7 @@ and <em>only in this case</em> “pong” back.</p>
 <p>In this case, we want to connect to two nodes of different types.
 As the different nodes uses different [incoming] events, we don’t need to include the node id in the event.</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-14-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-14-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-14-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-14-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-14-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-14-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-15-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-15-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-15-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-15-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-15-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-15-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
   <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
   <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
@@ -898,7 +904,7 @@ As the different nodes uses different [incoming] events, we don’t need to incl
 <span class="nt">&lt;/launch&gt;</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-14-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-14-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+</div><div aria-labelledby="tab-15-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-15-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
   <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
   <span class="nt">&lt;let</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
@@ -978,28 +984,28 @@ As the different nodes uses different [incoming] events, we don’t need to incl
 </div>
 <p>Launch ROS with</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-15-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-15-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-15-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-15-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-15-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-15-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roslaunch asebaros_examples two_nodes.launch</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-16-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-16-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-16-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-16-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-16-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-16-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roslaunch asebaros_examples two_nodes.launch</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-15-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-15-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 launch asebaros_examples two_nodes.launch</span>
+</div><div aria-labelledby="tab-16-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-16-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 launch asebaros_examples two_nodes.launch</span>
 </pre></div>
 </div>
 </div></div>
 <p>In a new tab send pings each second to a specific robot</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-16-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-16-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-16-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-16-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-16-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-16-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic pub -r 1 /epuck/aseba/events/ping_epuck asebaros_msgs/Event &#39;{data:  [1, 2, 3]}&#39;</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-17-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-17-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-17-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-17-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-17-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-17-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic pub -r 1 /epuck/aseba/events/ping_epuck asebaros_msgs/Event &#39;{data:  [1, 2, 3]}&#39;</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-16-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-16-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic pub -r 1 /epuck/aseba/events/ping_epuck asebaros_msgs/Event &#39;{data:  [1, 2, 3]}&#39;</span>
+</div><div aria-labelledby="tab-17-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-17-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic pub -r 1 /epuck/aseba/events/ping_epuck asebaros_msgs/Event &#39;{data:  [1, 2, 3]}&#39;</span>
 </pre></div>
 </div>
 </div></div>
 <p>and in another one, listen for pongs</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-17-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-17-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-17-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-17-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-17-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-17-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic echo /epuck/aseba/events/pong</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-18-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-18-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-18-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-18-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-18-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-18-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic echo /epuck/aseba/events/pong</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-17-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-17-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic echo /epuck/aseba/events/pong</span>
+</div><div aria-labelledby="tab-18-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-18-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic echo /epuck/aseba/events/pong</span>
 </pre></div>
 </div>
 </div></div>
@@ -1009,7 +1015,7 @@ As the different nodes uses different [incoming] events, we don’t need to incl
 <p>The following launch files configure asebaros to connect to just the first Thymio
 (i.e., the first Aseba node with <code class="docutils literal notranslate"><span class="pre">name==&quot;thymio-II&quot;</span></code>), and a script will be automatically loaded into the node.</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-18-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-18-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-18-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-18-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-18-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-18-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-19-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-19-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-19-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-19-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-19-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-19-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
   <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
   <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
@@ -1043,7 +1049,7 @@ As the different nodes uses different [incoming] events, we don’t need to incl
 <span class="nt">&lt;/launch&gt;</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-18-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-18-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+</div><div aria-labelledby="tab-19-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-19-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
   <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
   <span class="nt">&lt;let</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
@@ -1116,28 +1122,28 @@ to signal a close object. The <code class="docutils literal notranslate"><span c
 is used by ROS to change the Thymio body color.</p>
 <p>Launch ROS with</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-19-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-19-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-19-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-19-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-19-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-19-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roslaunch asebaros_examples single_thymio.launch</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-20-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-20-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-20-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-20-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-20-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-20-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roslaunch asebaros_examples single_thymio.launch</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-19-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-19-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 launch asebaros_examples single_thymio.launch</span>
+</div><div aria-labelledby="tab-20-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-20-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 launch asebaros_examples single_thymio.launch</span>
 </pre></div>
 </div>
 </div></div>
 <p>In a new tab set the body LED of the Thymio to cyan</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-20-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-20-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-20-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-20-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-20-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-20-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic pub --once /thymio/aseba/events/set_color asebaros_msgs/Event &#39;{data:  [0, 32, 32]}&#39;</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-21-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-21-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-21-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-21-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-21-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-21-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic pub --once /thymio/aseba/events/set_color asebaros_msgs/Event &#39;{data:  [0, 32, 32]}&#39;</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-20-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-20-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic pub --once /thymio/aseba/events/set_color asebaros_msgs/Event &#39;{data:  [0, 32, 32]}&#39;</span>
+</div><div aria-labelledby="tab-21-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-21-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic pub --once /thymio/aseba/events/set_color asebaros_msgs/Event &#39;{data:  [0, 32, 32]}&#39;</span>
 </pre></div>
 </div>
 </div></div>
 <p>and in another one, listen for obstacles (move around the cyan robot)</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-21-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-21-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-21-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-21-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-21-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-21-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic echo /thymio/aseba/events/obstacle</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-22-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-22-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-22-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-22-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-22-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-22-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic echo /thymio/aseba/events/obstacle</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-21-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-21-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic echo /thymio/aseba/events/obstacle</span>
+</div><div aria-labelledby="tab-22-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-22-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic echo /thymio/aseba/events/obstacle</span>
 </pre></div>
 </div>
 </div></div>
@@ -1146,7 +1152,7 @@ is used by ROS to change the Thymio body color.</p>
 <h2>Twin Thymios<a class="headerlink" href="#twin-thymios" title="Permalink to this headline"></a></h2>
 <p>We want to connect to any Thymio in the network and load the same script. Each of them will get the namespace <code class="docutils literal notranslate"><span class="pre">&quot;thymio_{id}&quot;</span></code>.</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-22-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-22-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-22-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-22-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-22-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-22-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-23-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-23-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-23-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-23-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-23-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-23-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
   <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
   <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
@@ -1179,7 +1185,7 @@ is used by ROS to change the Thymio body color.</p>
 <span class="nt">&lt;/launch&gt;</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-22-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-22-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+</div><div aria-labelledby="tab-23-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-23-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
   <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
   <span class="nt">&lt;let</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
@@ -1251,20 +1257,20 @@ The script checks that the command targets the current robot, else it ignores it
 </div></blockquote>
 <p>Launch ROS with</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-23-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-23-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-23-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-23-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-23-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-23-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roslaunch asebaros_examples twin_thymios.launch</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-24-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-24-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-24-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-24-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-24-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-24-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roslaunch asebaros_examples twin_thymios.launch</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-23-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-23-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 launch asebaros_examples twin_thymios.launch</span>
+</div><div aria-labelledby="tab-24-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-24-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 launch asebaros_examples twin_thymios.launch</span>
 </pre></div>
 </div>
 </div></div>
 <p>In a new tab set the body LED of Thymio to cyan and of the other to yellow</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-24-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-24-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-24-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-24-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-24-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-24-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic pub --once /thymio_14031/aseba/events/set_color asebaros_msgs/Event &#39;{data:  [32, 32, 0]}&#39;</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-25-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-25-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-25-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-25-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-25-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-25-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic pub --once /thymio_14031/aseba/events/set_color asebaros_msgs/Event &#39;{data:  [32, 32, 0]}&#39;</span>
 <span class="go">rostopic pub --once /thymio_21181/aseba/events/set_color asebaros_msgs/Event &#39;{data:  [0, 32, 32]}&#39;</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-24-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-24-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic pub --once /thymio_14031/aseba/events/set_color asebaros_msgs/Event &#39;{data:  [0, 32, 32]}&#39;</span>
+</div><div aria-labelledby="tab-25-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-25-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic pub --once /thymio_14031/aseba/events/set_color asebaros_msgs/Event &#39;{data:  [0, 32, 32]}&#39;</span>
 <span class="go">ros2 topic pub --once /thymio_21181/aseba/events/set_color asebaros_msgs/Event &#39;{data:  [32, 32, 0]}&#39;</span>
 </pre></div>
 </div>
@@ -1274,7 +1280,7 @@ The script checks that the command targets the current robot, else it ignores it
 <h2>Two Thymios<a class="headerlink" href="#two-thymios" title="Permalink to this headline"></a></h2>
 <p>In this example, we want connect to two specific Thymio identified by id, assign them to predefined namespaces (Thymio 21181 to <code class="docutils literal notranslate"><span class="pre">&quot;red&quot;</span></code> and Thymio 14031 to <code class="docutils literal notranslate"><span class="pre">&quot;green&quot;</span></code>), and automatically set their body LED color coherently.</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-25-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-25-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-25-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-25-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-25-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-25-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-26-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-26-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-26-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-26-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-26-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-26-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
   <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
   <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
@@ -1314,7 +1320,7 @@ The script checks that the command targets the current robot, else it ignores it
 <span class="nt">&lt;/launch&gt;</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-25-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-25-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
+</div><div aria-labelledby="tab-26-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-26-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
   <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
   <span class="nt">&lt;let</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
@@ -1383,19 +1389,19 @@ The script checks that the command targets the current robot, else it ignores it
 </div></blockquote>
 <p>Launch ROS with</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-26-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-26-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-26-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-26-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-26-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-26-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roslaunch asebaros_examples two_thymios.launch</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-27-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-27-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-27-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-27-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-27-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-27-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roslaunch asebaros_examples two_thymios.launch</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-26-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-26-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 launch asebaros_examples two_thymios.launch</span>
+</div><div aria-labelledby="tab-27-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-27-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 launch asebaros_examples two_thymios.launch</span>
 </pre></div>
 </div>
 </div></div>
 <p>Check that the correct namespaces are being used</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-27-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-27-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-27-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-27-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-27-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-27-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic list</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-28-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-28-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-28-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-28-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-28-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-28-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">rostopic list</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-27-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-27-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic list</span>
+</div><div aria-labelledby="tab-28-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-28-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 topic list</span>
 </pre></div>
 </div>
 </div></div>

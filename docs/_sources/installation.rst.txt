@@ -30,18 +30,49 @@ while galactic is the current short-term-release (2021--2022).
   parameter :ref:`param-highest_acceptable_protocol_version` is set to the correct value.
 
 
+Supported Operating Systems
+---------------------------
 
+ROS-Aseba can be installed on Linux, macOS, and Windows because they are all supported by ROS and Aseba.
+
+:Linux: Ubuntu is the reference platform for ROS1 and ROS2; ROS can be installed very easily using package managers
+  (`ROS1 <http://wiki.ros.org/Installation/Ubuntu>`_, `ROS2 <https://docs.ros.org/en/galactic/Installation/Ubuntu-Install-Binary.html>`_).
+
+:macOS: macOS is not officially supported in ROS1 and has currently only Tier 3 support in ROS2.
+  For most users, installing ROS on macOS requires building it from source and possibly tinkering a bit.
+  Therefore, we only suggest using ROS natively on macOS to expert users. We suggest non-expert macOS users to
+  run ROS in an Ubuntu virtual machine or through docker.
+
+:Windows: Windows support increased from ROS1 to ROS2 but for both versions `you can install pre-built packages <http://wiki.ros.org/Installation/Windows>`_ using Chocolately.
+  In particular, we suggest to follow `installation instructions <https://ms-iot.github.io/ROSOnWindows/GettingStarted/SetupRos2.html>`_ from Microsoft.
+
+Below we refer to the Linux installation. Windows instructions follows the links above to install ROS and then only differ by
+the way you source the workspace
+
+.. tabs::
+
+   .. code-tab:: console Linux and macOS
+
+      source <installation_directory>/setup.bash
+
+   .. code-tab:: console Windows
+
+      C:<installation_directory>\setup.bat
+
+In particular, catkin, colcon and ros commands are the same for any operating system.
+In Windows and macOS, we suggest to add the option ``--merge-install`` to the ``colcon build`` commands.
 
 ROS
 ----
 
 Before installing ROS-Aseba and ROS-Thymio, you need to setup ROS on your machine.
 Please refer to the `official instructions <http://wiki.ros.org/ROS/Installation>`_ to install
-at least the ``ROS-Base`` distribution of your version of choice, which on Linux Ubuntu may just require you to run
+at least ``ROS-Base`` distribution (we recommend ``ROS-Desktop`` to also install the GUI tools) of your version of choice,
+which on Linux Ubuntu may just require you to run
 
 .. code-block:: console
 
-    sudo apt install ros-<ROS-VERSION>-ros-base
+    sudo apt install ros-<ROS-VERSION>-ros-desktop
 
 
 For ROS1, to follow the instructions below, install also `catkin-tools <https://catkin-tools.readthedocs.io/en/latest/installing.html>`_.
@@ -84,6 +115,18 @@ ROS-Aseba
 
     sudo apt install libudev-dev libxml2-dev git ros-<ROS-VERSION>-diagnostic-updater
 
+.. note:: The installation ``diagnostic-updater`` is optional. If it available,
+  ``asebaros`` will use it to expose diagnostics informations at runtime.
+  If ``diagnostic-updater`` is not available through a package manager (e.g., on Windows),
+  you can install it from source, cloning the correspoding branch (for ROS1 use ``noetic-devel``)
+  of the repository https://github.com/ros/diagnostics
+
+  .. code-block:: console
+
+    cd <WORKSPACE>
+    git clone https://github.com/ros/diagnostics --branch <BRANCH> src/diagnostics
+
+
 
 
 2. Download and install ROS-Aseba
@@ -106,7 +149,7 @@ ROS-Aseba
       colcon build
 
 
-3. On Linux, you may need to add the user to the dialout group to connect to a Thymio (and logout once)
+3. On Linux, you may need to add the user to the dialout group to connect to a Thymio (and logout once after doing it)
 
 .. code-block:: console
 

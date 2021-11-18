@@ -39,9 +39,15 @@ With this setup ``DEVICE="tcp:host=localhost;port=33333"``.
 
 To execute any ROS command, you have first to source the ROS setup script
 
-.. code-block:: console
+.. tabs::
 
-   source <WORKSPACE>/install/setup.bash
+   .. code-tab:: bash Linux or macOS
+
+      source <WORKSPACE>/install/setup.bash
+
+   .. code-tab:: shell Windows
+
+      C:<WORKSPACE>\install\setup.bat
 
 .. note::
   The examples below works with any other Aseba network, and in particular with real robots too.

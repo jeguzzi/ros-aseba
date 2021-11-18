@@ -53,6 +53,7 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#supported-operating-systems">Supported Operating Systems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ros">ROS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ros-aseba">ROS-Aseba</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ros-thymio">ROS-Thymio</a></li>
@@ -492,12 +493,45 @@ Currently, and for the foreseeable future, Mobsya’s Aseba protocol will remain
 Thymios running the newest firmware by Mobsya can be used with ROS-Aseba, provided that the
 parameter <a class="reference internal" href="asebaros.html#param-highest-acceptable-protocol-version"><span class="std std-ref">highest_acceptable_protocol_version</span></a> is set to the correct value.</p>
 </div>
+<section id="supported-operating-systems">
+<h2>Supported Operating Systems<a class="headerlink" href="#supported-operating-systems" title="Permalink to this headline"></a></h2>
+<p>ROS-Aseba can be installed on Linux, macOS, and Windows because they are all supported by ROS and Aseba.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Linux</dt>
+<dd class="field-odd"><p>Ubuntu is the reference platform for ROS1 and ROS2; ROS can be installed very easily using package managers
+(<a class="reference external" href="http://wiki.ros.org/Installation/Ubuntu">ROS1</a>, <a class="reference external" href="https://docs.ros.org/en/galactic/Installation/Ubuntu-Install-Binary.html">ROS2</a>).</p>
+</dd>
+<dt class="field-even">macOS</dt>
+<dd class="field-even"><p>macOS is not officially supported in ROS1 and has currently only Tier 3 support in ROS2.
+For most users, installing ROS on macOS requires building it from source and possibly tinkering a bit.
+Therefore, we only suggest using ROS natively on macOS to expert users. We suggest non-expert macOS users to
+run ROS in an Ubuntu virtual machine or through docker.</p>
+</dd>
+<dt class="field-odd">Windows</dt>
+<dd class="field-odd"><p>Windows support increased from ROS1 to ROS2 but for both versions <a class="reference external" href="http://wiki.ros.org/Installation/Windows">you can install pre-built packages</a> using Chocolately.
+In particular, we suggest to follow <a class="reference external" href="https://ms-iot.github.io/ROSOnWindows/GettingStarted/SetupRos2.html">installation instructions</a> from Microsoft.</p>
+</dd>
+</dl>
+<p>Below we refer to the Linux installation. Windows instructions follows the links above to install ROS and then only differ by
+the way you source the workspace</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-TGludXggYW5kIG1hY09T" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-TGludXggYW5kIG1hY09T" name="TGludXggYW5kIG1hY09T" role="tab" tabindex="0">Linux and macOS</button><button aria-controls="panel-0-V2luZG93cw==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-V2luZG93cw==" name="V2luZG93cw==" role="tab" tabindex="-1">Windows</button></div><div aria-labelledby="tab-0-TGludXggYW5kIG1hY09T" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-TGludXggYW5kIG1hY09T" name="TGludXggYW5kIG1hY09T" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">source &lt;installation_directory&gt;/setup.bash</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-V2luZG93cw==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-0-V2luZG93cw==" name="V2luZG93cw==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">C:&lt;installation_directory&gt;\setup.bat</span>
+</pre></div>
+</div>
+</div></div>
+<p>In particular, catkin, colcon and ros commands are the same for any operating system.
+In Windows and macOS, we suggest to add the option <code class="docutils literal notranslate"><span class="pre">--merge-install</span></code> to the <code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span></code> commands.</p>
+</section>
 <section id="ros">
 <h2>ROS<a class="headerlink" href="#ros" title="Permalink to this headline"></a></h2>
 <p>Before installing ROS-Aseba and ROS-Thymio, you need to setup ROS on your machine.
 Please refer to the <a class="reference external" href="http://wiki.ros.org/ROS/Installation">official instructions</a> to install
-at least the <code class="docutils literal notranslate"><span class="pre">ROS-Base</span></code> distribution of your version of choice, which on Linux Ubuntu may just require you to run</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt install ros-&lt;ROS-VERSION&gt;-ros-base</span>
+at least <code class="docutils literal notranslate"><span class="pre">ROS-Base</span></code> distribution (we recommend <code class="docutils literal notranslate"><span class="pre">ROS-Desktop</span></code> to also install the GUI tools) of your version of choice,
+which on Linux Ubuntu may just require you to run</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt install ros-&lt;ROS-VERSION&gt;-ros-desktop</span>
 </pre></div>
 </div>
 <p>For ROS1, to follow the instructions below, install also <a class="reference external" href="https://catkin-tools.readthedocs.io/en/latest/installing.html">catkin-tools</a>.</p>
@@ -507,7 +541,7 @@ at least the <code class="docutils literal notranslate"><span class="pre">ROS-Ba
 </div>
 <p>If you don’t already have one, create a ROS workspace in a folder <code class="docutils literal notranslate"><span class="pre">&lt;WORKSPACE&gt;</span></code> of you choice.</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-0-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-0-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">mkdir -p &lt;WORKSPACE&gt;/src</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-1-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-1-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-1-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">mkdir -p &lt;WORKSPACE&gt;/src</span>
 <span class="go">cd &lt;WORKSPACE&gt;</span>
 <span class="go">source /opt/ros/&lt;ROS-VERSION&gt;/setup.bash</span>
 <span class="go">catkin init</span>
@@ -517,7 +551,7 @@ at least the <code class="docutils literal notranslate"><span class="pre">ROS-Ba
 <span class="go">catkin config --install</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-0-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-0-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">mkdir -p &lt;WORKSPACE&gt;/src</span>
+</div><div aria-labelledby="tab-1-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-1-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">mkdir -p &lt;WORKSPACE&gt;/src</span>
 <span class="go">cd &lt;WORKSPACE&gt;</span>
 <span class="go">source /opt/ros/&lt;ROS-VERSION&gt;/setup.bash</span>
 <span class="go">colcon build</span>
@@ -533,17 +567,29 @@ at least the <code class="docutils literal notranslate"><span class="pre">ROS-Ba
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt install libudev-dev libxml2-dev git ros-&lt;ROS-VERSION&gt;-diagnostic-updater</span>
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The installation <code class="docutils literal notranslate"><span class="pre">diagnostic-updater</span></code> is optional. If it available,
+<code class="docutils literal notranslate"><span class="pre">asebaros</span></code> will use it to expose diagnostics informations at runtime.
+If <code class="docutils literal notranslate"><span class="pre">diagnostic-updater</span></code> is not available through a package manager (e.g., on Windows),
+you can install it from source, cloning the correspoding branch (for ROS1 use <code class="docutils literal notranslate"><span class="pre">noetic-devel</span></code>)
+of the repository <a class="reference external" href="https://github.com/ros/diagnostics">https://github.com/ros/diagnostics</a></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd &lt;WORKSPACE&gt;</span>
+<span class="go">git clone https://github.com/ros/diagnostics --branch &lt;BRANCH&gt; src/diagnostics</span>
+</pre></div>
+</div>
+</div>
 <ol class="arabic simple" start="2">
 <li><p>Download and install ROS-Aseba</p></li>
 </ol>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-1-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-1-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-1-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd &lt;WORKSPACE&gt;</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-2-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-2-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-2-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd &lt;WORKSPACE&gt;</span>
 <span class="go">source install/setup.bash</span>
 <span class="go">git clone https://github.com/jeguzzi/ros-aseba.git --branch ros1 --recurse-submodules src/ros-aseba</span>
 <span class="go">catkin build</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-1-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-1-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd &lt;WORKSPACE&gt;</span>
+</div><div aria-labelledby="tab-2-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-2-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd &lt;WORKSPACE&gt;</span>
 <span class="go">source install/setup.bash</span>
 <span class="go">git clone https://github.com/jeguzzi/ros-aseba.git --branch ros2 --recurse-submodules src/ros-aseba</span>
 <span class="go">colcon build</span>
@@ -551,7 +597,7 @@ at least the <code class="docutils literal notranslate"><span class="pre">ROS-Ba
 </div>
 </div></div>
 <ol class="arabic simple" start="3">
-<li><p>On Linux, you may need to add the user to the dialout group to connect to a Thymio (and logout once)</p></li>
+<li><p>On Linux, you may need to add the user to the dialout group to connect to a Thymio (and logout once after doing it)</p></li>
 </ol>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo adduser $USER dialout</span>
 </pre></div>
@@ -569,13 +615,13 @@ at least the <code class="docutils literal notranslate"><span class="pre">ROS-Ba
 <li><p>Download and install ROS-Thymio</p></li>
 </ol>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-2-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-2-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-2-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd &lt;WORKSPACE&gt;</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-3-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-3-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-3-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd &lt;WORKSPACE&gt;</span>
 <span class="go">source install/setup.bash</span>
 <span class="go">git clone https://github.com/jeguzzi/ros-thymio.git --branch &lt;ROS-THYMIO-BRANCH&gt; --recurse-submodules src/ros-thymio</span>
 <span class="go">catkin build</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-2-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-2-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd &lt;WORKSPACE&gt;</span>
+</div><div aria-labelledby="tab-3-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-3-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd &lt;WORKSPACE&gt;</span>
 <span class="go">source install/setup.bash</span>
 <span class="go">git clone https://github.com/jeguzzi/ros-thymio.git --branch master --recurse-submodules src/ros-thymio</span>
 <span class="go">colcon build</span>

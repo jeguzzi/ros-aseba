@@ -53,6 +53,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#supported-operating-systems">Supported Operating Systems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros">ROS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros-aseba">ROS-Aseba</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros-thymio">ROS-Thymio</a></li>
@@ -455,19 +456,43 @@ Launch the simulation with</p>
 </div>
 <p>and open the <code class="docutils literal notranslate"><span class="pre">thymio.playground</span></code> world that is distributed with Aseba Playground.</p>
 <p>Open a console and setup the environment</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">source &lt;WORKSPACE&gt;/install/setup.bash</span>
-<span class="go">export DEVICE=&quot;tcp:host=localhost;port=33333&quot;</span>
-<span class="go">export SIMULATION=True</span>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-TGludXggb3IgbWFjT1M=" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-TGludXggb3IgbWFjT1M=" name="TGludXggb3IgbWFjT1M=" role="tab" tabindex="0">Linux or macOS</button><button aria-controls="panel-0-V2luZG93cw==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-V2luZG93cw==" name="V2luZG93cw==" role="tab" tabindex="-1">Windows</button></div><div aria-labelledby="tab-0-TGludXggb3IgbWFjT1M=" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-TGludXggb3IgbWFjT1M=" name="TGludXggb3IgbWFjT1M=" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> &lt;WORKSPACE&gt;/install/setup.bash
+<span class="nb">export</span> <span class="nv">DEVICE</span><span class="o">=</span><span class="s2">&quot;tcp:host=localhost;port=33333&quot;</span>
+<span class="nb">export</span> <span class="nv">SIMULATION</span><span class="o">=</span>True
 </pre></div>
 </div>
+</div><div aria-labelledby="tab-0-V2luZG93cw==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-0-V2luZG93cw==" name="V2luZG93cw==" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:&lt;WORKSPACE&gt;<span class="se">\i</span>nstall<span class="se">\s</span>etup.bat
+SET <span class="nv">DEVICE</span><span class="o">=</span><span class="s2">&quot;tcp:host=localhost;port=33333&quot;</span>
+SET <span class="nv">SIMULATION</span><span class="o">=</span>True
+</pre></div>
+</div>
+</div></div>
 </section>
 <section id="using-a-real-thymio">
 <h3>Using a real Thymio<a class="headerlink" href="#using-a-real-thymio" title="Permalink to this headline"></a></h3>
 <p>Connect the Thymio to your machine. Open a console and setup the environment</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">source &lt;WORKSPACE&gt;/install/setup.bash</span>
-<span class="go">export DEVICE=&quot;ser:name=Thymio&quot;</span>
-<span class="go">export SIMULATION=False</span>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-TGludXggb3IgbWFjT1M=" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-TGludXggb3IgbWFjT1M=" name="TGludXggb3IgbWFjT1M=" role="tab" tabindex="0">Linux or macOS</button><button aria-controls="panel-1-V2luZG93cw==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-V2luZG93cw==" name="V2luZG93cw==" role="tab" tabindex="-1">Windows</button></div><div aria-labelledby="tab-1-TGludXggb3IgbWFjT1M=" class="sphinx-tabs-panel code-tab group-tab" id="panel-1-TGludXggb3IgbWFjT1M=" name="TGludXggb3IgbWFjT1M=" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> &lt;WORKSPACE&gt;/install/setup.bash
+<span class="nb">export</span> <span class="nv">DEVICE</span><span class="o">=</span><span class="s2">&quot;ser:name=Thymio&quot;</span>
+<span class="nb">export</span> <span class="nv">SIMULATION</span><span class="o">=</span>False
 </pre></div>
+</div>
+</div><div aria-labelledby="tab-1-V2luZG93cw==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-1-V2luZG93cw==" name="V2luZG93cw==" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:<span class="se">\&lt;</span>WORKSPACE&gt;<span class="se">\i</span>nstall<span class="se">\s</span>etup.bash
+SET <span class="nv">DEVICE</span><span class="o">=</span><span class="s2">&quot;ser:name=Thymio&quot;</span>
+SET <span class="nv">SIMULATION</span><span class="o">=</span>False
+</pre></div>
+</div>
+</div></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are <a class="reference external" href="https://aseba-community.github.io/dashel">different ways to specify devices</a> like
+<code class="docutils literal notranslate"><span class="pre">DEVICE=&quot;ser:device=&lt;SERIAL_DEVICE&gt;&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">DEVICE=&quot;ser:port=&lt;SERIAL_PORT&gt;&quot;</span></code>.
+On Windows you can inspect the device to which a Thymio is connected from the control panel.
+For examples, a Thymio connected to COM port #4 can be then specify either
+using <code class="docutils literal notranslate"><span class="pre">DEVICE=&quot;ser:device=COM4</span></code> or <code class="docutils literal notranslate"><span class="pre">DEVICE=&quot;ser:port=4</span></code>.
+On Linux, the usual port is <code class="docutils literal notranslate"><span class="pre">DEVICE=&quot;ser:device=/dev/ttyACM0</span></code> and
+on macOS it is <code class="docutils literal notranslate"><span class="pre">DEVICE=ser:device=/dev/cu.usbmodem14201</span></code>.</p>
 </div>
 </section>
 </section>
@@ -475,10 +500,12 @@ Launch the simulation with</p>
 <h2>Running ROS-Aseba<a class="headerlink" href="#running-ros-aseba" title="Permalink to this headline"></a></h2>
 <p>Launch the Aseba-ROS bridge with</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-0-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-0-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roslaunch asebaros_examples all_nodes.launch device:=$DEVICE</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-2-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-2-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-2-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># use %DEVICE instead of $DEVICE in a Windows command shell</span>
+roslaunch asebaros_examples all_nodes.launch device:<span class="o">=</span><span class="nv">$DEVICE</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-0-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-0-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 launch asebaros_examples all_nodes.launch device:=$DEVICE</span>
+</div><div aria-labelledby="tab-2-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-2-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># use %DEVICE instead of $DEVICE in a Windows command shell</span>
+ros2 launch asebaros_examples all_nodes.launch device:<span class="o">=</span><span class="nv">$DEVICE</span>
 </pre></div>
 </div>
 </div></div>
@@ -488,21 +515,25 @@ Launch the simulation with</p>
 <h2>Running ROS-Thymio<a class="headerlink" href="#running-ros-thymio" title="Permalink to this headline"></a></h2>
 <p>Launch the Aseba-ROS bridge, the Thymio driver and the Thymio model with</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-1-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-1-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-1-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roslaunch thymio_driver main.launch device:=$DEVICE simulation:=$SIMULATION</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-3-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-3-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-3-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># use %XXX instead of $XXX in a Windows command shell</span>
+roslaunch thymio_driver main.launch device:<span class="o">=</span><span class="nv">$DEVICE</span> simulation:<span class="o">=</span><span class="nv">$SIMULATION</span>
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-1-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-1-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 launch thymio_driver main.launch device:=$DEVICE simulation:=$SIMULATION</span>
+</div><div aria-labelledby="tab-3-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-3-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># use %XXX instead of $XXX in a Windows command shell</span>
+ros2 launch thymio_driver main.launch device:<span class="o">=</span><span class="nv">$DEVICE</span> simulation:<span class="o">=</span><span class="nv">$SIMULATION</span>
 </pre></div>
 </div>
 </div></div>
 <p>In another console, launch rviz to visualize the robot.</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-2-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-2-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-2-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">source &lt;WORKSPACE&gt;/install/setup.bash</span>
-<span class="go">roslaunch thymio_description rviz.launch</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-4-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-4-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-4-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-4-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-4-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-4-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># use C:\&lt;WORKSPACE&gt;\install\setup.bat a Windows command shell</span>
+<span class="nb">source</span> &lt;WORKSPACE&gt;/install/setup.bash
+roslaunch thymio_description rviz.launch
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-2-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-2-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">source &lt;WORKSPACE&gt;/install/setup.bash</span>
-<span class="go">ros2 launch thymio_description rviz.launch.py</span>
+</div><div aria-labelledby="tab-4-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-4-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># use C:\&lt;WORKSPACE&gt;\install\setup.bat a Windows command shell</span>
+<span class="nb">source</span> &lt;WORKSPACE&gt;/install/setup.bash
+ros2 launch thymio_description rviz.launch.py
 </pre></div>
 </div>
 </div></div>
