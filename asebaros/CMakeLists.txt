@@ -114,7 +114,7 @@ add_subdirectory(${ASEBA_DIR}/aseba/transport/dashel_plugins dashel_plugins)
 ###################################
 
 catkin_package(
-  CATKIN_DEPENDS roscpp asebaros_msgs ${EXTRA_DEPS}
+  CATKIN_DEPENDS roscpp asebaros_msgs
   DEPENDS LibXml2
 )
 
