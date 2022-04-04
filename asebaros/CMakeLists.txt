@@ -81,8 +81,8 @@ include(${ASEBA_DIR}/CMakeModules/cpp_features.cmake)
 include_directories(
 ${ASEBA_DIR}/aseba
 )
-add_subdirectory(${ASEBA_DIR}/aseba/compiler asebacommon)
-add_subdirectory(${ASEBA_DIR}/aseba/common asebacompiler)
+add_subdirectory(${ASEBA_DIR}/aseba/compiler asebacompiler)
+add_subdirectory(${ASEBA_DIR}/aseba/common asebacommon)
 add_subdirectory(${ASEBA_DIR}/aseba/transport/dashel_plugins dashel_plugins)
 
 add_executable(asebaros
