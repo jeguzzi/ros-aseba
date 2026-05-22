@@ -14,7 +14,7 @@ SHELL ["/bin/bash", "-c"]
 
 RUN mkdir -p /ros_ws/src && \
   cd /ros_ws/src && \
-  git clone https://github.com/jeguzzi/ros-aseba.git --branch rolling --recurse-submodules && \
+  git clone https://github.com/jeguzzi/ros-aseba.git --branch rolling && \
   cd /ros_ws && \
   source /ros_entrypoint.sh && \
   colcon build --merge-install && \
