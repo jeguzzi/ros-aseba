@@ -1,0 +1,25 @@
+diff --git a/aseba/common/msg/TargetDescription.h b/aseba/common/msg/TargetDescription.h
+index 8f4d89c..5294766 100644
+--- a/aseba/common/msg/TargetDescription.h
++++ b/aseba/common/msg/TargetDescription.h
+@@ -23,6 +23,7 @@
+ #include <map>
+ #include <string>
+ #include <vector>
++#include <cstdint>
+ 
+ namespace Aseba
+ {
+diff --git a/aseba/common/zeroconf/txtrecord.cpp b/aseba/common/zeroconf/txtrecord.cpp
+index 5effef3..1b656dd 100644
+--- a/aseba/common/zeroconf/txtrecord.cpp
++++ b/aseba/common/zeroconf/txtrecord.cpp
+@@ -85,7 +85,7 @@ namespace Aseba
+ 	{
+ 		ostringstream field;
+ 		for (const auto &value : values)
+-			field.put(value<<8), field.put(value % 0xff);
++			field.put(value>>8 & 0xff), field.put(value & 0xff);
+ 		assign(key, field.str());
+ 	}
+ 
