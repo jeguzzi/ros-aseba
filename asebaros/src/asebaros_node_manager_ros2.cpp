@@ -49,7 +49,7 @@ AsebaROS2::AsebaROS2()
   // auto cb = std::bind(&AsebaROS2::, this, _1);
   anonSub = create_subscription<asebaros_msgs::msg::AnonymousEvent>(
       "aseba/anonymous_events", 100,
-      [this](asebaros_msgs::msg::AnonymousEvent::SharedPtr msg) {
+      [this](const asebaros_msgs::msg::AnonymousEvent & msg) {
         get_anonymous_event_cb(msg);
       });
   nodes_pub = create_publisher<NodeListMsg>("aseba/nodes", rclcpp::QoS(1).transient_local());

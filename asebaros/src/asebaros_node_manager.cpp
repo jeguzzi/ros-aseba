@@ -206,11 +206,12 @@ void AsebaROS::nodeDescriptionReceived(unsigned nodeId) {
     return;
   }
   AsebaROSNode *node = add_asebaros_node(nodeId, name, ns, include_id_in_events);
-  LOG_INFO("Has connected to a new Aseba node for with %d and namespace %s", nodeId, ns.c_str());
+  LOG_INFO("Has connected to a new Aseba node with id %d and namespace %s", nodeId, ns.c_str());
   sleep_for_ms(200);
   if (set_id_variable) {
     std::string variable = variable_id_for_node(name);
     if (!variable.empty()) {
+      LOG_INFO("Set id variable %s to %d", variable.c_str(), nodeId);
       // This compensate partial remapping of asebaswitch
       node->set_variable(variable, nodeId, false);
     }
@@ -354,12 +355,12 @@ void AsebaROS::update_script_constants(
   }
 }
 
-void AsebaROS::get_anonymous_event_cb(const AnonymousEventMsgPtr &event) {
+void AsebaROS::get_anonymous_event_cb(const AnonymousEventMsg &event) {
   // does not need locking, does not touch object's members
-  if (event->source == 0) {
+  if (event.source == 0) {
     // forward only messages with source 0, which means, originating from
     // this computer
-    Aseba::UserMessage userMessage(event->type, event->data);
+    Aseba::UserMessage userMessage(event.type, event.data);
     hub.sendMessage(&userMessage, true);
   }
 }

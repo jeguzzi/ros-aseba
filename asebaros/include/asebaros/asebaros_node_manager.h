@@ -27,7 +27,7 @@ using diagnostic_msgs::DiagnosticStatus;
 #include "asebaros_msgs/srv/get_node_list.hpp"
 #include "asebaros_msgs/srv/load_script.hpp"
 typedef asebaros_msgs::msg::Constant ConstantMsg;
-typedef asebaros_msgs::msg::AnonymousEvent::SharedPtr AnonymousEventMsgPtr;
+typedef asebaros_msgs::msg::AnonymousEvent AnonymousEventMsg;
 typedef asebaros_msgs::msg::NodeList NodeListMsg;
 typedef std::shared_ptr<asebaros_msgs::srv::GetNodeList::Request> GetNodeListRequestPtr;
 typedef std::shared_ptr<asebaros_msgs::srv::GetNodeList::Response> GetNodeListResponsePtr;
@@ -40,7 +40,7 @@ typedef std::shared_ptr<asebaros_msgs::srv::LoadScript::Response> LoadScriptResp
 #include "asebaros_msgs/GetNodeList.h"
 #include "asebaros_msgs/LoadScript.h"
 typedef asebaros_msgs::Constant ConstantMsg;
-typedef asebaros_msgs::AnonymousEventConstPtr AnonymousEventMsgPtr;
+typedef asebaros_msgs::AnonymousEvent AnonymousEventMsg;
 typedef asebaros_msgs::NodeList NodeListMsg;
 typedef asebaros_msgs::GetNodeList::Request * GetNodeListRequestPtr;
 typedef asebaros_msgs::GetNodeList::Response * GetNodeListResponsePtr;
@@ -216,7 +216,7 @@ protected:
 #if DIAGNOSTICS
   void update_diagnostics(diagnostic_updater::DiagnosticStatusWrapper &stat);
 #endif
-  void get_anonymous_event_cb(const AnonymousEventMsgPtr &event);
+  void get_anonymous_event_cb(const AnonymousEventMsg &event);
   bool get_node_list(GetNodeListRequestPtr req, GetNodeListResponsePtr res);
   bool load_script(LoadScriptRequestPtr req, LoadScriptResponsePtr res);
   void nodeProtocolVersionMismatch(unsigned nodeId, const std::wstring &nodeName,

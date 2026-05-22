@@ -133,12 +133,13 @@ void AsebaROSNode::get_description(GetDescriptionRequestPtr req, GetDescriptionR
 
 // ROS Callbacks
 void AsebaROSNode::got_event_message_cb(
-    const uint16_t event_id, const EventMsgPtr & msg) {
-  if (msg->source == 0) {
+    const uint16_t event_id, const EventMsg & msg) {
+  if (msg.source == 0) {
     LOG_DEBUG("known event %d received from ROS for node %d", event_id, id);
     // forward only messages with source 0, which means, originating from this
     // computer
-    Aseba::VariablesDataVector data = msg->data;
+    Aseba::VariablesDataVector data = msg.data;
+    // LOG_INFO("known event %d received from ROS for node %d: %d", event_id, id, include_id_in_events);
     if (include_id_in_events) {
       data.insert(data.begin(), id);
     }

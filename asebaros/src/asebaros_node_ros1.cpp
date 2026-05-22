@@ -45,7 +45,7 @@ void AsebaROS1Node::create_subscribers() {
     subs.push_back(n.subscribe<asebaros_msgs::Event>(
         ros_name(EVENTS_NS + narrow(event.name)), 100,
         [this, i](const asebaros_msgs::EventConstPtr &event) {
-          got_event_message_cb(i, event);
+          got_event_message_cb(i, *event);
         }));
     i++;
   }

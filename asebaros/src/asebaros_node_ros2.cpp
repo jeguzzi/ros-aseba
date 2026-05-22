@@ -51,7 +51,7 @@ void AsebaROS2Node::create_subscribers() {
   for (const auto &event : script->common_definitions.events) {
     subs.push_back(ros_node->create_subscription<asebaros_msgs::msg::Event>(
         ros_name(EVENTS_NS + narrow(event.name)), 100,
-        [this, i](asebaros_msgs::msg::Event::SharedPtr msg) {
+        [this, i](const asebaros_msgs::msg::Event & msg) {
           got_event_message_cb(i, msg);
         }));
     i++;

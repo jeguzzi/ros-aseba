@@ -31,7 +31,6 @@ using diagnostic_msgs::DiagnosticStatus;
 #include "asebaros_msgs/srv/get_description.hpp"
 typedef asebaros_msgs::msg::Event EventMsg;
 typedef asebaros_msgs::msg::Node NodeMsg;
-typedef asebaros_msgs::msg::Event::SharedPtr EventMsgPtr;
 typedef asebaros_msgs::msg::Constant ConstantMsg;
 typedef asebaros_msgs::msg::NodeDescription NodeDescriptionMsg;
 typedef std::shared_ptr<asebaros_msgs::srv::GetDescription::Request> GetDescriptionRequestPtr;
@@ -44,7 +43,6 @@ typedef std::shared_ptr<asebaros_msgs::srv::GetDescription::Response> GetDescrip
 #include "asebaros_msgs/NodeDescription.h"
 typedef asebaros_msgs::Event EventMsg;
 typedef asebaros_msgs::Node NodeMsg;
-typedef asebaros_msgs::EventConstPtr EventMsgPtr;
 typedef asebaros_msgs::Constant ConstantMsg;
 typedef asebaros_msgs::NodeDescription NodeDescriptionMsg;
 typedef asebaros_msgs::GetDescription::Request * GetDescriptionRequestPtr;
@@ -111,7 +109,7 @@ protected:
   void get_description(GetDescriptionRequestPtr req, GetDescriptionResponsePtr res);
   std::vector<int16_t> get_variable(const std::string &name);
   void got_event_message_cb(const uint16_t event_id,
-                            const EventMsgPtr & msg);
+                            const EventMsg & msg);
 
   virtual std::string absolute_namespace(const std::string &) const = 0;
   virtual void create_subscribers() = 0;

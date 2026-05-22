@@ -41,7 +41,7 @@ AsebaROS1::AsebaROS1()
   anonSub = n.subscribe<asebaros_msgs::AnonymousEvent>(
       "anonymous_events", 100,
       [this](const asebaros_msgs::AnonymousEventConstPtr &event) {
-        get_anonymous_event_cb(event);
+        get_anonymous_event_cb(*event);
       });
   std::string script_path = init_params();
   if (!script_path.empty()) {
