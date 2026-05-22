@@ -6,9 +6,9 @@ if(NOT CMAKE_C_STANDARD)
   set(CMAKE_C_STANDARD 99)
 endif()
 
-# Default to C++14
+# Default to C++17
 if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 14)
+  set(CMAKE_CXX_STANDARD 17)
 endif()
 
 if(NOT CMAKE_POLICY_VERSION_MINIMUM)
@@ -56,37 +56,9 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-macro(codesign target)
-
-endmacro(codesign)
-
-if(DEFINED ENV{DASHEL_DIR})
-  set(DASHEL_DIR $ENV{DASHEL_DIR})
-else()
-  set(DASHEL_DIR ${PROJECT_SOURCE_DIR}/dashel)
-endif()
-
-add_subdirectory(${DASHEL_DIR} dashel)
-
-if(DEFINED ENV{ASEBA_DIR})
-  set(ASEBA_DIR $ENV{ASEBA_DIR})
-else()
-  set(ASEBA_DIR ${PROJECT_SOURCE_DIR}/aseba)
-endif()
-
-set(LIB_VERSION_MAJOR 3) # Must be bumped for incompatible ABI changes
-set(LIB_VERSION_MINOR 0)
-set(LIB_VERSION_PATCH 0)
-set(LIB_VERSION_STRING
-    ${LIB_VERSION_MAJOR}.${LIB_VERSION_MINOR}.${LIB_VERSION_PATCH})
-include(FeatureSummary)
-include(${ASEBA_DIR}/CMakeModules/aseba_conf.cmake)
-include(${ASEBA_DIR}/CMakeModules/cpp_features.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/cmake/aseba.cmake)
 
 include_directories(${ASEBA_DIR}/aseba)
-add_subdirectory(${ASEBA_DIR}/aseba/compiler asebacompiler)
-add_subdirectory(${ASEBA_DIR}/aseba/common asebacommon)
-add_subdirectory(${ASEBA_DIR}/aseba/transport/dashel_plugins dashel_plugins)
 
 add_executable(
   asebaros
@@ -113,8 +85,8 @@ target_include_directories(
   asebaros
   PUBLIC ${LIBXML2_INCLUDE_DIR}
          $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-         $<BUILD_INTERFACE:${DASHEL_DIR}>
-         $<BUILD_INTERFACE:${ASEBA_DIR}/aseba>
+         $<BUILD_INTERFACE:${dashel_SOURCE_DIR}>
+         $<BUILD_INTERFACE:${aseba_SOURCE_DIR}/aseba>
          $<INSTALL_INTERFACE:include>)
 
 install(TARGETS asebaros DESTINATION lib/${PROJECT_NAME})

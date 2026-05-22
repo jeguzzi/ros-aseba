@@ -1,0 +1,13 @@
+diff --git a/dashel/dashel-posix.cpp b/dashel/dashel-posix.cpp
+index 9137c6f..a795fe5 100644
+--- a/dashel/dashel-posix.cpp
++++ b/dashel/dashel-posix.cpp
+@@ -980,7 +980,7 @@ namespace Dashel
+ 					if (it->second.second.find(name) != std::string::npos)
+ 					{
+ 						devFileName = it->second.first;
+-						std::cout << "Found " << name << " on port " << devFileName << std::endl;
++						// std::cout << "Found " << name << " on port " << devFileName << std::endl;
+ 						break;
+ 					}
+ 				}
