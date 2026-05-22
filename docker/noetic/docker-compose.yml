@@ -1,0 +1,7 @@
+version: 3
+services:
+  ros-aseba:
+    image: jeguzzi/ros-aseba:noetic
+    build:
+      context: .
+      dockerfile: Dockerfile
