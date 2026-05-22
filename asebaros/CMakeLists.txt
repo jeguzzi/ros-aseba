@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.12)
 project(asebaros)
 
 # Default to C99
@@ -53,37 +53,9 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-macro(codesign target)
-endmacro(codesign)
+include(${CMAKE_CURRENT_LIST_DIR}/cmake/aseba.cmake)
 
-if(DEFINED ENV{DASHEL_DIR})
-  set(DASHEL_DIR $ENV{DASHEL_DIR})
-else()
-  set(DASHEL_DIR ${PROJECT_SOURCE_DIR}/dashel)
-endif()
-
-add_subdirectory(${DASHEL_DIR} dashel)
-
-if(DEFINED ENV{ASEBA_DIR})
-  set(ASEBA_DIR $ENV{ASEBA_DIR})
-else()
-  set(ASEBA_DIR ${PROJECT_SOURCE_DIR}/aseba)
-endif()
-
-set(LIB_VERSION_MAJOR 3) # Must be bumped for incompatible ABI changes
-set(LIB_VERSION_MINOR 0)
-set(LIB_VERSION_PATCH 0)
-set(LIB_VERSION_STRING ${LIB_VERSION_MAJOR}.${LIB_VERSION_MINOR}.${LIB_VERSION_PATCH})
-include(FeatureSummary)
-include(${ASEBA_DIR}/CMakeModules/aseba_conf.cmake)
-include(${ASEBA_DIR}/CMakeModules/cpp_features.cmake)
-
-include_directories(
-${ASEBA_DIR}/aseba
-)
-add_subdirectory(${ASEBA_DIR}/aseba/compiler asebacompiler)
-add_subdirectory(${ASEBA_DIR}/aseba/common asebacommon)
-add_subdirectory(${ASEBA_DIR}/aseba/transport/dashel_plugins dashel_plugins)
+include_directories(${ASEBA_DIR}/aseba)
 
 add_executable(asebaros
   src/aseba_script.cpp
@@ -109,8 +81,5 @@ target_include_directories(asebaros
     $<BUILD_INTERFACE:${ASEBA_DIR}/aseba>
     $<INSTALL_INTERFACE:include>)
 
-install(TARGETS
-  asebaros
-  DESTINATION lib/${PROJECT_NAME}
-)
+install(TARGETS asebaros DESTINATION lib/${PROJECT_NAME})
 ament_package()
