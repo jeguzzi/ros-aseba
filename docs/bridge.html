@@ -1,21 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ROS-Aseba: how it works &mdash; ROS for Aseba and Thymio 0.1.0 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>ROS-Aseba: how it works &mdash; ROS for Aseba and Thymio 0.2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=938c9ccc"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -28,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> ROS for Aseba and Thymio
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ROS for Aseba and Thymio
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -52,6 +56,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#supported-operating-systems">Supported Operating Systems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros">ROS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros-aseba">ROS-Aseba</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros-thymio">ROS-Thymio</a></li>
@@ -430,8 +435,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>ROS-Aseba: how it works</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ROS-Aseba: how it works</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/bridge.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -442,7 +447,7 @@
            <div itemprop="articleBody">
              
   <section id="ros-aseba-how-it-works">
-<h1>ROS-Aseba: how it works<a class="headerlink" href="#ros-aseba-how-it-works" title="Permalink to this headline"></a></h1>
+<h1>ROS-Aseba: how it works<a class="headerlink" href="#ros-aseba-how-it-works" title="Link to this heading"></a></h1>
 <p>The Aseba-ROS bridge provides run-time integration of an Aseba network into ROS.
 As illustrated below, the <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> ROS node communicates with the Aseba network.
 The other ROS nodes interact indirectly with the Aseba network through the topics and the services exposed by <code class="docutils literal notranslate"><span class="pre">asebaros</span></code>.</p>
@@ -459,7 +464,7 @@ The other ROS nodes interact indirectly with the Aseba network through the topic
 </ul>
 </div></blockquote>
 <section id="connection-to-the-aseba-network">
-<h2>Connection to the Aseba network<a class="headerlink" href="#connection-to-the-aseba-network" title="Permalink to this headline"></a></h2>
+<h2>Connection to the Aseba network<a class="headerlink" href="#connection-to-the-aseba-network" title="Link to this heading"></a></h2>
 <p>When launched, <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> tries to connect to an Aseba network at the Dashel targets listed in the parameter <a class="reference internal" href="asebaros.html#param-targets"><span class="std std-ref">targets</span></a>,
 looping through them until the first successful connection.</p>
 <p><code class="docutils literal notranslate"><span class="pre">asebaros</span></code> behaves also as an <a class="reference external" href="http://wiki.thymio.org/en:asebaswitchremap">Aseba switch</a> by:</p>
@@ -472,7 +477,7 @@ looping through them until the first successful connection.</p>
 <p>During initialization, <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> create services and topics only in the ROS namespace <code class="docutils literal notranslate"><span class="pre">aseba</span></code>.</p>
 </section>
 <section id="discovery-of-aseba-nodes">
-<h2>Discovery of Aseba nodes<a class="headerlink" href="#discovery-of-aseba-nodes" title="Permalink to this headline"></a></h2>
+<h2>Discovery of Aseba nodes<a class="headerlink" href="#discovery-of-aseba-nodes" title="Link to this heading"></a></h2>
 <p>After connecting to the Aseba network, <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> regularly (each second) queries the network for connected node.</p>
 <p>When it discovers a new Aseba node with <code class="docutils literal notranslate"><span class="pre">id</span></code> and <code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> checks if it should connect the Aseba node to ROS.
 Scanning the configuration stored in parameter <a class="reference internal" href="asebaros.html#param-nodes"><span class="std std-ref">nodes</span></a>, it first tries to match both <code class="docutils literal notranslate"><span class="pre">id</span></code> and <code class="docutils literal notranslate"><span class="pre">name</span></code>,
@@ -480,33 +485,33 @@ then only <code class="docutils literal notranslate"><span class="pre">name</spa
 For the selected configuration, nodes are accepted if <code class="docutils literal notranslate"><span class="pre">accept</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code> and if there are not already <code class="docutils literal notranslate"><span class="pre">max_number</span></code> nodes with the same name.</p>
 <p>For example, a parameter</p>
 <div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nt">nodes</span><span class="p">:</span>
-  <span class="nt">others</span><span class="p">:</span>
-    <span class="nt">accept</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
-  <span class="nt">thymio</span><span class="p">:</span>
-    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">thymio-II</span>
-    <span class="nt">accept</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-    <span class="nt">maximal_number</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">others</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">accept</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">thymio</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">thymio-II</span>
+<span class="w">    </span><span class="nt">accept</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">maximal_number</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
 </pre></div>
 </div>
 <p>makes <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> accept only the first connected node with <code class="docutils literal notranslate"><span class="pre">name=&quot;thymio-II&quot;</span></code>.
 A parameter</p>
 <div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nt">nodes</span><span class="p">:</span>
-  <span class="nt">others</span><span class="p">:</span>
-    <span class="nt">accept</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
-  <span class="nt">thymio</span><span class="p">:</span>
-    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">thymio-II</span>
-    <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1928</span>
-    <span class="nt">accept</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">others</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">accept</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">thymio</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">thymio-II</span>
+<span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1928</span>
+<span class="w">    </span><span class="nt">accept</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </pre></div>
 </div>
 <p>makes <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> accept only the node with <code class="docutils literal notranslate"><span class="pre">name=&quot;thymio-II&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">id=1928</span></code>.
 Finally, a parameter</p>
 <div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nt">nodes</span><span class="p">:</span>
-  <span class="nt">others</span><span class="p">:</span>
-    <span class="nt">accept</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-  <span class="nt">thymio</span><span class="p">:</span>
-    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">thymio-II</span>
-    <span class="nt">accept</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">others</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">accept</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">thymio</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">thymio-II</span>
+<span class="w">    </span><span class="nt">accept</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 </pre></div>
 </div>
 <p>makes <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> accept all but the node with <code class="docutils literal notranslate"><span class="pre">name=&quot;thymio-II&quot;</span></code>.</p>
@@ -520,17 +525,17 @@ Finally, a parameter</p>
 <p>For example, the parameter</p>
 <blockquote>
 <div><div class="highlight-YAML notranslate"><div class="highlight"><pre><span></span><span class="nt">nodes</span><span class="p">:</span>
-  <span class="nt">others</span><span class="p">:</span>
-    <span class="nt">accept</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
-  <span class="nt">thymio</span><span class="p">:</span>
-    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">thymio-II</span>
-    <span class="nt">accept</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-    <span class="nt">prefix</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">thymio_</span>
-  <span class=" -Error"> </span><span class="nt">my-thymio</span><span class="p">:</span>
-      <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">thymio-II</span>
-      <span class="nt">accept</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-      <span class="nt">id</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1928</span>
-      <span class="nt">prefix</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my_thymio</span>
+<span class="w">  </span><span class="nt">others</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">accept</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">thymio</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">thymio-II</span>
+<span class="w">    </span><span class="nt">accept</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">thymio_</span>
+<span class="w">  </span><span class="w w-Error"> </span><span class="nt">my-thymio</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">thymio-II</span>
+<span class="w">      </span><span class="nt">accept</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1928</span>
+<span class="w">      </span><span class="nt">prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_thymio</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -542,7 +547,7 @@ separating the related ROS topics and services in well-defined namespaces.</p>
 <p><span class="caption-text">Discovery</span></p>
 </div></section>
 <section id="introspection">
-<h2>Introspection<a class="headerlink" href="#introspection" title="Permalink to this headline"></a></h2>
+<h2>Introspection<a class="headerlink" href="#introspection" title="Link to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">asebaros</span></code> exposes the list of nodes (and their state) in three ways:</p>
 <blockquote>
 <div><ul class="simple">
@@ -557,13 +562,13 @@ It contains the global events and constants defined in the script running on the
 The same information is served on demand as <a class="reference internal" href="asebaros_msgs.html#getdescription"><span class="std std-ref">GetDescription</span></a> queries on <code class="docutils literal notranslate"><span class="pre">&lt;node_namespace&gt;/aseba/get_description</span></code>.</p>
 </section>
 <section id="variables">
-<h2>Variables<a class="headerlink" href="#variables" title="Permalink to this headline"></a></h2>
+<h2>Variables<a class="headerlink" href="#variables" title="Link to this heading"></a></h2>
 <p>For each connected Aseba node, the services <code class="docutils literal notranslate"><span class="pre">&lt;node_namespace&gt;/aseba/{get|set}_variable</span></code> of type <a class="reference internal" href="asebaros_msgs.html#getvariable"><span class="std std-ref">GetVariable</span></a> | <a class="reference internal" href="asebaros_msgs.html#setvariable"><span class="std std-ref">SetVariable</span></a>
 allow to get | set variables. All variables are accessible: the internal ones and the ones defined in the Aseba script running on the node.
 Variables values are integer arrays of constant length. A scalar value corresponds to an array of one element.</p>
 </section>
 <section id="scripts">
-<h2>Scripts<a class="headerlink" href="#scripts" title="Permalink to this headline"></a></h2>
+<h2>Scripts<a class="headerlink" href="#scripts" title="Link to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">asebaros</span></code> tries to load an Aseba script to a node when</p>
 <blockquote>
 <div><ul class="simple">
@@ -593,7 +598,7 @@ with the value of the scripts’ constants.</p>
 <p><span class="caption-text">Loading an Aseba script</span></p>
 </div></section>
 <section id="events">
-<span id="id1"></span><h2>Events<a class="headerlink" href="#events" title="Permalink to this headline"></a></h2>
+<span id="id1"></span><h2>Events<a class="headerlink" href="#events" title="Link to this heading"></a></h2>
 <p>The preferable way to exchange data between ROS and Aseba nodes is through Aseba global events.
 Contrary to getting/setting variables, this conforms to the event-driver approach that is most common both in Aseba and in ROS.
 Events can be used to control/trigger behaviors on the Aseba node and to asynchronously stream sensing readings to ROS.</p>

@@ -1,22 +1,23 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ROS-Aseba: examples &mdash; ROS for Aseba and Thymio 0.1.0 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>ROS-Aseba: examples &mdash; ROS for Aseba and Thymio 0.2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=a5c4661c" />
+
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/tabs.js"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=938c9ccc"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/tabs.js?v=3030b3cb"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -29,11 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> ROS for Aseba and Thymio
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ROS for Aseba and Thymio
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -432,8 +437,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>ROS-Aseba: examples</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ROS-Aseba: examples</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/examples.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -444,9 +449,9 @@
            <div itemprop="articleBody">
              
   <section id="ros-aseba-examples">
-<span id="examples"></span><h1>ROS-Aseba: examples<a class="headerlink" href="#ros-aseba-examples" title="Permalink to this headline"></a></h1>
+<span id="examples"></span><h1>ROS-Aseba: examples<a class="headerlink" href="#ros-aseba-examples" title="Link to this heading"></a></h1>
 <section id="setup">
-<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline"></a></h2>
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h2>
 <p>To reproduce a multi-robot network (two Thymios with id 14031 and 21181, and two e-pucks with id 1 and 2), launch <a class="reference external" href="http://wiki.thymio.org/en:asebaplayground">Aseba Playground</a></p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">asebaplayground</span>
 </pre></div>
@@ -454,14 +459,14 @@
 <p>and open the world at <code class="docutils literal notranslate"><span class="pre">ros-aseba/asebaros_examples/launch/simulation/multirobot.playground</span></code></p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE aseba-playground&gt;</span>
 <span class="nt">&lt;aseba-playground&gt;</span>
-     <span class="nt">&lt;author</span> <span class="na">name=</span><span class="s">&quot;Jerome Guzzi&quot;</span> <span class="na">email=</span><span class="s">&quot;jerome at idsia dot ch&quot;</span> <span class="nt">/&gt;</span>
-     <span class="nt">&lt;description</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>A simple multi-robot playground to experiment with asebaros without physical robots.<span class="nt">&lt;/description&gt;</span>
-     <span class="nt">&lt;color</span> <span class="na">name=</span><span class="s">&quot;wall&quot;</span> <span class="na">r=</span><span class="s">&quot;0.9&quot;</span> <span class="na">g=</span><span class="s">&quot;0.9&quot;</span> <span class="na">b=</span><span class="s">&quot;0.9&quot;</span> <span class="nt">/&gt;</span>
-     <span class="nt">&lt;world</span> <span class="na">w=</span><span class="s">&quot;100&quot;</span> <span class="na">h=</span><span class="s">&quot;100&quot;</span> <span class="na">color=</span><span class="s">&quot;wall&quot;</span><span class="nt">/&gt;</span>
-     <span class="nt">&lt;robot</span> <span class="na">type=</span><span class="s">&quot;thymio2&quot;</span> <span class="na">x=</span><span class="s">&quot;45&quot;</span> <span class="na">y=</span><span class="s">&quot;15&quot;</span> <span class="na">port=</span><span class="s">&quot;33334&quot;</span> <span class="na">name=</span><span class="s">&quot;Thymio A&quot;</span> <span class="na">nodeId=</span><span class="s">&quot;1&quot;</span> <span class="nt">/&gt;</span>
-     <span class="nt">&lt;robot</span> <span class="na">type=</span><span class="s">&quot;thymio2&quot;</span> <span class="na">x=</span><span class="s">&quot;45&quot;</span> <span class="na">y=</span><span class="s">&quot;45&quot;</span> <span class="na">port=</span><span class="s">&quot;33335&quot;</span> <span class="na">name=</span><span class="s">&quot;Thymio B&quot;</span> <span class="na">nodeId=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
-     <span class="nt">&lt;robot</span> <span class="na">type=</span><span class="s">&quot;e-puck&quot;</span> <span class="na">x=</span><span class="s">&quot;15&quot;</span> <span class="na">y=</span><span class="s">&quot;15&quot;</span> <span class="na">port=</span><span class="s">&quot;33336&quot;</span> <span class="na">name=</span><span class="s">&quot;E-Puck A&quot;</span> <span class="na">nodeId=</span><span class="s">&quot;1&quot;</span> <span class="nt">/&gt;</span>
-     <span class="nt">&lt;robot</span> <span class="na">type=</span><span class="s">&quot;e-puck&quot;</span> <span class="na">x=</span><span class="s">&quot;15&quot;</span> <span class="na">y=</span><span class="s">&quot;45&quot;</span> <span class="na">port=</span><span class="s">&quot;33337&quot;</span> <span class="na">name=</span><span class="s">&quot;E-Puck B&quot;</span> <span class="na">nodeId=</span><span class="s">&quot;1&quot;</span> <span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;author</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;Jerome Guzzi&quot;</span><span class="w"> </span><span class="na">email=</span><span class="s">&quot;jerome at idsia dot ch&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;description</span><span class="w"> </span><span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>A<span class="w"> </span>simple<span class="w"> </span>multi-robot<span class="w"> </span>playground<span class="w"> </span>to<span class="w"> </span>experiment<span class="w"> </span>with<span class="w"> </span>asebaros<span class="w"> </span>without<span class="w"> </span>physical<span class="w"> </span>robots.<span class="nt">&lt;/description&gt;</span>
+<span class="w">     </span><span class="nt">&lt;color</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;wall&quot;</span><span class="w"> </span><span class="na">r=</span><span class="s">&quot;0.9&quot;</span><span class="w"> </span><span class="na">g=</span><span class="s">&quot;0.9&quot;</span><span class="w"> </span><span class="na">b=</span><span class="s">&quot;0.9&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;world</span><span class="w"> </span><span class="na">w=</span><span class="s">&quot;100&quot;</span><span class="w"> </span><span class="na">h=</span><span class="s">&quot;100&quot;</span><span class="w"> </span><span class="na">color=</span><span class="s">&quot;wall&quot;</span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;robot</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;thymio2&quot;</span><span class="w"> </span><span class="na">x=</span><span class="s">&quot;45&quot;</span><span class="w"> </span><span class="na">y=</span><span class="s">&quot;15&quot;</span><span class="w"> </span><span class="na">port=</span><span class="s">&quot;33334&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;Thymio A&quot;</span><span class="w"> </span><span class="na">nodeId=</span><span class="s">&quot;1&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;robot</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;thymio2&quot;</span><span class="w"> </span><span class="na">x=</span><span class="s">&quot;45&quot;</span><span class="w"> </span><span class="na">y=</span><span class="s">&quot;45&quot;</span><span class="w"> </span><span class="na">port=</span><span class="s">&quot;33335&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;Thymio B&quot;</span><span class="w"> </span><span class="na">nodeId=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;robot</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;e-puck&quot;</span><span class="w"> </span><span class="na">x=</span><span class="s">&quot;15&quot;</span><span class="w"> </span><span class="na">y=</span><span class="s">&quot;15&quot;</span><span class="w"> </span><span class="na">port=</span><span class="s">&quot;33336&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;E-Puck A&quot;</span><span class="w"> </span><span class="na">nodeId=</span><span class="s">&quot;1&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">     </span><span class="nt">&lt;robot</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;e-puck&quot;</span><span class="w"> </span><span class="na">x=</span><span class="s">&quot;15&quot;</span><span class="w"> </span><span class="na">y=</span><span class="s">&quot;45&quot;</span><span class="w"> </span><span class="na">port=</span><span class="s">&quot;33337&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;E-Puck B&quot;</span><span class="w"> </span><span class="na">nodeId=</span><span class="s">&quot;1&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
 <span class="nt">&lt;/aseba-playground&gt;</span>
 </pre></div>
 </div>
@@ -472,7 +477,7 @@
 <p>With this setup <code class="docutils literal notranslate"><span class="pre">DEVICE=&quot;tcp:host=localhost;port=33333&quot;</span></code>.</p>
 <p>To execute any ROS command, you have first to source the ROS setup script</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-TGludXggb3IgbWFjT1M=" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-TGludXggb3IgbWFjT1M=" name="TGludXggb3IgbWFjT1M=" role="tab" tabindex="0">Linux or macOS</button><button aria-controls="panel-0-V2luZG93cw==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-V2luZG93cw==" name="V2luZG93cw==" role="tab" tabindex="-1">Windows</button></div><div aria-labelledby="tab-0-TGludXggb3IgbWFjT1M=" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-TGludXggb3IgbWFjT1M=" name="TGludXggb3IgbWFjT1M=" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> &lt;WORKSPACE&gt;/install/setup.bash
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-TGludXggb3IgbWFjT1M=" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-TGludXggb3IgbWFjT1M=" name="TGludXggb3IgbWFjT1M=" role="tab" tabindex="0">Linux or macOS</button><button aria-controls="panel-0-V2luZG93cw==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-V2luZG93cw==" name="V2luZG93cw==" role="tab" tabindex="-1">Windows</button></div><div aria-labelledby="tab-0-TGludXggb3IgbWFjT1M=" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-TGludXggb3IgbWFjT1M=" name="TGludXggb3IgbWFjT1M=" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>&lt;WORKSPACE&gt;/install/setup.bash
 </pre></div>
 </div>
 </div><div aria-labelledby="tab-0-V2luZG93cw==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-0-V2luZG93cw==" name="V2luZG93cw==" role="tabpanel" tabindex="0"><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>C:&lt;WORKSPACE&gt;<span class="se">\i</span>nstall<span class="se">\s</span>etup.bat
@@ -487,48 +492,48 @@ In this case, just change the ids and add <code class="docutils literal notransl
 </div>
 </section>
 <section id="all-nodes">
-<h2>All nodes<a class="headerlink" href="#all-nodes" title="Permalink to this headline"></a></h2>
+<h2>All nodes<a class="headerlink" href="#all-nodes" title="Link to this heading"></a></h2>
 <p>The following launch files configure <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> to connect to all nodes at Dashel target <code class="docutils literal notranslate"><span class="pre">device</span></code>.
 Each node will receive a ROS namespace <code class="docutils literal notranslate"><span class="pre">&quot;node_{id}&quot;</span></code>. No script will be automatically loaded into the nodes.</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-1-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-1-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-1-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
-  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;arg</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;device&quot;</span><span class="w"> </span><span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;arg</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
 
-  <span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">type=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(arg port)&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;targets&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
-      [&quot;$(arg device)&quot;,]
-    <span class="nt">&lt;/rosparam&gt;</span>
-    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
-      any:
-        accept: true
-        prefix: node_
-    <span class="nt">&lt;/rosparam&gt;</span>
-  <span class="nt">&lt;/node&gt;</span>
+<span class="w">  </span><span class="nt">&lt;node</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(arg port)&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;rosparam</span><span class="w"> </span><span class="na">param=</span><span class="s">&quot;targets&quot;</span><span class="w"> </span><span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span>[&quot;$(arg<span class="w"> </span>device)&quot;,]
+<span class="w">    </span><span class="nt">&lt;/rosparam&gt;</span>
+<span class="w">    </span><span class="nt">&lt;rosparam</span><span class="w"> </span><span class="na">param=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span>any:
+<span class="w">        </span>accept:<span class="w"> </span>true
+<span class="w">        </span>prefix:<span class="w"> </span>node_
+<span class="w">    </span><span class="nt">&lt;/rosparam&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/node&gt;</span>
 <span class="nt">&lt;/launch&gt;</span>
 </pre></div>
 </div>
 </div><div aria-labelledby="tab-1-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-1-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
-  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;let</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;arg</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;device&quot;</span><span class="w"> </span><span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;let</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
 
-  <span class="nt">&lt;node</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">exec=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">args=</span><span class="s">&quot;--log-level info&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var port)&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;targets&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span> <span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;any&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;prefix&quot;</span> <span class="na">value=</span><span class="s">&quot;node_&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;/param&gt;</span>
-    <span class="nt">&lt;/param&gt;</span>
-  <span class="nt">&lt;/node&gt;</span>
+<span class="w">  </span><span class="nt">&lt;node</span><span class="w"> </span><span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">exec=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">args=</span><span class="s">&quot;--log-level info&quot;</span><span class="w"> </span><span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(var port)&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;targets&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span><span class="w"> </span><span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;any&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;accept&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;prefix&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;node_&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/node&gt;</span>
 <span class="nt">&lt;/launch&gt;</span>
 </pre></div>
 </div>
@@ -589,74 +594,74 @@ Each node will receive a ROS namespace <code class="docutils literal notranslate
 </div></div>
 </section>
 <section id="a-single-node">
-<h2>A single node<a class="headerlink" href="#a-single-node" title="Permalink to this headline"></a></h2>
+<h2>A single node<a class="headerlink" href="#a-single-node" title="Link to this heading"></a></h2>
 <p>The following launch files configure <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> to connect to just the first Thymio
 (i.e., the first Aseba node with <code class="docutils literal notranslate"><span class="pre">name==&quot;thymio-II&quot;</span></code>)</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-7-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-7-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-7-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-7-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-7-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-7-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
-  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;arg</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;device&quot;</span><span class="w"> </span><span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;arg</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
 
-  <span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">type=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(arg port)&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;targets&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
-      [&quot;$(arg device)&quot;,]
-    <span class="nt">&lt;/rosparam&gt;</span>
-    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
-      others:
-        accept: false
-      thymio:
-        name: thymio-II
-        id_variable: _id
-        accept: true
-        include_id_in_events: false
-        maximal_number: 1
-    <span class="nt">&lt;/rosparam&gt;</span>
-    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;script&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
-      path: $(find asebaros_examples)/launch/single_node.aesl
-      constants:
-        MY_CONSTANT: 3
-    <span class="nt">&lt;/rosparam&gt;</span>
-  <span class="nt">&lt;/node&gt;</span>
+<span class="w">  </span><span class="nt">&lt;node</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(arg port)&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;rosparam</span><span class="w"> </span><span class="na">param=</span><span class="s">&quot;targets&quot;</span><span class="w"> </span><span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span>[&quot;$(arg<span class="w"> </span>device)&quot;,]
+<span class="w">    </span><span class="nt">&lt;/rosparam&gt;</span>
+<span class="w">    </span><span class="nt">&lt;rosparam</span><span class="w"> </span><span class="na">param=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span>others:
+<span class="w">        </span>accept:<span class="w"> </span>false
+<span class="w">      </span>thymio:
+<span class="w">        </span>name:<span class="w"> </span>thymio-II
+<span class="w">        </span>id_variable:<span class="w"> </span>_id
+<span class="w">        </span>accept:<span class="w"> </span>true
+<span class="w">        </span>include_id_in_events:<span class="w"> </span>false
+<span class="w">        </span>maximal_number:<span class="w"> </span>1
+<span class="w">    </span><span class="nt">&lt;/rosparam&gt;</span>
+<span class="w">    </span><span class="nt">&lt;rosparam</span><span class="w"> </span><span class="na">param=</span><span class="s">&quot;script&quot;</span><span class="w"> </span><span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span>path:<span class="w"> </span>$(find<span class="w"> </span>asebaros_examples)/launch/single_node.aesl
+<span class="w">      </span>constants:
+<span class="w">        </span>MY_CONSTANT:<span class="w"> </span>3
+<span class="w">    </span><span class="nt">&lt;/rosparam&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/node&gt;</span>
 <span class="nt">&lt;/launch&gt;</span>
 </pre></div>
 </div>
 </div><div aria-labelledby="tab-7-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-7-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
-  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;let</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;arg</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;device&quot;</span><span class="w"> </span><span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;let</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
 
-  <span class="nt">&lt;node</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">exec=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">args=</span><span class="s">&quot;--log-level info&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var port)&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;targets&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span> <span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;others&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;/param&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;thymio&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;type&quot;</span> <span class="na">value=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;_id&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;include_id_in_events&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;maximal_number&quot;</span> <span class="na">value=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;/param&gt;</span>
-    <span class="nt">&lt;/param&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;script&quot;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;path&quot;</span> <span class="na">value=</span><span class="s">&quot;$(find-pkg-share asebaros_examples)/launch/single_node.aesl&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;constants&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;MY_CONSTANT&quot;</span> <span class="na">value=</span><span class="s">&quot;3&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;/param&gt;</span>
-    <span class="nt">&lt;/param&gt;</span>
-  <span class="nt">&lt;/node&gt;</span>
+<span class="w">  </span><span class="nt">&lt;node</span><span class="w"> </span><span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">exec=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">args=</span><span class="s">&quot;--log-level info&quot;</span><span class="w"> </span><span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(var port)&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;targets&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span><span class="w"> </span><span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;others&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;accept&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;thymio&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;id_variable&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;_id&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;accept&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;include_id_in_events&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;maximal_number&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;script&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;path&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(find-pkg-share asebaros_examples)/launch/single_node.aesl&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;constants&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;MY_CONSTANT&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;3&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/node&gt;</span>
 <span class="nt">&lt;/launch&gt;</span>
 </pre></div>
 </div>
@@ -667,24 +672,24 @@ The script has a single constant <code class="docutils literal notranslate"><spa
 <div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE aesl-source&gt;</span>
 <span class="nt">&lt;network&gt;</span>
 
-  <span class="c">&lt;!--list of global events--&gt;</span>
-  <span class="nt">&lt;event</span> <span class="na">size=</span><span class="s">&quot;3&quot;</span> <span class="na">name=</span><span class="s">&quot;ping&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;event</span> <span class="na">size=</span><span class="s">&quot;3&quot;</span> <span class="na">name=</span><span class="s">&quot;pong&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="cm">&lt;!--list of global events--&gt;</span>
+<span class="w">  </span><span class="nt">&lt;event</span><span class="w"> </span><span class="na">size=</span><span class="s">&quot;3&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;ping&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;event</span><span class="w"> </span><span class="na">size=</span><span class="s">&quot;3&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;pong&quot;</span><span class="nt">/&gt;</span>
 
-  <span class="c">&lt;!--list of constants--&gt;</span>
-  <span class="nt">&lt;constant</span> <span class="na">value=</span><span class="s">&quot;0&quot;</span> <span class="na">name=</span><span class="s">&quot;MY_CONSTANT&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="cm">&lt;!--list of constants--&gt;</span>
+<span class="w">  </span><span class="nt">&lt;constant</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;MY_CONSTANT&quot;</span><span class="nt">/&gt;</span>
 
-  <span class="c">&lt;!--show keywords state--&gt;</span>
-  <span class="nt">&lt;keywords</span> <span class="na">flag=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="cm">&lt;!--show keywords state--&gt;</span>
+<span class="w">  </span><span class="nt">&lt;keywords</span><span class="w"> </span><span class="na">flag=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
 
-  <span class="c">&lt;!--node thymio-II--&gt;</span>
-  <span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">&gt;</span>
-    var value[3] = [MY_CONSTANT, MY_CONSTANT, MY_CONSTANT]
-    emit pong value
-    onevent ping
-    value = event.args[0:2]
-    emit pong value
-  <span class="nt">&lt;/node&gt;</span>
+<span class="w">  </span><span class="cm">&lt;!--node thymio-II--&gt;</span>
+<span class="w">  </span><span class="nt">&lt;node</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span>var<span class="w"> </span>value[3]<span class="w"> </span>=<span class="w"> </span>[MY_CONSTANT,<span class="w"> </span>MY_CONSTANT,<span class="w"> </span>MY_CONSTANT]
+<span class="w">    </span>emit<span class="w"> </span>pong<span class="w"> </span>value
+<span class="w">    </span>onevent<span class="w"> </span>ping
+<span class="w">    </span>value<span class="w"> </span>=<span class="w"> </span>event.args[0:2]
+<span class="w">    </span>emit<span class="w"> </span>pong<span class="w"> </span>value
+<span class="w">  </span><span class="nt">&lt;/node&gt;</span>
 
 <span class="nt">&lt;/network&gt;</span>
 </pre></div>
@@ -720,79 +725,79 @@ Launch it with</p>
 </div></div>
 </section>
 <section id="twin-nodes">
-<h2>Twin nodes<a class="headerlink" href="#twin-nodes" title="Permalink to this headline"></a></h2>
+<h2>Twin nodes<a class="headerlink" href="#twin-nodes" title="Link to this heading"></a></h2>
 <p>In this case, we want to connect to <em>all</em> nodes and load the same script.
 Each node will receive a namespace <code class="docutils literal notranslate"><span class="pre">&quot;node_{id}&quot;</span></code>.</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-11-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-11-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-11-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-11-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-11-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-11-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
-  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;arg</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;device&quot;</span><span class="w"> </span><span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;arg</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
 
-  <span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">type=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(arg port)&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;targets&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
-      [&quot;$(arg device)&quot;,]
-    <span class="nt">&lt;/rosparam&gt;</span>
-    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
-      any:
-        prefix: node_
-        accept: true
-        include_id_in_events: true
-      thymio:
-        name: thymio-II
-        id_variable: _id
-      epuck:
-        name: e-puck0
-        id_variable: id
-    <span class="nt">&lt;/rosparam&gt;</span>
-    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;script&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
-      path: $(find asebaros_examples)/launch/twin_nodes.aesl
-      constants:
-        MY_CONSTANT: 3
-    <span class="nt">&lt;/rosparam&gt;</span>
-  <span class="nt">&lt;/node&gt;</span>
+<span class="w">  </span><span class="nt">&lt;node</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(arg port)&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;rosparam</span><span class="w"> </span><span class="na">param=</span><span class="s">&quot;targets&quot;</span><span class="w"> </span><span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span>[&quot;$(arg<span class="w"> </span>device)&quot;,]
+<span class="w">    </span><span class="nt">&lt;/rosparam&gt;</span>
+<span class="w">    </span><span class="nt">&lt;rosparam</span><span class="w"> </span><span class="na">param=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span>any:
+<span class="w">        </span>prefix:<span class="w"> </span>node_
+<span class="w">        </span>accept:<span class="w"> </span>true
+<span class="w">        </span>include_id_in_events:<span class="w"> </span>true
+<span class="w">      </span>thymio:
+<span class="w">        </span>name:<span class="w"> </span>thymio-II
+<span class="w">        </span>id_variable:<span class="w"> </span>_id
+<span class="w">      </span>epuck:
+<span class="w">        </span>name:<span class="w"> </span>e-puck0
+<span class="w">        </span>id_variable:<span class="w"> </span>id
+<span class="w">    </span><span class="nt">&lt;/rosparam&gt;</span>
+<span class="w">    </span><span class="nt">&lt;rosparam</span><span class="w"> </span><span class="na">param=</span><span class="s">&quot;script&quot;</span><span class="w"> </span><span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span>path:<span class="w"> </span>$(find<span class="w"> </span>asebaros_examples)/launch/twin_nodes.aesl
+<span class="w">      </span>constants:
+<span class="w">        </span>MY_CONSTANT:<span class="w"> </span>3
+<span class="w">    </span><span class="nt">&lt;/rosparam&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/node&gt;</span>
 <span class="nt">&lt;/launch&gt;</span>
 </pre></div>
 </div>
 </div><div aria-labelledby="tab-11-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-11-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
-  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;let</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;arg</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;device&quot;</span><span class="w"> </span><span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;let</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
 
-  <span class="nt">&lt;node</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">exec=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">args=</span><span class="s">&quot;--log-level info&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var port)&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;targets&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span> <span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;any&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;prefix&quot;</span> <span class="na">value=</span><span class="s">&quot;node_&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;include_id_in_events&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;/param&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;thymio&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;_id&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;/param&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;epuck&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;e-puck0&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;id&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;/param&gt;</span>
-    <span class="nt">&lt;/param&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;script&quot;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;path&quot;</span> <span class="na">value=</span><span class="s">&quot;$(find-pkg-share asebaros_examples)/launch/twin_nodes.aesl&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;constants&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;MY_CONSTANT&quot;</span> <span class="na">value=</span><span class="s">&quot;3&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;/param&gt;</span>
-    <span class="nt">&lt;/param&gt;</span>
-  <span class="nt">&lt;/node&gt;</span>
+<span class="w">  </span><span class="nt">&lt;node</span><span class="w"> </span><span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">exec=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">args=</span><span class="s">&quot;--log-level info&quot;</span><span class="w"> </span><span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(var port)&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;targets&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span><span class="w"> </span><span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;any&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;prefix&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;node_&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;accept&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;include_id_in_events&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;thymio&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;name&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;id_variable&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;_id&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;epuck&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;name&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;e-puck0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;id_variable&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;id&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;script&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;path&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(find-pkg-share asebaros_examples)/launch/twin_nodes.aesl&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;constants&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;MY_CONSTANT&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;3&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/node&gt;</span>
 <span class="nt">&lt;/launch&gt;</span>
 </pre></div>
 </div>
@@ -803,26 +808,26 @@ and <em>only in this case</em> “pong” back.</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE aesl-source&gt;</span>
 <span class="nt">&lt;network&gt;</span>
 
-  <span class="c">&lt;!--list of global events--&gt;</span>
-  <span class="nt">&lt;event</span> <span class="na">size=</span><span class="s">&quot;4&quot;</span> <span class="na">name=</span><span class="s">&quot;ping&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;event</span> <span class="na">size=</span><span class="s">&quot;3&quot;</span> <span class="na">name=</span><span class="s">&quot;pong&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="cm">&lt;!--list of global events--&gt;</span>
+<span class="w">  </span><span class="nt">&lt;event</span><span class="w"> </span><span class="na">size=</span><span class="s">&quot;4&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;ping&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;event</span><span class="w"> </span><span class="na">size=</span><span class="s">&quot;3&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;pong&quot;</span><span class="nt">/&gt;</span>
 
-  <span class="c">&lt;!--list of constants--&gt;</span>
-  <span class="nt">&lt;constant</span> <span class="na">value=</span><span class="s">&quot;0&quot;</span> <span class="na">name=</span><span class="s">&quot;MY_CONSTANT&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="cm">&lt;!--list of constants--&gt;</span>
+<span class="w">  </span><span class="nt">&lt;constant</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;MY_CONSTANT&quot;</span><span class="nt">/&gt;</span>
 
-  <span class="c">&lt;!--show keywords state--&gt;</span>
-  <span class="nt">&lt;keywords</span> <span class="na">flag=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="cm">&lt;!--show keywords state--&gt;</span>
+<span class="w">  </span><span class="nt">&lt;keywords</span><span class="w"> </span><span class="na">flag=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
 
-  <span class="c">&lt;!--node thymio-II--&gt;</span>
-  <span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">&gt;</span>
-    var value[3] = [MY_CONSTANT, MY_CONSTANT, MY_CONSTANT]
-    emit pong value
-    onevent ping
-    if (event.args[0] == _id) then
-      value = event.args[1:3]
-      emit pong value
-    end
-  <span class="nt">&lt;/node&gt;</span>
+<span class="w">  </span><span class="cm">&lt;!--node thymio-II--&gt;</span>
+<span class="w">  </span><span class="nt">&lt;node</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span>var<span class="w"> </span>value[3]<span class="w"> </span>=<span class="w"> </span>[MY_CONSTANT,<span class="w"> </span>MY_CONSTANT,<span class="w"> </span>MY_CONSTANT]
+<span class="w">    </span>emit<span class="w"> </span>pong<span class="w"> </span>value
+<span class="w">    </span>onevent<span class="w"> </span>ping
+<span class="w">    </span>if<span class="w"> </span>(event.args[0]<span class="w"> </span>==<span class="w"> </span>_id)<span class="w"> </span>then
+<span class="w">      </span>value<span class="w"> </span>=<span class="w"> </span>event.args[1:3]
+<span class="w">      </span>emit<span class="w"> </span>pong<span class="w"> </span>value
+<span class="w">    </span>end
+<span class="w">  </span><span class="nt">&lt;/node&gt;</span>
 
 <span class="nt">&lt;/network&gt;</span>
 </pre></div>
@@ -858,90 +863,90 @@ and <em>only in this case</em> “pong” back.</p>
 </div></div>
 </section>
 <section id="two-nodes">
-<h2>Two nodes<a class="headerlink" href="#two-nodes" title="Permalink to this headline"></a></h2>
+<h2>Two nodes<a class="headerlink" href="#two-nodes" title="Link to this heading"></a></h2>
 <p>In this case, we want to connect to two nodes of different types.
 As the different nodes uses different [incoming] events, we don’t need to include the node id in the event.</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-15-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-15-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-15-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-15-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-15-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-15-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
-  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;arg</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;device&quot;</span><span class="w"> </span><span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;arg</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
 
-  <span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">type=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(arg port)&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;targets&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
-      [&quot;$(arg device)&quot;,]
-    <span class="nt">&lt;/rosparam&gt;</span>
-    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
-      others:
-        accept: false
-      thymio:
-        name: thymio-II
-        id_variable: _id
-        accept: true
-        namespace: thymio
-        include_id_in_events: false
-        maximal_number: 1
-      epuck:
-        name: e-puck0
-        id_variable: id
-        accept: true
-        namespace: epuck
-        include_id_in_events: false
-        maximal_number: 1
-    <span class="nt">&lt;/rosparam&gt;</span>
-    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;script&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
-      path: $(find asebaros_examples)/launch/two_nodes.aesl
-      constants:
-        MY_CONSTANT_THYMIO: 3
-        MY_CONSTANT_EPUCK: 333
-    <span class="nt">&lt;/rosparam&gt;</span>
-  <span class="nt">&lt;/node&gt;</span>
+<span class="w">  </span><span class="nt">&lt;node</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(arg port)&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;rosparam</span><span class="w"> </span><span class="na">param=</span><span class="s">&quot;targets&quot;</span><span class="w"> </span><span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span>[&quot;$(arg<span class="w"> </span>device)&quot;,]
+<span class="w">    </span><span class="nt">&lt;/rosparam&gt;</span>
+<span class="w">    </span><span class="nt">&lt;rosparam</span><span class="w"> </span><span class="na">param=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span>others:
+<span class="w">        </span>accept:<span class="w"> </span>false
+<span class="w">      </span>thymio:
+<span class="w">        </span>name:<span class="w"> </span>thymio-II
+<span class="w">        </span>id_variable:<span class="w"> </span>_id
+<span class="w">        </span>accept:<span class="w"> </span>true
+<span class="w">        </span>namespace:<span class="w"> </span>thymio
+<span class="w">        </span>include_id_in_events:<span class="w"> </span>false
+<span class="w">        </span>maximal_number:<span class="w"> </span>1
+<span class="w">      </span>epuck:
+<span class="w">        </span>name:<span class="w"> </span>e-puck0
+<span class="w">        </span>id_variable:<span class="w"> </span>id
+<span class="w">        </span>accept:<span class="w"> </span>true
+<span class="w">        </span>namespace:<span class="w"> </span>epuck
+<span class="w">        </span>include_id_in_events:<span class="w"> </span>false
+<span class="w">        </span>maximal_number:<span class="w"> </span>1
+<span class="w">    </span><span class="nt">&lt;/rosparam&gt;</span>
+<span class="w">    </span><span class="nt">&lt;rosparam</span><span class="w"> </span><span class="na">param=</span><span class="s">&quot;script&quot;</span><span class="w"> </span><span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span>path:<span class="w"> </span>$(find<span class="w"> </span>asebaros_examples)/launch/two_nodes.aesl
+<span class="w">      </span>constants:
+<span class="w">        </span>MY_CONSTANT_THYMIO:<span class="w"> </span>3
+<span class="w">        </span>MY_CONSTANT_EPUCK:<span class="w"> </span>333
+<span class="w">    </span><span class="nt">&lt;/rosparam&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/node&gt;</span>
 <span class="nt">&lt;/launch&gt;</span>
 </pre></div>
 </div>
 </div><div aria-labelledby="tab-15-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-15-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
-  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;let</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;arg</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;device&quot;</span><span class="w"> </span><span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;let</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
 
-  <span class="nt">&lt;node</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">exec=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">args=</span><span class="s">&quot;--log-level info&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var port)&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;targets&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span> <span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;thymio&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;namespace&quot;</span> <span class="na">value=</span><span class="s">&quot;thymio&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;_id&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;maximal_number&quot;</span> <span class="na">value=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;include_id_in_events&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;/param&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;epuck&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;e-puck0&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;namespace&quot;</span> <span class="na">value=</span><span class="s">&quot;epuck&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;id&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;maximal_number&quot;</span> <span class="na">value=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;include_id_in_events&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;/param&gt;</span>
-    <span class="nt">&lt;/param&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;script&quot;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;path&quot;</span> <span class="na">value=</span><span class="s">&quot;$(find-pkg-share asebaros_examples)/launch/two_nodes.aesl&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;constants&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;MY_CONSTANT_THYMIO&quot;</span> <span class="na">value=</span><span class="s">&quot;3&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;MY_CONSTANT_EPUCK&quot;</span> <span class="na">value=</span><span class="s">&quot;333&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;/param&gt;</span>
-    <span class="nt">&lt;/param&gt;</span>
-  <span class="nt">&lt;/node&gt;</span>
+<span class="w">  </span><span class="nt">&lt;node</span><span class="w"> </span><span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">exec=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">args=</span><span class="s">&quot;--log-level info&quot;</span><span class="w"> </span><span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(var port)&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;targets&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span><span class="w"> </span><span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;thymio&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;name&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;namespace&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;thymio&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;accept&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;id_variable&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;_id&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;maximal_number&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;include_id_in_events&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;epuck&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;name&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;e-puck0&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;namespace&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;epuck&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;accept&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;id_variable&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;id&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;maximal_number&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;include_id_in_events&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;script&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;path&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(find-pkg-share asebaros_examples)/launch/two_nodes.aesl&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;constants&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;MY_CONSTANT_THYMIO&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;3&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;MY_CONSTANT_EPUCK&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;333&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/node&gt;</span>
 <span class="nt">&lt;/launch&gt;</span>
 </pre></div>
 </div>
@@ -949,35 +954,35 @@ As the different nodes uses different [incoming] events, we don’t need to incl
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE aesl-source&gt;</span>
 <span class="nt">&lt;network&gt;</span>
 
-  <span class="c">&lt;!--list of global events--&gt;</span>
-  <span class="nt">&lt;event</span> <span class="na">size=</span><span class="s">&quot;3&quot;</span> <span class="na">name=</span><span class="s">&quot;ping_thymio&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;event</span> <span class="na">size=</span><span class="s">&quot;3&quot;</span> <span class="na">name=</span><span class="s">&quot;ping_epuck&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;event</span> <span class="na">size=</span><span class="s">&quot;3&quot;</span> <span class="na">name=</span><span class="s">&quot;pong&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="cm">&lt;!--list of global events--&gt;</span>
+<span class="w">  </span><span class="nt">&lt;event</span><span class="w"> </span><span class="na">size=</span><span class="s">&quot;3&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;ping_thymio&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;event</span><span class="w"> </span><span class="na">size=</span><span class="s">&quot;3&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;ping_epuck&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;event</span><span class="w"> </span><span class="na">size=</span><span class="s">&quot;3&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;pong&quot;</span><span class="nt">/&gt;</span>
 
-  <span class="c">&lt;!--list of constants--&gt;</span>
-  <span class="nt">&lt;constant</span> <span class="na">value=</span><span class="s">&quot;0&quot;</span> <span class="na">name=</span><span class="s">&quot;MY_CONSTANT_THYMIO&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;constant</span> <span class="na">value=</span><span class="s">&quot;0&quot;</span> <span class="na">name=</span><span class="s">&quot;MY_CONSTANT_EPUCK&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="cm">&lt;!--list of constants--&gt;</span>
+<span class="w">  </span><span class="nt">&lt;constant</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;MY_CONSTANT_THYMIO&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;constant</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;MY_CONSTANT_EPUCK&quot;</span><span class="nt">/&gt;</span>
 
-  <span class="c">&lt;!--show keywords state--&gt;</span>
-  <span class="nt">&lt;keywords</span> <span class="na">flag=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="cm">&lt;!--show keywords state--&gt;</span>
+<span class="w">  </span><span class="nt">&lt;keywords</span><span class="w"> </span><span class="na">flag=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
 
-  <span class="c">&lt;!--node thymio-II--&gt;</span>
-  <span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">&gt;</span>
-    var value[3] = [MY_CONSTANT_THYMIO, MY_CONSTANT_THYMIO, MY_CONSTANT_THYMIO]
-    emit pong value
-    onevent ping_thymio
-    value = event.args[0:2]
-    emit pong value
-  <span class="nt">&lt;/node&gt;</span>
+<span class="w">  </span><span class="cm">&lt;!--node thymio-II--&gt;</span>
+<span class="w">  </span><span class="nt">&lt;node</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span>var<span class="w"> </span>value[3]<span class="w"> </span>=<span class="w"> </span>[MY_CONSTANT_THYMIO,<span class="w"> </span>MY_CONSTANT_THYMIO,<span class="w"> </span>MY_CONSTANT_THYMIO]
+<span class="w">    </span>emit<span class="w"> </span>pong<span class="w"> </span>value
+<span class="w">    </span>onevent<span class="w"> </span>ping_thymio
+<span class="w">    </span>value<span class="w"> </span>=<span class="w"> </span>event.args[0:2]
+<span class="w">    </span>emit<span class="w"> </span>pong<span class="w"> </span>value
+<span class="w">  </span><span class="nt">&lt;/node&gt;</span>
 
-  <span class="c">&lt;!--node e-puck0--&gt;</span>
-  <span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;e-puck0&quot;</span><span class="nt">&gt;</span>
-    var value[3] = [MY_CONSTANT_EPUCK, MY_CONSTANT_EPUCK, MY_CONSTANT_EPUCK]
-    emit pong value
-    onevent ping_epuck
-    value = args[0:2]
-    emit pong value
-  <span class="nt">&lt;/node&gt;</span>
+<span class="w">  </span><span class="cm">&lt;!--node e-puck0--&gt;</span>
+<span class="w">  </span><span class="nt">&lt;node</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;e-puck0&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span>var<span class="w"> </span>value[3]<span class="w"> </span>=<span class="w"> </span>[MY_CONSTANT_EPUCK,<span class="w"> </span>MY_CONSTANT_EPUCK,<span class="w"> </span>MY_CONSTANT_EPUCK]
+<span class="w">    </span>emit<span class="w"> </span>pong<span class="w"> </span>value
+<span class="w">    </span>onevent<span class="w"> </span>ping_epuck
+<span class="w">    </span>value<span class="w"> </span>=<span class="w"> </span>args[0:2]
+<span class="w">    </span>emit<span class="w"> </span>pong<span class="w"> </span>value
+<span class="w">  </span><span class="nt">&lt;/node&gt;</span>
 
 <span class="nt">&lt;/network&gt;</span>
 </pre></div>
@@ -1011,76 +1016,76 @@ As the different nodes uses different [incoming] events, we don’t need to incl
 </div></div>
 </section>
 <section id="a-single-thymio">
-<h2>A single Thymio<a class="headerlink" href="#a-single-thymio" title="Permalink to this headline"></a></h2>
+<h2>A single Thymio<a class="headerlink" href="#a-single-thymio" title="Link to this heading"></a></h2>
 <p>The following launch files configure asebaros to connect to just the first Thymio
 (i.e., the first Aseba node with <code class="docutils literal notranslate"><span class="pre">name==&quot;thymio-II&quot;</span></code>), and a script will be automatically loaded into the node.</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-19-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-19-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-19-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-19-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-19-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-19-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
-  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;arg</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;device&quot;</span><span class="w"> </span><span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;arg</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
 
-  <span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">type=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(arg port)&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;targets&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
-      [&quot;$(arg device)&quot;,]
-    <span class="nt">&lt;/rosparam&gt;</span>
-    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
-      others:
-        accept: false
-      thymio:
-        type: thymio-II
-        id_variable: _id
-        accept: true
-        name: thymio
-        include_id_in_events: false
-        maximal_number: 1
-    <span class="nt">&lt;/rosparam&gt;</span>
-    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;script&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
-      path: $(find asebaros_examples)/launch/single_thymio.aesl
-      constants:
-        OBSTACLE_THRESHOLD: 2500
-    <span class="nt">&lt;/rosparam&gt;</span>
-  <span class="nt">&lt;/node&gt;</span>
+<span class="w">  </span><span class="nt">&lt;node</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(arg port)&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;rosparam</span><span class="w"> </span><span class="na">param=</span><span class="s">&quot;targets&quot;</span><span class="w"> </span><span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span>[&quot;$(arg<span class="w"> </span>device)&quot;,]
+<span class="w">    </span><span class="nt">&lt;/rosparam&gt;</span>
+<span class="w">    </span><span class="nt">&lt;rosparam</span><span class="w"> </span><span class="na">param=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span>others:
+<span class="w">        </span>accept:<span class="w"> </span>false
+<span class="w">      </span>thymio:
+<span class="w">        </span>type:<span class="w"> </span>thymio-II
+<span class="w">        </span>id_variable:<span class="w"> </span>_id
+<span class="w">        </span>accept:<span class="w"> </span>true
+<span class="w">        </span>name:<span class="w"> </span>thymio
+<span class="w">        </span>include_id_in_events:<span class="w"> </span>false
+<span class="w">        </span>maximal_number:<span class="w"> </span>1
+<span class="w">    </span><span class="nt">&lt;/rosparam&gt;</span>
+<span class="w">    </span><span class="nt">&lt;rosparam</span><span class="w"> </span><span class="na">param=</span><span class="s">&quot;script&quot;</span><span class="w"> </span><span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span>path:<span class="w"> </span>$(find<span class="w"> </span>asebaros_examples)/launch/single_thymio.aesl
+<span class="w">      </span>constants:
+<span class="w">        </span>OBSTACLE_THRESHOLD:<span class="w"> </span>2500
+<span class="w">    </span><span class="nt">&lt;/rosparam&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/node&gt;</span>
 <span class="nt">&lt;/launch&gt;</span>
 </pre></div>
 </div>
 </div><div aria-labelledby="tab-19-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-19-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
-  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;let</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;arg</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;device&quot;</span><span class="w"> </span><span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;let</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
 
-  <span class="nt">&lt;node</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">exec=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">args=</span><span class="s">&quot;--log-level info&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var port)&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;targets&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span> <span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;thymio&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;type&quot;</span> <span class="na">value=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;_id&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;thymio&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;include_id_in_events&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;maximal_number&quot;</span> <span class="na">value=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;/param&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;others&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;/param&gt;</span>
-    <span class="nt">&lt;/param&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;script&quot;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;path&quot;</span> <span class="na">value=</span><span class="s">&quot;$(find-pkg-share asebaros_examples)/launch/single_thymio.aesl&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;constants&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;OBSTACLE_THRESHOLD&quot;</span> <span class="na">value=</span><span class="s">&quot;2500&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;/param&gt;</span>
-    <span class="nt">&lt;/param&gt;</span>
-  <span class="nt">&lt;/node&gt;</span>
+<span class="w">  </span><span class="nt">&lt;node</span><span class="w"> </span><span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">exec=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">args=</span><span class="s">&quot;--log-level info&quot;</span><span class="w"> </span><span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(var port)&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;targets&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span><span class="w"> </span><span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;thymio&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;type&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;id_variable&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;_id&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;accept&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;name&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;thymio&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;include_id_in_events&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;maximal_number&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;others&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;accept&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;script&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;path&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(find-pkg-share asebaros_examples)/launch/single_thymio.aesl&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;constants&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;OBSTACLE_THRESHOLD&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;2500&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/node&gt;</span>
 <span class="nt">&lt;/launch&gt;</span>
 </pre></div>
 </div>
@@ -1090,28 +1095,28 @@ As the different nodes uses different [incoming] events, we don’t need to incl
 <div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE aesl-source&gt;</span>
 <span class="nt">&lt;network&gt;</span>
 
-  <span class="c">&lt;!--list of global events--&gt;</span>
-  <span class="nt">&lt;event</span> <span class="na">size=</span><span class="s">&quot;3&quot;</span> <span class="na">name=</span><span class="s">&quot;set_color&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;event</span> <span class="na">size=</span><span class="s">&quot;0&quot;</span> <span class="na">name=</span><span class="s">&quot;obstacle&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="cm">&lt;!--list of global events--&gt;</span>
+<span class="w">  </span><span class="nt">&lt;event</span><span class="w"> </span><span class="na">size=</span><span class="s">&quot;3&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;set_color&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;event</span><span class="w"> </span><span class="na">size=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;obstacle&quot;</span><span class="nt">/&gt;</span>
 
-  <span class="c">&lt;!--list of constants--&gt;</span>
-  <span class="nt">&lt;constant</span> <span class="na">value=</span><span class="s">&quot;2000&quot;</span> <span class="na">name=</span><span class="s">&quot;OBSTACLE_THRESHOLD&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="cm">&lt;!--list of constants--&gt;</span>
+<span class="w">  </span><span class="nt">&lt;constant</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;2000&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;OBSTACLE_THRESHOLD&quot;</span><span class="nt">/&gt;</span>
 
-  <span class="c">&lt;!--show keywords state--&gt;</span>
-  <span class="nt">&lt;keywords</span> <span class="na">flag=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="cm">&lt;!--show keywords state--&gt;</span>
+<span class="w">  </span><span class="nt">&lt;keywords</span><span class="w"> </span><span class="na">flag=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
 
-  <span class="c">&lt;!--node thymio-II--&gt;</span>
-  <span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">&gt;</span>
-    onevent prox
-    if (prox.horizontal[2] &gt; OBSTACLE_THRESHOLD) then
-      call leds.buttons(32, 32, 32, 32)
-      emit obstacle
-    else
-      call leds.buttons(0, 0, 0, 0)
-    end
-    onevent set_color
-    call leds.top(event.args[0], event.args[1], event.args[2])
-  <span class="nt">&lt;/node&gt;</span>
+<span class="w">  </span><span class="cm">&lt;!--node thymio-II--&gt;</span>
+<span class="w">  </span><span class="nt">&lt;node</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span>onevent<span class="w"> </span>prox
+<span class="w">    </span>if<span class="w"> </span>(prox.horizontal[2]<span class="w"> </span>&gt;<span class="w"> </span>OBSTACLE_THRESHOLD)<span class="w"> </span>then
+<span class="w">      </span>call<span class="w"> </span>leds.buttons(32,<span class="w"> </span>32,<span class="w"> </span>32,<span class="w"> </span>32)
+<span class="w">      </span>emit<span class="w"> </span>obstacle
+<span class="w">    </span>else
+<span class="w">      </span>call<span class="w"> </span>leds.buttons(0,<span class="w"> </span>0,<span class="w"> </span>0,<span class="w"> </span>0)
+<span class="w">    </span>end
+<span class="w">    </span>onevent<span class="w"> </span>set_color
+<span class="w">    </span>call<span class="w"> </span>leds.top(event.args[0],<span class="w"> </span>event.args[1],<span class="w"> </span>event.args[2])
+<span class="w">  </span><span class="nt">&lt;/node&gt;</span>
 
 <span class="nt">&lt;/network&gt;</span>
 </pre></div>
@@ -1149,73 +1154,73 @@ is used by ROS to change the Thymio body color.</p>
 </div></div>
 </section>
 <section id="twin-thymios">
-<h2>Twin Thymios<a class="headerlink" href="#twin-thymios" title="Permalink to this headline"></a></h2>
+<h2>Twin Thymios<a class="headerlink" href="#twin-thymios" title="Link to this heading"></a></h2>
 <p>We want to connect to any Thymio in the network and load the same script. Each of them will get the namespace <code class="docutils literal notranslate"><span class="pre">&quot;thymio_{id}&quot;</span></code>.</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-23-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-23-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-23-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-23-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-23-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-23-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
-  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;arg</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;device&quot;</span><span class="w"> </span><span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;arg</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
 
-  <span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">type=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(arg port)&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;targets&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
-      [&quot;$(arg device)&quot;,]
-    <span class="nt">&lt;/rosparam&gt;</span>
-    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
-      others:
-        accept: false
-      thymio:
-        name: thymio-II
-        id_variable: _id
-        accept: true
-        prefix: thymio_
-        include_id_in_events: true
-    <span class="nt">&lt;/rosparam&gt;</span>
-    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;script&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
-      path: $(find asebaros_examples)/launch/twin_thymios.aesl
-      constants:
-        OBSTACLE_THRESHOLD: 2500
-    <span class="nt">&lt;/rosparam&gt;</span>
-  <span class="nt">&lt;/node&gt;</span>
+<span class="w">  </span><span class="nt">&lt;node</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(arg port)&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;rosparam</span><span class="w"> </span><span class="na">param=</span><span class="s">&quot;targets&quot;</span><span class="w"> </span><span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span>[&quot;$(arg<span class="w"> </span>device)&quot;,]
+<span class="w">    </span><span class="nt">&lt;/rosparam&gt;</span>
+<span class="w">    </span><span class="nt">&lt;rosparam</span><span class="w"> </span><span class="na">param=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span>others:
+<span class="w">        </span>accept:<span class="w"> </span>false
+<span class="w">      </span>thymio:
+<span class="w">        </span>name:<span class="w"> </span>thymio-II
+<span class="w">        </span>id_variable:<span class="w"> </span>_id
+<span class="w">        </span>accept:<span class="w"> </span>true
+<span class="w">        </span>prefix:<span class="w"> </span>thymio_
+<span class="w">        </span>include_id_in_events:<span class="w"> </span>true
+<span class="w">    </span><span class="nt">&lt;/rosparam&gt;</span>
+<span class="w">    </span><span class="nt">&lt;rosparam</span><span class="w"> </span><span class="na">param=</span><span class="s">&quot;script&quot;</span><span class="w"> </span><span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span>path:<span class="w"> </span>$(find<span class="w"> </span>asebaros_examples)/launch/twin_thymios.aesl
+<span class="w">      </span>constants:
+<span class="w">        </span>OBSTACLE_THRESHOLD:<span class="w"> </span>2500
+<span class="w">    </span><span class="nt">&lt;/rosparam&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/node&gt;</span>
 <span class="nt">&lt;/launch&gt;</span>
 </pre></div>
 </div>
 </div><div aria-labelledby="tab-23-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-23-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
-  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;let</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;arg</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;device&quot;</span><span class="w"> </span><span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;let</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
 
-  <span class="nt">&lt;node</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">exec=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">args=</span><span class="s">&quot;--log-level info&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var port)&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;targets&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span> <span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;thymio&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;_id&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;prefix&quot;</span> <span class="na">value=</span><span class="s">&quot;thymio_&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;include_id_in_events&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;/param&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;others&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;/param&gt;</span>
-    <span class="nt">&lt;/param&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;script&quot;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;path&quot;</span> <span class="na">value=</span><span class="s">&quot;$(find-pkg-share asebaros_examples)/launch/twin_thymios.aesl&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;constants&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;OBSTACLE_THRESHOLD&quot;</span> <span class="na">value=</span><span class="s">&quot;2500&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;/param&gt;</span>
-    <span class="nt">&lt;/param&gt;</span>
-  <span class="nt">&lt;/node&gt;</span>
+<span class="w">  </span><span class="nt">&lt;node</span><span class="w"> </span><span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">exec=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">args=</span><span class="s">&quot;--log-level info&quot;</span><span class="w"> </span><span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(var port)&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;targets&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span><span class="w"> </span><span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;thymio&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;name&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;id_variable&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;_id&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;prefix&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;thymio_&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;accept&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;include_id_in_events&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;others&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;accept&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;script&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;path&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(find-pkg-share asebaros_examples)/launch/twin_thymios.aesl&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;constants&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;OBSTACLE_THRESHOLD&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;2500&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/node&gt;</span>
 <span class="nt">&lt;/launch&gt;</span>
 </pre></div>
 </div>
@@ -1226,29 +1231,29 @@ The script checks that the command targets the current robot, else it ignores it
 <div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE aesl-source&gt;</span>
 <span class="nt">&lt;network&gt;</span>
 
-<span class="c">&lt;!--list of global events--&gt;</span>
-<span class="nt">&lt;event</span> <span class="na">size=</span><span class="s">&quot;4&quot;</span> <span class="na">name=</span><span class="s">&quot;set_color&quot;</span><span class="nt">/&gt;</span>
-<span class="nt">&lt;event</span> <span class="na">size=</span><span class="s">&quot;0&quot;</span> <span class="na">name=</span><span class="s">&quot;obstacle&quot;</span><span class="nt">/&gt;</span>
+<span class="cm">&lt;!--list of global events--&gt;</span>
+<span class="nt">&lt;event</span><span class="w"> </span><span class="na">size=</span><span class="s">&quot;4&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;set_color&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;event</span><span class="w"> </span><span class="na">size=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;obstacle&quot;</span><span class="nt">/&gt;</span>
 
-<span class="c">&lt;!--list of constants--&gt;</span>
-<span class="nt">&lt;constant</span> <span class="na">value=</span><span class="s">&quot;2000&quot;</span> <span class="na">name=</span><span class="s">&quot;OBSTACLE_THRESHOLD&quot;</span><span class="nt">/&gt;</span>
+<span class="cm">&lt;!--list of constants--&gt;</span>
+<span class="nt">&lt;constant</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;2000&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;OBSTACLE_THRESHOLD&quot;</span><span class="nt">/&gt;</span>
 
-<span class="c">&lt;!--show keywords state--&gt;</span>
-<span class="nt">&lt;keywords</span> <span class="na">flag=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="cm">&lt;!--show keywords state--&gt;</span>
+<span class="nt">&lt;keywords</span><span class="w"> </span><span class="na">flag=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
 
-<span class="c">&lt;!--node thymio-II--&gt;</span>
-<span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">&gt;</span>
-  onevent prox
-    if (prox.horizontal[2] &gt; OBSTACLE_THRESHOLD) then
-      call leds.buttons(32, 32, 32, 32)
-      emit obstacle
-    else
-      call leds.buttons(0, 0, 0, 0)
-    end
-  onevent set_color
-    if (event.args[0] == _id) then
-      call leds.top(event.args[1], event.args[2], event.args[3])
-    end
+<span class="cm">&lt;!--node thymio-II--&gt;</span>
+<span class="nt">&lt;node</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span>onevent<span class="w"> </span>prox
+<span class="w">    </span>if<span class="w"> </span>(prox.horizontal[2]<span class="w"> </span>&gt;<span class="w"> </span>OBSTACLE_THRESHOLD)<span class="w"> </span>then
+<span class="w">      </span>call<span class="w"> </span>leds.buttons(32,<span class="w"> </span>32,<span class="w"> </span>32,<span class="w"> </span>32)
+<span class="w">      </span>emit<span class="w"> </span>obstacle
+<span class="w">    </span>else
+<span class="w">      </span>call<span class="w"> </span>leds.buttons(0,<span class="w"> </span>0,<span class="w"> </span>0,<span class="w"> </span>0)
+<span class="w">    </span>end
+<span class="w">  </span>onevent<span class="w"> </span>set_color
+<span class="w">    </span>if<span class="w"> </span>(event.args[0]<span class="w"> </span>==<span class="w"> </span>_id)<span class="w"> </span>then
+<span class="w">      </span>call<span class="w"> </span>leds.top(event.args[1],<span class="w"> </span>event.args[2],<span class="w"> </span>event.args[3])
+<span class="w">    </span>end
 <span class="nt">&lt;/node&gt;</span>
 
 <span class="nt">&lt;/network&gt;</span>
@@ -1277,88 +1282,88 @@ The script checks that the command targets the current robot, else it ignores it
 </div></div>
 </section>
 <section id="two-thymios">
-<h2>Two Thymios<a class="headerlink" href="#two-thymios" title="Permalink to this headline"></a></h2>
+<h2>Two Thymios<a class="headerlink" href="#two-thymios" title="Link to this heading"></a></h2>
 <p>In this example, we want connect to two specific Thymio identified by id, assign them to predefined namespaces (Thymio 21181 to <code class="docutils literal notranslate"><span class="pre">&quot;red&quot;</span></code> and Thymio 14031 to <code class="docutils literal notranslate"><span class="pre">&quot;green&quot;</span></code>), and automatically set their body LED color coherently.</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-26-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-26-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-26-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-26-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-26-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-26-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
-  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;arg</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;device&quot;</span><span class="w"> </span><span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;arg</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
 
-  <span class="nt">&lt;node</span> <span class="na">name=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">type=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(arg port)&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;targets&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
-      [&quot;$(arg device)&quot;,]
-    <span class="nt">&lt;/rosparam&gt;</span>
-    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
-      others:
-        accept: false
-      thymio:
-        name: thymio-II
-        id_variable: _id
-        accept: false
-        include_id_in_events: false
-      thymio_21181:
-        id: 21181
-        name: thymio-II
-        accept: true
-        namespace: red
-      thymio_14031:
-        id: 14031
-        name: thymio-II
-        accept: true
-        namespace: green
-    <span class="nt">&lt;/rosparam&gt;</span>
-    <span class="nt">&lt;rosparam</span> <span class="na">param=</span><span class="s">&quot;script&quot;</span> <span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
-      path: $(find asebaros_examples)/launch/two_thymios.aesl
-    <span class="nt">&lt;/rosparam&gt;</span>
-  <span class="nt">&lt;/node&gt;</span>
+<span class="w">  </span><span class="nt">&lt;node</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(arg port)&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;rosparam</span><span class="w"> </span><span class="na">param=</span><span class="s">&quot;targets&quot;</span><span class="w"> </span><span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span>[&quot;$(arg<span class="w"> </span>device)&quot;,]
+<span class="w">    </span><span class="nt">&lt;/rosparam&gt;</span>
+<span class="w">    </span><span class="nt">&lt;rosparam</span><span class="w"> </span><span class="na">param=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span>others:
+<span class="w">        </span>accept:<span class="w"> </span>false
+<span class="w">      </span>thymio:
+<span class="w">        </span>name:<span class="w"> </span>thymio-II
+<span class="w">        </span>id_variable:<span class="w"> </span>_id
+<span class="w">        </span>accept:<span class="w"> </span>false
+<span class="w">        </span>include_id_in_events:<span class="w"> </span>false
+<span class="w">      </span>thymio_21181:
+<span class="w">        </span>id:<span class="w"> </span>21181
+<span class="w">        </span>name:<span class="w"> </span>thymio-II
+<span class="w">        </span>accept:<span class="w"> </span>true
+<span class="w">        </span>namespace:<span class="w"> </span>red
+<span class="w">      </span>thymio_14031:
+<span class="w">        </span>id:<span class="w"> </span>14031
+<span class="w">        </span>name:<span class="w"> </span>thymio-II
+<span class="w">        </span>accept:<span class="w"> </span>true
+<span class="w">        </span>namespace:<span class="w"> </span>green
+<span class="w">    </span><span class="nt">&lt;/rosparam&gt;</span>
+<span class="w">    </span><span class="nt">&lt;rosparam</span><span class="w"> </span><span class="na">param=</span><span class="s">&quot;script&quot;</span><span class="w"> </span><span class="na">subst_value=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span>path:<span class="w"> </span>$(find<span class="w"> </span>asebaros_examples)/launch/two_thymios.aesl
+<span class="w">    </span><span class="nt">&lt;/rosparam&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/node&gt;</span>
 <span class="nt">&lt;/launch&gt;</span>
 </pre></div>
 </div>
 </div><div aria-labelledby="tab-26-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-26-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;launch&gt;</span>
 
-  <span class="nt">&lt;arg</span> <span class="na">name=</span><span class="s">&quot;device&quot;</span> <span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;let</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;arg</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;device&quot;</span><span class="w"> </span><span class="na">default=</span><span class="s">&quot;tcp:host=localhost;port=33333&quot;</span><span class="nt">/&gt;</span>
+<span class="w">  </span><span class="nt">&lt;let</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;44444&quot;</span><span class="nt">/&gt;</span>
 
-  <span class="nt">&lt;node</span> <span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">exec=</span><span class="s">&quot;asebaros&quot;</span> <span class="na">args=</span><span class="s">&quot;--log-level info&quot;</span> <span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;port&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var port)&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span> <span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;targets&quot;</span> <span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span> <span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;thymio&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;id_variable&quot;</span> <span class="na">value=</span><span class="s">&quot;_id&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;include_id_in_events&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;/param&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;thymio_21181&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;id&quot;</span> <span class="na">value=</span><span class="s">&quot;21181&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;namespace&quot;</span> <span class="na">value=</span><span class="s">&quot;red&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;/param&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;thymio_14031&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;id&quot;</span> <span class="na">value=</span><span class="s">&quot;14031&quot;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;namespace&quot;</span> <span class="na">value=</span><span class="s">&quot;green&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;/param&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;others&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;accept&quot;</span> <span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
-      <span class="nt">&lt;/param&gt;</span>
-    <span class="nt">&lt;/param&gt;</span>
-    <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;script&quot;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;param</span> <span class="na">name=</span><span class="s">&quot;path&quot;</span> <span class="na">value=</span><span class="s">&quot;$(find-pkg-share asebaros_examples)/launch/two_thymios.aesl&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/param&gt;</span>
-  <span class="nt">&lt;/node&gt;</span>
+<span class="w">  </span><span class="nt">&lt;node</span><span class="w"> </span><span class="na">pkg=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">exec=</span><span class="s">&quot;asebaros&quot;</span><span class="w"> </span><span class="na">args=</span><span class="s">&quot;--log-level info&quot;</span><span class="w"> </span><span class="na">output=</span><span class="s">&quot;screen&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;port&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(var port)&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;reload_script_on_reconnect&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;set_id_variable&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;shutdown_on_unconnect&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;highest_acceptable_protocol_version&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;20&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;targets&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(var device)&quot;</span><span class="w"> </span><span class="na">value-sep=</span><span class="s">&quot;,&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;nodes&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;thymio&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;name&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;id_variable&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;_id&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;accept&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;include_id_in_events&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;thymio_21181&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;name&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;accept&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;id&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;21181&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;namespace&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;red&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;thymio_14031&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;name&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;accept&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;id&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;14031&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;namespace&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;green&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;others&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;accept&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">    </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;script&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;path&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(find-pkg-share asebaros_examples)/launch/two_thymios.aesl&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/param&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/node&gt;</span>
 <span class="nt">&lt;/launch&gt;</span>
 </pre></div>
 </div>
@@ -1368,19 +1373,19 @@ The script checks that the command targets the current robot, else it ignores it
 <div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE aesl-source&gt;</span>
 <span class="nt">&lt;network&gt;</span>
 
-<span class="c">&lt;!--list of global events--&gt;</span>
+<span class="cm">&lt;!--list of global events--&gt;</span>
 
-<span class="c">&lt;!--list of constants--&gt;</span>
+<span class="cm">&lt;!--list of constants--&gt;</span>
 
-<span class="c">&lt;!--show keywords state--&gt;</span>
-<span class="nt">&lt;keywords</span> <span class="na">flag=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="cm">&lt;!--show keywords state--&gt;</span>
+<span class="nt">&lt;keywords</span><span class="w"> </span><span class="na">flag=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
 
-<span class="c">&lt;!--node thymio-II--&gt;</span>
-<span class="nt">&lt;node</span> <span class="na">nodeId=</span><span class="s">&quot;21181&quot;</span> <span class="na">name=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">&gt;</span>
-  call leds.top(32, 0, 0)
+<span class="cm">&lt;!--node thymio-II--&gt;</span>
+<span class="nt">&lt;node</span><span class="w"> </span><span class="na">nodeId=</span><span class="s">&quot;21181&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span>call<span class="w"> </span>leds.top(32,<span class="w"> </span>0,<span class="w"> </span>0)
 <span class="nt">&lt;/node&gt;</span>
-<span class="nt">&lt;node</span> <span class="na">nodeId=</span><span class="s">&quot;14031&quot;</span> <span class="na">name=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">&gt;</span>
-  call leds.top(0, 32, 0)
+<span class="nt">&lt;node</span><span class="w"> </span><span class="na">nodeId=</span><span class="s">&quot;14031&quot;</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;thymio-II&quot;</span><span class="nt">&gt;</span>
+<span class="w">  </span>call<span class="w"> </span>leds.top(0,<span class="w"> </span>32,<span class="w"> </span>0)
 <span class="nt">&lt;/node&gt;</span>
 
 <span class="nt">&lt;/network&gt;</span>

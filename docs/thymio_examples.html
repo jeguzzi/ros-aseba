@@ -1,22 +1,23 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ROS-Thymio: examples &mdash; ROS for Aseba and Thymio 0.1.0 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>ROS-Thymio: examples &mdash; ROS for Aseba and Thymio 0.2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=a5c4661c" />
+
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/tabs.js"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=938c9ccc"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/tabs.js?v=3030b3cb"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -29,11 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> ROS for Aseba and Thymio
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ROS for Aseba and Thymio
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -53,6 +58,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#supported-operating-systems">Supported Operating Systems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros">ROS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros-aseba">ROS-Aseba</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros-thymio">ROS-Thymio</a></li>
@@ -431,8 +437,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>ROS-Thymio: examples</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ROS-Thymio: examples</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/thymio_examples.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -443,16 +449,16 @@
            <div itemprop="articleBody">
              
   <section id="ros-thymio-examples">
-<h1>ROS-Thymio: examples<a class="headerlink" href="#ros-thymio-examples" title="Permalink to this headline"></a></h1>
+<h1>ROS-Thymio: examples<a class="headerlink" href="#ros-thymio-examples" title="Link to this heading"></a></h1>
 <p>The launch file <a class="reference internal" href="thymio_driver.html#main-launch"><span class="std std-ref">main.launch</span></a> covers different use-cases.
 It launches all you need to interact with one or more Thymio: <code class="docutils literal notranslate"><span class="pre">asebaros</span></code>, <code class="docutils literal notranslate"><span class="pre">thymio_driver</span></code>,
 and publishes the robot’s model with the correct names.
 Add <code class="docutils literal notranslate"><span class="pre">simulation:=True</span></code> if the Thymios are simulated.</p>
 <section id="one-thymio">
-<h2>One Thymio<a class="headerlink" href="#one-thymio" title="Permalink to this headline"></a></h2>
+<h2>One Thymio<a class="headerlink" href="#one-thymio" title="Link to this heading"></a></h2>
 <p>You want to control a single Thymio that is connected to an Aseba network at <code class="docutils literal notranslate"><span class="pre">&lt;DEVICE&gt;</span></code>.</p>
 <section id="single-driver">
-<h3>Single driver<a class="headerlink" href="#single-driver" title="Permalink to this headline"></a></h3>
+<h3>Single driver<a class="headerlink" href="#single-driver" title="Link to this heading"></a></h3>
 <p>You can either use the single driver version, optionally selecting a <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code>,
 which can be left empty.</p>
 <div class="sphinx-tabs docutils container">
@@ -469,7 +475,7 @@ The namespace <code class="docutils literal notranslate"><span class="pre">&lt;N
 whole Aseba network, like <code class="docutils literal notranslate"><span class="pre">&lt;NAME&gt;/aseba/nodes</span></code> or <code class="docutils literal notranslate"><span class="pre">&lt;NAME&gt;/aseba/load_script</span></code>.</p>
 </section>
 <section id="multi-driver">
-<h3>Multi driver<a class="headerlink" href="#multi-driver" title="Permalink to this headline"></a></h3>
+<h3>Multi driver<a class="headerlink" href="#multi-driver" title="Link to this heading"></a></h3>
 <p>Alternatively, you can use the multi driver version: namespaces will be automatically assigned by <code class="docutils literal notranslate"><span class="pre">asebaros</span></code></p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-1-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-1-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-1-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roslaunch thymio_driver main.launch device:=&lt;DEVICE&gt; single:=False [simulation:=True]</span>
@@ -485,7 +491,7 @@ Services and topics related to the whole Aseba network, won’t have a namespace
 </section>
 </section>
 <section id="multiple-thymios-on-the-same-aseba-network">
-<span id="multiple"></span><h2>Multiple Thymios on the same Aseba network<a class="headerlink" href="#multiple-thymios-on-the-same-aseba-network" title="Permalink to this headline"></a></h2>
+<span id="multiple"></span><h2>Multiple Thymios on the same Aseba network<a class="headerlink" href="#multiple-thymios-on-the-same-aseba-network" title="Link to this heading"></a></h2>
 <p>The second configuration above, works fine for multiple Thymio all connected to the same Aseba network.</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-2-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-2-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-2-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">roslaunch thymio_driver main.launch device:=&lt;DEVICE&gt; single:=False [simulation:=True]</span>
@@ -499,10 +505,10 @@ Services and topics related to the whole Aseba network, won’t have a namespace
 and a model with frame names prefixed by <code class="docutils literal notranslate"><span class="pre">thymio_&lt;ID&gt;</span></code> too.</p>
 </section>
 <section id="multiple-thymios-on-different-aseba-networks">
-<h2>Multiple Thymios on different Aseba networks<a class="headerlink" href="#multiple-thymios-on-different-aseba-networks" title="Permalink to this headline"></a></h2>
+<h2>Multiple Thymios on different Aseba networks<a class="headerlink" href="#multiple-thymios-on-different-aseba-networks" title="Link to this heading"></a></h2>
 <p>If you want to connect to different Aseba networks (e.g., two Thymios connected by cable), you have two ways.</p>
 <section id="a-single-driver-for-each-network">
-<h3>A single driver for each network<a class="headerlink" href="#a-single-driver-for-each-network" title="Permalink to this headline"></a></h3>
+<h3>A single driver for each network<a class="headerlink" href="#a-single-driver-for-each-network" title="Link to this heading"></a></h3>
 <p>Launch one <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> and <code class="docutils literal notranslate"><span class="pre">thymio_driver</span></code> pair for each network.
 Use different names to differentiate them.</p>
 <div class="sphinx-tabs docutils container">
@@ -520,7 +526,7 @@ As they are connected to the same ROS network, you will be able to access both r
 For example, odometry will be available on <code class="docutils literal notranslate"><span class="pre">NAME_1/odom</span></code> and <code class="docutils literal notranslate"><span class="pre">NAME_2/odom</span></code>.</p>
 </section>
 <section id="aseba-switch-and-multi-driver">
-<h3>Aseba Switch and multi driver<a class="headerlink" href="#aseba-switch-and-multi-driver" title="Permalink to this headline"></a></h3>
+<h3>Aseba Switch and multi driver<a class="headerlink" href="#aseba-switch-and-multi-driver" title="Link to this heading"></a></h3>
 <p>Alternatively you can first join the Aseba networks using <a class="reference external" href="http://wiki.thymio.org/en:asebaswitchremap">Aseba Switch</a> to make the robot join the same network at port 33333.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">asebaswitch &lt;DEVICE_1&gt; &lt;DEVICE_2&gt; -p 33333</span>
 </pre></div>

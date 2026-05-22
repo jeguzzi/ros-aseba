@@ -1,22 +1,22 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ROS-Thymio: how it works &mdash; ROS for Aseba and Thymio 0.1.0 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>ROS-Thymio: how it works &mdash; ROS for Aseba and Thymio 0.2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=938c9ccc"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -29,11 +29,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> ROS for Aseba and Thymio
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ROS for Aseba and Thymio
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -53,6 +57,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#supported-operating-systems">Supported Operating Systems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros">ROS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros-aseba">ROS-Aseba</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros-thymio">ROS-Thymio</a></li>
@@ -431,8 +436,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>ROS-Thymio: how it works</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ROS-Thymio: how it works</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/thymio.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -443,7 +448,7 @@
            <div itemprop="articleBody">
              
   <section id="ros-thymio-how-it-works">
-<span id="thymio"></span><h1>ROS-Thymio: how it works<a class="headerlink" href="#ros-thymio-how-it-works" title="Permalink to this headline"></a></h1>
+<span id="thymio"></span><h1>ROS-Thymio: how it works<a class="headerlink" href="#ros-thymio-how-it-works" title="Link to this heading"></a></h1>
 <p>ROS-Thymio implements a Thymio-specific, ROS-conform interface
 on-top of the generic interface provided by ROS-Aseba.</p>
 <p>It supports single and multiple robots through two different drivers:</p>
@@ -459,10 +464,10 @@ a copy of <code class="docutils literal notranslate"><span class="pre">thymio_dr
 you can pick one of the two driver, as they offer the same interface; to managed
 multiple Thymio in the same Aseba network with a single ROS driver, you have to use <code class="docutils literal notranslate"><span class="pre">multi_thymio_driver</span></code> instead.</p>
 <section id="discovery">
-<h2>Discovery<a class="headerlink" href="#discovery" title="Permalink to this headline"></a></h2>
+<h2>Discovery<a class="headerlink" href="#discovery" title="Link to this heading"></a></h2>
 <p>We assume that <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> is already running and properly configured to connect to Thymios.</p>
 <section id="thymio-driver">
-<h3>thymio_driver<a class="headerlink" href="#thymio-driver" title="Permalink to this headline"></a></h3>
+<h3>thymio_driver<a class="headerlink" href="#thymio-driver" title="Link to this heading"></a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">thymio_driver</span></code> first waits until one Thymio is discovered by <code class="docutils literal notranslate"><span class="pre">asebaros</span></code>; then,
 if the Aseba node is not already running a script, it tries to load the specified script.
 At that point, <code class="docutils literal notranslate"><span class="pre">thymio_driver</span></code> finalizes the initialization of the ROS node and starts the run-loop.</p>
@@ -473,7 +478,7 @@ Three nodes are launched in the same ROS namespace (<code class="docutils litera
 <p><span class="caption-text">single robot ROS-Thymio launched by <a class="reference internal" href="thymio_driver.html#main-launch"><span class="std std-ref">main.launch</span></a> with <code class="docutils literal notranslate"><span class="pre">single=True</span></code></span></p>
 </div></section>
 <section id="multi-thymio-driver">
-<h3>multi_thymio_driver<a class="headerlink" href="#multi-thymio-driver" title="Permalink to this headline"></a></h3>
+<h3>multi_thymio_driver<a class="headerlink" href="#multi-thymio-driver" title="Link to this heading"></a></h3>
 <p>The multi-robot ROS driver <code class="docutils literal notranslate"><span class="pre">multi_thymio_driver</span></code> keeps checking if new Thymio get discovered
 by <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> and launches a <code class="docutils literal notranslate"><span class="pre">thymio_driver</span></code> node, using the namespace passed by <code class="docutils literal notranslate"><span class="pre">asebaros</span></code>.
 For ROS1, as there can only be one ROS node per process,
@@ -485,7 +490,7 @@ leaving this task solely to <code class="docutils literal notranslate"><span cla
 </div></section>
 </section>
 <section id="aseba-script-s">
-<h2>Aseba Script[s]<a class="headerlink" href="#aseba-script-s" title="Permalink to this headline"></a></h2>
+<h2>Aseba Script[s]<a class="headerlink" href="#aseba-script-s" title="Link to this heading"></a></h2>
 <p>As introduced in <a class="reference internal" href="introduction.html#asebathymio"><span class="std std-ref">ROS-Aseba with ROS-Thymio</span></a>, we use Aseba events to share data between Aseba and ROS.
 The specific ROS functionality implemented by <code class="docutils literal notranslate"><span class="pre">thymio_driver</span></code> is supported by events defined in a
 family of four Aseba scripts, which covers all combinations of simulated/real and single/multiple Thymios.
@@ -506,11 +511,11 @@ use the id from the additional payload to filter commands, as explained in <a cl
 All scripts are small variants of the script listed in <a class="reference internal" href="thymio_aseba_script.html#asebascript"><span class="std std-ref">ROS-Thymio Aseba script</span></a>.</p>
 </section>
 <section id="functionality">
-<h2>Functionality<a class="headerlink" href="#functionality" title="Permalink to this headline"></a></h2>
+<h2>Functionality<a class="headerlink" href="#functionality" title="Link to this heading"></a></h2>
 <section id="sensors">
-<h3>Sensors<a class="headerlink" href="#sensors" title="Permalink to this headline"></a></h3>
+<h3>Sensors<a class="headerlink" href="#sensors" title="Link to this heading"></a></h3>
 <section id="odometry">
-<span id="id1"></span><h4>Odometry<a class="headerlink" href="#odometry" title="Permalink to this headline"></a></h4>
+<span id="id1"></span><h4>Odometry<a class="headerlink" href="#odometry" title="Link to this heading"></a></h4>
 <p>Wheel odometry is computed onboard from the estimated wheel speed and exposed by <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> as
 the event <code class="docutils literal notranslate"><span class="pre">aseba/events/odometry</span></code>. The parameter <a class="reference internal" href="thymio_driver.html#param-motor-deadband"><span class="std std-ref">motor_deadband</span></a> defines a deadband to filter out noise from the motor speed estimation.</p>
 <p>If <a class="reference internal" href="thymio_driver.html#param-emit-motor"><span class="std std-ref">highest_acceptable_protocol_version</span></a> is <code class="docutils literal notranslate"><span class="pre">1</span></code>, the Aseba event is emitted once every <a class="reference internal" href="thymio_driver.html#param-motor-period"><span class="std std-ref">motor_period</span></a> update steps of the wheel odometry (which runs 100Hz), and
@@ -524,19 +529,19 @@ and publishes it as <a class="reference internal" href="thymio_driver.html#odome
 the accuracy does not depend on the rate at which the Aseba wheel odometry event is published.</p>
 </section>
 <section id="accelerometer">
-<h4>Accelerometer<a class="headerlink" href="#accelerometer" title="Permalink to this headline"></a></h4>
+<h4>Accelerometer<a class="headerlink" href="#accelerometer" title="Link to this heading"></a></h4>
 <p>If <a class="reference internal" href="thymio_driver.html#param-emit-acc"><span class="std std-ref">emit_acc</span></a> is <code class="docutils literal notranslate"><span class="pre">1</span></code>, raw data from the accelerometer is filtered (mean value over a running window at 16Hz);
 every <a class="reference internal" href="thymio_driver.html#param-acc-period"><span class="std std-ref">acc_period</span></a> steps it is emitted and then exposed on <code class="docutils literal notranslate"><span class="pre">aseba/events/accelerometer</span></code>,
 which the ROS driver transforms into SI-units and publishes as <a class="reference internal" href="thymio_driver.html#pub-imu"><span class="std std-ref">IMU</span></a>.
 The precision is very low as raw data has just 5-bit resolution.</p>
 </section>
 <section id="tap">
-<h4>Tap<a class="headerlink" href="#tap" title="Permalink to this headline"></a></h4>
+<h4>Tap<a class="headerlink" href="#tap" title="Link to this heading"></a></h4>
 <p>When the Thymio detects a large acceleration, it interprets it as somebody tapping on it.
 The Thymio driver republishes these events on <a class="reference internal" href="thymio_driver.html#pub-tap"><span class="std std-ref">Tap</span></a>.</p>
 </section>
 <section id="buttons">
-<h4>Buttons<a class="headerlink" href="#buttons" title="Permalink to this headline"></a></h4>
+<h4>Buttons<a class="headerlink" href="#buttons" title="Link to this heading"></a></h4>
 <p>The robot emits a notification every time each one of the five buttons get pressed or released, which is exposed by <code class="docutils literal notranslate"><span class="pre">asebaros</span></code>
 on <code class="docutils literal notranslate"><span class="pre">aseba/events/button_{backward,left,center,forward,right}</span></code>, which the driver republishes as <a class="reference internal" href="thymio_driver.html#pub-individual-buttons"><span class="std std-ref">Individual Buttons</span></a>.</p>
 <p>Moreover, if <a class="reference internal" href="thymio_driver.html#param-emit-buttons"><span class="std std-ref">emit_buttons</span></a> is <code class="docutils literal notranslate"><span class="pre">1</span></code>, the state of all buttons is filtered
@@ -545,7 +550,7 @@ every <a class="reference internal" href="thymio_driver.html#param-buttons-perio
 which the driver republishes as <a class="reference internal" href="thymio_driver.html#pub-all-buttons"><span class="std std-ref">All Buttons</span></a> emulating a joypad.</p>
 </section>
 <section id="proximity">
-<h4>Proximity<a class="headerlink" href="#proximity" title="Permalink to this headline"></a></h4>
+<h4>Proximity<a class="headerlink" href="#proximity" title="Link to this heading"></a></h4>
 <p>Proximity sensors are read onboard at 10 Hz.
 If the parameter  <a class="reference internal" href="thymio_driver.html#param-emit-proximity"><span class="std std-ref">emit_proximity</span></a> is <code class="docutils literal notranslate"><span class="pre">1</span></code>, they are send to <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> and
 published as <code class="docutils literal notranslate"><span class="pre">aseba/events/proximity</span></code>. The Thymio driver uses a calibration function to map reading <cite>r</cite> to distance <cite>d</cite> in meters.</p>
@@ -557,7 +562,7 @@ published as <code class="docutils literal notranslate"><span class="pre">aseba/
     \end{array}\right\}\end{split}\]</div>
 </section>
 <section id="ground">
-<h4>Ground<a class="headerlink" href="#ground" title="Permalink to this headline"></a></h4>
+<h4>Ground<a class="headerlink" href="#ground" title="Link to this heading"></a></h4>
 <p>Like proximity sensors, ground sensors are updated at 10 Hz if parameter <a class="reference internal" href="thymio_driver.html#param-emit-proximity"><span class="std std-ref">emit_proximity</span></a> is <code class="docutils literal notranslate"><span class="pre">1</span></code>,
 and published by <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> on <code class="docutils literal notranslate"><span class="pre">aseba/events/ground</span></code>.
 They are republished by <code class="docutils literal notranslate"><span class="pre">thymio_driver</span></code> as <a class="reference internal" href="thymio_driver.html#pub-ground"><span class="std std-ref">Ground Sensors</span></a> with a binary resolution
@@ -567,25 +572,25 @@ the threshold defined by parameter <a class="reference internal" href="thymio_dr
 raw readings on ambient and reflected light is published on <code class="docutils literal notranslate"><span class="pre">aseba/events/ground_{ambient,reflected}</span></code> too.</p>
 </section>
 <section id="sound">
-<h4>Sound<a class="headerlink" href="#sound" title="Permalink to this headline"></a></h4>
+<h4>Sound<a class="headerlink" href="#sound" title="Link to this heading"></a></h4>
 <p>Any sounds detected by the microphone with an high enough volume are republished as <a class="reference internal" href="thymio_driver.html#pub-sound"><span class="std std-ref">Sound</span></a>.
 The threshold can be set publishing a message on <a class="reference internal" href="thymio_driver.html#sub-sound-threshold"><span class="std std-ref">Set sound threshold</span></a>.</p>
 </section>
 <section id="temperature">
-<h4>Temperature<a class="headerlink" href="#temperature" title="Permalink to this headline"></a></h4>
+<h4>Temperature<a class="headerlink" href="#temperature" title="Link to this heading"></a></h4>
 <p>The robot temperature (updated at 1Hz) is republished on <a class="reference internal" href="thymio_driver.html#pub-temperature"><span class="std std-ref">Temperature</span></a>.</p>
 </section>
 </section>
 <section id="actuators">
-<h3>Actuators<a class="headerlink" href="#actuators" title="Permalink to this headline"></a></h3>
+<h3>Actuators<a class="headerlink" href="#actuators" title="Link to this heading"></a></h3>
 <section id="wheels">
-<h4>Wheels<a class="headerlink" href="#wheels" title="Permalink to this headline"></a></h4>
+<h4>Wheels<a class="headerlink" href="#wheels" title="Link to this heading"></a></h4>
 <p>As common for mobile robots in ROS, you control the robot velocity using a <code class="docutils literal notranslate"><span class="pre">geometry_msgs/Twist</span></code> (with linear and angular velocities)
 on <a class="reference internal" href="thymio_driver.html#pub-speed"><span class="std std-ref">Velocity command</span></a>, where only forward speed <code class="docutils literal notranslate"><span class="pre">`linear.x</span></code> and angular speed <code class="docutils literal notranslate"><span class="pre">angular.z</span></code> need to be specified and will be considered.
 The mapping between a twist in SI-units and the target value of the motor speed uses the inverse of the calibration functions described in <a class="reference internal" href="#odometry"><span class="std std-ref">Odometry</span></a>.</p>
 </section>
 <section id="id2">
-<h4>Sound<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h4>
+<h4>Sound<a class="headerlink" href="#id2" title="Link to this heading"></a></h4>
 <p>You can play a sound by sending a message</p>
 <blockquote>
 <div><ul class="simple">
@@ -595,11 +600,11 @@ The mapping between a twist in SI-units and the target value of the motor speed 
 </div></blockquote>
 </section>
 <section id="alarm">
-<h4>Alarm<a class="headerlink" href="#alarm" title="Permalink to this headline"></a></h4>
+<h4>Alarm<a class="headerlink" href="#alarm" title="Link to this heading"></a></h4>
 <p>We also expose a simple high-level interface to start/stop an alarm on <a class="reference internal" href="thymio_driver.html#sub-alarm"><span class="std std-ref">Alarm</span></a>.</p>
 </section>
 <section id="led">
-<h4>LED<a class="headerlink" href="#led" title="Permalink to this headline"></a></h4>
+<h4>LED<a class="headerlink" href="#led" title="Link to this heading"></a></h4>
 <p>You set the color of the three large RGB LED using the topics <a class="reference internal" href="thymio_driver.html#sub-body-led"><span class="std std-ref">Body LED</span></a>,</p>
 <p>You control the intensities of the other monochromatic small LED by sending a message to the topic <a class="reference internal" href="thymio_driver.html#sub-led"><span class="std std-ref">LED</span></a>, specifying:</p>
 <blockquote>
@@ -611,7 +616,7 @@ The mapping between a twist in SI-units and the target value of the motor speed 
 </div></blockquote>
 <p>Any LED not targeted by the group and mask, will keep the previous state.</p>
 <section id="gestures">
-<h5>Gestures<a class="headerlink" href="#gestures" title="Permalink to this headline"></a></h5>
+<h5>Gestures<a class="headerlink" href="#gestures" title="Link to this heading"></a></h5>
 <p>We also expose an interface to trigger LED gestures (or <em>animations</em>) on topic <a class="reference internal" href="thymio_driver.html#sub-led-gestures"><span class="std std-ref">LED Gestures</span></a>.
 Animations are implemented as travelling waves and are specified by</p>
 <blockquote>
@@ -637,13 +642,13 @@ Animations are implemented as travelling waves and are specified by</p>
 </section>
 </section>
 <section id="communication">
-<h3>Communication<a class="headerlink" href="#communication" title="Permalink to this headline"></a></h3>
+<h3>Communication<a class="headerlink" href="#communication" title="Link to this heading"></a></h3>
 <section id="remote">
-<h4>Remote<a class="headerlink" href="#remote" title="Permalink to this headline"></a></h4>
+<h4>Remote<a class="headerlink" href="#remote" title="Link to this heading"></a></h4>
 <p>Raw IR remote events are exposed on <code class="docutils literal notranslate"><span class="pre">aseba/events/remote</span></code> and republished by the driver as <a class="reference internal" href="thymio_driver.html#pub-remote"><span class="std std-ref">Remote Controller</span></a>.</p>
 </section>
 <section id="proximity-communication">
-<h4>Proximity communication<a class="headerlink" href="#proximity-communication" title="Permalink to this headline"></a></h4>
+<h4>Proximity communication<a class="headerlink" href="#proximity-communication" title="Link to this heading"></a></h4>
 <p>The Thymio provides a local communication service through its proximity sensors.
 At the same 10 Hz frequency used to update proximity sensors,
 the robot, after the pulse used for the proximity sensing, can send an additional IR pulse, encoding a 11-bit payload
@@ -666,12 +671,12 @@ The version available at <a class="reference external" href="https://github.com/
 </section>
 </section>
 <section id="robot-model">
-<h2>Robot Model<a class="headerlink" href="#robot-model" title="Permalink to this headline"></a></h2>
+<h2>Robot Model<a class="headerlink" href="#robot-model" title="Link to this heading"></a></h2>
 <p>The robot model provided by <code class="docutils literal notranslate"><span class="pre">thymio_description</span></code> contains the complete description of the
 robot geometry, with realistic visual meshes (from <a class="reference external" href="http://wiki.thymio.org/en:thymiospecifications">original specifications</a>) and simplified collision shapes.
 The model is needed to work with <a class="reference external" href="http://wiki.ros.org/tf">TF</a> and visualize the robot in rviz.</p>
 <section id="gazebo-simulation">
-<h3>Gazebo Simulation<a class="headerlink" href="#gazebo-simulation" title="Permalink to this headline"></a></h3>
+<h3>Gazebo Simulation<a class="headerlink" href="#gazebo-simulation" title="Link to this heading"></a></h3>
 <p>You can use the model to simulate the robot in Gazebo where a subset of sensor and actuators are exposed:</p>
 <blockquote>
 <div><ul class="simple">

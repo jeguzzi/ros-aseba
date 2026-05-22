@@ -1,21 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ROS-Thymio: thymio_description reference &mdash; ROS for Aseba and Thymio 0.1.0 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>ROS-Thymio: thymio_description reference &mdash; ROS for Aseba and Thymio 0.2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=938c9ccc"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -28,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> ROS for Aseba and Thymio
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ROS for Aseba and Thymio
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -52,6 +56,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#supported-operating-systems">Supported Operating Systems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros">ROS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros-aseba">ROS-Aseba</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros-thymio">ROS-Thymio</a></li>
@@ -430,8 +435,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>ROS-Thymio: thymio_description reference</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ROS-Thymio: thymio_description reference</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/thymio_description.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -442,98 +447,98 @@
            <div itemprop="articleBody">
              
   <section id="ros-thymio-thymio-description-reference">
-<h1>ROS-Thymio: thymio_description reference<a class="headerlink" href="#ros-thymio-thymio-description-reference" title="Permalink to this headline"></a></h1>
+<h1>ROS-Thymio: thymio_description reference<a class="headerlink" href="#ros-thymio-thymio-description-reference" title="Link to this heading"></a></h1>
 <section id="launch-files">
-<h2>Launch files<a class="headerlink" href="#launch-files" title="Permalink to this headline"></a></h2>
+<h2>Launch files<a class="headerlink" href="#launch-files" title="Link to this heading"></a></h2>
 <section id="model-launch-py-for-ros2">
-<span id="model-launch"></span><h3>model.launch[.py for ROS2]<a class="headerlink" href="#model-launch-py-for-ros2" title="Permalink to this headline"></a></h3>
+<span id="model-launch"></span><h3>model.launch[.py for ROS2]<a class="headerlink" href="#model-launch-py-for-ros2" title="Link to this heading"></a></h3>
 <p>Uses <code class="docutils literal notranslate"><span class="pre">xacro</span></code> to generate the model and then launches <code class="docutils literal notranslate"><span class="pre">robot_state_publisher</span></code></p>
 <section id="arguments">
-<h4>Arguments<a class="headerlink" href="#arguments" title="Permalink to this headline"></a></h4>
+<h4>Arguments<a class="headerlink" href="#arguments" title="Link to this heading"></a></h4>
 <section id="name">
-<h5>name<a class="headerlink" href="#name" title="Permalink to this headline"></a></h5>
+<h5>name<a class="headerlink" href="#name" title="Link to this heading"></a></h5>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>string</p>
 </dd>
-<dt class="field-even">Default</dt>
+<dt class="field-even">Default<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p>
 </dd>
 </dl>
 </section>
 <section id="proximity-max-range">
-<h5>proximity_max_range<a class="headerlink" href="#proximity-max-range" title="Permalink to this headline"></a></h5>
+<h5>proximity_max_range<a class="headerlink" href="#proximity-max-range" title="Link to this heading"></a></h5>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
-<dt class="field-even">Default</dt>
+<dt class="field-even">Default<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">0.12</span></code></p>
 </dd>
 </dl>
 </section>
 <section id="proximity-resolution">
-<h5>proximity_resolution<a class="headerlink" href="#proximity-resolution" title="Permalink to this headline"></a></h5>
+<h5>proximity_resolution<a class="headerlink" href="#proximity-resolution" title="Link to this heading"></a></h5>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
-<dt class="field-even">Default</dt>
+<dt class="field-even">Default<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">0.005</span></code></p>
 </dd>
 </dl>
 </section>
 <section id="proximity-fov">
-<h5>proximity_fov<a class="headerlink" href="#proximity-fov" title="Permalink to this headline"></a></h5>
+<h5>proximity_fov<a class="headerlink" href="#proximity-fov" title="Link to this heading"></a></h5>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
-<dt class="field-even">Default</dt>
+<dt class="field-even">Default<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">0.3</span></code></p>
 </dd>
 </dl>
 </section>
 <section id="publish-ground-truth">
-<h5>publish_ground_truth<a class="headerlink" href="#publish-ground-truth" title="Permalink to this headline"></a></h5>
+<h5>publish_ground_truth<a class="headerlink" href="#publish-ground-truth" title="Link to this heading"></a></h5>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>boolean</p>
 </dd>
-<dt class="field-even">Default</dt>
+<dt class="field-even">Default<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p>
 </dd>
 </dl>
 </section>
 <section id="ground-truth-frame-id">
-<h5>ground_truth_frame_id<a class="headerlink" href="#ground-truth-frame-id" title="Permalink to this headline"></a></h5>
+<h5>ground_truth_frame_id<a class="headerlink" href="#ground-truth-frame-id" title="Link to this heading"></a></h5>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>string</p>
 </dd>
-<dt class="field-even">Default</dt>
+<dt class="field-even">Default<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">&quot;/world&quot;</span></code></p>
 </dd>
 </dl>
 </section>
 <section id="ground-truth-frame-rate">
-<h5>ground_truth_frame_rate<a class="headerlink" href="#ground-truth-frame-rate" title="Permalink to this headline"></a></h5>
+<h5>ground_truth_frame_rate<a class="headerlink" href="#ground-truth-frame-rate" title="Link to this heading"></a></h5>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
-<dt class="field-even">Default</dt>
+<dt class="field-even">Default<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">30.0</span></code></p>
 </dd>
 </dl>
 </section>
 <section id="odom-rate">
-<h5>odom_rate<a class="headerlink" href="#odom-rate" title="Permalink to this headline"></a></h5>
+<h5>odom_rate<a class="headerlink" href="#odom-rate" title="Link to this heading"></a></h5>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
-<dt class="field-even">Default</dt>
+<dt class="field-even">Default<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">20.0</span></code></p>
 </dd>
 </dl>
@@ -541,17 +546,17 @@
 </section>
 </section>
 <section id="rviz-launch-py-for-ros2">
-<h3>rviz.launch[.py for ROS2]<a class="headerlink" href="#rviz-launch-py-for-ros2" title="Permalink to this headline"></a></h3>
+<h3>rviz.launch[.py for ROS2]<a class="headerlink" href="#rviz-launch-py-for-ros2" title="Link to this heading"></a></h3>
 <p>Generate an rviz configuration dynamically and launches rviz.</p>
 <section id="id1">
-<h4>Arguments<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h4>
+<h4>Arguments<a class="headerlink" href="#id1" title="Link to this heading"></a></h4>
 <section id="id2">
-<h5>name<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h5>
+<h5>name<a class="headerlink" href="#id2" title="Link to this heading"></a></h5>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>string</p>
 </dd>
-<dt class="field-even">Default</dt>
+<dt class="field-even">Default<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p>
 </dd>
 </dl>

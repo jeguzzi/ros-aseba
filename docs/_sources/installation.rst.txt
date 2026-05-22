@@ -1,7 +1,7 @@
 Installation
 ============
 
-The packages support recent versions of ROS1 (melodic, noetic) and ROS2 (foxy, galactic).
+The packages support recent versions of ROS1 (from melodic) and ROS2 (from foxy).
 
 ===========  =================  =================
 ROS-VERSION  ROS-ASEBA-BRANCH   ROS-THYMIO-BRANCH
@@ -10,6 +10,12 @@ melodic      ros1               melodic
 noetic       ros1               noetic
 foxy         ros2               master
 galactic     ros2               master
+humble       ros2               master
+iron         ros2               master
+jazzy        ros2               master
+kilted       ros2               master
+lyrical      lyrical            lyrical
+rolling      rolling            rolling
 ===========  =================  =================
 
 The functionality of ROS-Aseba and ROS-Thymio are the same for all supported ROS versions.
@@ -17,8 +23,7 @@ You don't know which ROS version to use? Pick the one that works with your OS
 (look at the targeted platforms for `ROS 1 <https://www.ros.org/reps/rep-0003.html>`_ and
 `ROS 2 <https://www.ros.org/reps/rep-2000.html>`_). Consider that ROS1 will reach end-of-live in 2025,
 and that noetic will be the last official ROS1 release.
-If you still have a doubt, go for ROS2: foxy is the current long-term-release (2020--2023)
-while galactic is the current short-term-release (2021--2022).
+In case of doubt, go for the latest ROS2 stable release.
 
 .. note::
 

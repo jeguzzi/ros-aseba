@@ -1,22 +1,23 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Installation &mdash; ROS for Aseba and Thymio 0.1.0 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>Installation &mdash; ROS for Aseba and Thymio 0.2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=a5c4661c" />
+
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/tabs.js"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=938c9ccc"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/tabs.js?v=3030b3cb"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -29,11 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> ROS for Aseba and Thymio
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ROS for Aseba and Thymio
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -432,8 +437,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Installation</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Installation</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -444,14 +449,9 @@
            <div itemprop="articleBody">
              
   <section id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h1>
-<p>The packages support recent versions of ROS1 (melodic, noetic) and ROS2 (foxy, galactic, humble).</p>
+<h1>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h1>
+<p>The packages support recent versions of ROS1 (from melodic) and ROS2 (from foxy).</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 24%" />
-<col style="width: 38%" />
-<col style="width: 38%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>ROS-VERSION</p></th>
 <th class="head"><p>ROS-ASEBA-BRANCH</p></th>
@@ -475,9 +475,29 @@
 <td><p>ros2</p></td>
 <td><p>master</p></td>
 </tr>
-<tr class="row-odd"><td><p>humble</p></td>
+<tr class="row-even"><td><p>humble</p></td>
 <td><p>ros2</p></td>
 <td><p>master</p></td>
+</tr>
+<tr class="row-odd"><td><p>iron</p></td>
+<td><p>ros2</p></td>
+<td><p>master</p></td>
+</tr>
+<tr class="row-even"><td><p>jazzy</p></td>
+<td><p>ros2</p></td>
+<td><p>master</p></td>
+</tr>
+<tr class="row-odd"><td><p>kilted</p></td>
+<td><p>ros2</p></td>
+<td><p>master</p></td>
+</tr>
+<tr class="row-even"><td><p>lyrical</p></td>
+<td><p>lyrical</p></td>
+<td><p>lyrical</p></td>
+</tr>
+<tr class="row-odd"><td><p>rolling</p></td>
+<td><p>rolling</p></td>
+<td><p>rolling</p></td>
 </tr>
 </tbody>
 </table>
@@ -486,7 +506,7 @@ You don’t know which ROS version to use? Pick the one that works with your OS
 (look at the targeted platforms for <a class="reference external" href="https://www.ros.org/reps/rep-0003.html">ROS 1</a> and
 <a class="reference external" href="https://www.ros.org/reps/rep-2000.html">ROS 2</a>). Consider that ROS1 will reach end-of-live in 2025,
 and that noetic will be the last official ROS1 release.
-If you still have a doubt, go for ROS2: humble is the current long-term-release (2022–2027).</p>
+In case of doubt, go for the latest ROS2 stable release.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>ROS-Aseba is using Aseba version 1.6 from the <a class="reference external" href="https://github.com/aseba-community/aseba">aseba-community repository</a>
@@ -497,20 +517,20 @@ Thymios running the newest firmware by Mobsya can be used with ROS-Aseba, provid
 parameter <a class="reference internal" href="asebaros.html#param-highest-acceptable-protocol-version"><span class="std std-ref">highest_acceptable_protocol_version</span></a> is set to the correct value.</p>
 </div>
 <section id="supported-operating-systems">
-<h2>Supported Operating Systems<a class="headerlink" href="#supported-operating-systems" title="Permalink to this headline"></a></h2>
+<h2>Supported Operating Systems<a class="headerlink" href="#supported-operating-systems" title="Link to this heading"></a></h2>
 <p>ROS-Aseba can be installed on Linux, macOS, and Windows because they are all supported by ROS and Aseba.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Linux</dt>
+<dt class="field-odd">Linux<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Ubuntu is the reference platform for ROS1 and ROS2; ROS can be installed very easily using package managers
-(<a class="reference external" href="http://wiki.ros.org/Installation/Ubuntu">ROS1</a>, <a class="reference external" href="https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html">ROS2</a>).</p>
+(<a class="reference external" href="http://wiki.ros.org/Installation/Ubuntu">ROS1</a>, <a class="reference external" href="https://docs.ros.org/en/galactic/Installation/Ubuntu-Install-Binary.html">ROS2</a>).</p>
 </dd>
-<dt class="field-even">macOS</dt>
+<dt class="field-even">macOS<span class="colon">:</span></dt>
 <dd class="field-even"><p>macOS is not officially supported in ROS1 and has currently only Tier 3 support in ROS2.
 For most users, installing ROS on macOS requires building it from source and possibly tinkering a bit.
 Therefore, we only suggest using ROS natively on macOS to expert users. We suggest non-expert macOS users to
 run ROS in an Ubuntu virtual machine or through docker.</p>
 </dd>
-<dt class="field-odd">Windows</dt>
+<dt class="field-odd">Windows<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Windows support increased from ROS1 to ROS2 but for both versions <a class="reference external" href="http://wiki.ros.org/Installation/Windows">you can install pre-built packages</a> using Chocolately.
 In particular, we suggest to follow <a class="reference external" href="https://ms-iot.github.io/ROSOnWindows/GettingStarted/SetupRos2.html">installation instructions</a> from Microsoft.</p>
 </dd>
@@ -529,7 +549,7 @@ the way you source the workspace</p>
 In Windows and macOS, we suggest to add the option <code class="docutils literal notranslate"><span class="pre">--merge-install</span></code> to the <code class="docutils literal notranslate"><span class="pre">colcon</span> <span class="pre">build</span></code> commands.</p>
 </section>
 <section id="ros">
-<h2>ROS<a class="headerlink" href="#ros" title="Permalink to this headline"></a></h2>
+<h2>ROS<a class="headerlink" href="#ros" title="Link to this heading"></a></h2>
 <p>Before installing ROS-Aseba and ROS-Thymio, you need to setup ROS on your machine.
 Please refer to the <a class="reference external" href="http://wiki.ros.org/ROS/Installation">official instructions</a> to install
 at least <code class="docutils literal notranslate"><span class="pre">ROS-Base</span></code> distribution (we recommend <code class="docutils literal notranslate"><span class="pre">ROS-Desktop</span></code> to also install the GUI tools) of your version of choice,
@@ -538,7 +558,7 @@ which on Linux Ubuntu may just require you to run</p>
 </pre></div>
 </div>
 <p>For ROS1, to follow the instructions below, install also <a class="reference external" href="https://catkin-tools.readthedocs.io/en/latest/installing.html">catkin-tools</a>.</p>
-<p>For ROS2, <a class="reference external" href="https://docs.ros.org/en/humble/Tutorials/Colcon-Tutorial.html#install-colcon">install colcon</a>:</p>
+<p>For ROS2, <a class="reference external" href="https://docs.ros.org/en/galactic/Tutorials/Colcon-Tutorial.html#install-colcon">install colcon</a>:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt install python3-colcon-common-extensions</span>
 </pre></div>
 </div>
@@ -563,7 +583,7 @@ which on Linux Ubuntu may just require you to run</p>
 </div></div>
 </section>
 <section id="ros-aseba">
-<h2>ROS-Aseba<a class="headerlink" href="#ros-aseba" title="Permalink to this headline"></a></h2>
+<h2>ROS-Aseba<a class="headerlink" href="#ros-aseba" title="Link to this heading"></a></h2>
 <ol class="arabic simple">
 <li><p>Install <code class="docutils literal notranslate"><span class="pre">libudev-dev</span></code>, <code class="docutils literal notranslate"><span class="pre">libxml2-dev</span></code>, <code class="docutils literal notranslate"><span class="pre">git</span></code> and <code class="docutils literal notranslate"><span class="pre">ros-&lt;ROS-VERSION&gt;-diagnostic-updater</span></code></p></li>
 </ol>
@@ -607,7 +627,7 @@ of the repository <a class="reference external" href="https://github.com/ros/dia
 </div>
 </section>
 <section id="ros-thymio">
-<h2>ROS-Thymio<a class="headerlink" href="#ros-thymio" title="Permalink to this headline"></a></h2>
+<h2>ROS-Thymio<a class="headerlink" href="#ros-thymio" title="Link to this heading"></a></h2>
 <ol class="arabic simple">
 <li><p>Install <code class="docutils literal notranslate"><span class="pre">ros-&lt;ROS-VERSION&gt;-xacro</span></code>, <code class="docutils literal notranslate"><span class="pre">ros-&lt;ROS-VERSION&gt;-tf</span></code>, <code class="docutils literal notranslate"><span class="pre">ros-&lt;ROS-VERSION&gt;-robot-state-publisher</span></code></p></li>
 </ol>

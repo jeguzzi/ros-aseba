@@ -1,21 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Introduction &mdash; ROS for Aseba and Thymio 0.1.0 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>Introduction &mdash; ROS for Aseba and Thymio 0.2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=938c9ccc"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -28,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> ROS for Aseba and Thymio
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ROS for Aseba and Thymio
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -431,8 +435,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Introduction</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Introduction</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/introduction.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -443,9 +447,9 @@
            <div itemprop="articleBody">
              
   <section id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h1>
+<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h1>
 <section id="a-bridge-between-aseba-and-ros">
-<h2>A bridge between Aseba and ROS<a class="headerlink" href="#a-bridge-between-aseba-and-ros" title="Permalink to this headline"></a></h2>
+<h2>A bridge between Aseba and ROS<a class="headerlink" href="#a-bridge-between-aseba-and-ros" title="Link to this heading"></a></h2>
 <p><strong>Aseba</strong> is an event-based architecture for real-time distributed control of mobile robots using a simple scripting language.
 Scripts are interpreted onboard of the robots’ microprocessors with minimal requirements (integer-only arithmetics).
 Tools such as Aseba Studio let users interact with Aseba.
@@ -463,7 +467,7 @@ This allows users to use ROS to program and interact with a robot that runs Aseb
 </div>
 </section>
 <section id="ros-packages">
-<h2>ROS Packages<a class="headerlink" href="#ros-packages" title="Permalink to this headline"></a></h2>
+<h2>ROS Packages<a class="headerlink" href="#ros-packages" title="Link to this heading"></a></h2>
 <p>The <a class="reference external" href="https://github.com/jeguzzi/ros-aseba">ros-aseba repository</a> contains ROS tools to interface with a generic robot running Aseba:</p>
 <blockquote>
 <div><ul class="simple">
@@ -482,9 +486,9 @@ This allows users to use ROS to program and interact with a robot that runs Aseb
 </div></blockquote>
 </section>
 <section id="use-cases">
-<h2>Use-cases<a class="headerlink" href="#use-cases" title="Permalink to this headline"></a></h2>
+<h2>Use-cases<a class="headerlink" href="#use-cases" title="Link to this heading"></a></h2>
 <section id="ros-aseba-alone">
-<h3>ROS-Aseba alone<a class="headerlink" href="#ros-aseba-alone" title="Permalink to this headline"></a></h3>
+<h3>ROS-Aseba alone<a class="headerlink" href="#ros-aseba-alone" title="Link to this heading"></a></h3>
 <p>Using <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> you can interface ROS with one or more robots running Aseba nodes.
 You can access the Aseba node variables, send and receive Aseba events, and load Aseba scripts from ROS.
 The ROS interface mimics the Aseba interface: values are arrays of (16-bit) integers.
@@ -492,7 +496,7 @@ The bridge translates data transparently between ROS and Aseba without modifying
 Using <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> alone requires some understanding of Aseba.</p>
 </section>
 <section id="ros-aseba-with-ros-thymio">
-<span id="asebathymio"></span><h3>ROS-Aseba with ROS-Thymio<a class="headerlink" href="#ros-aseba-with-ros-thymio" title="Permalink to this headline"></a></h3>
+<span id="asebathymio"></span><h3>ROS-Aseba with ROS-Thymio<a class="headerlink" href="#ros-aseba-with-ros-thymio" title="Link to this heading"></a></h3>
 <p>ROS-Thymio uses a set of Thymio-specific Aseba scripts, a specific ROS node <code class="docutils literal notranslate"><span class="pre">thymio_driver</span></code>, and
 the generic interface from <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> to provide a ROS-conform interface
 to all the actuators and sensors of the Thymio.</p>
@@ -516,7 +520,7 @@ and published on the ROS topic <code class="docutils literal notranslate"><span 
 <blockquote>
 <div><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># informally</span>
 <span class="nt">asebaros_msgs/Event</span><span class="p">:</span>
-  <span class="nt">data</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">928</span><span class="p p-Indicator">,</span> <span class="nv">3212</span><span class="p p-Indicator">,</span> <span class="nv">2039</span><span class="p p-Indicator">,</span> <span class="nv">1292</span><span class="p p-Indicator">,</span> <span class="nv">1029</span><span class="p p-Indicator">,</span> <span class="nv">0</span><span class="p p-Indicator">,</span> <span class="nv">0</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">928</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3212</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">2039</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1292</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">1029</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">0</span><span class="p p-Indicator">]</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -529,11 +533,11 @@ on topics like <code class="docutils literal notranslate"><span class="pre">prox
 <blockquote>
 <div><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># informally</span>
 <span class="nt">sensor_msgs/Range</span><span class="p">:</span>
-  <span class="nt">radiation_type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-  <span class="nt">field_of_view</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.3</span>
-  <span class="nt">min_range</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.0215</span>
-  <span class="nt">max_range</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.14</span>
-  <span class="nt">range</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.0543</span>
+<span class="w">  </span><span class="nt">radiation_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">field_of_view</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.3</span>
+<span class="w">  </span><span class="nt">min_range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0215</span>
+<span class="w">  </span><span class="nt">max_range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.14</span>
+<span class="w">  </span><span class="nt">range</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0543</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -549,7 +553,7 @@ Users who do not need low-level data, can treat <code class="docutils literal no
 to understand how <code class="docutils literal notranslate"><span class="pre">asebaros</span></code> or <code class="docutils literal notranslate"><span class="pre">Aseba</span></code> work. If this is your case, you can skip the documentation of ROS-Aseba and jump to <a class="reference internal" href="thymio.html#thymio"><span class="std std-ref">ROS-Thymio: how it works</span></a>.</p>
 </section>
 <section id="ros-thymio-alone">
-<h3>ROS-Thymio alone<a class="headerlink" href="#ros-thymio-alone" title="Permalink to this headline"></a></h3>
+<h3>ROS-Thymio alone<a class="headerlink" href="#ros-thymio-alone" title="Link to this heading"></a></h3>
 <p>Users can use the Thymio model provided by ROS-Thymio to simulate a Thymio using Gazebo,
 which exposes a <em>subset</em> of the functionality of a real Thymio connected to <code class="docutils literal notranslate"><span class="pre">thymio_driver</span></code>.</p>
 <div class="admonition note">

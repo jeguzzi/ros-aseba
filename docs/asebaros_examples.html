@@ -1,21 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ROS-Aseba: asebaros_examples reference &mdash; ROS for Aseba and Thymio 0.1.0 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>ROS-Aseba: asebaros_examples reference &mdash; ROS for Aseba and Thymio 0.2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=938c9ccc"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -28,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> ROS for Aseba and Thymio
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ROS for Aseba and Thymio
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -52,6 +56,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#supported-operating-systems">Supported Operating Systems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros">ROS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros-aseba">ROS-Aseba</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros-thymio">ROS-Thymio</a></li>
@@ -430,8 +435,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>ROS-Aseba: asebaros_examples reference</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ROS-Aseba: asebaros_examples reference</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/asebaros_examples.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -442,83 +447,83 @@
            <div itemprop="articleBody">
              
   <section id="ros-aseba-asebaros-examples-reference">
-<h1>ROS-Aseba: asebaros_examples reference<a class="headerlink" href="#ros-aseba-asebaros-examples-reference" title="Permalink to this headline"></a></h1>
+<h1>ROS-Aseba: asebaros_examples reference<a class="headerlink" href="#ros-aseba-asebaros-examples-reference" title="Link to this heading"></a></h1>
 <p>The package <em>asebaros_examples</em> only defines launch files.
 They are used as examples and commented in <a class="reference internal" href="examples.html#examples"><span class="std std-ref">ROS-Aseba: examples</span></a>.</p>
 <section id="launch-files">
-<h2>Launch files<a class="headerlink" href="#launch-files" title="Permalink to this headline"></a></h2>
+<h2>Launch files<a class="headerlink" href="#launch-files" title="Link to this heading"></a></h2>
 <section id="all-nodes-launch">
-<h3>all_nodes.launch<a class="headerlink" href="#all-nodes-launch" title="Permalink to this headline"></a></h3>
+<h3>all_nodes.launch<a class="headerlink" href="#all-nodes-launch" title="Link to this heading"></a></h3>
 <section id="arguments">
-<h4>Arguments<a class="headerlink" href="#arguments" title="Permalink to this headline"></a></h4>
+<h4>Arguments<a class="headerlink" href="#arguments" title="Link to this heading"></a></h4>
 <dl class="field-list simple">
-<dt class="field-odd">device</dt>
+<dt class="field-odd">device<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a valid Dashel target to connect (default <code class="docutils literal notranslate"><span class="pre">&quot;tcp:host=localhost;port=33333&quot;</span></code>)</p>
 </dd>
 </dl>
 </section>
 </section>
 <section id="single-node-launch">
-<h3>single_node.launch<a class="headerlink" href="#single-node-launch" title="Permalink to this headline"></a></h3>
+<h3>single_node.launch<a class="headerlink" href="#single-node-launch" title="Link to this heading"></a></h3>
 <section id="id1">
-<h4>Arguments<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h4>
+<h4>Arguments<a class="headerlink" href="#id1" title="Link to this heading"></a></h4>
 <dl class="field-list simple">
-<dt class="field-odd">device</dt>
+<dt class="field-odd">device<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a valid Dashel target to connect (default <code class="docutils literal notranslate"><span class="pre">&quot;tcp:host=localhost;port=33333&quot;</span></code>)</p>
 </dd>
 </dl>
 </section>
 </section>
 <section id="single-thymio-launch">
-<h3>single_thymio.launch<a class="headerlink" href="#single-thymio-launch" title="Permalink to this headline"></a></h3>
+<h3>single_thymio.launch<a class="headerlink" href="#single-thymio-launch" title="Link to this heading"></a></h3>
 <section id="id2">
-<h4>Arguments<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h4>
+<h4>Arguments<a class="headerlink" href="#id2" title="Link to this heading"></a></h4>
 <dl class="field-list simple">
-<dt class="field-odd">device</dt>
+<dt class="field-odd">device<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a valid Dashel target to connect (default <code class="docutils literal notranslate"><span class="pre">&quot;tcp:host=localhost;port=33333&quot;</span></code>)</p>
 </dd>
 </dl>
 </section>
 </section>
 <section id="twin-nodes-launch">
-<h3>twin_nodes.launch<a class="headerlink" href="#twin-nodes-launch" title="Permalink to this headline"></a></h3>
+<h3>twin_nodes.launch<a class="headerlink" href="#twin-nodes-launch" title="Link to this heading"></a></h3>
 <section id="id3">
-<h4>Arguments<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h4>
+<h4>Arguments<a class="headerlink" href="#id3" title="Link to this heading"></a></h4>
 <dl class="field-list simple">
-<dt class="field-odd">device</dt>
+<dt class="field-odd">device<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a valid Dashel target to connect (default <code class="docutils literal notranslate"><span class="pre">&quot;tcp:host=localhost;port=33333&quot;</span></code>)</p>
 </dd>
 </dl>
 </section>
 </section>
 <section id="twin-thymios-launch">
-<h3>twin_thymios.launch<a class="headerlink" href="#twin-thymios-launch" title="Permalink to this headline"></a></h3>
+<h3>twin_thymios.launch<a class="headerlink" href="#twin-thymios-launch" title="Link to this heading"></a></h3>
 <section id="id4">
-<h4>Arguments<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h4>
+<h4>Arguments<a class="headerlink" href="#id4" title="Link to this heading"></a></h4>
 <dl class="field-list simple">
-<dt class="field-odd">device</dt>
+<dt class="field-odd">device<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a valid Dashel target to connect (default <code class="docutils literal notranslate"><span class="pre">&quot;tcp:host=localhost;port=33333&quot;</span></code>)</p>
 </dd>
 </dl>
 </section>
 </section>
 <section id="two-nodes-launch">
-<h3>two_nodes.launch<a class="headerlink" href="#two-nodes-launch" title="Permalink to this headline"></a></h3>
+<h3>two_nodes.launch<a class="headerlink" href="#two-nodes-launch" title="Link to this heading"></a></h3>
 <section id="id5">
-<h4>Arguments<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h4>
+<h4>Arguments<a class="headerlink" href="#id5" title="Link to this heading"></a></h4>
 <dl class="field-list simple">
-<dt class="field-odd">device</dt>
+<dt class="field-odd">device<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a valid Dashel target to connect (default <code class="docutils literal notranslate"><span class="pre">&quot;tcp:host=localhost;port=33333&quot;</span></code>)</p>
 </dd>
 </dl>
 </section>
 </section>
 <section id="two-thymios-launch">
-<h3>two_thymios.launch<a class="headerlink" href="#two-thymios-launch" title="Permalink to this headline"></a></h3>
+<h3>two_thymios.launch<a class="headerlink" href="#two-thymios-launch" title="Link to this heading"></a></h3>
 <section id="id6">
-<h4>Arguments<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h4>
+<h4>Arguments<a class="headerlink" href="#id6" title="Link to this heading"></a></h4>
 <dl class="field-list simple">
-<dt class="field-odd">device</dt>
+<dt class="field-odd">device<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a valid Dashel target to connect (default <code class="docutils literal notranslate"><span class="pre">&quot;tcp:host=localhost;port=33333&quot;</span></code>)</p>
 </dd>
 </dl>

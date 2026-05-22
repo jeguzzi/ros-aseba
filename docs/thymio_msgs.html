@@ -1,22 +1,23 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ROS-Thymio: thymio_msgs reference &mdash; ROS for Aseba and Thymio 0.1.0 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>ROS-Thymio: thymio_msgs reference &mdash; ROS for Aseba and Thymio 0.2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=a5c4661c" />
+
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/tabs.js"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=938c9ccc"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="_static/tabs.js?v=3030b3cb"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -29,11 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> ROS for Aseba and Thymio
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ROS for Aseba and Thymio
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -53,6 +58,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#supported-operating-systems">Supported Operating Systems</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros">ROS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros-aseba">ROS-Aseba</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#ros-thymio">ROS-Thymio</a></li>
@@ -431,8 +437,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>ROS-Thymio: thymio_msgs reference</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ROS-Thymio: thymio_msgs reference</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/thymio_msgs.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -443,136 +449,136 @@
            <div itemprop="articleBody">
              
   <section id="ros-thymio-thymio-msgs-reference">
-<h1>ROS-Thymio: thymio_msgs reference<a class="headerlink" href="#ros-thymio-thymio-msgs-reference" title="Permalink to this headline"></a></h1>
+<h1>ROS-Thymio: thymio_msgs reference<a class="headerlink" href="#ros-thymio-thymio-msgs-reference" title="Link to this heading"></a></h1>
 <section id="interfaces">
-<h2>Interfaces<a class="headerlink" href="#interfaces" title="Permalink to this headline"></a></h2>
+<h2>Interfaces<a class="headerlink" href="#interfaces" title="Link to this heading"></a></h2>
 <section id="messages">
-<h3>Messages<a class="headerlink" href="#messages" title="Permalink to this headline"></a></h3>
+<h3>Messages<a class="headerlink" href="#messages" title="Link to this heading"></a></h3>
 <section id="comm">
-<span id="id1"></span><h4>Comm<a class="headerlink" href="#comm" title="Permalink to this headline"></a></h4>
-<div class="highlight-IDL notranslate"><div class="highlight"><pre><span></span>int16 value
-int16[<span class="mi">7</span>] payloads
-int16[<span class="mi">7</span>] intensities
+<span id="id1"></span><h4>Comm<a class="headerlink" href="#comm" title="Link to this heading"></a></h4>
+<div class="highlight-IDL notranslate"><div class="highlight"><pre><span></span>int16<span class="w"> </span>value
+int16[<span class="mi">7</span>]<span class="w"> </span>payloads
+int16[<span class="mi">7</span>]<span class="w"> </span>intensities
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">value</dt>
+<dt class="field-odd">value<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the 11-bit payload</p>
 </dd>
-<dt class="field-even">source</dt>
+<dt class="field-even">source<span class="colon">:</span></dt>
 <dd class="field-even"><p>the 11-bit payloads received by each sensor (0 if the sensor has not received the message)</p>
 </dd>
-<dt class="field-odd">intensities</dt>
+<dt class="field-odd">intensities<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the intensity of the received IR pulse.</p>
 </dd>
 </dl>
 </section>
 <section id="led">
-<span id="id2"></span><h4>Led<a class="headerlink" href="#led" title="Permalink to this headline"></a></h4>
-<div class="highlight-IDL notranslate"><div class="highlight"><pre><span></span>uint8 CIRCLE<span class="o">=</span><span class="mi">0</span>
-uint8 PROXIMITY<span class="o">=</span><span class="mi">1</span>
-uint8 BUTTONS<span class="o">=</span><span class="mi">2</span>
-uint8 GROUND<span class="o">=</span><span class="mi">3</span>
-uint8 TEMPERATURE<span class="o">=</span><span class="mi">4</span>
-uint8 MICROPHONE<span class="o">=</span><span class="mi">5</span>
-uint8 REMOTE<span class="o">=</span><span class="mi">6</span>
+<span id="id2"></span><h4>Led<a class="headerlink" href="#led" title="Link to this heading"></a></h4>
+<div class="highlight-IDL notranslate"><div class="highlight"><pre><span></span>uint8<span class="w"> </span>CIRCLE<span class="o">=</span><span class="mi">0</span>
+uint8<span class="w"> </span>PROXIMITY<span class="o">=</span><span class="mi">1</span>
+uint8<span class="w"> </span>BUTTONS<span class="o">=</span><span class="mi">2</span>
+uint8<span class="w"> </span>GROUND<span class="o">=</span><span class="mi">3</span>
+uint8<span class="w"> </span>TEMPERATURE<span class="o">=</span><span class="mi">4</span>
+uint8<span class="w"> </span>MICROPHONE<span class="o">=</span><span class="mi">5</span>
+uint8<span class="w"> </span>REMOTE<span class="o">=</span><span class="mi">6</span>
 
-uint8 id
-float32[] values
+uint8<span class="w"> </span>id
+float32[]<span class="w"> </span>values
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">id</dt>
+<dt class="field-odd">id<span class="colon">:</span></dt>
 <dd class="field-odd"><p>an enum <code class="docutils literal notranslate"><span class="pre">{CIRCLE,</span> <span class="pre">PROXIMITY,</span> <span class="pre">BUTTONS,</span> <span class="pre">GROUND,</span> <span class="pre">TEMPERATURE,</span> <span class="pre">MICROPHONE,</span> <span class="pre">REMOTE}</span></code> that identifies a group of LED.</p>
 </dd>
-<dt class="field-even">values</dt>
+<dt class="field-even">values<span class="colon">:</span></dt>
 <dd class="field-even"><p>an array of intensities (one per LED) between 0 and 1.</p>
 </dd>
 </dl>
 </section>
 <section id="ledgesture">
-<span id="id3"></span><h4>LedGesture<a class="headerlink" href="#ledgesture" title="Permalink to this headline"></a></h4>
-<div class="highlight-IDL notranslate"><div class="highlight"><pre><span></span>uint8 OFF<span class="o">=</span><span class="mi">0</span>
-uint8 WAVE<span class="o">=</span><span class="mi">1</span>
+<span id="id3"></span><h4>LedGesture<a class="headerlink" href="#ledgesture" title="Link to this heading"></a></h4>
+<div class="highlight-IDL notranslate"><div class="highlight"><pre><span></span>uint8<span class="w"> </span>OFF<span class="o">=</span><span class="mi">0</span>
+uint8<span class="w"> </span>WAVE<span class="o">=</span><span class="mi">1</span>
 
-uint8 RECT<span class="o">=</span><span class="mi">0</span>
-uint8 HARMONIC<span class="o">=</span><span class="mi">1</span>
+uint8<span class="w"> </span>RECT<span class="o">=</span><span class="mi">0</span>
+uint8<span class="w"> </span>HARMONIC<span class="o">=</span><span class="mi">1</span>
 
-uint8 CIRCLE<span class="o">=</span><span class="mi">0</span>
-uint8 PROXIMITY<span class="o">=</span><span class="mi">1</span>
-uint8 BUTTONS<span class="o">=</span><span class="mi">2</span>
+uint8<span class="w"> </span>CIRCLE<span class="o">=</span><span class="mi">0</span>
+uint8<span class="w"> </span>PROXIMITY<span class="o">=</span><span class="mi">1</span>
+uint8<span class="w"> </span>BUTTONS<span class="o">=</span><span class="mi">2</span>
 
-uint8 gesture
-uint8 wave
-uint8 leds
-float32 period
-uint16 length
-uint8 mirror
-bool[] mask
+uint8<span class="w"> </span>gesture
+uint8<span class="w"> </span>wave
+uint8<span class="w"> </span>leds
+float32<span class="w"> </span>period
+uint16<span class="w"> </span>length
+uint8<span class="w"> </span>mirror
+bool[]<span class="w"> </span>mask
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">gesture</dt>
+<dt class="field-odd">gesture<span class="colon">:</span></dt>
 <dd class="field-odd"><p>an enum <code class="docutils literal notranslate"><span class="pre">{OFF,</span> <span class="pre">WAVE}</span></code>: <code class="docutils literal notranslate"><span class="pre">OFF</span></code> stop the gesture, <code class="docutils literal notranslate"><span class="pre">WAVE</span></code> start a waving pattern.</p>
 </dd>
-<dt class="field-even">wave</dt>
+<dt class="field-even">wave<span class="colon">:</span></dt>
 <dd class="field-even"><p>an enum <code class="docutils literal notranslate"><span class="pre">{RECT,</span> <span class="pre">HARMONIC}</span></code>: the function used to generate the LED intensity wave.</p>
 </dd>
-<dt class="field-odd">leds</dt>
+<dt class="field-odd">leds<span class="colon">:</span></dt>
 <dd class="field-odd"><p>an enum <code class="docutils literal notranslate"><span class="pre">{CIRCLE,</span> <span class="pre">PROXIMITY,</span> <span class="pre">BUTTONS}</span></code> that identifies a group of LED.</p>
 </dd>
-<dt class="field-even">period</dt>
+<dt class="field-even">period<span class="colon">:</span></dt>
 <dd class="field-even"><p>the period of the wave in seconds</p>
 </dd>
-<dt class="field-odd">length</dt>
+<dt class="field-odd">length<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the length of the wave (in number of LED)</p>
 </dd>
-<dt class="field-even">mirror</dt>
+<dt class="field-even">mirror<span class="colon">:</span></dt>
 <dd class="field-even"><p>whenever to generate a standing wave</p>
 </dd>
-<dt class="field-odd">mask</dt>
+<dt class="field-odd">mask<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a bit mask to set which individual LED will be used.</p>
 </dd>
 </dl>
 </section>
 <section id="sound">
-<span id="id4"></span><h4>Sound<a class="headerlink" href="#sound" title="Permalink to this headline"></a></h4>
+<span id="id4"></span><h4>Sound<a class="headerlink" href="#sound" title="Link to this heading"></a></h4>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-0-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-0-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-IDL notranslate"><div class="highlight"><pre><span></span>duration duration
-float32 frequency
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-Uk9TMQ==" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-Uk9TMQ==" name="Uk9TMQ==" role="tab" tabindex="0">ROS1</button><button aria-controls="panel-0-Uk9TMg==" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-0-Uk9TMg==" name="Uk9TMg==" role="tab" tabindex="-1">ROS2</button></div><div aria-labelledby="tab-0-Uk9TMQ==" class="sphinx-tabs-panel code-tab group-tab" id="panel-0-Uk9TMQ==" name="Uk9TMQ==" role="tabpanel" tabindex="0"><div class="highlight-IDL notranslate"><div class="highlight"><pre><span></span>duration<span class="w"> </span>duration
+float32<span class="w"> </span>frequency
 </pre></div>
 </div>
-</div><div aria-labelledby="tab-0-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-0-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-IDL notranslate"><div class="highlight"><pre><span></span>builtin_interfaces<span class="o">/</span>Duration duration
-float32 frequency
+</div><div aria-labelledby="tab-0-Uk9TMg==" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-0-Uk9TMg==" name="Uk9TMg==" role="tabpanel" tabindex="0"><div class="highlight-IDL notranslate"><div class="highlight"><pre><span></span>builtin_interfaces<span class="o">/</span>Duration<span class="w"> </span>duration
+float32<span class="w"> </span>frequency
 </pre></div>
 </div>
 </div></div>
 <dl class="field-list simple">
-<dt class="field-odd">duration</dt>
+<dt class="field-odd">duration<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the duration of the sound.</p>
 </dd>
-<dt class="field-even">frequency</dt>
+<dt class="field-even">frequency<span class="colon">:</span></dt>
 <dd class="field-even"><p>The frequency in Hz of the [pure] sound.</p>
 </dd>
 </dl>
 </section>
 <section id="systemsound">
-<span id="id5"></span><h4>SystemSound<a class="headerlink" href="#systemsound" title="Permalink to this headline"></a></h4>
-<div class="highlight-IDL notranslate"><div class="highlight"><pre><span></span>int8 <span class="nb">STOP</span><span class="o">=-</span><span class="mi">1</span>
-int8 STARTUP<span class="o">=</span><span class="mi">0</span>
-int8 SHUTDOWN<span class="o">=</span><span class="mi">1</span>
-int8 ARROW_BUTTON<span class="o">=</span><span class="mi">2</span>
-int8 CENTRAL_BUTTON<span class="o">=</span><span class="mi">3</span>
-int8 FREE_FALL<span class="o">=</span><span class="mi">4</span>
-int8 COLLISION<span class="o">=</span><span class="mi">5</span>
-int8 TARGET_OK<span class="o">=</span><span class="mi">6</span>
-int8 TARGET_DETECT<span class="o">=</span><span class="mi">7</span>
+<span id="id5"></span><h4>SystemSound<a class="headerlink" href="#systemsound" title="Link to this heading"></a></h4>
+<div class="highlight-IDL notranslate"><div class="highlight"><pre><span></span>int8<span class="w"> </span><span class="nb">STOP</span><span class="o">=-</span><span class="mi">1</span>
+int8<span class="w"> </span>STARTUP<span class="o">=</span><span class="mi">0</span>
+int8<span class="w"> </span>SHUTDOWN<span class="o">=</span><span class="mi">1</span>
+int8<span class="w"> </span>ARROW_BUTTON<span class="o">=</span><span class="mi">2</span>
+int8<span class="w"> </span>CENTRAL_BUTTON<span class="o">=</span><span class="mi">3</span>
+int8<span class="w"> </span>FREE_FALL<span class="o">=</span><span class="mi">4</span>
+int8<span class="w"> </span>COLLISION<span class="o">=</span><span class="mi">5</span>
+int8<span class="w"> </span>TARGET_OK<span class="o">=</span><span class="mi">6</span>
+int8<span class="w"> </span>TARGET_DETECT<span class="o">=</span><span class="mi">7</span>
 
-int8 sound
+int8<span class="w"> </span>sound
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">sound</dt>
+<dt class="field-odd">sound<span class="colon">:</span></dt>
 <dd class="field-odd"><p>an enum <code class="docutils literal notranslate"><span class="pre">{STOP,</span> <span class="pre">STARTUP,</span> <span class="pre">SHUTDOWN,</span> <span class="pre">ARROW_BUTTON,</span> <span class="pre">CENTRAL_BUTTON,</span> <span class="pre">FREE_FALL,</span> <span class="pre">COLLISION,</span> <span class="pre">TARGET_OK,</span> <span class="pre">TARGET_DETECT}</span></code> that idenifies the sound</p>
 </dd>
 </dl>
